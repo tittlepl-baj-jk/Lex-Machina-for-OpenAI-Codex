@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -182,6 +183,10 @@ def main() -> int:
         "failures": failures,
     }
     print(json.dumps(result, ensure_ascii=False, indent=2))
+    if failures and os.environ.get("GITHUB_ACTIONS") == "true":
+        for failure in failures:
+            escaped = failure.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+            print(f"::error title=Lex Machina validation::{escaped}")
     return 0 if not failures else 1
 
 
