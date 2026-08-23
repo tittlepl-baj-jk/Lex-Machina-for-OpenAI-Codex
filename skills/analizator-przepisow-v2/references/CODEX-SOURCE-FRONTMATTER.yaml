@@ -1,0 +1,17 @@
+name: analizator-przepisow-v2
+version: "2.5"
+type: executive-analiza
+status: production
+compatibility: "web_search, web_fetch, show_widget"
+description: >-
+  Analizuje przepisy prawa polskiego. Stosuj gdy użytkownik pyta o artykuł, przesłanki, wykładnię, orzecznictwo, zbieg norm, historię zmian przepisu lub chce sprawdzić czy przepis stosuje się do jego sytuacji.
+  v2: automatyczne orzecznictwo (3 orzeczenia + alert rozbieżności linii), mapa powiązań norm, historia nowelizacji z obsługą vacatio legis, interaktywne drzewo przesłanek krok-po-kroku, kontekst praktyczny dla laika.
+  v2.3: RZĄD 1 (ISAP) / RZĄD 2 (orzecznictwo, LEX-Legalis-tekst, ORAZ duże portale: prawo.pl, LEX/Legalis-komentarz, rp.pl, infor.pl, gofin.pl i inne) / RZĄD 3 (strony prawników, kancelarii, NGO, blogów — wysokie ryzyko dezaktualizacji, wymagają daty i krzyżowej weryfikacji).
+changelog: |
+  Wersja bieżąca: 2.5. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
+  (standard systemowy 2026-08-20z4: jeden plik, jedna lokalizacja; zakaz sekcji
+  changelogu w korpusie SKILL.md i zakaz pełnej listy wpisów w tym polu).
+  Skrót 2.5 (2026-08-20z4): historia zmian przeniesiona z korpusu SKILL.md do references/CHANGELOG.md
+  (treść 1:1); przy okazji naprawiony NIESPARSOWALNY frontmatter — pole
+  description zawierało niecytowane dwukropki (v2:, v2.3:), przez co YAML
+  nie ładował się w ogóle. Usterka zastana, wykryta kontrolą tej sesji.

@@ -1,0 +1,20 @@
+name: analiza-sadowa-v6
+version: "6.4"
+type: executive-analiza
+status: production
+compatibility: "web_search, web_fetch, show_widget"
+description: |
+  UŻYWAJ ZAWSZE gdy użytkownik: dostarcza akta, pisma, wyroki, decyzje lub dokumenty prawne;
+  pyta o szanse w sprawie karnej, wykroczeniowej, cywilnej, pracowniczej, administracyjnej;
+  chce ocenić dowody, terminy zawite lub koszty sądowe (KSCU); potrzebuje analizy błędów
+  pełnomocnika strony przeciwnej lub audytu własnych pism; pyta o orzecznictwo, groźbę
+  bezprawną (art. 87 KC), nagrania (art. 267 KK), podwójną kwalifikację kwoty lub e-mail
+  pracownika; pyta o "narzędzie"/"dashboard"/"analizator" → wywołaj widget React;
+  pyta "co mam zrobić" / "czy mam szansę" / "czy to zgodne z prawem".
+  v6: model CZTEROPRZEBIEGOWY z obowiązkową DWUKROTNĄ WERYFIKACJĄ dowodów i pism.
+changelog: |
+  Wersja bieżąca: 6.4. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
+  (standard systemowy 2026-08-20z4: jeden plik, jedna lokalizacja; zakaz sekcji
+  changelogu w korpusie SKILL.md i zakaz pełnej listy wpisów w tym polu).
+  Skrót 6.4 (2026-08-20z4): pole changelog: w YAML (39 linii) wyniesione do references/CHANGELOG.md
+  (nowy plik, treść 1:1).

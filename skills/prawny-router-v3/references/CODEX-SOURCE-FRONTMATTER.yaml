@@ -1,0 +1,91 @@
+name: prawny-router-v3
+version: "3.22"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: bez niego YAML parsuje ten numer jako float
+                  # (3.21), a 3.21 < 3.9 — porządek wersji odwraca się dla każdego
+                  # narzędzia porównującego liczbowo. Naprawione 2026-08-20z3 (F-102),
+                  # test T12: scripts/check_wersje_changelog.py
+type: orchestration
+status: production
+entrypoint: SKILL.md
+compatibility: "web_search, web_fetch, show_widget, create_file"
+description: |
+  Router Prawny v3.16 — orchestrator KAŻDEJ sprawy prawnej. Wykrywa tryb (LAIK/PRAWNIK),
+  koordynuje PRIMARY→SECONDARY→FALLBACK, generuje .docx/.pdf.
+  UŻYWAJ ZAWSZE i AUTOMATYCZNIE. Nigdy nie analizuj bez wczytania tego pliku.
+dependencies:
+  requires:
+    - shared
+    - prawo-polskie-v2
+    - analiza-sadowa-v6
+    - analizator-dowodow-v3
+    - analizator-przepisow-v2
+    - analizator-umow-v1
+    - chronologia-sprawy-v1
+    - dr-03-prawo-karne-wykroczenia-egzekucja
+    - dr-08-samorzad-terytorialny-prawo-lokalne
+    - dr-09-budownictwo-srodowisko-energia-transport
+    - dr-10-zdrowie-farmacja-zywnosc-rolnictwo
+    - dr-11-cyfrowe-cyber-ai-dane-ip
+    - dr-12-sadownictwo-prokuratura-zawody-prawnicze
+    - orzeczenia-sadowe-v2
+    - pisma-procesowe-v3
+    - pisma-proste-v2
+    - przesluchanie-swiadkow-v2-min90
+    - przewodnik-prawny-v2
+  called_by:
+    - użytkownik (punkt wejścia — brak nadrzędnego skilla)
+inputs:
+  - opis sprawy użytkownika (tekst wolny)
+  - opcjonalnie: pliki/dowody wgrane przez użytkownika
+  - opcjonalnie: plik kontekstu sesji (eksport z wcześniejszej rozmowy)
+outputs:
+  - decyzja routingu ([1]-[10]) + wywołanie właściwego skilla PRIMARY/SECONDARY/FALLBACK
+  - finalnie: odpowiedź tekstowa, widget (show_widget) lub dokument .docx/.pdf (create_file)
+confidence: verified-online
+  # HARD GATE wymusza web_search/web_fetch dla każdego przepisu/sygnatury —
+  # router sam nie generuje treści prawnej z pamięci, tylko orkiestruje.
+escalation:
+  - brak dostępu do isap.sejm.gov.pl / orzeczenia.ms.gov.pl / sn.pl / nsa.gov.pl
+    → oznacz ⚠️ [NIEWERYFIKOWANE] i poinformuj użytkownika, nie kontynuuj cicho
+  - sprawa transgraniczna / prawo obce → pomiń prawo-polskie-v2 i ISAP,
+    pozostałe zasady HG aktywne (UP-5)
+  - użytkownik zagubiony / brak klasyfikacji → [7] FALLBACK, nie zgadywanie dziedziny
+  - podmiot (spółka/organ/sąd) oznaczony ⬛ [DO WERYFIKACJI] i brak dostępu do
+    rejestru (KRS/CEIDG) → STOP, poinformuj użytkownika, ZAKAZ generowania
+    pisma z podmiotem w statusie ⬛
+limitations:
+  - nie zastępuje porady radcy prawnego/adwokata — patrz shared/DISCLAIMER.md (KROK 7, obowiązkowy)
+  - jakość i czas odpowiedzi zależą od dostępności i jakości web_search/web_fetch
+  - nie ingeruje w kontrolę jakości pipeline'u pisma-procesowe-v3 (tylko deleguje)
+  - "ROZWIĄZANE 2026-07-12 (zamyka ZNALEZISKO 2026-07-04): plik
+    references/kwalifikator-karnomaterialny.md był bajt-w-bajt identyczny
+    (MD5 zgodny) z kanonicznym
+    dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md
+    wskazanym w UP-3 — usunięty. Dwa realne miejsca wywołania, które
+    wskazywały na kopię w routerze (dr-03/modules/mod-KW-kodeks-wykroczen.md
+    i dr-03/modules/mod-KK-KPK-framework-karne.md, po 2 odwołania każdy —
+    view + wpis tabeli ŁĄCZ Z), przekierowane na ścieżkę kanoniczną. Pełny
+    opis w audyt-systemu-v4/references/AUDIT-JOURNAL.md i
+    shared/CHECKLIST-DEDUP.md."
+required_modules:
+  - shared/MCP-INTEGRACJA.md  # opcjonalny — patrz KROK 1; tani gdy MCP niepodłączone
+  - shared/PRAWO-HARDGATE.md
+  - shared/HIERARCHIA-ZRODEL.md  # kategoryzacja wiarygodności źródeł (Rząd 1/2A/2B/3) — dodane 2026-07-21, ISTNIAŁ od dawna ale ŻADEN DR-skill/router go nie ładował
+  - shared/PORTALE-BRANZOWE-RZAD-2B.md  # rejestr portali branżowych per dziedzina, z weryfikacją site: — dodane 2026-07-21, ten sam błąd co wyżej (zbudowany, nigdy niepodłączony)
+  - shared/MOD-STEP-TRACKER.md
+  - shared/MOD-REJESTR-POKRYCIA-JEDNOSTEK.md  # KROK 0-RPK — warunkowy, gdy zbiór ≥10 ponumerowanych jednostek
+  - shared/MOD-KONTEKST-SESJI.md
+  - shared/MOD-SKAN-DOWODOW-KOMPLETNY.md
+  - shared/MOD-REJESTR-ZALACZNIKOW-CHECKPOINT.md
+  - shared/MOD-PORCJOWANIE-DOWODOW.md
+  - shared/PRE-W2-VERIFICATION-GATE.md
+  - shared/CP-GATE.md
+  - shared/DISCLAIMER.md
+  - references/KROK0A-anonimizer.md
+  - references/KROK1-detekcja.md
+  - dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md  # kanoniczny, wg UP-3
+changelog: |
+  Wersja bieżąca: 3.22. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
+  (standard systemowy 2026-08-20z4: jeden plik, jedna lokalizacja; zakaz sekcji
+  changelogu w korpusie SKILL.md i zakaz pełnej listy wpisów w tym polu).
+  Skrót 3.22 (2026-08-20z4): historia z korpusu SKILL.md ORAZ z pola changelog: YAML (63 linie) scalona
+  w references/CHANGELOG.md (nowy plik).

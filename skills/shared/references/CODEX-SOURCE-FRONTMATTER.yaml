@@ -1,0 +1,60 @@
+name: shared
+version: "3.18"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: niecytowane `3.17` YAML parsuje
+                  # jako float 3.17, a 3.17 < 3.9 — porządek wersji odwraca się
+                  # dla każdego narzędzia porównującego liczbowo. Wykryte
+                  # testem T12 (check_wersje_changelog.py), 2026-08-20z.
+type: library
+entrypoint: SKILL.md
+compatibility: "wszystkie skille prawne systemu"
+description: >-
+  Biblioteka plików kanonicznych systemu prawnych skilli — hardgate, walidacja,
+  definicje, terminy, moduły kancelaryjne. NIE jest samodzielnym skillem i NIE
+  odpowiada na zapytania użytkownika: moduły wczytują inne skille przez `view`.
+  Pełny spis modułów — tabele „Zawartość katalogu" w treści tego pliku.
+dependencies:
+  requires: []
+  # `shared` z definicji powinien być warstwą bazową bez zależności
+  # zwrotnych do skili nadrzędnych — patrz limitations poniżej dla
+  # ODSTĘPSTWA znanego i zweryfikowanego ręcznie 2026-07-04.
+  called_by:
+    - wszystkie 31 pozostałych skille systemu (in-degree najwyższy w systemie)
+inputs:
+  - żadne bezpośrednie — pliki wczytywane (`view`) przez inne skille w
+    trakcie ich własnych pipeline'ów
+outputs:
+  - treść modułu wczytana do kontekstu skilla wywołującego (nie generuje
+    samodzielnego outputu)
+confidence: n/a
+  # moduły proceduralne (walidacja, hardgate, śledzenie kroków) — nie
+  # zawierają samodzielnych twierdzeń merytorycznych podlegających ocenie
+  # wiarygodności; PRAWO-HARDGATE.md wymusza weryfikację online dla treści
+  # dodawanej PRZEZ skille wywołujące, nie przez shared samo
+escalation:
+  - plik kanoniczny nieznaleziony/uszkodzony → skill wywołujący MUSI
+    zatrzymać się i zgłosić błąd, nie kontynuować z pamięci
+limitations:
+  - "ZNANE ODSTĘPSTWO od zasady 'shared = warstwa bazowa bez zależności
+    zwrotnych', zweryfikowane ręcznie 2026-07-04 (FAZA 2E audyt-systemu-v4):
+    5 plików zawiera instrukcję `view` wprost do konkretnego skilla
+    nadrzędnego — MOD-METODY-BADAWCZE.md → analizator-dowodow-v3/SKILL.md;
+    PRE-W2-VERIFICATION-GATE.md i MOD-IDENTYFIKACJA-STRONY-UMOWY.md →
+    pisma-procesowe-v3/modules/MOD-PRACODAWCA-RZECZYWISTY.md;
+    MOD-MAPA-PRZEPISOW.md → analizator-przepisow-v2/SKILL.md;
+    ORZECZENIA-OUTPUT-SCHEMA.md → orzeczenia-sadowe-v2/SKILL.md;
+    raport-sytuacyjny-integracja.md → raport-sytuacyjny-v2/SKILL.md.
+    NIE scalone/wydzielone w tej sesji — pole `dependencies.requires`
+    zostawione jako [] (zgodnie z zasadą architektoniczną), ODSTĘPSTWO
+    opisane tu jawnie, żeby FAZA 2E w trybie deklarowanym go NIE zgubiła.
+    Decyzja architektoniczna (uznać jako świadomy wzorzec 'plik-most' czy
+    wydzielić poza shared/) pozostaje OTWARTA — do następnego audytu."
+  - rozmiar (115 plików, ~1,4 MB) — każda zmiana pliku kanonicznego ma
+    potencjalnie systemowy promień rażenia; edytować tylko przez
+    audyt-systemu-v4 z pełną weryfikacją CHECKLIST-DEDUP.md
+required_modules: []
+  # nie ma zastosowania — shared jest wczytywany, nie wczytuje sam siebie
+changelog: |
+  Wersja bieżąca: 3.18. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
+  (standard systemowy 2026-08-20z4: jeden plik, jedna lokalizacja; zakaz sekcji
+  changelogu w korpusie SKILL.md i zakaz pełnej listy wpisów w tym polu).
+  Skrót 3.18 (2026-08-20z4): pole changelog: w YAML miało 111 linii pełnej historii — wyniesione do
+  references/CHANGELOG.md (nowy plik); w YAML został skrót.

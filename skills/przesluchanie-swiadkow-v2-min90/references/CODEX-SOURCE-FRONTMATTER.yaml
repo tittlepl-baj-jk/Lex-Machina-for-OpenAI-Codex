@@ -1,0 +1,94 @@
+name: przesluchanie-swiadkow-v2-min90
+version: "3.23"
+type: legal-skill
+domain: litigation-witness-examination
+status: production
+default_mode: text
+graphic_mode: on_request_only
+performance_profile: staged-intake-first
+compatibility:
+  - Claude Skills
+  - Modular Legal Skills
+entrypoint: SKILL.md
+description: |
+  Przesłuchanie świadków v2 — przygotowanie pytań, kontrprzesłuchanie i scoring
+  dowodowy w sprawach cywilnych, karnych, pracowniczych i administracyjnych.
+  Stosuj gdy użytkownik chce: przygotować pytania do świadka lub biegłego,
+  przeprowadzić impeachment, ocenić wiarygodność zeznań, wykryć sprzeczności
+  z wcześniejszymi zeznaniami, dobrać model przesłuchania do typu sędziego.
+  Pipeline: PRE-W1a SD-VER (skan dowodów, HARD GATE) → PRE-W1 (profil) →
+  KROK 0 → W1 intake → W2 tezy/model → CHECKPOINT-W2 → W3 pytania (FPW,
+  ryzyko 3D, WHY-GATE, SAFE-Q) → W4 próba generalna → W5 binder → W6 direct.
+  ⛔ HARD GATE: zakaz cytowania przepisów/sygnatur z pamięci; zakaz wejścia
+  do WITNESS-INTELLIGENCE bez SD-VER=KOMPLET; WITNESS-SCOPE-LOCK — zakaz
+  dołączania do W2/W3 osób spoza potwierdzonej listy świadków.
+  NIE stosuj do analizy dokumentów bez świadka — użyj analizator-dowodow-v3.
+dependencies:
+  required:
+    - shared
+    - analizator-dowodow
+    - MOD-SKAN-DOWODOW-KOMPLETNY
+    - MOD-REJESTR-ZALACZNIKOW-CHECKPOINT
+    - MOD-STEP-TRACKER
+    - MOD-DOKUMENT-GATES
+  optional:
+    - chronologia-sprawy
+    - analiza-sadowa
+    - raport-sytuacyjny
+    - MOD-KONTEKST-SESJI
+    - MOD-PRIORYTETY-ASPEKTOW
+    - MOD-SELEKCJA-DOWODOW
+    - MOD-MAPA-PRZEPISOW
+validation:
+  required_gates:
+    - SD-VER-GATE-WITNESS
+    - PRAWO-HARDGATE
+    - PRIOR-TESTIMONY-GATE
+    - WITNESS-TYPE-GATE
+    - INTAKE-COMPLETENESS-GATE
+    - QUESTION-ADMISSIBILITY-GATE
+    - WITNESS-SCORING
+    - WITNESS-INTELLIGENCE
+    - FACT-EVIDENCE-MAPPING
+    - MODEL-SELECTION-GATE
+    - CROSS-EXAMINATION-GATE
+    - TEXT-FIRST-UI-GATE
+    - HARDGATE-SD-01
+    - HARDGATE-SD-02
+    - RZ-SHOW-GATE
+    - STEP-TRACKER-WITNESS
+    - PRZESLANKI-GATE
+    - FORMALNA-ZGODNOSC-GATE
+    - DOKUMENT-GATES-1-8
+    - TYPOLOGIE-LOAD-GATE
+pipeline:
+  stages:
+    - PRE-W1a-SD-VER
+    - PRE-W1a.4-RZ-SHOW
+    - PRE-W1a.5-DG-LOAD
+    - KROK-PRE-W1-INTELLIGENCE
+    - KROK-0-KONTEKST
+    - W1-INTAKE
+    - W1-SUPPLEMENT
+    - W2-TYPOLOGIE-LOAD
+    - W2-THESES-AND-MODEL
+    - CHECKPOINT-W2
+    - W3-QUESTIONS
+    - W4-REHEARSAL
+    - W5-BINDER
+    - W6-LIVE-DIRECT
+changelog: |
+  Wersja bieżąca: 3.23. Pełna historia (JEDYNY changelog pakietu) w
+  references/CHANGELOG.md — wczytuj na żądanie, NIE trzymaj tu ponownie.
+  Skrót 3.23 (2026-08-20z): (1) 8 bramek pracy na dokumentach wydzielonych
+  do shared/MOD-DOKUMENT-GATES.md, treść przeniesiona bajtowo, w SKILL.md
+  indeksy wyzwalaczy + nowy HARD GATE PRE-W1a.5 DG-LOAD i wpis w
+  required_gates (wcześniej bramek tam NIE BYŁO — skill jest po zmianie
+  mocniej zabezpieczony); (2) TYPOLOGIE-LOAD w W2 — typologie świadka i
+  sędziego były w pakiecie od początku, ale żaden krok ich nie wczytywał
+  mimo deklaracji w description (F-99); (3) usunięty balast poscaleniowy
+  jsxfix1+jsxfix2, changelog z katalogu głównego scalony do references
+  (F-101). Wcześniejsze: 3.19 obsługa `< truncated lines >`; 3.18
+  rozdzielenie PRAWO-HARDGATE i PRZESŁANKI-GATE + FORMALNA-ZGODNOSC-GATE;
+  3.17 RZ-SHOW-GATE jako twarda zależność. ⚠️ Wersje 3.20-3.22 nie mają
+  wpisu w żadnym rejestrze — luka odnotowana jawnie w references/CHANGELOG.md.

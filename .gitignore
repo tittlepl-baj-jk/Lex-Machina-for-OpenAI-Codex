@@ -1,0 +1,30 @@
+# Autor: [CODEX] | Utworzony: 2026-08-23
+
+# Sekrety i konfiguracja lokalna
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Python i narzędzia testowe
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Pliki lokalne i tymczasowe
+.DS_Store
+Thumbs.db
+tmp/
+temp/
+*.log
+
+# Dane prawdziwych spraw nie należą do repozytorium
+sprawy/
+akta/
+dane_osobowe/
+

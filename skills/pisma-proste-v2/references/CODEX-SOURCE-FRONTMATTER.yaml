@@ -1,0 +1,27 @@
+name: pisma-proste-v2
+version: "2.11"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: bez niego YAML parsuje ten numer jako float
+                  # (2.1), a 2.1 < 2.9 — porządek wersji odwraca się dla każdego
+                  # narzędzia porównującego liczbowo. Naprawione 2026-08-20z3 (F-102),
+                  # test T12: scripts/check_wersje_changelog.py
+type: executive-pisma
+status: production
+description: |
+  Redagowanie pism procesowych o niskim stopniu złożoności, jeden wątek
+  prawny. Stosuj dla: klauzuli wykonalności, sprzeciwu/zarzutów od
+  nakazu zapłaty, wszczęcia egzekucji, zabezpieczenia roszczenia,
+  zwolnienia od kosztów, zawezwania do ugody, przywrócenia terminu,
+  wglądu do akt, wezwania do zapłaty, uzasadnienia wyroku, doręczenia
+  przez komornika, sprzeciwu od referendarza, interpretacji ZUS, skargi
+  do UODO, oświadczenia o skorzystaniu z sankcji kredytu darmowego (SKD,
+  art. 45 u.k.k.). NIE stosuj do pism wielowątkowych (apelacje, pozwy
+  złożone, w tym pozew o zwrot nadpłaty po SKD) — użyj pisma-procesowe-v3.
+compatibility:
+  tools:
+    - web_search
+    - web_fetch
+changelog: |
+  Wersja bieżąca: 2.11. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
+  (standard systemowy 2026-08-20z4: jeden plik, jedna lokalizacja; zakaz sekcji
+  changelogu w korpusie SKILL.md i zakaz pełnej listy wpisów w tym polu).
+  Skrót 2.11 (2026-08-20z4): historia zmian wyniesiona z korpusu SKILL.md do references/CHANGELOG.md
+  (nowy plik, treść 1:1).

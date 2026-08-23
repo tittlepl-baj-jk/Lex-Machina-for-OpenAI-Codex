@@ -1,0 +1,10 @@
+name: prawo-polskie-v2
+version: 6.1
+type: domain-router
+status: production
+compatibility: "web_search, web_fetch"
+description: |
+  Fasada routera — 16 dziedzin prawa polskiego (DR-01 do DR-16).
+  Wchodzi z: prawny-router-v3 → KROK 1B lub prawny-router-v3 → [10].
+  Wychodzi do: właściwy DR-skill → moduł aktu prawnego.
+  Zasada: ten plik zawiera TYLKO routing. Treść prawna → w DR-skills.

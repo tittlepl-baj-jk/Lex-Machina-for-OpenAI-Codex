@@ -1,0 +1,53 @@
+name: audyt-systemu-v4
+version: "6.13"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY od 6.10: niecytowane `6.10` YAML
+                  # parsuje jako float 6.1 — czyli numer NIŻSZY niż 6.9, co cicho
+                  # odwraca porządek wersji. Wykryte przy walidacji 2026-08-20z.
+                  # Każda kolejna wersja z dwucyfrowym minor — też w cudzysłowie.
+type: governance-audit
+compatibility:
+  - Claude
+  - Modular Legal Skills
+entrypoint: SKILL.md
+modules:
+  - modules/MOD-INTERLINIE.md          # usuwanie zbędnych pustych linii
+  - modules/MOD-WSTAWKI.md             # usuwanie wstawek opisowych
+  - modules/MOD-DESCRIPTION.md         # walidacja długości description (limit 1024)
+  - modules/MOD-TRESC-MERYTORYCZNA.md  # FAZA 3E — weryfikacja treści modułów DR po zmianie przepisu (ZASADA 12, dodane 2026-07-16)
+  - modules/MOD-PROPAGACJA-NOWELIZACJI.md  # propagacja zmian z konkretnej nowelizacji przez CAŁY system, nie 1 moduł (dodane 2026-07-26)
+widgets:
+  - widgets/WIDGET-MENU.md        # interaktywne menu wielokrotnego wyboru
+references:
+  - references/AUDIT-JOURNAL.md
+  - references/WARN-OTWARTE.md   # rejestr żywy TYLKO otwartych flag (WARN + strukturalne) — dodane 2026-07-07, ZASADA 10; ⚡ od 2026-08-15w zaczyna się TABLICĄ STERUJĄCĄ (indeks wszystkich flag + następny krok w jednym zdaniu) — czytaj ją PIERWSZĄ przy pytaniu „co jest do zrobienia"
+  - references/CHECKLIST-DEDUP.md   # mapa pojęć → lokalizacje (5 not, NOTA-6 ORPHAN dodana 06-14g)
+  - references/mapa_dzu_2026-07-15.md   # aktualna mapa Dz.U. (502 wiersze, sync 2026-08-13); 07-04 poprzednia wersja
+  - references/REGRESSION-TEST-PLAN.md   # zestaw testów regresyjnych T1-T9, T11, T12 (T11 dodany 2026-08-15z sekcja 11; T12 dodany 2026-08-20z sekcja 12), v1.2 (dodane 2026-07-21) — NAJPIERW zarejestrowany tutaj po odkryciu że plan istniał bez wpisu w SKILL.md
+  - references/SYNC-DZU-AUTOMATYCZNY.md   # narzędzie WSPIERAJĄCE FAZĘ 3 — automatyzacja wykrywania nowych pozycji Dz.U./M.P. (wprowadzone 2026-07-13, skonsolidowane z osobnego skilla 2026-07-13f) — REJESTROWANE 2026-08-15 po wykryciu jako plik-sierota (użytkownik przesłał starą wersję ZIP i zapytał o funkcję scheduled task; plik istniał na dysku, ale nigdy nie trafił do tego frontmatter)
+  - references/HARMONOGRAM-CRON.md   # przykłady harmonogramu (cron / GitHub Actions) do adaptacji przez developera — powiązane z SYNC-DZU-AUTOMATYCZNY.md — REJESTROWANE 2026-08-15, ten sam powód co wyżej
+  - references/SCHEDULED-TASK-COWORK.md   # POZYCJA 11 menu — zadanie cykliczne w Cowork (TRYB DZU co tydzień): warunek uruchomienia, kanoniczna treść Description+promptu, blok map pokrycia za bramką F-83 — DODANE 2026-08-15o
+  - references/FORMAT-RAPORTU-ROZNIC.md   # format wyjściowy raportu różnic produkowanego przez sync_dzu_eli.py — REJESTROWANE 2026-08-15, ten sam powód co wyżej
+  - references/mapa_dzu_2026-07-04.md   # ARCHIWALNA — poprzednia wersja mapy Dz.U., zachowywana jako materiał historyczny cytowany w AUDIT-JOURNAL.md — REJESTROWANE 2026-08-15 (nigdy formalnie nie wpisana mimo aktywnego cytowania)
+  - references/mapa_dzu_2026-07-02.md   # ARCHIWALNA — jw., wcześniejsza wersja — REJESTROWANE 2026-08-15
+  - references/mapa_dzu_2026-06-14.md   # ARCHIWALNA — jw., najwcześniejsza zachowana wersja — REJESTROWANE 2026-08-15
+  - references/raporty-pokrycia-2026-08-13/   # ⚡ STAN NA 2026-08-20y: 10 raportów + indeks zbiorczy = 11 plików (KKW, KPC, KSH, KW, OP, PPSA, PZP, PrBud, PrUp-PrRestr, SUS-FUS) — cytowane w F-64 do F-75. Pierwotnie 12 raportów + indeks = 13; `raport-pokrycia-KRO.md` usunięty 2026-08-15 (F-73 zamknięta), `raport-pokrycia-KPK.md` usunięty 2026-08-15nn (F-81 zamknięta) — oba zgodnie z § 7 WARN-OTWARTE.md. ⛔ Licznik „13 plików" tkwił tu 5 dni po obu usunięciach — przy KAŻDYM kolejnym usunięciu raportu POPRAW TĘ LINIĘ, inaczej frontmatter znów rozjedzie się ze stanem dysku (ta sama klasa co F-80, tylko w drugą stronę: rejestr wyprzedza dysk zamiast zostawać w tyle)
+scripts:
+  - scripts/test_module_registration.py   # T1 — rejestracja modułów (KRYTYCZNY)
+  - scripts/test_module_count.py          # T2 — zgodność liczników (WYSOKI)
+  - scripts/test_cross_map_dzu.py         # T3 — spójność Dz.U. między mapami (KRYTYCZNY, heurystyka→WARN)
+  - scripts/test_header_snapshot.py       # T4 — integralność nagłówków, --snapshot/--verify (KRYTYCZNY, RĘCZNY)
+  - scripts/test_title_scope_match.py     # T8 — zakres tytuł-vs-treść (WYSOKI, heurystyka→WARN)
+  - scripts/test_moved_to_shared.py       # T9 — weryfikacja przeniesień do shared/ (WYSOKI, heurystyka celowana→WARN, dodane 2026-07-21)
+  # T10 (check_nexto_free_files.py, monitorowanie plików Nexto/Virtualo,
+  # flaga F-12) USUNIĘTE 2026-07-24d na polecenie użytkownika — patrz
+  # AUDIT-JOURNAL.md, wpis AUDYT-2026-07-24d
+  - scripts/check_wersje_changelog.py     # T12 — zgodność metadanych wersji skilla: `version:` vs najnowszy wpis references/CHANGELOG.md vs pole `changelog:` vs nagłówek H1 i stopka; wykrywa też pułapkę float (niecytowane `X.10` parsuje się jako X.1, czyli MNIEJ niż X.9). ŚREDNI, dodany 2026-08-20z, flaga F-101 — powstał po wykryciu tego samego rozjazdu w 3 skillach z 3 rodzin w jednej sesji
+  - scripts/check_sync_aktow.py           # T11 — synchronizacja AKTÓW między lokalną MAPA-AKTOW, ROUTING-MAP i mapą Dz.U. (WYSOKI, heurystyka→WARN, dodany 2026-08-15z, flaga F-89) — wykrywa BRAK pozycji, czego T3 (rozbieżność numeru) i check_rejestracja_modulow (moduły) nie robią
+  - scripts/run_regression_suite.py       # orkiestrator — uruchamia T1/T2/T3/T6/T7/T8 w jednym przebiegu
+  - scripts/ci_check_shared.py            # T6/T7 — zerwane odwołania / duplikaty (już istniejący, wywoływany przez orkiestrator)
+  - scripts/check_rejestracja_modulow.py  # kontrola spójności rejestracji modułów DR (4 rejestry: dysk/SKILL.md/MAPA-AKTOW.md/ROUTING-MAP.md) — powstał 2026-08-14e (F-77) — REJESTROWANE 2026-08-15, plik-sierota tego samego wzorca jaki sam wykrywa
+  - scripts/sync_dzu_eli.py               # pobiera z Sejm ELI API nowe pozycje Dz.U./M.P., produkuje raport różnic — patrz SYNC-DZU-AUTOMATYCZNY.md — REJESTROWANE 2026-08-15
+  - scripts/mock_eli_server_test.py       # mock serwera ELI do testowania sync_dzu_eli.py bez żywego dostępu do api.sejm.gov.pl — REJESTROWANE 2026-08-15
+  - scripts/bootstrap_last_sync_date.py   # inicjalizacja pliku .last_sync_date przy pierwszym uruchomieniu sync_dzu_eli.py — REJESTROWANE 2026-08-15
+  - scripts/dostarcz_skill.sh             # skrypt automatyzujący łańcuch dostawy (Reguła 4/6/7 HARDGATE-AUDYT: policz/zip/rozpakuj/diff) — REJESTROWANE 2026-08-15
+  - scripts/install_precommit_hook.sh     # instalacja git pre-commit hook wywołującego testy regresyjne przed commitem — REJESTROWANE 2026-08-15
+  - scripts/README.md                     # dokumentacja folderu scripts/ — REJESTROWANE 2026-08-15
