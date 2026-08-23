@@ -48,10 +48,12 @@ SENSITIVE_PATTERNS = (
 
 
 def file_sha256(path: Path) -> str:
-    data = path.read_bytes()
-    if path.name == "LICENSE":
-        data = data.replace(b"\r\n", b"\n")
-    return hashlib.sha256(data).hexdigest()
+    return hashlib.sha256(canonical_bytes(path)).hexdigest()
+
+
+def canonical_bytes(path: Path) -> bytes:
+    """Return bytes normalized for CRLF/LF-independent validation."""
+    return path.read_bytes().replace(b"\r\n", b"\n")
 
 
 def main() -> int:
@@ -101,7 +103,7 @@ def main() -> int:
             continue
         if str(item.get("sha256", "")).upper() != file_sha256(path).upper():
             failures.append(f"manifest sha256 mismatch: {relative}")
-        if item.get("size") != path.stat().st_size:
+        if item.get("size") != len(canonical_bytes(path)):
             failures.append(f"manifest size mismatch: {relative}")
 
     skill_dirs = sorted(
