@@ -3,7 +3,7 @@ name: "dr-15-compliance-iso-governance-audyt"
 description: "DR-15: Compliance, ISO, Governance, Audyt Jeden moduł = jeden akt prawny (Dz.U.) lub norma ISO / rozporządzenie UE. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | eur-lex.europa.eu | iso.org | orzeczenia.ms.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-15-compliance-iso-governance-audyt"
 ---
 

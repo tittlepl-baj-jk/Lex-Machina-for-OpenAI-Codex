@@ -3,7 +3,7 @@ name: "dr-02-prawo-cywilne-rodzinne-gospodarcze"
 description: "DR-02: Prawo Cywilne, Rodzinne i Gospodarcze Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-02-prawo-cywilne-rodzinne-gospodarcze"
 ---
 
@@ -69,7 +69,23 @@ Przy sprawach z tej dziedziny rozważ doładowanie (`view`) definicji:
 - BAS-W34 Odsetki: kapitałowe vs za opóźnienie vs handlowe (różne stopy!)
 - BAS-W35 Nakaz zapłaty: sprzeciw vs zarzuty vs EPU (różne terminy/skutki)
 
-## Moduły (43 łącznie — ✓ 43 OK, ☐ 0 STUB)
+## Moduły (54 łącznie — ✓ 54 OK, ☐ 0 STUB)
+
+  [✓] PORT  mod-kaucja-najem-lokalu
+              (rejestracja techniczna istniejącego modułu; korekta wykryta przez T1)
+
+
+**NAPRAWA 2026-08-22:** dodano `mod-KPC-art162-zastrzezenie-protokol.md`
+— zamyka poz. #14 mapy pokrycia KPC (🔴 luka krytyczna): art. 162 KPC,
+zastrzeżenie do protokołu / prekluzja zarzutów procesowych. Odkryta
+jako luka bliźniacza do art. 105 PPSA (`dr-05`, sesja audytowa
+2026-08-22e) — obie instytucje mają identyczną konstrukcję i skutek.
+Treść zweryfikowana RZĄD 1 (tekst ustawy nowelizującej z 4.07.2019,
+orka.sejm.gov.pl) + RZĄD 2B (arslege.pl, lexlege.pl — metryka
+Dz.U.2026.0.468 t.j. zgodna z pozostałymi modułami KPC). Obejmuje
+orzecznictwo SN (III CSKP 23/21, III UK 7/19, uchwała III CZP 55/05) i
+powiązanie z art. 172 §2¹ oraz art. 380 KPC. Pełny opis: `audyt-systemu-v4/
+references/AUDIT-JOURNAL.md`, wpis AUDYT-2026-08-22.
 
 **KOREKTA LICZNIKA 2026-08-14d:** poprzednia wartość („43” przy 42 modułach na dysku) była ZAWYŻONA O 1 JUŻ PRZED dodaniem mod-KPC-nieproces-czesc-ogolna — wykryte przy mechanicznej kontroli dysk/checklista. Po dodaniu nowego modułu rzeczywisty stan to 43 moduły i 43 wpisy [✓], zero modułów-widm.
 
@@ -227,6 +243,17 @@ nieobecnej art. 184). Rozgraniczenie od kuratora sądowego
                CSK 321/15] — plus art. 13f KSCU potwierdzony, ale nie
                zintegrowany z regułami kosztów w tym module)
   [✓] OK    mod-KC-spadki
+              (⭐ PODZIELONY 2026-08-21, ZASADA 13 / F-105 — 1036 l. przekraczało
+               próg; plik zachowuje nazwę jako indeksator, zostaje z dziedziczeniem
+               ustawowym, formami testamentu, przyjęciem/odrzuceniem i STRATEGIĄ)
+  [✓] NOWY  mod-KC-spadki-zachowek-dzial-rozrzadzenia
+              (wydzielony 2026-08-21 — zachowek [991-1011], dział spadku
+               [1035-1046 KC + 680-689 KPC], zapis zwykły i windykacyjny,
+               polecenie, wykonawca testamentu, wydziedziczenie, niegodność)
+  [✓] NOWY  mod-KC-spadki-dlugi-umowy-transgraniczne
+              (wydzielony 2026-08-21 — odpowiedzialność za długi [1030-1034³],
+               umowy o spadek i zrzeczenie [1047-1057], gmina/Skarb Państwa [935],
+               spadki transgraniczne i EPS, gospodarstwa rolne, spis inwentarza)
               (v2.0, rozbudowane 2026-07-19: zapis zwykły/windykacyjny,
                polecenie testamentowe, wykonawca testamentu,
                wydziedziczenie [odróżnione od niegodności dziedziczenia],
@@ -376,6 +403,14 @@ nieobecnej art. 184). Rozgraniczenie od kuratora sądowego
                i zawieszenie członka zarządu [art. 220]. ⚠️
                [NIEWERYFIKOWANE RZĄD 1] większość treści)
   [✓] OK    mod-PrUpad-upadlosc-restrukturyzacja
+              (⭐ PODZIELONY 2026-08-21, ZASADA 13 — plik zachowuje nazwę
+               jako indeksator; Tytuł Va + Tytuł VII Dział I + Tytuł IX
+               wydzielone do mod-PrUpad-uklad-likwidacja-zakonczenie)
+  [✓] NOWY  mod-PrUpad-uklad-likwidacja-zakonczenie
+              (wydzielony 2026-08-21 z modułu wyżej — podział WYPRZEDZAJĄCY
+               przed dalszymi transzami F-86: układ w upadłości [266a-266f],
+               likwidacja masy Dział I [306-315], zakończenie i umorzenie
+               postępowania [361-372]. ⛔ Dalszą treść F-86 dopisywać TUTAJ)
   [✓] NOWY  mod-PrRestr-dzial-III-nadzorca-zarzadca
               (dodany 2026-08-19 — naprawa F-87 priorytet 1: Dział III
                PrRestr, art. 23-64. Struktura 4 rozdziałów + tabela
@@ -554,6 +589,13 @@ nieobecnej art. 184). Rozgraniczenie od kuratora sądowego
   [✓] OK    mod-KP-art943-mobbing-dyskryminacja
   [✓] OK    mod-ustawa-cudzoziemcy
   [✓] OK    mod-ustawa-timeshare-zastaw-rejestrowy
+  [✓] NOWY  mod-KPC-art162-zastrzezenie-protokol
+              (dodany 2026-08-22 — art. 162 KPC, zastrzeżenie do
+               protokołu/prekluzja zarzutów procesowych. Naprawa poz.
+               #14 mapy pokrycia KPC, luka bliźniacza do art. 105 PPSA
+               dr-05. Rząd 1: orka.sejm.gov.pl [ustawa nowelizująca
+               4.07.2019]. Rząd 2B: arslege.pl, lexlege.pl [metryka
+               Dz.U.2026.0.468 t.j.])
 ```
 
 ## Jak wywołać
@@ -566,6 +608,18 @@ view ../dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/[nazwa-modulu].md
 
 ```
 view ../dr-02-prawo-cywilne-rodzinne-gospodarcze/MAPA-AKTOW.md
+```
+
+## Mapa pokrycia treściowego (planowanie rozwoju skilla)
+
+Rejestr informacyjny — NIE krok obowiązkowy przy obsłudze konkretnej sprawy.
+Przydatny przy planowaniu, które luki uzupełnić w pierwszej kolejności, oraz
+przy nowelizacjach — pokazuje od razu czy dotknięty fragment ma treść do
+zaktualizowania. (F-83, zasilony 2026-08-22 z KSH i PrUp/PrRestr; KPC
+świadomie pominięty jako częściowo przestarzały względem stanu po F-65):
+
+```
+view ../dr-02-prawo-cywilne-rodzinne-gospodarcze/MAPA-POKRYCIA.md
 ```
 
 ## Powiązania zewnętrzne

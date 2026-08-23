@@ -91,7 +91,7 @@
   pliku. Pierwszy przebieg znalazł go w **14 skillach** (m.in. dr-06 z 3.72, dr-02
   i dr-10 z 3.35, prawny-router-v3 z 3.21). Naprawiony wzorcowo w `shared` i tutaj,
   z komentarzem ostrzegawczym przy polu; pozostałe 13 → F-102.
-- **F-102 OTWARTA** — wynik pierwszego przebiegu na `/mnt/skills/user`: 26 rozbieżności
+- **F-102 OTWARTA** — wynik pierwszego przebiegu na `../..`: 26 rozbieżności
   w 24 skillach (5 ⛔ czynnych, 21 ⚠️ utajonych). Najpoważniejsza: `pisma-procesowe-v3`,
   `version: 5.17` przy changelogu na 5.10 — **siedem wersji bez opisu**, luka większa
   niż ta, która uruchomiła całą sprawę.

@@ -3,7 +3,7 @@ name: "dr-16-pisma-strategia-dowody-orzecznictwo"
 description: "DR-16: Pisma, Strategia, Dowody, Orzecznictwo Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony obszar procesowy. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl | nsa.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-16-pisma-strategia-dowody-orzecznictwo"
 ---
 
@@ -62,7 +62,7 @@ Przy redagowaniu pism rozważ doładowanie (`view`) definicji:
 - BAS-W33/W34 Kara umowna i odsetki — precyzja żądań pozwu
 - BAS-W35 Nakaz zapłaty: terminologia "sprzeciw" vs "zarzuty"
 
-## Moduły (11 łącznie — ✓ 11 OK, ☐ 0 STUB; 1 przeniesiony do shared/)
+## Moduły (12 łącznie — ✓ 12 OK, ☐ 0 STUB; 1 przeniesiony do shared/)
 
 ```
 KPC — PROCEDURY SZCZEGÓLNE I NARZĘDZIA PROCESOWE:

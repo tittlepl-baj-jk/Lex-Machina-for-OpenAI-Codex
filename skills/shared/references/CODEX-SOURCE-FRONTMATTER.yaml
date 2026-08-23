@@ -1,5 +1,5 @@
 name: shared
-version: "3.18"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: niecytowane `3.17` YAML parsuje
+version: "3.19"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: niecytowane `3.17` YAML parsuje
                   # jako float 3.17, a 3.17 < 3.9 — porządek wersji odwraca się
                   # dla każdego narzędzia porównującego liczbowo. Wykryte
                   # testem T12 (check_wersje_changelog.py), 2026-08-20z.
@@ -47,14 +47,20 @@ limitations:
     opisane tu jawnie, żeby FAZA 2E w trybie deklarowanym go NIE zgubiła.
     Decyzja architektoniczna (uznać jako świadomy wzorzec 'plik-most' czy
     wydzielić poza shared/) pozostaje OTWARTA — do następnego audytu."
-  - rozmiar (115 plików, ~1,4 MB) — każda zmiana pliku kanonicznego ma
+  - rozmiar (196 plików, ~2,4 MB — stan 2026-08-23) — każda zmiana pliku kanonicznego ma
     potencjalnie systemowy promień rażenia; edytować tylko przez
     audyt-systemu-v4 z pełną weryfikacją CHECKLIST-DEDUP.md
 required_modules: []
   # nie ma zastosowania — shared jest wczytywany, nie wczytuje sam siebie
 changelog: |
-  Wersja bieżąca: 3.18. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
+  Wersja bieżąca: 3.19. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
   (standard systemowy 2026-08-20z4: jeden plik, jedna lokalizacja; zakaz sekcji
   changelogu w korpusie SKILL.md i zakaz pełnej listy wpisów w tym polu).
+  Skrót 3.19 (2026-08-23): usunięto 6 plików historycznych bez roli operacyjnej (202 → 196):
+  AKTY-PRAWNE-MASTER.md (DEPRECATED od 2026-06-14), STATUS.md (rejestr zamrożony 2026-06-09),
+  MOD-WALIDACJA.md (stub bez konsumenta), oba pliki z katalogu checklists/ (zero wywołań;
+  katalog przestał istnieć) oraz portale-branzowe-rzad-2b/czesc-05-changelog.md (treść
+  przeniesiona 1:1 do ANEKSU A w references/CHANGELOG.md). Pełne uzasadnienie per plik
+  oraz lista plików świadomie ZOSTAWIONYCH mimo zerowego wywołania — references/CHANGELOG.md.
   Skrót 3.18 (2026-08-20z4): pole changelog: w YAML miało 111 linii pełnej historii — wyniesione do
   references/CHANGELOG.md (nowy plik); w YAML został skrót.

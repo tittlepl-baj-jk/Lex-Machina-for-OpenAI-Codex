@@ -1,5 +1,5 @@
 name: przesluchanie-swiadkow-v2-min90
-version: "3.23"
+version: "3.22"
 type: legal-skill
 domain: litigation-witness-examination
 status: production
@@ -30,7 +30,6 @@ dependencies:
     - MOD-SKAN-DOWODOW-KOMPLETNY
     - MOD-REJESTR-ZALACZNIKOW-CHECKPOINT
     - MOD-STEP-TRACKER
-    - MOD-DOKUMENT-GATES
   optional:
     - chronologia-sprawy
     - analiza-sadowa
@@ -59,18 +58,14 @@ validation:
     - STEP-TRACKER-WITNESS
     - PRZESLANKI-GATE
     - FORMALNA-ZGODNOSC-GATE
-    - DOKUMENT-GATES-1-8
-    - TYPOLOGIE-LOAD-GATE
 pipeline:
   stages:
     - PRE-W1a-SD-VER
     - PRE-W1a.4-RZ-SHOW
-    - PRE-W1a.5-DG-LOAD
     - KROK-PRE-W1-INTELLIGENCE
     - KROK-0-KONTEKST
     - W1-INTAKE
     - W1-SUPPLEMENT
-    - W2-TYPOLOGIE-LOAD
     - W2-THESES-AND-MODEL
     - CHECKPOINT-W2
     - W3-QUESTIONS
@@ -78,17 +73,14 @@ pipeline:
     - W5-BINDER
     - W6-LIVE-DIRECT
 changelog: |
-  Wersja bieżąca: 3.23. Pełna historia (JEDYNY changelog pakietu) w
-  references/CHANGELOG.md — wczytuj na żądanie, NIE trzymaj tu ponownie.
-  Skrót 3.23 (2026-08-20z): (1) 8 bramek pracy na dokumentach wydzielonych
-  do shared/MOD-DOKUMENT-GATES.md, treść przeniesiona bajtowo, w SKILL.md
-  indeksy wyzwalaczy + nowy HARD GATE PRE-W1a.5 DG-LOAD i wpis w
-  required_gates (wcześniej bramek tam NIE BYŁO — skill jest po zmianie
-  mocniej zabezpieczony); (2) TYPOLOGIE-LOAD w W2 — typologie świadka i
-  sędziego były w pakiecie od początku, ale żaden krok ich nie wczytywał
-  mimo deklaracji w description (F-99); (3) usunięty balast poscaleniowy
-  jsxfix1+jsxfix2, changelog z katalogu głównego scalony do references
-  (F-101). Wcześniejsze: 3.19 obsługa `< truncated lines >`; 3.18
-  rozdzielenie PRAWO-HARDGATE i PRZESŁANKI-GATE + FORMALNA-ZGODNOSC-GATE;
-  3.17 RZ-SHOW-GATE jako twarda zależność. ⚠️ Wersje 3.20-3.22 nie mają
-  wpisu w żadnym rejestrze — luka odnotowana jawnie w references/CHANGELOG.md.
+  Wersja bieżąca: 3.22. Pełna historia (17 wpisów, 3.1-3.19) w
+  references/CHANGELOG.md — wczytuj na żądanie, NIE trzymaj tu ponownie
+  (F-78, 2026-08-20: to drugie takie porządkowanie tego pola po 2026-07-12;
+  następne audyty dopisujące wpisy wersji NIECH DOPISUJĄ do
+  references/CHANGELOG.md, NIE do tego pola YAML).
+  Skrót ostatnich 3 zmian: 3.19 — naprawiono lukę w obsłudze `< truncated
+  lines >` przy odczycie protokołu rozprawy (dziedziczona z
+  shared/MOD-SKAN-DOWODOW-KOMPLETNY). 3.18 — rozdzielono PRAWO-HARDGATE od
+  PRZESŁANKI-GATE jako niezależne obowiązki, dodano FORMALNA-ZGODNOSC-GATE.
+  3.17 — MOD-REJESTR-ZALACZNIKOW-CHECKPOINT jako twarda zależność required
+  (RZ-SHOW-GATE, etap PRE-W1a.4).

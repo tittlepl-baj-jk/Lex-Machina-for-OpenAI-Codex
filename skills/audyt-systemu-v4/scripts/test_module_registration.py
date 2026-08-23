@@ -19,7 +19,7 @@ Test jest DETERMINISTYCZNY — nie wymaga LLM ani sieci, wyłącznie
 analiza plików na dysku (ta sama filozofia co ci_check_shared.py).
 
 Użycie:
-    python3 test_module_registration.py [--repo-root /mnt/skills/user] [--quiet]
+    python3 test_module_registration.py [--repo-root ../..] [--quiet]
 
 Kod wyjścia:
     0 — wszystkie moduły zarejestrowane
@@ -115,7 +115,7 @@ def check_registration(skill_dir: Path, modules_dir: Path, skill_md: Path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--repo-root", default="/mnt/skills/user")
+    ap.add_argument("--repo-root", default="../..")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
 

@@ -3,7 +3,7 @@ name: "raport-klienta-v1"
 description: "Raport dla Klienta v1 — zewnętrzny raport statusu sprawy generowany przez kancelarię dla klienta indywidualnego lub biznesowego. Język uproszczony, bez żargonu procesowego. WYWOŁANIE: NA ŻĄDANIE — NIE automatycznie. Frazy: \"raport dla klienta\" / \"wyślij klientowi\" / \"status dla klienta\" / \"raport zewnętrzny\" / \"raport dla zarządu\". PROFIL [IND]: język prosty, predykcja opisowa, bez kwot ryzyka. PROFIL [BIZ]: język formalny, predykcja procentowa, ryzyko finansowe, wpływ na działalność, rekomendacje zarządu, NDA. TRYBY: standard | zle_wiadomosci | brak_nowosci | ograniczenie_szkod. RENDERING: show_widget HTML vanilla JS — NIE present_files, NIE JSX."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "raport-klienta-v1"
 ---
 

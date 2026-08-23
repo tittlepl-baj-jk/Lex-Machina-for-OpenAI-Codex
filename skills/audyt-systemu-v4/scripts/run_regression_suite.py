@@ -19,7 +19,7 @@ Zgodnie z REGRESSION-TEST-PLAN.md sekcja 4 (priorytetyzacja):
     sekcja 3. Pomijany tutaj, z przypomnieniem w raporcie.
 
 Użycie:
-    python3 run_regression_suite.py [--repo-root /mnt/skills/user]
+    python3 run_regression_suite.py [--repo-root ../..]
 
 Kod wyjścia:
     0 — wszystkie testy KRYTYCZNE (T1, T3*, T6) zaliczone (T3 traktowany
@@ -41,15 +41,15 @@ def run_script(name: str, args: list) -> tuple:
     if not path.exists():
         return None, f"SKRYPT NIEOBECNY: {name}"
     result = subprocess.run(
-        [sys.executable, str(path)] + args,
-        capture_output=True, text=True
+        [sys.executable, "-X", "utf8", str(path)] + args,
+        capture_output=True, text=True, encoding="utf-8", errors="replace"
     )
     return result.returncode, result.stdout
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--repo-root", default="/mnt/skills/user")
+    ap.add_argument("--repo-root", default="../..")
     args = ap.parse_args()
 
     repo_args = ["--repo-root", args.repo_root]
@@ -98,7 +98,7 @@ def main():
 
     # --- T6/T7: istniejący ci_check_shared.py ---
     print("── T6/T7 (⭐⭐⭐/⭐) — Zerwane odwołania / Duplikaty bajtowe " + "─" * 8)
-    code, out = run_script("ci_check_shared.py", [])
+    code, out = run_script("ci_check_shared.py", repo_args)
     print(out if out else "  (ci_check_shared.py nie zwrócił wyjścia tekstowego)")
     results["T6_T7"] = code
 

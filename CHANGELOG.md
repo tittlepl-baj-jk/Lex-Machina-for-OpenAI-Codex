@@ -7,12 +7,37 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 ## [Unreleased]
 
-### Planowane
+Brak zmian.
 
-- kontrolowana aktualizacja z „Wersji rozwojowej” upstream, zamrożonej na
-  commicie `9e37d6092f84b5f1a2fe41717e07611de062951a`;
-- test regresji procesu aktualizacji i wydanie `v0.2.0-codex` po przejściu
-  checklisty publikacyjnej.
+## [0.2.0] - 2026-08-23
+
+### Upstream
+
+- zsynchronizowano port z wersją rozwojową Lex Machina, commit
+  `9e37d6092f84b5f1a2fe41717e07611de062951a` autorstwa projektu Michała
+  Wiatraka;
+- przejęto 99 zmian źródłowych: 32 nowe i 67 zmodyfikowanych plików;
+- dodano mapy pokrycia, materiały audytowe F-104/F-108 oraz nowe moduły m.in.
+  dla spadków, postępowania cywilnego, prawa karnego, PPSA, Ordynacji
+  podatkowej i PZP;
+- zachowano 32 aktywne skille i wyłączenia dwóch katalogów technicznych.
+
+### Codex port
+
+- ponownie zastosowano adapter Codex, przenośne ścieżki i blokadę bezpośrednich
+  wywołań Anthropic API;
+- przeniesiono anonimizację przykładów do powtarzalnego procesu budowania;
+- rozszerzono walidator publikacyjny o kontrolę kompletności, rozmiaru i SHA-256
+  każdego pliku wykazanego w `manifest.json`;
+- naprawiono przenośność runnera regresji na Windows oraz rozwiązywanie
+  względnych odwołań `view` w testach portu;
+- skorygowano sześć liczników modułów oraz rejestrację trzech istniejących
+  modułów (`mod-kaucja-najem-lokalu`, `mod-nielegalny-pobor-mediow`,
+  `mod-ROZP-SKLADKOWE-podstawa-wymiaru`);
+- wykonano walidację statyczną 32/32, kontrolę integralności manifestu,
+  prywatności i testy krytyczne T1/T2/T6/T7 z wynikiem `PASS`;
+- zachowano jawne ostrzeżenia T3/T11 do dalszego przeglądu merytorycznego map
+  aktów prawnych; nie są one automatycznym werdyktem o błędzie aktu.
 
 ## [0.1.0] - 2026-08-23
 

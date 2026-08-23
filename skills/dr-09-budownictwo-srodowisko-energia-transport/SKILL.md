@@ -3,7 +3,7 @@ name: "dr-09-budownictwo-srodowisko-energia-transport"
 description: "DR-09: Budownictwo, Środowisko, Energia, Transport Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.nsa.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-09-budownictwo-srodowisko-energia-transport"
 ---
 
@@ -487,6 +487,18 @@ view ../dr-09-budownictwo-srodowisko-energia-transport/modules/[nazwa-modulu].md
 
 ```
 view ../dr-09-budownictwo-srodowisko-energia-transport/MAPA-AKTOW.md
+```
+
+## Mapa pokrycia treściowego (planowanie rozwoju skilla)
+
+Rejestr informacyjny — NIE krok obowiązkowy przy obsłudze konkretnej sprawy.
+Przydatny przy planowaniu, które luki uzupełnić w pierwszej kolejności, oraz
+przy nowelizacjach — pokazuje od razu czy dotknięty fragment ma treść do
+zaktualizowania. (F-83, zasilony 2026-08-22; obejmuje na razie wyłącznie
+Prawo budowlane):
+
+```
+view ../dr-09-budownictwo-srodowisko-energia-transport/MAPA-POKRYCIA.md
 ```
 
 ---

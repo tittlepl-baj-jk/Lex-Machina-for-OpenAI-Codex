@@ -3,7 +3,7 @@ name: "dr-03-prawo-karne-wykroczenia-egzekucja"
 description: "DR-03: Prawo Karne, Wykroczenia, Egzekucja Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-03-prawo-karne-wykroczenia-egzekucja"
 ---
 
@@ -34,6 +34,12 @@ pasującym przepisie; każdy przepis weryfikowany w ISAP przed użyciem
 (zgodnie z zasadą 2 `prawo-polskie-v2/SKILL.md` / UP-2 routera). Jeśli czyn
 wyczerpuje znamiona więcej niż jednego przepisu — kwalifikacja kumulatywna
 (art. 11 § 2 KK), nie wybór arbitralny.
+
+⚡ **STRUKTURA 2026-08-20 (F-78):** powyższy plik to teraz LEKKI INDEKSATOR
+(104 linie) z tabelą nawigacyjną — treść merytoryczna 8 bloków tematycznych
+znajduje się w podkatalogu `modules/kwalifikator-karnomaterialny/`. Wczytaj
+najpierw indeks, potem WYŁĄCZNIE właściwy plik części wg tabeli. Ścieżka
+`view` powyżej NIE wymagała zmiany — to zamierzona korzyść tej struktury.
 
 ## ⛔ HARD GATE — ZAKAZ CYTOWANIA Z PAMIĘCI
 
@@ -77,7 +83,11 @@ Przy sprawach z tej dziedziny rozważ doładowanie (`view`) definicji:
   obrona obligatoryjna art. 79 §1 pkt 2-4 KPK (→ mod-niewidomy-prawa-prawne.md,
   mod-niepelnosprawnosc-intelektualna-gluchota.md)
 
-## Moduły (60 łącznie — ✓ 60 OK, ☐ 0 STUB; 1 przeniesiony do shared/)
+## Moduły (62 łącznie — ✓ 62 OK, ☐ 0 STUB; 1 przeniesiony do shared/)
+
+  [✓] PORT  mod-nielegalny-pobor-mediow
+              (rejestracja techniczna istniejącego modułu; korekta wykryta przez T1)
+
 
 **NAPRAWA 2026-08-15:** dodano `mod-KPK-podstawy-odwolawcze-przeslanki-
 zarzuty-biegli.md` — naprawa CZĘŚCIOWA F-66 (priorytet 1/3: art. 17,
@@ -126,6 +136,29 @@ AUDIT-JOURNAL.md`.
   [✓] OK    mod-KK-cyberprzestepstwa-szczegolowy
   [✓] OK    mod-KK-kodeks-karny
   [✓] OK    mod-KK-kwalifikator-karnomaterialny
+              (✅ PODZIELONY 2026-08-20 — naprawa F-78, priorytet 1
+               [2109 linii, największy plik systemu]: plik pod
+               NIEZMIENIONĄ nazwą stał się lekkim indeksatorem [104
+               linie, tabela nawigacyjna], treść 24 bloków/sekcji
+               przeniesiona do 8 plików w podkatalogu
+               `kwalifikator-karnomaterialny/` [max 537 linii/plik].
+               Decyzja architektoniczna: NIE edytowano ~30 zewnętrznych
+               plików odsyłających do tego modułu — nazwa pliku
+               niezmieniona, więc wszystkie odesłania nadal działają.
+               Zweryfikowano 100% integralność treści [suma linii
+               części = oryginał minus nagłówek]. NAPRAWIONO PRZY
+               OKAZJI: (1) realna luka merytoryczna — DRZEWO B.1 nie
+               ostrzegało o konieczności przekierowania do DRZEWO I.2
+               przy ≥2 napastnikach/≥3 uczestnikach [pobicie/bójka to
+               inny reżim dowodowy — odpowiedzialność zbiorowa]; (2) 5
+               odesłań krzyżowych między blokami zaktualizowanych o
+               wskazanie pliku docelowego; (3) 1 PRZEDTEM ISTNIEJĄCE
+               martwe odesłanie "BLOK poniżej dot. KW" — nigdy nie
+               istniał taki blok, przekierowano do właściwego
+               zewnętrznego modułu mod-KW-kodeks-wykroczen.md. ⚠️
+               Pozostaje nieopracowane: art. 160 KK [narażenie na
+               niebezpieczeństwo] i art. 157a KK [uszkodzenie ciała
+               dziecka poczętego] bez własnych drzew decyzyjnych)
   [✓] OK    mod-czynny-zal-KK-KKS-samooskarzenie
               (dodany 2026-07-21: czynny żal KK [art. 15, dwie formy]
                i KKS [art. 16-16a, KLUCZOWE — nie tylko samo-donos,
@@ -445,6 +478,16 @@ view ../dr-03-prawo-karne-wykroczenia-egzekucja/modules/[nazwa-modulu].md
 
 ```
 view ../dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-AKTOW.md
+```
+
+## Mapa pokrycia treściowego (planowanie rozwoju skilla)
+
+Rejestr informacyjny — NIE krok obowiązkowy przy obsłudze konkretnej sprawy.
+Przydatny przy planowaniu, które luki uzupełnić w pierwszej kolejności
+(F-83, zasilony 2026-08-22 z audytu źródłowego 2026-08-13):
+
+```
+view ../dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-POKRYCIA.md
 ```
 
 ## Powiązania zewnętrzne

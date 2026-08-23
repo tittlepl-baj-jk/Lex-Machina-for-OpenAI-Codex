@@ -25,7 +25,7 @@ zakresu obiecanego w tytule).
     brakujących artykułów W ŚRODKU zakresu
 
 Użycie:
-    python3 test_title_scope_match.py [--repo-root /mnt/skills/user] [--quiet]
+    python3 test_title_scope_match.py [--repo-root ../..] [--quiet]
 
 Kod wyjścia:
     0 — brak podejrzanych przypadków
@@ -84,7 +84,7 @@ def check_scope(md_path: Path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--repo-root", default="/mnt/skills/user")
+    ap.add_argument("--repo-root", default="../..")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
 

@@ -3,7 +3,7 @@ name: "dr-01-ustroj-konstytucyjny-i-zrodla-prawa"
 description: "DR-01: Ustrój Konstytucyjny i Źródła Prawa Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | trybunal.gov.pl | sn.pl | nsa.gov.pl | orzeczenia.ms.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-01-ustroj-konstytucyjny-i-zrodla-prawa"
 ---
 
@@ -139,14 +139,18 @@ odesłaniami, bez duplikacji.
 
 ## CHANGELOG
 
-⛔ **Historia zmian tego skilla NIE mieszka w tym pliku.** Pełny changelog:
-
-```
-view ../dr-01-ustroj-konstytucyjny-i-zrodla-prawa/references/CHANGELOG.md
-```
-
-Skrót bieżącej wersji — pole `changelog:` we frontmatterze powyżej.
-Standard systemowy (2026-08-20z4): `references/CHANGELOG.md` jest jedyną
-lokalizacją kanoniczną historii; zakaz odtwarzania sekcji changelogu w korpusie
-SKILL.md i zakaz trzymania pełnej listy wpisów w YAML.
-
+> **3.3 (2026-07-25, CRIT-TREŚĆ — audyt adresatów zażalenia w sprawach
+> wyłączenia sędziego/neosędziów):** `modules/mod-USP-ustroj-sadow-
+> powszechnych.md`, sekcja "Procedura wyłączenia" — poprzednia wersja
+> kończyła się ogólnikiem "odmowa → zażalenie" bez wskazania adresata.
+> Dodano tabelę rozróżniającą: (1) zażalenie poziome do innego składu tego
+> samego sądu przy oddaleniu wniosku strony (art. 394¹ᵃ §1 pkt 10 KPC dla
+> I instancji, art. 394² §1 KPC dla II instancji); (2) brak zaskarżalności,
+> gdy to sam sędzia zgłosił i uzyskał oddalenie własnego żądania wyłączenia
+> (uchwała SN III CZP 33/69). Doprecyzowano konsekwencję praktyczną dla
+> spraw neosędziowskich: kontrola odwoławcza zwykle zostaje w tym samym
+> sądzie, nie trafia automatycznie do instancji wyższej. Zweryfikowano
+> online (SN, Palestra, gofin.pl, saos.org.pl). Ten sam wzorzec braku
+> (brak adresata zażalenia) wykryto i naprawiono równolegle w
+> pisma-proste-v2 (v2.4) i pisma-procesowe-v3 (v5.14). Pełny opis:
+> audyt-systemu-v4/references/AUDIT-JOURNAL.md, wpis 2026-07-25.

@@ -27,7 +27,7 @@ formatowaniu wiersza. Traktuj wynik jako PUNKT STARTOWY do weryfikacji,
 nie ostateczny werdykt.
 
 Użycie:
-    python3 test_cross_map_dzu.py [--repo-root /mnt/skills/user] [--quiet]
+    python3 test_cross_map_dzu.py [--repo-root ../..] [--quiet]
 
 ⛔ OSTRZEŻENIE METODOLOGICZNE (dodane 2026-08-15y, flaga F-82, pkt 2):
 ZGODNOŚĆ REJESTRÓW MIĘDZY SOBĄ **NIE JEST** WERYFIKACJĄ MERYTORYCZNĄ.
@@ -118,7 +118,7 @@ def jaccard(a: set, b: set) -> float:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--repo-root", default="/mnt/skills/user")
+    ap.add_argument("--repo-root", default="../..")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
 

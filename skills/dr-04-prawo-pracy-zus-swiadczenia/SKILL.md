@@ -3,7 +3,7 @@ name: "dr-04-prawo-pracy-zus-swiadczenia"
 description: "DR-04: Prawo Pracy, ZUS, Świadczenia Społeczne Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-04-prawo-pracy-zus-swiadczenia"
 ---
 
@@ -65,7 +65,11 @@ Przy sprawach z tej dziedziny rozważ doładowanie (`view`) definicji:
   wspierające (→ mod-niepelnosprawnosc-intelektualna-gluchota.md,
   mod-niewidomy-prawa-prawne.md, mod-prawa-obywatelskie-srodki-karne.md)
 
-## Moduły (33 łącznie — ✓ 33 OK, ☐ 0 STUB; 1 przeniesiony do DR-05)
+## Moduły (36 łącznie — ✓ 36 OK, ☐ 0 STUB; 1 przeniesiony do DR-05)
+
+  [✓] PORT  mod-ROZP-SKLADKOWE-podstawa-wymiaru
+              (rejestracja techniczna istniejącego modułu; korekta wykryta przez T1)
+
 
 **NAPRAWA 2026-08-14b:** dodano `mod-FUS-zasilek-pogrzebowy-renta-
 rodzinna-waloryzacja.md` — dokańcza F-72: zasiłek pogrzebowy (77-81,
@@ -220,6 +224,18 @@ AUDIT-JOURNAL.md`.
                pisma-proste-v2. Odpowiedź na pytanie użytkownika)
               (zawiera Aneks A: renta — 3 przesłanki z tabelą stażu;
                Aneks B: kalkulator terminów ZUS; Aneks C: predykcja wyniku)
+  [✓] NOWY  mod-emerytury-pomostowe (v1.0.0)
+              (dodany 2026-08-18, F-29 pkt 4 — temat nie miał ŻADNEGO
+               pokrycia w DR-04. Ustawa z 19.12.2008 o emeryturach
+               pomostowych, t.j. Dz.U. 2024 poz. 1696: charakter
+               przejściowy [urodzeni po 31.12.1948, praca szczególna
+               rozpoczęta przed 1.01.1999], warunki kumulatywne art. 4,
+               rozróżnienie STAREGO art. 32/33 FUS i NOWEGO art. 3 ust.
+               1 i 3 tej ustawy, rekompensata, FEP.
+               ⛔ REJESTRACJA UZUPEŁNIONA 2026-08-21 — moduł powstał
+               2026-08-18, ale nie trafił do checklisty, MAPA-AKTOW.md
+               ani ROUTING-MAP.md; wykryte przez
+               check_rejestracja_modulow.py, wzorzec F-33/F-77)
   [✓] OK    mod-KRUS-rolnicze-ubezpieczenia
   [✓] OK    mod-ustawa-zwolnienia-grupowe
   [✓] OK    mod-ustawa-zwiazki-zawodowe-spory-zbiorowe
@@ -270,6 +286,18 @@ view ../dr-04-prawo-pracy-zus-swiadczenia/modules/[nazwa-modulu].md
 
 ```
 view ../dr-04-prawo-pracy-zus-swiadczenia/MAPA-AKTOW.md
+```
+
+## Mapa pokrycia treściowego (planowanie rozwoju skilla)
+
+Rejestr informacyjny — NIE krok obowiązkowy przy obsłudze konkretnej sprawy.
+Przydatny przy planowaniu, które luki uzupełnić w pierwszej kolejności, oraz
+przy nowelizacjach — pokazuje od razu czy dotknięty fragment ma treść do
+zaktualizowania. (F-83, zasilony 2026-08-22; obejmuje na razie wyłącznie
+SUS i FUS):
+
+```
+view ../dr-04-prawo-pracy-zus-swiadczenia/MAPA-POKRYCIA.md
 ```
 
 ## Powiązania zewnętrzne

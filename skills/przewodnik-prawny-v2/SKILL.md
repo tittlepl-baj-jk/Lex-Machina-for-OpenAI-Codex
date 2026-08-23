@@ -3,7 +3,7 @@ name: "przewodnik-prawny-v2"
 description: "Przewodnik Prawny v2 — gospodarz całej sesji prawnej. Stosuj ZAWSZE gdy użytkownik: nie wie od czego zacząć w sprawie prawnej, pyta \"co mam zrobić\" / \"jak to działa\" / \"czy mam szansę\", dostarcza dokument i chce wiedzieć czy jest poprawny, pyta o znaczenie pojęć lub chce sprawdzić cytaty/podstawy prawne, jest zagubiony i potrzebuje prowadzenia krok po kroku, wcześniej użył innego skilla i nie rozumie wyniku, pyta \"co możesz dla mnie zrobić\" / \"jakie masz narzędzia\", chce trybu Q&A, jest prawnikiem i pyta jak używać systemu, chce sprawdzić gotowe pismo (KROK F.0) lub chce jego redakcji (MOD-REDAKCJA), chce \"surowej analizy\" / \"bez interpretacji\" / samych źródeł i cytatów z lokalizacją bez oceny czy rekomendacji AI (Zasada 8, v2.5). Przewodnik = GOSPODARZ — sam zbiera dane, wywołuje skille, tłumaczy wyniki, proponuje dalej. Wywołuje: wszystkie skille systemu prawnego."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "przewodnik-prawny-v2"
 ---
 
@@ -784,7 +784,32 @@ Q&A / pytania użytkownika
 □ Czy używam w KROK I sygnału Q&A ("❓ Masz pytanie...") ?
 □ Czy zebrałem fakty z Q&A i przekazałem do PRIMARY skilla?
 □ Czy disclaimer jest ostatnim elementem odpowiedzi z analizą?
+□ [ANTY-FASADA] (dodane 2026-08-23, v2.6) Czy w odpowiedzi/piśmie jest słowo
+  „zweryfikowano/zweryfikowałem", pole „data weryfikacji" albo URL przy przepisie,
+  dla którego NIE wywołałem narzędzia W TEJ ODPOWIEDZI? TAK → ⛔ usuń deklarację
+  i datę, URL przeformatuj na 🎯 [CEL — RZĄD 1, NIEOTWARTE: …], przepis oznacz
+  ⚠️ [NIEWERYFIKOWANE]. Wyzwalacz to BRAK WYWOŁANIA, nie brak narzędzi w sesji.
+  ⛔ Zastrzeżenie selektywne (przy sygnaturach tak, przy przepisach nie) = naruszenie.
+□ [DOMAIN-LOCK] Odpowiedź/pismo zawiera przepis SPOZA dziedziny wiodącej
+  (KK/KKS/KW/KPK/KPW przy torze cywilnym, pracowniczym lub administracyjnym —
+  albo odwrotnie)? NIE → OK. TAK → (a) konkretny FAKT wypełniający znamię,
+  nie skojarzenie tematyczne? (b) właściwy DR wczytany w TEJ odpowiedzi?
+  (c) przepis przeszedł PRAWO-HARDGATE w TEJ odpowiedzi? Którekolwiek NIE →
+  ⛔ USUŃ powołanie.  → `view ../shared/DOMAIN-LOCK.md`
+□ [RATE-COMPLETENESS] Występują odsetki / waloryzacja / wskaźnik zmienny
+  w czasie? NIE → OK. TAK → przedział zapisany + reżim rozstrzygnięty
+  (KC vs transakcje handlowe) + szereg podokresów BEZ LUK + znacznik na
+  KAŻDYM wierszu? NIE → nie podawaj kwoty łącznej, pokaż tabelę z ⬛.
+  → `view ../shared/RATE-COMPLETENESS.md`
+□ [STATUSY] Każdy przepis ma znacznik z ZAMKNIĘTEJ hierarchii czterech:
+  ✅ [VER] · 🟡 [KOTWICA-URZĘDOWA] · ⚠️ [NIEWERYFIKOWANE] · ⬛ [DO UZUPEŁNIENIA]?
+  Etykieta spoza tej listy = naruszenie hard gate (PRAWO-HARDGATE v2.5).
 ```
+
+> ⛔ Trzy ostatnie pozycje dodane 2026-08-23 (F-109). Przewodnik jest
+> GOSPODARZEM sesji i sam tłumaczy wyniki innych skilli — jeżeli w wyniku
+> pojawi się kwalifikacja spoza dziedziny albo stawka bez szeregu, to TUTAJ
+> jest ostatnie miejsce, w którym da się to zatrzymać przed użytkownikiem.
 
 ---
 

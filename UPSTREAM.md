@@ -9,8 +9,9 @@
 - Repozytorium: <https://github.com/michaleiatrak-star/Lex-Machina>
 - Bazowa gałąź: `main`
 - Ostatni zsynchronizowany commit:
-  `3fb42870299738b065cae888ec5526a405fa8f5d`
-- Data bazowego zrzutu: 2026-08-21
+  `9e37d6092f84b5f1a2fe41717e07611de062951a`
+- Drzewo źródłowe: `Wersja rozwojowa rozpakowana`
+- Data synchronizacji: 2026-08-23
 - Data utworzenia portu: 2026-08-23
 
 ## Konfiguracja Git
@@ -51,4 +52,3 @@ docs: dokumentacja i informacje licencyjne
 Commit przenoszący cudzą zmianę powinien wskazywać autora lub źródłowy commit,
 jeżeli jest to technicznie możliwe. Nie należy przepisywać historii tak, aby
 zmiana upstream wyglądała jak samodzielnie stworzona w porcie.
-

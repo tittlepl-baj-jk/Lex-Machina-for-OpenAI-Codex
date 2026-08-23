@@ -326,7 +326,7 @@ Zawartość: generuj dynamicznie per sprawę na podstawie:
   Wykonaj SVG-1 → SVG-2 → SVG-3 przed generowaniem pliku.
   Blokada: nie wywołuj docx/SKILL.md dopóki SVG-1–SVG-3 niezamknięte.
 
-view /mnt/skills/public/docx/SKILL.md → generuj .docx
+view skill `documents` dostepny w Codex → generuj .docx
 
 ⛔ HARD GATE STEP-DISCLOSURE → wykonaj ST-FINAL (REJESTR KROKÓW).
   Jeśli ≥1 krok wymagany ma status ⚠️ POMINIĘTY lub ○ OCZEKUJE →

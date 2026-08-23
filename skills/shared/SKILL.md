@@ -3,7 +3,7 @@ name: "shared"
 description: "Biblioteka plików kanonicznych systemu prawnych skilli — hardgate, walidacja, definicje, terminy, moduły kancelaryjne. NIE jest samodzielnym skillem i NIE odpowiada na zapytania użytkownika: moduły wczytują inne skille przez `view`. Pełny spis modułów — tabele „Zawartość katalogu\" w treści tego pliku."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "shared"
 ---
 
@@ -19,12 +19,14 @@ Nie jest samodzielnym skillem — pełni rolę biblioteki referencji.
 
 | Plik | Rola |
 |------|------|
-| `PRAWO-HARDGATE.md` | ⛔ Globalny zakaz cytowania prawa/orzeczeń z pamięci — wczytaj przed każdym przepisem |
+| `PRAWO-HARDGATE.md` | ⛔ Globalny zakaz cytowania prawa/orzeczeń z pamięci — wczytaj przed każdym przepisem (v2.5: sekwencja B-1→B-2, status 🟡 KOTWICA URZĘDOWA) |
+| `DOMAIN-LOCK.md` | ⛔ Bramka izolacji dziedzinowej — kontrola na WYJŚCIU, zakaz kwalifikacji spoza PRIMARY bez podstawy faktycznej (dodane 2026-08-23) |
+| `RATE-COMPLETENESS.md` | ⛔ Bramka kompletności szeregu stawek — odsetki/waloryzacja jako funkcja czasu, nie pojedyncza liczba (dodane 2026-08-23) |
+| `MOD-GENERATOR-AKTU.md` | Procedura budowy modułu aktu prawnego G-1…G-8 — od spisu treści aktu, nie od pytania (dodane 2026-08-23) |
 | `HYBRID-VALIDATION.md` | Walidacja hybrydowa — auto-raport braków po piśmie (Fazy 1–3) |
 | `INTAKE-GAP.md` | Zarządzanie brakami danych faktycznych (⬛ pola, tryby 1–3) |
 | `POST-VALIDATION.md` | Walidacja spójności po wygenerowaniu gotowego pisma |
 | `MOD-WALIDACJA_v2.md` | ⭐ Walidacja formalna i prawnicza pisma (bloki A–J) — **JEDYNE ŹRÓDŁO PRAWDY** |
-| `MOD-WALIDACJA.md` | STUB → przekierowuje do `MOD-WALIDACJA_v2.md` (zachować dla kompatybilności) |
 | `FACT-SOURCE-LOCK.md` | Klasyfikacja faktów FSL-A/B/C — wywoływany przez MOD-WALIDACJA_v2 (Blok J) |
 | `LEGAL-STATUS-LOCK.md` | Weryfikacja statusów aktów LSL-1..6 — wywoływany przez MOD-WALIDACJA_v2 (Blok J) |
 | `terminy.md` | Tabela terminów zawitych i przedawnień (KPC, KPK, KPW, KPA, KP, PPSA) |
@@ -78,9 +80,12 @@ Nie wczytuj wszystkich naraz — tylko te potrzebne dla danego kroku.
 
 - `DEPENDENCY-GRAPH.md` — pełna mapa zależności: który skill wywołuje który moduł; aktualizuj przy każdej zmianie
 - ⚠️ Katalog `archive/` NIE istnieje na dysku (zweryfikowano 2026-06-14) — wcześniejsze
-  wzmianki o "43 plikach nieaktywnych" są nieaktualne. Pliki uznane za nieaktywne
-  są obecnie oznaczane in-situ (np. ⛔ DEPRECATED w nagłówku, jak AKTY-PRAWNE-MASTER.md)
-  zamiast przenoszenia do archive/.
+  wzmianki o "43 plikach nieaktywnych" są nieaktualne.
+- ⛔ **Oznaczanie in-situ przestało być polityką (2026-08-23, v3.19).** Wcześniej pliki
+  wycofane zostawały na dysku z nagłówkiem „⛔ DEPRECATED" (tak leżał `AKTY-PRAWNE-MASTER.md`
+  przez dwa i pół miesiąca). Wynik: plik bez roli, który mimo to trzeba było czytać przy
+  każdym audycie, żeby stwierdzić, że nie ma roli. Od v3.19 plik wycofany jest **usuwany**,
+  a uzasadnienie i data trafiają do `references/CHANGELOG.md` — historia zostaje, plik nie.
 
 - Wszystkie pliki w tym katalogu są **kanoniczne** — jedyna kopia w systemie
 - Stuby lokalne w katalogach poszczególnych skilli zostały usunięte
@@ -107,7 +112,6 @@ Nie wczytuj wszystkich naraz — tylko te potrzebne dla danego kroku.
 | `STRATEGIA-PROCESOWA.md` | Taktyka procesowa i wybór następnego ruchu |
 | `QUALITY-CHECK.md` | Kontrola jakości pisma: logika, struktura, nadmiar, emocjonalność |
 | `KANCELARIA-WORKFLOW.md` | Sekwencja pracy kancelaryjnej możliwa w `.md skills` |
-| `STATUS.md` | Rejestr wersji i statusów modułów shared |
 | `MOD-TIMING.md` | Strategia timing składania pism — macierz T1–T5, 6 modeli (T-EARLY…T-ADVANCE-NOTICE) |
 | `MOD-PEER-REVIEW.md` | Weryfikacja krzyżowa pisma — 4 role (adwokat diabła, sędzia, klient, spójność) |
 | `MOD-INTRO.md` | Executive summary pisma (str. 1) — 2–5 zdań, max 150 słów, killer argument na str. 1 |

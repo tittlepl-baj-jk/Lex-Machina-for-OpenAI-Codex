@@ -3,7 +3,7 @@ name: "analizator-przepisow-v2"
 description: "Analizuje przepisy prawa polskiego. Stosuj gdy użytkownik pyta o artykuł, przesłanki, wykładnię, orzecznictwo, zbieg norm, historię zmian przepisu lub chce sprawdzić czy przepis stosuje się do jego sytuacji. v2: automatyczne orzecznictwo (3 orzeczenia + alert rozbieżności linii), mapa powiązań norm, historia nowelizacji z obsługą vacatio legis, interaktywne drzewo przesłanek krok-po-kroku, kontekst praktyczny dla laika. v2.3: RZĄD 1 (ISAP) / RZĄD 2 (orzecznictwo, LEX-Legalis-tekst, ORAZ duże portale: prawo.pl, LEX/Legalis-komentarz, rp.pl, infor.pl, gofin.pl i inne) / RZĄD 3 (strony prawników, kancelarii, NGO, blogów — wysokie ryzyko dezaktualizacji, wymagają daty i krzyżowej weryfikacji)."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "analizator-przepisow-v2"
 ---
 

@@ -9,7 +9,7 @@
 - Repozytorium: <https://github.com/michaleiatrak-star/Lex-Machina>
 - Licencja zadeklarowana przez upstream: **GNU GPL v3**
 - Bazowy commit wykorzystany do utworzenia portu:
-  `3fb42870299738b065cae888ec5526a405fa8f5d`
+  `9e37d6092f84b5f1a2fe41717e07611de062951a`
 
 Autorstwo projektu pierwotnego oraz prawa do jego pierwotnych elementów
 pozostają przy Michale Wiatraku i ewentualnych pozostałych uprawnionych

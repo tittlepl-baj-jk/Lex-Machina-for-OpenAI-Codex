@@ -3,7 +3,7 @@ name: "audyt-systemu-v4"
 description: "Audyt i kontrola jakości systemu Lex Machina. Używaj, gdy użytkownik żąda audytu spójności, rejestracji modułów, map Dz.U., testów regresji lub wykrycia otwartych ryzyk. Moduł źródłowy: audyt-systemu-v4 — Orchestrator Audytu Systemu Prawnego."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "audyt-systemu-v4"
 ---
 
@@ -164,7 +164,7 @@ Przed jakimkolwiek działaniem wczytaj:
 view ../audyt-systemu-v4/references/AUDIT-JOURNAL.md
 view ../audyt-systemu-v4/references/WARN-OTWARTE.md
 view ../audyt-systemu-v4/references/CHECKLIST-DEDUP.md
-view ../audyt-systemu-v4/references/mapa_dzu_2026-07-15.md
+view ../audyt-systemu-v4/references/mapa_dzu_2026-08-21.md
 ```
 
 Celem jest ustalenie:
@@ -302,7 +302,7 @@ Wykonaj skan regex → oceń każde trafienie wg tabeli kwalifikacji → usuń t
 
 ## FAZA 3 — WERYFIKACJA MAPY Dz.U.
 
-Wczytaj: `references/mapa_dzu_2026-07-15.md`
+Wczytaj: `references/mapa_dzu_2026-08-21.md`
 
 ### 3-PULL — Synchronizacja DR-MAPA-AKTOW → ROUTING-MAP → mapa_dzu
 
@@ -352,7 +352,7 @@ Jeśli brakuje → **dodaj do obu plików** jako `⏳ OCZEKUJE`.
 
 Sprawdź w ISAP (isap.sejm.gov.pl) czy pojawiły się nowe teksty jednolite dla kluczowych aktów:
 - KC, KPC, KPK, KRO, KP, KSH, KPA, PB, PrFarm, PIT, CIT, OrdPod, PrNotariat
-- Sprawdź Dz.U. poz. > max_poz z ostatniego audytu (aktualnie: > 670 z 2026)
+- Sprawdź Dz.U. poz. > max_poz z ostatniego audytu (aktualnie: > 1079 z 2026 — najwyższa pozycja odnotowana w sesji 2026-08-21)
 
 ### 3B — Aktualizacja statusów
 
@@ -585,8 +585,9 @@ grep -n "^## AUDYT-$(date +%Y-%m-%d)" references/AUDIT-JOURNAL.md
 Jeśli znaleziono nowe t.j. lub zmiany statusów Dz.U.:
 
 > ⛔ **KOREKTA 2026-08-20y — ta sekcja kopiowała mapę ARCHIWALNĄ.** Polecenie
-> `cp` wskazywało `mapa_dzu_2026-06-14.md`, podczas gdy mapą aktualną jest
-> `mapa_dzu_2026-07-15.md` (tak podaje FAZA 3 i `references:` w YAML). Wykonanie
+> `cp` wskazywało `mapa_dzu_2026-06-14.md`, podczas gdy mapą aktualną była wtedy
+> `mapa_dzu_2026-07-15.md`, a dziś jest `mapa_dzu_2026-08-21.md` (tak podaje FAZA 3
+> i `references:` w YAML). Wykonanie
 > FAZY 7B literalnie cofnęłoby mapę o **trzy generacje** (06-14 → 07-02 → 07-04 →
 > 07-15), kasując ~250 wierszy ustaleń, i to bez żadnego sygnału błędu — nowy plik
 > powstałby poprawnie, tylko z przestarzałą treścią. To DRUGIE wystąpienie tej samej
@@ -595,10 +596,10 @@ Jeśli znaleziono nowe t.j. lub zmiany statusów Dz.U.:
 > `grep -n mapa_dzu SKILL.md` i popraw WSZYSTKIE wystąpienia, nie tylko `references:`.**
 
 1. Utwórz nową wersję pliku z datą bieżącą — źródłem jest **mapa aktualna**
-   (dziś `mapa_dzu_2026-07-15.md`; jeśli nie masz pewności, którą to jest, weź
+   (dziś `mapa_dzu_2026-08-21.md`; jeśli nie masz pewności, którą to jest, weź
    plik o najpóźniejszej dacie w nazwie i potwierdź go z `references:` w YAML):
 ```bash
-cp ../audyt-systemu-v4/references/mapa_dzu_2026-07-15.md \
+cp ../audyt-systemu-v4/references/mapa_dzu_2026-08-21.md \
    ../audyt-systemu-v4/references/mapa_dzu_YYYY-MM-DD.md
 ```
 
@@ -614,7 +615,7 @@ str_replace: mapa_dzu_2026-06-14.md → mapa_dzu_YYYY-MM-DD.md
 
 Jeśli **brak zmian Dz.U.** — plik mapy pozostaje bez zmian, odnotuj w AUDIT-JOURNAL.md:
 ```
-Dz.U.: brak nowych t.j. — mapa bez zmian (ostatnia: mapa_dzu_2026-07-15.md)
+Dz.U.: brak nowych t.j. — mapa bez zmian (ostatnia: mapa_dzu_2026-08-21.md)
 ```
 
 ### 7C — Aktualizacja WARN-OTWARTE.md (ZASADA 10)
@@ -952,7 +953,7 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
 > to ten sam wzorzec luki, który wykrywa `check_rejestracja_modulow.py`).
 
 ```
-audyt-systemu-v4/                               ← 49 plików (stan 2026-08-20z)
+audyt-systemu-v4/                               ← 53 pliki (stan 2026-08-23, +F-108-lista-MS-egzamin-2026.md)
 ├── SKILL.md                                    ← orchestrator (ten plik)
 ├── modules/                                    ← 5 modułów, pełna lista w YAML `modules:`
 │   ├── MOD-INTERLINIE.md                       ← zbędne puste linie (FAZA 2D-1)
@@ -962,21 +963,21 @@ audyt-systemu-v4/                               ← 49 plików (stan 2026-08-20z
 │   └── MOD-PROPAGACJA-NOWELIZACJI.md           ← propagacja nowelizacji przez CAŁY system
 ├── widgets/
 │   └── WIDGET-MENU.md                          ← menu interaktywne (FAZA 0B)
-├── scripts/                                    ← 15 plików: testy T1-T4, T8, T9, T11, T12,
+├── scripts/                                    ← 16 plików: testy T1-T4, T8, T9, T11, T12, T13,
 │   │                                             orkiestrator, ci_check_shared (T6/T7),
 │   │                                             check_rejestracja_modulow, sync ELI (3 pliki),
 │   │                                             2 skrypty .sh, README.md — pełna lista w YAML
 │   └── …                                         `scripts:`
-└── references/                                 ← 27 plików
+└── references/                                 ← 29 plików
     ├── AUDIT-JOURNAL.md                        ← dziennik audytów, ~44 tys. linii, 2,6 MB
     ├── WARN-OTWARTE.md                         ← rejestr żywy otwartych flag (ZASADA 10)
     ├── CHANGELOG.md                            ← historia wersji orkiestratora (F-78)
     ├── CHECKLIST-DEDUP.md                      ← mapa pojęć → lokalizacje kanoniczne
-    ├── REGRESSION-TEST-PLAN.md                 ← testy T1-T9 + T11 + T12
+    ├── REGRESSION-TEST-PLAN.md                 ← testy T1-T9 + T11 + T12 + T13
     ├── SYNC-DZU-AUTOMATYCZNY.md                ← + HARMONOGRAM-CRON.md, FORMAT-RAPORTU-ROZNIC.md
     ├── SCHEDULED-TASK-COWORK.md                ← POZYCJA 11 menu (FAZA 0C)
-    ├── mapa_dzu_2026-07-15.md                  ← mapa Dz.U. AKTUALNA (509 wierszy tabeli)
-    ├── mapa_dzu_2026-07-04 / 07-02 / 06-14.md  ← ARCHIWALNE, cytowane w dzienniku
+    ├── mapa_dzu_2026-08-21.md                  ← mapa Dz.U. AKTUALNA (transza 1 F-104)
+    ├── mapa_dzu_2026-07-15 / 07-04 / 07-02 / 06-14.md  ← POPRZEDNIE generacje, cytowane w dzienniku
     └── raporty-pokrycia-2026-08-13/            ← 10 raportów + indeks = 11 plików
 ```
 

@@ -3,7 +3,7 @@ name: "dr-06-podatki-finanse-publiczne-aml"
 description: "DR-06: Podatki, Finanse Publiczne, AML Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | podatki.gov.pl/narzedzia/eureka/ | interpretacje.podatki.gov.pl | orzeczenia.nsa.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-06-podatki-finanse-publiczne-aml"
 ---
 
@@ -69,7 +69,7 @@ Przy sprawach z tej dziedziny rozważ doładowanie (`view`) definicji:
   od KC; nowelizacja znosi "wieczne przedawnienie" + wprowadza ugodę
   podatkową od 01.10.2026 (art. 70 i n. OP)
 
-## Moduły (42 łącznie — ✓ 42 OK, ☐ 0 STUB)
+## Moduły (44 łącznie — ✓ 44 OK, ☐ 0 STUB)
 
 **NAPRAWA 2026-08-14:** dodano `mod-OP-dzial-IV-rozdzial-11-dowody.md`
 — zamyka rdzeń F-70: dowody w postępowaniu podatkowym (180-200),
@@ -439,6 +439,33 @@ przez cross-reference, bez duplikacji treści).
                naprawie F-33: Dział VI OP — kontrola podatkowa,
                NAJCZĘSTSZY typ kontroli, z jakim styka się firma;
                ODRĘBNY od kontroli celno-skarbowej z mod-KAS)
+  [✓] NOWY  mod-OP-czynnosci-sprawdzajace-dzial-V
+              (dodany 2026-08-22, F-83 priorytet #3 mapy pokrycia: OP
+               art. 272-280. Cztery cele czynności sprawdzających [272],
+               korekta deklaracji przez organ z progiem 5000 zł i
+               mechanizmem sprzeciwu 14 dni [274], wezwanie do wyjaśnień
+               [274a], kontrola krzyżowa u kontrahentów [274c — ⭐⭐⭐
+               PUŁAPKA: wymaga równoległej kontroli/postępowania,
+               NIE działa przy samych czynnościach sprawdzających,
+               WSA Warszawa III SA/Wa 1251/18], odesłanie proceduralne
+               [280])
+  [✓] NOWY  mod-OP-ulgi-w-splacie-dzial-III-rozdzial-7a
+              (dodany 2026-08-22, F-83 priorytet #4 mapy pokrycia: OP
+               Dział III Rozdz. 7a, art. 67a-67e ORAZ ⭐ art. 67da
+               [pominięty w większości spisów treści!] + art. 57
+               opłata prolongacyjna. Katalog trzech ulg [67a —
+               ⛔ umorzyć można TYLKO zaległość, nie podatek przed
+               terminem], dwuetapowość: przesłanka związana vs uznanie
+               administracyjne [granica kontroli WSA], reżimy pomocowe
+               dla przedsiębiorcy [67b — ⭐⭐⭐ de minimis wg rozp.
+               2023/2831, limit 300 000 EUR, NIE 1407/2013; zakaz
+               automatycznego szufladkowania przedsiębiorcy jako
+               beneficjenta pomocy publicznej], ulgi z urzędu [67d],
+               ⭐⭐⭐ WYGAŚNIĘCIE DECYZJI Z MOCY PRAWA [67da — materia
+               przeniesiona z art. 259 od 25.03.2024; trzy raty
+               NIEKONIECZNIE KOLEJNE], właściwość organu [67e —
+               ⛔ odwołanie w podatkach lokalnych do SKO, nie do IAS],
+               opłata prolongacyjna fakultatywna w JST [57 § 7])
   [✓] OK    mod-KAS-kontrola-celno-skarbowa
   [✓] OK    mod-PIT-podatek-dochodowy-fizyczne
   [✓] OK    mod-CIT-podatek-dochodowy-prawne
@@ -668,6 +695,17 @@ view ../dr-06-podatki-finanse-publiczne-aml/modules/[nazwa-modulu].md
 
 ```
 view ../dr-06-podatki-finanse-publiczne-aml/MAPA-AKTOW.md
+```
+
+## Mapa pokrycia treściowego (planowanie rozwoju skilla)
+
+Rejestr informacyjny — NIE krok obowiązkowy przy obsłudze konkretnej sprawy.
+Przydatny przy planowaniu, które luki uzupełnić w pierwszej kolejności
+(F-83, zasilony 2026-08-22 z audytu źródłowego 2026-08-13; obejmuje na
+razie wyłącznie Ordynację podatkową):
+
+```
+view ../dr-06-podatki-finanse-publiczne-aml/MAPA-POKRYCIA.md
 ```
 
 ## Powiązania zewnętrzne

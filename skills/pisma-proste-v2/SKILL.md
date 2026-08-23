@@ -3,7 +3,7 @@ name: "pisma-proste-v2"
 description: "Redagowanie pism procesowych o niskim stopniu złożoności, jeden wątek prawny. Stosuj dla: klauzuli wykonalności, sprzeciwu/zarzutów od nakazu zapłaty, wszczęcia egzekucji, zabezpieczenia roszczenia, zwolnienia od kosztów, zawezwania do ugody, przywrócenia terminu, wglądu do akt, wezwania do zapłaty, uzasadnienia wyroku, doręczenia przez komornika, sprzeciwu od referendarza, interpretacji ZUS, skargi do UODO, oświadczenia o skorzystaniu z sankcji kredytu darmowego (SKD, art. 45 u.k.k.). NIE stosuj do pism wielowątkowych (apelacje, pozwy złożone, w tym pozew o zwrot nadpłaty po SKD) — użyj pisma-procesowe-v3."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "pisma-proste-v2"
 ---
 
@@ -331,7 +331,32 @@ CHECKLISTA FINALNA (pisma proste)
                     Czy pismo powstało z dostarczonych dokumentów? → OBOWIĄZKOWE.
                     Żadna fikcja faktyczna w treści pisma (⛔ = błąd krytyczny)?
 □ HYBRID-VALIDATION Uruchomiony? Raport braków wyświetlony? Licznik ⬛ podany?
+□ [ANTY-FASADA] (dodane 2026-08-23, v2.6) Czy w odpowiedzi/piśmie jest słowo
+  „zweryfikowano/zweryfikowałem", pole „data weryfikacji" albo URL przy przepisie,
+  dla którego NIE wywołałem narzędzia W TEJ ODPOWIEDZI? TAK → ⛔ usuń deklarację
+  i datę, URL przeformatuj na 🎯 [CEL — RZĄD 1, NIEOTWARTE: …], przepis oznacz
+  ⚠️ [NIEWERYFIKOWANE]. Wyzwalacz to BRAK WYWOŁANIA, nie brak narzędzi w sesji.
+  ⛔ Zastrzeżenie selektywne (przy sygnaturach tak, przy przepisach nie) = naruszenie.
+□ [DOMAIN-LOCK] Odpowiedź/pismo zawiera przepis SPOZA dziedziny wiodącej
+  (KK/KKS/KW/KPK/KPW przy torze cywilnym, pracowniczym lub administracyjnym —
+  albo odwrotnie)? NIE → OK. TAK → (a) konkretny FAKT wypełniający znamię,
+  nie skojarzenie tematyczne? (b) właściwy DR wczytany w TEJ odpowiedzi?
+  (c) przepis przeszedł PRAWO-HARDGATE w TEJ odpowiedzi? Którekolwiek NIE →
+  ⛔ USUŃ powołanie.  → `view ../shared/DOMAIN-LOCK.md`
+□ [RATE-COMPLETENESS] Występują odsetki / waloryzacja / wskaźnik zmienny
+  w czasie? NIE → OK. TAK → przedział zapisany + reżim rozstrzygnięty
+  (KC vs transakcje handlowe) + szereg podokresów BEZ LUK + znacznik na
+  KAŻDYM wierszu? NIE → nie podawaj kwoty łącznej, pokaż tabelę z ⬛.
+  → `view ../shared/RATE-COMPLETENESS.md`
+□ [STATUSY] Każdy przepis ma znacznik z ZAMKNIĘTEJ hierarchii czterech:
+  ✅ [VER] · 🟡 [KOTWICA-URZĘDOWA] · ⚠️ [NIEWERYFIKOWANE] · ⬛ [DO UZUPEŁNIENIA]?
+  Etykieta spoza tej listy = naruszenie hard gate (PRAWO-HARDGATE v2.5).
 ```
+
+> ⛔ Trzy ostatnie pozycje dodane 2026-08-23 (F-109). Obowiązują NIEZALEŻNIE
+> od tego, czy skill został wywołany przez `prawny-router-v3` — pismo proste
+> bywa redagowane bez przejścia przez router, a bramki żyły dotąd wyłącznie
+> w jego SELF-CHECK.
 
 Nie wydawaj pisma jeśli którykolwiek element checklisty nie jest spełniony.
 
@@ -354,16 +379,31 @@ Procedura, klasyfikacja błędów, format raportu i nakazy bezwzględne są w FA
 
 ## CHANGELOG
 
-⛔ **Historia zmian tego skilla NIE mieszka w tym pliku.** Pełny changelog:
+- **2026-07-25 (v2.6):** Zarejestrowano `shared/ZAZALENIE-ADRESAT-GATE.md`
+  jako obowiązkową bramkę w KROK 9d — systemowe rozwiązanie luki
+  "zażalenie wymienione, ale bez adresata", potwierdzonej w 69 plikach
+  całego systemu (patrz AUDIT-JOURNAL.md, AUDYT-2026-07-25c/d).
 
-```
-view ../pisma-proste-v2/references/CHANGELOG.md
-```
+- **2026-07-25 (v2.5):** Dodano nowy schemat **SPL — Skarga na czynności
+  komornika** (`references/SPL-skarga-komornik.md`, art. 767 KPC) — na
+  żądanie użytkownika, w ramach rozszerzenia o "wnioski i pozostałe
+  dokumenty kierowane do sądu". Zarejestrowano w tabeli schematów, KROK 4
+  ścieżki wykonania i M6-oplaty.md (100 zł). Adresat opisany od razu
+  poprawnie (do komornika, nie bezpośrednio do sądu — art. 767 §5 KPC),
+  zgodnie z wnioskiem z audytu adresatów zażalenia tego samego dnia.
 
-Skrót bieżącej wersji — pole `changelog:` we frontmatterze powyżej.
-Standard systemowy (2026-08-20z4): `references/CHANGELOG.md` jest jedyną
-lokalizacją kanoniczną historii; zakaz odtwarzania sekcji changelogu w korpusie
-SKILL.md i zakaz trzymania pełnej listy wpisów w YAML.
+- **2026-07-25 (v2.4):** CRIT-TREŚĆ — `references/SPH-inne.md`: poprawiono
+  błędny adresat/podstawę zażalenia w SPH-A (odmowa zwolnienia od kosztów
+  sądowych) — było art. 394 §1 KPC (sąd II instancji), jest art. 394¹ᵃ §1
+  pkt 1 KPC (zażalenie poziome, inny skład tego samego sądu). Oznaczono jako
+  sporne/do weryfikacji podstawę zażalenia w SPH-B (odmowa przywrócenia
+  terminu) — poprzedni cytat (art. 394 §1 pkt 2 KPC) treściowo nie pasował.
+  Zweryfikowano online (ISAP, arslege.pl, lexlege.pl). Zob.
+  audyt-systemu-v4/references/AUDIT-JOURNAL.md, wpis 2026-07-25.
+*Dla pism wielowątkowych → pisma-procesowe-v3*
+*Dla analizy dowodów → analizator-dowodow-v3 · Dla orzecznictwa → orzeczenia-sadowe-v2*
+
+---
 
 ## KROK 9d — PROCEDURAL CORE SHARED
 

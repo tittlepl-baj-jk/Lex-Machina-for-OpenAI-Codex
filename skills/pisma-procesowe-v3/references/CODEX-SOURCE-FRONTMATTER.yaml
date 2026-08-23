@@ -1,5 +1,5 @@
 name: pisma-procesowe-v3
-version: "5.18"
+version: "5.17"
 type: executive-pisma
 status: production
 description: |
@@ -18,10 +18,3 @@ description: |
 compatibility: "Wymaga narzędzi: web_search, web_fetch"
 cp_gate: "../../shared/CP-GATE.md"
 reread_gate: "MRG — przed każdym [CP] i każdą odpowiedzią pipeline: view CP-GATE.md + view MOD-STEP-TRACKER.md (zakaz polegania na pamięci)"
-changelog: |
-  Wersja bieżąca: 5.18. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
-  (standard systemowy 2026-08-20z4: jeden plik, jedna lokalizacja; zakaz sekcji
-  changelogu w korpusie SKILL.md i zakaz pełnej listy wpisów w tym polu).
-  Skrót 5.18 (2026-08-20z4): wpisy 5.12-5.18 przeniesione z korpusu SKILL.md do references/CHANGELOG.md —
-  koniec rozbicia historii na dwa pliki, które w F-102 spowodowało fałszywy
-  raport testu T12 o luce siedmiu wersji.

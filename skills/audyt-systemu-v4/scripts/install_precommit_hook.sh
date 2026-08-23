@@ -17,10 +17,10 @@
 # (T2) NIE blokują (ostrzeżenie, nie FAIL), zgodnie z logiką
 # run_regression_suite.py.
 #
-# Użycie: bash install_precommit_hook.sh [/mnt/skills/user]
+# Użycie: bash install_precommit_hook.sh [../..]
 
 set -euo pipefail
-REPO_ROOT="${1:-/mnt/skills/user}"
+REPO_ROOT="${1:-../..}"
 HOOK_PATH="$REPO_ROOT/.git/hooks/pre-commit"
 SCRIPT_PATH="$REPO_ROOT/audyt-systemu-v4/scripts/run_regression_suite.py"
 

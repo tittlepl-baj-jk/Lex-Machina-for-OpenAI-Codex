@@ -3,7 +3,7 @@ name: "analiza-sadowa-v6"
 description: "UŻYWAJ ZAWSZE gdy użytkownik: dostarcza akta, pisma, wyroki, decyzje lub dokumenty prawne; pyta o szanse w sprawie karnej, wykroczeniowej, cywilnej, pracowniczej, administracyjnej; chce ocenić dowody, terminy zawite lub koszty sądowe (KSCU); potrzebuje analizy błędów pełnomocnika strony przeciwnej lub audytu własnych pism; pyta o orzecznictwo, groźbę bezprawną (art. 87 KC), nagrania (art. 267 KK), podwójną kwalifikację kwoty lub e-mail pracownika; pyta o \"narzędzie\"/\"dashboard\"/\"analizator\" → wywołaj widget React; pyta \"co mam zrobić\" / \"czy mam szansę\" / \"czy to zgodne z prawem\". v6: model CZTEROPRZEBIEGOWY z obowiązkową DWUKROTNĄ WERYFIKACJĄ dowodów i pism."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "analiza-sadowa-v6"
 ---
 
@@ -157,6 +157,35 @@ Moduły specjalne: błędy pełnomocnika, groźba bezprawna, nagrania, terminy, 
 > Przed podaniem jakiegokolwiek przepisu, artykułu, terminu lub sygnatury orzeczenia:
 > `view ../shared/PRAWO-HARDGATE.md`
 > Jeśli źródło niedostępne → oznacz `⚠️ [NIEWERYFIKOWANE]` i kontynuuj bez treści przepisu.
+
+### ⛔ BRAMKI TOWARZYSZĄCE (dodane 2026-08-23, F-109)
+
+Hard gate wyżej kontroluje, CZY przepis został zweryfikowany. Poniższe dwie
+kontrolują, CZY ten przepis w ogóle powinien się w analizie znaleźć oraz czy
+liczba jest kompletna. Wykonuj je w PRZEJŚCIU IV (4A, pytania P6–P7):
+
+```
+□ [ANTY-FASADA] (dodane 2026-08-23, v2.6) Czy w odpowiedzi/piśmie jest słowo
+  „zweryfikowano/zweryfikowałem", pole „data weryfikacji" albo URL przy przepisie,
+  dla którego NIE wywołałem narzędzia W TEJ ODPOWIEDZI? TAK → ⛔ usuń deklarację
+  i datę, URL przeformatuj na 🎯 [CEL — RZĄD 1, NIEOTWARTE: …], przepis oznacz
+  ⚠️ [NIEWERYFIKOWANE]. Wyzwalacz to BRAK WYWOŁANIA, nie brak narzędzi w sesji.
+  ⛔ Zastrzeżenie selektywne (przy sygnaturach tak, przy przepisach nie) = naruszenie.
+□ [DOMAIN-LOCK] Odpowiedź/pismo zawiera przepis SPOZA dziedziny wiodącej
+  (KK/KKS/KW/KPK/KPW przy torze cywilnym, pracowniczym lub administracyjnym —
+  albo odwrotnie)? NIE → OK. TAK → (a) konkretny FAKT wypełniający znamię,
+  nie skojarzenie tematyczne? (b) właściwy DR wczytany w TEJ odpowiedzi?
+  (c) przepis przeszedł PRAWO-HARDGATE w TEJ odpowiedzi? Którekolwiek NIE →
+  ⛔ USUŃ powołanie.  → `view ../shared/DOMAIN-LOCK.md`
+□ [RATE-COMPLETENESS] Występują odsetki / waloryzacja / wskaźnik zmienny
+  w czasie? NIE → OK. TAK → przedział zapisany + reżim rozstrzygnięty
+  (KC vs transakcje handlowe) + szereg podokresów BEZ LUK + znacznik na
+  KAŻDYM wierszu? NIE → nie podawaj kwoty łącznej, pokaż tabelę z ⬛.
+  → `view ../shared/RATE-COMPLETENESS.md`
+□ [STATUSY] Każdy przepis ma znacznik z ZAMKNIĘTEJ hierarchii czterech:
+  ✅ [VER] · 🟡 [KOTWICA-URZĘDOWA] · ⚠️ [NIEWERYFIKOWANE] · ⬛ [DO UZUPEŁNIENIA]?
+  Etykieta spoza tej listy = naruszenie hard gate (PRAWO-HARDGATE v2.5).
+```
 
 ---
 
@@ -393,6 +422,22 @@ P4. SPÓJNOŚĆ NARRACYJNA
 P5. POZIOMY PEWNOŚCI
     Czy każdy wniosek ma oznaczony poziom: PEWNE/PRAWDOPODOBNE/WĄTPLIWE/SPEKULATYWNE?
     NIE → dodaj oznaczenia przed raportem.
+
+P6. IZOLACJA DZIEDZINOWA  (DOMAIN-LOCK, dodane 2026-08-23 — F-109)
+    Czy w raporcie jest kwalifikacja spoza dziedziny wiodącej sprawy?
+    TAK → czy opiera się na KONKRETNYM fakcie z PRZEJŚCIA I, a nie na
+          skojarzeniu tematycznym (dług→oszustwo, konflikt→znęcanie)?
+    NIE → ⛔ usuń kwalifikację. Sygnalizacja wątku bez podstawy faktycznej
+          wyłącznie opisowo, BEZ numeru artykułu (DL-5).
+    → view ../shared/DOMAIN-LOCK.md
+
+P7. KOMPLETNOŚĆ SZEREGU  (RATE-COMPLETENESS, dodane 2026-08-23 — F-109)
+    Czy predykcja §9 lub wyliczenie roszczenia opiera się na odsetkach /
+    waloryzacji / wskaźniku zmiennym w czasie?
+    TAK → czy szereg podokresów pokrywa cały przedział BEZ LUK, z rozdzielonym
+          reżimem i znacznikiem na każdym wierszu?
+    NIE → ⛔ nie podawaj kwoty łącznej; tabela z jawnymi ⬛.
+    → view ../shared/RATE-COMPLETENESS.md
 ```
 
 #### 4B. WERYFIKACJA OSTATECZNA — ponowne przeczytanie dokumentów

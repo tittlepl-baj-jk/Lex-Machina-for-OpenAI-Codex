@@ -18,8 +18,11 @@ GitHub: **tittlepl-baj-jk**.
 ## Status
 
 - 32 aktywne skille dla Codex;
-- bazowy upstream: commit `3fb42870299738b065cae888ec5526a405fa8f5d`;
+- bazowy upstream: commit `9e37d6092f84b5f1a2fe41717e07611de062951a`
+  z wersji rozwojowej Michała Wiatraka;
 - statyczna walidacja portu: 32/32 `PASS`;
+- krytyczne testy regresyjne T1, T2 i T6/T7: `PASS`;
+- wydanie portu: `v0.2.0-codex`;
 - pakiet jest portem skilli Codex, a nie samodzielną aplikacją ChatGPT ani
   publikacją w katalogu GPT lub Apps.
 
@@ -31,6 +34,12 @@ GitHub: **tittlepl-baj-jk**.
 - lokalna, deterministyczna anonimizacja jako domyślny bezpieczny tryb;
 - adapter degradacji funkcji niedostępnych w środowisku Codex;
 - poprawki martwych i historycznych odwołań wskazane w `manifest.json`.
+- techniczna korekta rejestracji trzech istniejących modułów i sześciu
+  liczników modułów, wykryta podczas pierwszej aktualizacji.
+
+Audyt T3/T11 nadal zgłasza ostrzeżenia wymagające przeglądu map aktów prawnych.
+Są to ostrzeżenia odziedziczone z synchronizowanej wersji rozwojowej, a nie
+potwierdzone rozstrzygnięcia co do aktualności konkretnych aktów.
 
 Pełne informacje o pochodzeniu znajdują się w [UPSTREAM.md](UPSTREAM.md),
 o autorstwie w [AUTHORS.md](AUTHORS.md), a o modyfikacjach w

@@ -21,7 +21,7 @@ sieciowych, brak zależności od LLM — czysto deterministyczne):
      wykrywanie na przyszłość.
 
 Użycie:
-    python3 ci_check_shared.py [--repo-root /mnt/skills/user] [--quiet]
+    python3 ci_check_shared.py [--repo-root ../..] [--quiet]
 
 Kod wyjścia:
     0 — brak zerwanych odwołań (duplikaty, jeśli są, tylko ostrzegają)
@@ -98,7 +98,8 @@ def check_broken_links(md_files, repo_root: Path):
             ref_path = Path(m.group(1))
             if is_placeholder_ref(ref_path):
                 continue
-            if not ref_path.exists():
+            candidates = resolve_relative_ref(str(ref_path), f, repo_root)
+            if not any(candidate.exists() for candidate in candidates):
                 errors.append((f, str(ref_path), "view() wskazuje na nieistniejący plik"))
 
         # tylko sekcja frontmatter (między pierwszymi --- ... ---)
@@ -139,7 +140,7 @@ def check_duplicates(md_files):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--repo-root", default="/mnt/skills/user")
+    ap.add_argument("--repo-root", default="../..")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
 

@@ -128,7 +128,7 @@ Dodać do sekcji W3.6 — Pismo finalne, po generowaniu .docx:
 
 ```markdown
 Po W3.6 — po generowaniu .docx:
-- view /mnt/skills/public/docx/SKILL.md → generuj .docx → present_files
+- view skill `documents` dostepny w Codex → generuj .docx → present_files
 - Dodaj disclaimer: wariant LAIK/PRAWNIK JAK DOTĄD, plus OBOWIĄZKOWO
   wariant PISMO SĄDOWE (v2.1) bezpośrednio po nim — patrz sekcja wyżej
   → view ../shared/DISCLAIMER.md

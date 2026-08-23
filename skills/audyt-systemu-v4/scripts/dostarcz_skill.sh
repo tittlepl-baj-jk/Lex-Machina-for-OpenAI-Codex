@@ -19,11 +19,11 @@
 #   bash dostarcz_skill.sh mcp-zrodla-prawa-v1 audit-trail-portal-v1 shared
 #
 # Repo root i katalog wyjściowy można nadpisać zmiennymi środowiskowymi:
-#   REPO_ROOT=/mnt/skills/user OUT_DIR=/mnt/user-data/outputs bash dostarcz_skill.sh <skill>
+#   REPO_ROOT=../.. OUT_DIR=/mnt/user-data/outputs bash dostarcz_skill.sh <skill>
 
 set -uo pipefail
 
-REPO_ROOT="${REPO_ROOT:-/mnt/skills/user}"
+REPO_ROOT="${REPO_ROOT:-../..}"
 OUT_DIR="${OUT_DIR:-/mnt/user-data/outputs}"
 WORK_DIR="${WORK_DIR:-/home/claude/dostawa_$$}"
 

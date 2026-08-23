@@ -1,8 +1,5 @@
 name: analizator-umow-v1
-version: "1.30"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: bez niego YAML parsuje ten numer jako float
-                  # (1.3), a 1.3 < 1.9 — porządek wersji odwraca się dla każdego
-                  # narzędzia porównującego liczbowo. Naprawione 2026-08-20z3 (F-102),
-                  # test T12: scripts/check_wersje_changelog.py
+version: 1.30
 type: executive-umowy
 status: production
 description: |

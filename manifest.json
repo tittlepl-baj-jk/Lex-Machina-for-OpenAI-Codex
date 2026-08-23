@@ -5,31 +5,45 @@
   "github_owner": "tittlepl-baj-jk",
   "license": "GPL-3.0-only",
   "source": "https://github.com/michaleiatrak-star/Lex-Machina",
-  "source_commit": "3fb42870299738b065cae888ec5526a405fa8f5d",
-  "source_snapshot": "Wersja stabilna 2026-08-21",
+  "source_commit": "9e37d6092f84b5f1a2fe41717e07611de062951a",
+  "source_snapshot": "Wersja rozwojowa, commit 9e37d60, stan 2026-08-23",
   "port_created": "2026-08-23",
-  "source_router_sha256": "92AEE27BD31E52A55A41EE9B36DA428DD7C705CFFEF1DF67C21AD82A8A573934",
+  "port_updated": "2026-08-23",
+  "source_router_sha256": "5D58869270C624C19094D18A9861145B9E0DE18FD906D420A17207218ED74464",
   "active_skill_count": 32,
   "excluded_top_level": [
     "dr-09-out",
     "przesluchanie-swiadkow-v2-min90-v35"
   ],
-  "path_replacements": 889,
+  "path_replacements": 990,
+  "public_docx_path_replacements": 4,
   "anthropic_endpoint_replacements": 4,
   "port_overrides": [
     "ROUTING-BJ-BW: dead references/modules path replaced with DR routing map",
-    "AI Act module: stale historical self-path replaced with current file"
+    "AI Act module: stale historical self-path replaced with current file",
+    "Regression runner: portable UTF-8 decoding and explicit repo root",
+    "Shared CI: relative view paths resolved from source file or skills root",
+    "Upstream regression overlay: six module counters and three registrations repaired",
+    "Text hygiene: trailing whitespace and excess EOF blanks normalized"
+  ],
+  "sanitized_public_examples": [
+    "analizator-dowodow-v3/SKILL.md",
+    "analiza-sadowa-v6/references/MOD-E.md",
+    "analiza-sadowa-v6/references/moduly-spec.md",
+    "prawny-router-v3/references/KROK0A-anonimizer.md",
+    "audyt-systemu-v4/references/AUDIT-JOURNAL.md",
+    "shared/MOD-IDENTYFIKACJA-STRONY-UMOWY.md"
   ],
   "skills": [
     {
       "directory": "analiza-sadowa-v6",
       "name": "analiza-sadowa-v6",
-      "source_version": "6.4"
+      "source_version": "6.3"
     },
     {
       "directory": "analizator-dowodow-v3",
       "name": "analizator-dowodow-v3",
-      "source_version": "5.17.0"
+      "source_version": "5.16.1"
     },
     {
       "directory": "analizator-przepisow-v2",
@@ -39,7 +53,7 @@
     {
       "directory": "analizator-umow-v1",
       "name": "analizator-umow-v1",
-      "source_version": "1.30"
+      "source_version": "1.3"
     },
     {
       "directory": "audyt-systemu-v4",
@@ -54,7 +68,7 @@
     {
       "directory": "dr-01-ustroj-konstytucyjny-i-zrodla-prawa",
       "name": "dr-01-ustroj-konstytucyjny-i-zrodla-prawa",
-      "source_version": "3.7"
+      "source_version": "3.6"
     },
     {
       "directory": "dr-02-prawo-cywilne-rodzinne-gospodarcze",
@@ -139,17 +153,17 @@
     {
       "directory": "pisma-procesowe-v3",
       "name": "pisma-procesowe-v3",
-      "source_version": "5.18"
+      "source_version": "5.17"
     },
     {
       "directory": "pisma-proste-v2",
       "name": "pisma-proste-v2",
-      "source_version": "2.11"
+      "source_version": "2.1"
     },
     {
       "directory": "prawny-router-v3",
       "name": "prawny-router-v3",
-      "source_version": "3.22"
+      "source_version": "3.21"
     },
     {
       "directory": "prawo-polskie-v2",
@@ -159,7 +173,7 @@
     {
       "directory": "przesluchanie-swiadkow-v2-min90",
       "name": "przesluchanie-swiadkow-v2-min90",
-      "source_version": "3.23"
+      "source_version": "3.22"
     },
     {
       "directory": "przewodnik-prawny-v2",
@@ -179,7 +193,7 @@
     {
       "directory": "shared",
       "name": "shared",
-      "source_version": "3.18"
+      "source_version": "3.19"
     }
   ],
   "files": [
@@ -195,8 +209,8 @@
     },
     {
       "path": "skills/analiza-sadowa-v6/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "AEDF64C246DB2BC5FAC2C29B96C7DFDC2A0E4794F997A3B3162BDDA05B250574",
-      "size": 1264
+      "sha256": "2491CB2158ACA1C32D9DAEA504B6235D7A225AC03D9FDD087194382ACB4E30BB",
+      "size": 3782
     },
     {
       "path": "skills/analiza-sadowa-v6/references/engines/adversarial-litigation-analysis-v9.md",
@@ -245,8 +259,8 @@
     },
     {
       "path": "skills/analiza-sadowa-v6/references/MOD-E.md",
-      "sha256": "41ABC65F3C4EB3AFE130B2CD10E67C7BC24069F32AD7BA7B22E34062C59D22A1",
-      "size": 1114
+      "sha256": "C9AF6D27899F5B77394B0EEE50C9AE8DBF174F226BFDE3B50DF6DC43A013EE25",
+      "size": 1119
     },
     {
       "path": "skills/analiza-sadowa-v6/references/MOD-F.md",
@@ -255,8 +269,8 @@
     },
     {
       "path": "skills/analiza-sadowa-v6/references/moduly-spec.md",
-      "sha256": "B33D8B8470C019FF51A0AA5FD5BCF8873BB2586EBC92798D22756C88CA6AEF40",
-      "size": 9334
+      "sha256": "2A4A80C05213EC035AA22A50E23774DCDF1EE616A9299E41E3D0650526A54A63",
+      "size": 9347
     },
     {
       "path": "skills/analiza-sadowa-v6/references/orzecznictwo.md",
@@ -285,8 +299,8 @@
     },
     {
       "path": "skills/analiza-sadowa-v6/SKILL.md",
-      "sha256": "A91F7C757A7E3AC06302934362E93935A280AA352807E045304BD38BF19EC49C",
-      "size": 35752
+      "sha256": "A853812DC4C711D995AF493DFF421E3C0482849AD1F3BE8E105ED32AA998496F",
+      "size": 38588
     },
     {
       "path": "skills/analizator-dowodow-v3/assets/dashboard.html",
@@ -330,8 +344,8 @@
     },
     {
       "path": "skills/analizator-dowodow-v3/modules/MD3b-walidacja-prawna.md",
-      "sha256": "511963652A096057280A0583E86144886FF57D81971B7D247FE963481C5F5135",
-      "size": 2258
+      "sha256": "EF706908409A72EC4598D81EBAFD5A778657B958233B84966AFE71D6A7D86C65",
+      "size": 2602
     },
     {
       "path": "skills/analizator-dowodow-v3/modules/MD3c-spojnosc.md",
@@ -345,8 +359,8 @@
     },
     {
       "path": "skills/analizator-dowodow-v3/modules/MD5-terminy.md",
-      "sha256": "03305F11692A96DD297CC239FE102C45970D8DC40945638EC92704044DA6CA1B",
-      "size": 1407
+      "sha256": "468E1EF00FD8F444E9AE5A8593B4060CF6AF491AFFAEE6768F866C30B4CF309B",
+      "size": 1543
     },
     {
       "path": "skills/analizator-dowodow-v3/modules/MD6-raport.md",
@@ -390,8 +404,8 @@
     },
     {
       "path": "skills/analizator-dowodow-v3/modules/MP12-terminy.md",
-      "sha256": "28712CF26CC0FFAB69E4141B1F326CACBEA25D93BB9236FE543E0D72A626FF93",
-      "size": 8700
+      "sha256": "8742017A2EBBE8348146AC27D63C6D0C03C8B01961C29180609BF594E60849C5",
+      "size": 9001
     },
     {
       "path": "skills/analizator-dowodow-v3/modules/MP13-synteza-faktyczna.md",
@@ -440,18 +454,18 @@
     },
     {
       "path": "skills/analizator-dowodow-v3/modules/MX-dziedziny.md",
-      "sha256": "3D8365C76D990C47E38E375428E139309DFB781BDEF7808512EE61E275F22B74",
-      "size": 8981
+      "sha256": "7608F6EF15E71434D077DD58145EF6851455A7962BF57C14D867DA33B77BEC59",
+      "size": 9045
     },
     {
       "path": "skills/analizator-dowodow-v3/references/CHANGELOG.md",
-      "sha256": "0B1FAC04E7133E33DFDB5813178A4280A90AF0EBA69B77D35E947B5FB441BE04",
-      "size": 16419
+      "sha256": "B84A4F327A1303FD4A5A6C4219CF38B3D50B8BF58679F06636DF41811AC35758",
+      "size": 13680
     },
     {
       "path": "skills/analizator-dowodow-v3/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "E5F45A020D4406FB184C5364E028C4E21EF82FFAE04BFE134F63170D3D5DC1A9",
-      "size": 2606
+      "sha256": "18A909D7A0D1C96F8AC0858732A792B90A8719E9D039D6089454A7E3F735C93D",
+      "size": 2345
     },
     {
       "path": "skills/analizator-dowodow-v3/references/engines/contradictory-evidence-engine-v10.md",
@@ -470,8 +484,8 @@
     },
     {
       "path": "skills/analizator-dowodow-v3/SKILL.md",
-      "sha256": "51736550D16DC0E5654F7989B26232A4BCA25ADF66F215DD29C358BF699581CA",
-      "size": 44694
+      "sha256": "4F681AF864CFC463FC790984033C629D6AE497336682165D009FF2B8F1538FA2",
+      "size": 54540
     },
     {
       "path": "skills/analizator-dowodow-v3/templates/matryca-dowodowa.md",
@@ -510,8 +524,8 @@
     },
     {
       "path": "skills/analizator-przepisow-v2/SKILL.md",
-      "sha256": "266B1A58773C80A4EE1572168C80AF76196C8181C6610A148BBD0BEEAD9E0057",
-      "size": 24045
+      "sha256": "717F0F51E25A480028956315B634557EAC1FFDD56007F36F4AF9FE6C72F08FF3",
+      "size": 24047
     },
     {
       "path": "skills/analizator-umow-v1/references/b2b-podwykonawcze.md",
@@ -520,13 +534,13 @@
     },
     {
       "path": "skills/analizator-umow-v1/references/CHANGELOG.md",
-      "sha256": "5EA1B86B73E71DAA6C95F25FA17085A43F7FF07E214C6A42894B71F1C2453C26",
-      "size": 22618
+      "sha256": "939E396D34D047EAA20E0405B8EBD018488BF9592AC3816F5B20E63FBE1766F3",
+      "size": 21118
     },
     {
       "path": "skills/analizator-umow-v1/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "B40211B4DB6F04FD510BF36F97C978D67AF71CFF221B045C173DC611A384156F",
-      "size": 1375
+      "sha256": "F650AF86CFDF7568B97DDCA112BE2024556D25E4C9458105ECB79AA1742E58B4",
+      "size": 1052
     },
     {
       "path": "skills/analizator-umow-v1/references/generator/boilerplate-strukturalne.md",
@@ -765,8 +779,8 @@
     },
     {
       "path": "skills/analizator-umow-v1/SKILL.md",
-      "sha256": "75D1AA26741AB7BA603AA4AF785BCE1A7BE23CD7BF68F65C5FABAE8588430C65",
-      "size": 33166
+      "sha256": "76EF00656C2B722791ED2DC809C021E61430A69D356B8A680E2B1DF9B05CA04F",
+      "size": 35261
     },
     {
       "path": "skills/analizator-umow-v1/workflows/generator-dokumentow-hr-rodo.md",
@@ -840,13 +854,13 @@
     },
     {
       "path": "skills/audyt-systemu-v4/references/AUDIT-JOURNAL.md",
-      "sha256": "5ED47D9132A327BAA08DB402B09FE581B53FD70F2D1D27D8B013794E44C53408",
-      "size": 2838081
+      "sha256": "261F91467EC7C5D944C3F629678F570C459E7F7DD5312492957B4BA8ED199327",
+      "size": 3045130
     },
     {
       "path": "skills/audyt-systemu-v4/references/CHANGELOG.md",
-      "sha256": "D8C298630F47FBCAB09152D5A2E3CE6CD392DD0A919279EA4110AF9D4DFA7DC9",
-      "size": 38387
+      "sha256": "98F5C756C90D1335DEEC04F8D85B6E8F65E202E1C3F4F1D883FFA7DB20566F51",
+      "size": 38376
     },
     {
       "path": "skills/audyt-systemu-v4/references/CHECKLIST-DEDUP.md",
@@ -855,13 +869,28 @@
     },
     {
       "path": "skills/audyt-systemu-v4/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "32A29C0A5F2102F01FFEC9E560FE14704B90EEC0A5364C5E7536AD3BDE9B96E9",
-      "size": 7113
+      "sha256": "4E33D0328DE09AF82CA4C64C82FAA5D3536315875EBD24E4CE1999C5A762E2DD",
+      "size": 8745
     },
     {
       "path": "skills/audyt-systemu-v4/references/COWORK-HARMONOGRAM-NATYWNY.md",
       "sha256": "4D5CE1A7D439BCC853E575434D29B5005FECA761D7A4C1F577A5DC4FA72D591E",
       "size": 7513
+    },
+    {
+      "path": "skills/audyt-systemu-v4/references/F-104-lista-robocza-mapa-dzu.md",
+      "sha256": "84974123D9330E87C0BC65BBB2F0C24E6CA775FCE5350154F30011E326E9D923",
+      "size": 8029
+    },
+    {
+      "path": "skills/audyt-systemu-v4/references/F-104-lista-robocza-roczniki-starsze.md",
+      "sha256": "4F91B24BC61F0A1C29A7AA5B5BF3C7863666007330F5B47CB52A5731917DAF50",
+      "size": 5337
+    },
+    {
+      "path": "skills/audyt-systemu-v4/references/F-108-lista-MS-egzamin-2026.md",
+      "sha256": "7C9B481871DBD3735E209FFB0CB3AD4A4ADD92E272911DCFC29123C18E747287",
+      "size": 8735
     },
     {
       "path": "skills/audyt-systemu-v4/references/FORMAT-RAPORTU-ROZNIC.md",
@@ -894,6 +923,11 @@
       "size": 110861
     },
     {
+      "path": "skills/audyt-systemu-v4/references/mapa_dzu_2026-08-21.md",
+      "sha256": "AC265C810F16006CE0FEBB6F46F47C3996A5D15EC03186AC829F3092B6963755",
+      "size": 130663
+    },
+    {
       "path": "skills/audyt-systemu-v4/references/raporty-pokrycia-2026-08-13/00-indeks-raportow-pokrycia.md",
       "sha256": "1E7825E8D2F2C83E3980F1EE5291B2FCFB1C598715AA95C8F4A550B92E320616",
       "size": 11839
@@ -905,13 +939,13 @@
     },
     {
       "path": "skills/audyt-systemu-v4/references/raporty-pokrycia-2026-08-13/raport-pokrycia-KPC.md",
-      "sha256": "4190ACF1D84947AC020CCB9DF2964ACB37998713E4D330F75DEB4A3491FEEB19",
-      "size": 39068
+      "sha256": "CAA1609BF6E39829AA3BF58A7DE2B769F644FB0C0DCB27B912653867226AE7BD",
+      "size": 39056
     },
     {
       "path": "skills/audyt-systemu-v4/references/raporty-pokrycia-2026-08-13/raport-pokrycia-KPK.md",
-      "sha256": "D0C6FFD0E0AA98CB008BB3D547B414DD15369262B7950A93D97080287A5978C9",
-      "size": 29249
+      "sha256": "2E1B9F035748A9D4F3332AC099D17F00716E34F739DD7FB8E4B4B51EF1BBB93F",
+      "size": 29237
     },
     {
       "path": "skills/audyt-systemu-v4/references/raporty-pokrycia-2026-08-13/raport-pokrycia-KRO.md",
@@ -960,8 +994,8 @@
     },
     {
       "path": "skills/audyt-systemu-v4/references/REGRESSION-TEST-PLAN.md",
-      "sha256": "A437A126B9DBF3877751CC4DEF8D4BADBC659C4BDBAF1A0444AD7E1D8128A183",
-      "size": 30806
+      "sha256": "74FC0440213599687419A53FA02925623DD080DE849102403AF41DA7B7EA3AF4",
+      "size": 35855
     },
     {
       "path": "skills/audyt-systemu-v4/references/SCHEDULED-TASK-COWORK.md",
@@ -975,13 +1009,18 @@
     },
     {
       "path": "skills/audyt-systemu-v4/references/WARN-OTWARTE.md",
-      "sha256": "54E7D111F8C8DBAB7AFCD9577A9114E79101DED67E733B7BA88B683C4CE26DF6",
-      "size": 95976
+      "sha256": "5E517405632EC714E5159747BE5325BA64CD418BCC4D6B0C4E8FD48FB9D2186F",
+      "size": 59990
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/bootstrap_last_sync_date.py",
       "sha256": "9A4EF115618786FE27D74D836326F2CCFA1D09CFEDEF26D0041C1B2B1DBB0F6D",
       "size": 4585
+    },
+    {
+      "path": "skills/audyt-systemu-v4/scripts/check_dlugosc_modulow.py",
+      "sha256": "C3909ABE8FB18D8801161C0AB4B04E392BC796052996EAEB0955F52AB088DD6E",
+      "size": 5870
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/check_rejestracja_modulow.py",
@@ -990,28 +1029,28 @@
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/check_sync_aktow.py",
-      "sha256": "B42C0ED7AEB9D1F89235F9CD5BB3B78BA3DCA3A70F16419500E1294F21F209DC",
-      "size": 7218
+      "sha256": "D1557989342DA33F0D34BBD3B4538B5626C846F70C2F977A6AB5D2DA181A2D14",
+      "size": 9024
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/check_wersje_changelog.py",
-      "sha256": "39FCA1E2933BCAA8FCB62B1FB9CD1029273A294096A6939791CD13249F315A8E",
-      "size": 13520
+      "sha256": "AEFB3EACBF6F104D1F5E41C453A6591DFDED48A2FB66BA854A69BC9131F29773",
+      "size": 13509
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/ci_check_shared.py",
-      "sha256": "3BAE5EAE1B8532100F179F126CC839BBF2127D31D4324A4CC8397969839656C8",
-      "size": 6745
+      "sha256": "212130CF5BE90C91FC429DF8A5DDEC227B1874B6BA2C3F4B4462B467034BCB6A",
+      "size": 6833
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/dostarcz_skill.sh",
-      "sha256": "CAC1CD69AE728B704D9DED937702AF8F36EF6BDDF5E399084E973F226561BC56",
-      "size": 3887
+      "sha256": "212998B55497544368420A80D18EFADEE4493459FB5B4422B5ED395D410E66D8",
+      "size": 3865
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/install_precommit_hook.sh",
-      "sha256": "ECDBDB0F7072C7A6DEA7EADA45ED9FCDFFDD45C428C9BA4C3DB91788AFE3226C",
-      "size": 2155
+      "sha256": "9C746FD11F677FDA69B60CAC0EB18949749DDCE8490591C5E68A5000DF21D85D",
+      "size": 2133
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/mock_eli_server_test.py",
@@ -1020,13 +1059,13 @@
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/README.md",
-      "sha256": "E84B175A18B2084B451D5A12AF1E93FC2DEA0555C6E748F9145A4E134FACE8E0",
-      "size": 1879
+      "sha256": "B9C62430ACF91343C69BDB520FCD29975F9379D186F6D0D17ECDF7D442F7F5CA",
+      "size": 1857
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/run_regression_suite.py",
-      "sha256": "545189132B9FDCE4E445D99E2A859D83B0A39FB43A041AF82BC4FF2AEF6A7B2E",
-      "size": 6826
+      "sha256": "C34A409C7C83B6D9757D772C4C9794662631ACF655AF8158F5385F6AEF73C769",
+      "size": 6861
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/sync_dzu_eli.py",
@@ -1035,8 +1074,8 @@
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/test_cross_map_dzu.py",
-      "sha256": "CDF8C35B2FC8359FB3B345AA9C94C75715D54AA4C0688EC14343555E9F0F8B19",
-      "size": 9938
+      "sha256": "AA644A849856C97C70290F244711E44C177447DA6B5C296A3F07FE040D5D3910",
+      "size": 9916
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/test_header_snapshot.py",
@@ -1045,28 +1084,28 @@
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/test_module_count.py",
-      "sha256": "2452F7B6FDE031A0D7AF43C6FC3D767D047C9017F5E938B362F59CFE6B890780",
-      "size": 4957
+      "sha256": "DC0BA95A7724D0C015C5C85EB0CE1F67532F68F8C074CBAED28FED02C982A33C",
+      "size": 4935
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/test_module_registration.py",
-      "sha256": "256FBED6F3EACB4811F8B3058550030C6034E5EDB2EA21460434433B2C655A65",
-      "size": 8123
+      "sha256": "F98779187985B7B0C6100E8B04585B787BEBC9C832648797D00BB9A198AF87AE",
+      "size": 8101
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/test_moved_to_shared.py",
-      "sha256": "D64C1A800B458BA317D91C3DD5AD9B066C974D24288A7E108668C71ECAAC8E46",
-      "size": 5867
+      "sha256": "CE7EE87AE327145F25426002EBFB5575BD3FBFDCFF2716E19AE3CC43E4D7C2BB",
+      "size": 5845
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/test_title_scope_match.py",
-      "sha256": "1190A218DB419B9FA03D6F236002559F29470C7EFADC529BE1061DBF0311C05D",
-      "size": 5233
+      "sha256": "F9BFF6094A008A389706E106D3EFEE146B3CAA25DCF78AD7986FEEE5954C208F",
+      "size": 5211
     },
     {
       "path": "skills/audyt-systemu-v4/SKILL.md",
-      "sha256": "4F455B1A71F8FC4CE3060701795F73BAC4BF1745E3D4A8040DAFA04A277F4979",
-      "size": 52734
+      "sha256": "82E0E65EFC29A71A6EFC461F3A23CA03306CC6583E40F2EB433D9743DABF07CC",
+      "size": 52895
     },
     {
       "path": "skills/audyt-systemu-v4/widgets/WIDGET-MENU.md",
@@ -1105,8 +1144,8 @@
     },
     {
       "path": "skills/chronologia-sprawy-v1/SKILL.md",
-      "sha256": "EE43057F7D56F589B4C35AA67224DC26BADA7AE106B9CECBECCC65B95533267E",
-      "size": 39644
+      "sha256": "0324BB9EE974D35EB4E55C7CF1F494F26DD32AAEFC522DCF05D089EB5BD909E6",
+      "size": 39646
     },
     {
       "path": "skills/chronologia-sprawy-v1/upgrade-min8/MIN8-UPGRADE.md",
@@ -1120,8 +1159,8 @@
     },
     {
       "path": "skills/dr-01-ustroj-konstytucyjny-i-zrodla-prawa/MAPA-AKTOW.md",
-      "sha256": "E89D834F6C8BBFF8BD6E56C6303BB1E2BA596F848DACC672A844D56FBBE6112F",
-      "size": 7053
+      "sha256": "EA10AD94693A92C24FFA12D2C0F350CE2861ED41C1EE196729FB10765771CE22",
+      "size": 7410
     },
     {
       "path": "skills/dr-01-ustroj-konstytucyjny-i-zrodla-prawa/modules/mod-Konstytucja-TK-skarga-konstytucyjna.md",
@@ -1165,18 +1204,23 @@
     },
     {
       "path": "skills/dr-01-ustroj-konstytucyjny-i-zrodla-prawa/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "37ED4E177DDF595948EB4EEAF16E644014C18179328D4589E6675C97FD46F413",
-      "size": 1236
+      "sha256": "32EED99D163CCEBBE0131547B2E4A8B62A7EA0098773147A76A676534606B93C",
+      "size": 506
     },
     {
       "path": "skills/dr-01-ustroj-konstytucyjny-i-zrodla-prawa/SKILL.md",
-      "sha256": "500CA28B5E2096466373BD2671F8EC44AF53B64BD08597B2945451806E339C0A",
-      "size": 7949
+      "sha256": "2E5044C3DA8C09F7DAE0285962D28842B85C3B6FB60B466DE93A85314F092FEB",
+      "size": 8622
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/MAPA-AKTOW.md",
-      "sha256": "86752590A8ABD5035A1FC2B862DD0929D4F779AA658AD4E8BCD8E3755229B45B",
-      "size": 21920
+      "sha256": "94B1ED8F3B6ACBFFF01F5893DC9A568350DE7D919CA97ACE1443F92E47CB16A0",
+      "size": 25144
+    },
+    {
+      "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/MAPA-POKRYCIA.md",
+      "sha256": "3A9AB573284C26AE058D203E1A3F7B14038F701BC2CE27E98A9C96763E0F9FA7",
+      "size": 27679
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/kc-zobowiazania/czesc-01-przedawnienie-kara-umowna-wady-wzbogacenie-odsetki.md",
@@ -1279,9 +1323,19 @@
       "size": 5198
     },
     {
+      "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-KC-spadki-dlugi-umowy-transgraniczne.md",
+      "sha256": "9C411505733EA02286A6B20F64D8EEA3D5FD77DC17A42B7BBA9A5157851AA305",
+      "size": 21154
+    },
+    {
+      "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-KC-spadki-zachowek-dzial-rozrzadzenia.md",
+      "sha256": "9BC77E8B170C2C6738AA165709EB0BAB86491DF897A9E9495BE8D45BFFDB224E",
+      "size": 19664
+    },
+    {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-KC-spadki.md",
-      "sha256": "87891140B2B1A99BFE4416AAFA0FCE3DE50CA2304A4AA611A7014DEE393835EE",
-      "size": 51528
+      "sha256": "6B8BEF47851C133606718E42CA15AF4C856A2EDF2F788B8DF6CCD5703F571EC6",
+      "size": 14934
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-KC-ubezpieczenia.md",
@@ -1292,6 +1346,11 @@
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-KP-art943-mobbing-dyskryminacja.md",
       "sha256": "78B8E3F80318E6FDC14CB21CE8BFD582467C3A1C4D9CEB90A72665D53986AB48",
       "size": 9603
+    },
+    {
+      "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-KPC-art162-zastrzezenie-protokol.md",
+      "sha256": "F8E2A4A42300E0DA40A56529B4701711577082B4B42EB11B6B6916928826D6EA",
+      "size": 12331
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-KPC-egzekucja-windykacja.md",
@@ -1404,9 +1463,14 @@
       "size": 13870
     },
     {
+      "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-PrUpad-uklad-likwidacja-zakonczenie.md",
+      "sha256": "F6F85FBB2A298A336FBC8D9F904D8BED2FD94F211F9ECD3A018511826A405B9B",
+      "size": 15277
+    },
+    {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-PrUpad-upadlosc-restrukturyzacja.md",
-      "sha256": "0571672301A5F774CF1577076F9B07F7B13B3E96DF6BBCA129EE4DDE53C4FF33",
-      "size": 45237
+      "sha256": "9179DDE3CCB2D85C8891C957EC5010FD723E18DCEA3CFFAFBAB8CA62FACE0F27",
+      "size": 33285
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-reklama-wobec-nieletnich.md",
@@ -1485,8 +1549,8 @@
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-ustawa-spoldzielnie-wlasnosc-lokali.md",
-      "sha256": "DBA9F23B4A4FFD980FF6E4CF2B84C794781AD4606815D8CA5C3A3B8DCD0C56B3",
-      "size": 5130
+      "sha256": "D799D82CD6EA4D2B9A4BA4BCF8FF0C89DE4B65BCE57394BA8AD20C9114B8F5D5",
+      "size": 5568
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-ustawa-timeshare-zastaw-rejestrowy.md",
@@ -1515,13 +1579,58 @@
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/SKILL.md",
-      "sha256": "C8A749B8ED8E8EA2A7B266A92296C06E431C2F51AC86D705C9402378591A22EC",
-      "size": 38072
+      "sha256": "18D773A0581E1468339C48283BDAEFB4EFB2720D062B402A084AD25FB45AFABE",
+      "size": 41433
     },
     {
       "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-AKTOW.md",
       "sha256": "D6887D82F45C028D41789CC7852C596E7FF56BDCEF69CD576989CFCCB1FEBED7",
       "size": 29734
+    },
+    {
+      "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-POKRYCIA.md",
+      "sha256": "143B703D35C69F07E55FB662B4877081E229C02492734D7645744C6E4903AB20",
+      "size": 12682
+    },
+    {
+      "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/kwalifikator-karnomaterialny/part-01-ogolny-mienie-rozboj.md",
+      "sha256": "F005E7F6BF98B72E3557D64D0C2BC114C598E39A9580D3418EBC252683425FCC",
+      "size": 18299
+    },
+    {
+      "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/kwalifikator-karnomaterialny/part-02-zdrowie-zycie-pobicia.md",
+      "sha256": "00758835DCA290C6B0C9F346E389470473677CEAE5AD0B7416F74DEAB43B6804",
+      "size": 9181
+    },
+    {
+      "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/kwalifikator-karnomaterialny/part-03-oszustwa-gospodarcze.md",
+      "sha256": "D6FE8E56A31F4142D80F97B631EE62DEB90BCB90F46D57AF8B525C63A4790F4C",
+      "size": 8581
+    },
+    {
+      "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/kwalifikator-karnomaterialny/part-04-narkotyki-drogowe.md",
+      "sha256": "21F67629E7FEC2A751BDCE22BB018AC85F62B28206E174134A6286CB7AB522DE",
+      "size": 3904
+    },
+    {
+      "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/kwalifikator-karnomaterialny/part-05-wolnosc-seksualne.md",
+      "sha256": "BD10284A252EBF89D4305FA75B767D86532C62DBFADC68C42E40105D481CE9B4",
+      "size": 11509
+    },
+    {
+      "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/kwalifikator-karnomaterialny/part-06-zorganizowana-nienawisc-deepfake.md",
+      "sha256": "BC7D6A3240A40F858B647A9CEFEDCDB9B8C78B05AC240A720639B15451501E6B",
+      "size": 19660
+    },
+    {
+      "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/kwalifikator-karnomaterialny/part-07-kontratypy-zbieg-sankcje.md",
+      "sha256": "E20E7439253AD9FF8B2D16BD73E34A43BAB90B04F2E5090E14854690ACFD06D6",
+      "size": 28486
+    },
+    {
+      "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/kwalifikator-karnomaterialny/part-08-referencje-master-lista.md",
+      "sha256": "610DB9AB3780905C4AD0F2E6E910BA2C4BD07315C8038C30968E8EEBE58D26C4",
+      "size": 15931
     },
     {
       "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-czynny-zal-KK-KKS-samooskarzenie.md",
@@ -1680,8 +1789,8 @@
     },
     {
       "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md",
-      "sha256": "AFDE80CA7A6C915AEFE3C6DC4849FB3290CF9CD932B077D8435E90FD7931AABE",
-      "size": 111261
+      "sha256": "4849E1DD2B430D7251D75C1188C614B491FCC95904D1BD3C6601E7A0E65D0FE4",
+      "size": 6744
     },
     {
       "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-przemoc-domowa-szczegolowy.md",
@@ -1705,8 +1814,8 @@
     },
     {
       "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KKW-kodeks-karny-wykonawczy.md",
-      "sha256": "87D84F8D9F889EF830C289AFD8FD7576EC4D76B7CF61EC1E9B51EC5BEC16B929",
-      "size": 30577
+      "sha256": "CC5F452C1DA64A38E49EF574CAFF9ED055D5FB40A1B0DBD2B913D1F9D5862F51",
+      "size": 40049
     },
     {
       "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KPK-mediacja-sprawiedliwosc-naprawcza.md",
@@ -1840,13 +1949,18 @@
     },
     {
       "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/SKILL.md",
-      "sha256": "525C0FB5CBB4471C701E572BA8394C102C83A10798431E27036359776E554294",
-      "size": 29502
+      "sha256": "4BA53DABD294FD92F9349BCD2DD3F30A5E890C68378F7476F7DE5919612CFBC0",
+      "size": 32037
     },
     {
       "path": "skills/dr-04-prawo-pracy-zus-swiadczenia/MAPA-AKTOW.md",
-      "sha256": "3C6A55E922D110244D49238AD1284F169A3A729DB4E86C0A1B9BD0EA58B97B57",
-      "size": 16483
+      "sha256": "256DB420828E4325E37B9C79E5EB1800B2305007D8BF84BCA79EB038ADAC1CC2",
+      "size": 17489
+    },
+    {
+      "path": "skills/dr-04-prawo-pracy-zus-swiadczenia/MAPA-POKRYCIA.md",
+      "sha256": "8D59F32BEE962C60364970090D0BBBE630A62C1335459DE71DE1B4AC777E96C5",
+      "size": 10175
     },
     {
       "path": "skills/dr-04-prawo-pracy-zus-swiadczenia/modules/mod-dodatek-pielegnacyjny-swiadczenie-rehabilitacyjne-wyrownawcze.md",
@@ -1940,8 +2054,8 @@
     },
     {
       "path": "skills/dr-04-prawo-pracy-zus-swiadczenia/modules/mod-ROZP-SKLADKOWE-podstawa-wymiaru.md",
-      "sha256": "F888D4AB2E465EB7AE69337D882B48A50E935EE5BFF3EA08E10EC1B0E18A2CA7",
-      "size": 23642
+      "sha256": "846263BB73893AB4A612071045BB4F4925DCE79B115D77BCF5674F4C76C54D65",
+      "size": 23631
     },
     {
       "path": "skills/dr-04-prawo-pracy-zus-swiadczenia/modules/mod-SUS-dzial-2-podleganie-ubezpieczeniom.md",
@@ -2035,13 +2149,18 @@
     },
     {
       "path": "skills/dr-04-prawo-pracy-zus-swiadczenia/SKILL.md",
-      "sha256": "205942A11F9A2FF7A292739E40DC9C84C4DFF7A4A1894195F1D4026C4B3347BB",
-      "size": 17697
+      "sha256": "A5CF17C37203BF2D0371DD05F716B7CD6C1801CEC53FF30FD521F6123D3767EA",
+      "size": 19104
     },
     {
       "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/MAPA-AKTOW.md",
-      "sha256": "BE14A07FBA1C847958EB2F9209FAAE7E3AFD67A67A00DAF3D45DA7C217CBC885",
-      "size": 9537
+      "sha256": "14E9FB2C8B9BD04E531948919F649C32F517F5D8D3749AAB21286D8EF4F1D9AD",
+      "size": 11737
+    },
+    {
+      "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/MAPA-POKRYCIA.md",
+      "sha256": "1C59B93EF1E36F32330533CF91B9494FBB934024D665E6C5A3040D34D9D2014F",
+      "size": 9212
     },
     {
       "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/modules/kpa-tryby-nadzwyczajne/czesc-01-tryby-nadzwyczajne.md",
@@ -2104,9 +2223,19 @@
       "size": 6153
     },
     {
+      "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/modules/mod-PPSA-orzeczenia-sadowe-rozdzial-10.md",
+      "sha256": "6D9D0FFE1AE6F0F2F06E5412957355D9C88BA750AFC7379EA113093BFF5A9A55",
+      "size": 18917
+    },
+    {
+      "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/modules/mod-PPSA-posiedzenia-sadowe-rozdzial-7.md",
+      "sha256": "97C0398D0940FF94F189F8AD5894E10616F7B2D135360D8DF1637F2641CCD6F6",
+      "size": 23134
+    },
+    {
       "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/modules/mod-PPSA-terminy-kasacja-prawo-pomocy.md",
-      "sha256": "8A8761D09ECC0B3B14920B6726C10C47F338C6B14ADDF62D42D9B54444A265E6",
-      "size": 29585
+      "sha256": "2A87339539B5FC909522854256F5EE9C19FAA8BBFFA5C56DE8BB31A89AE8B7EA",
+      "size": 37908
     },
     {
       "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/modules/mod-UDIP-dostep-informacji-publicznej.md",
@@ -2120,8 +2249,8 @@
     },
     {
       "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/modules/mod-ustawa-cudzoziemcy-zatrudnianie.md",
-      "sha256": "3D8404E06B99472557B57A26AE77D551162BCB16544818748D140D12760AFEE0",
-      "size": 9029
+      "sha256": "DA8FEFD94B5FF317661F5419F46521F02243034E3A0AD3048FF94D54470CC688",
+      "size": 15385
     },
     {
       "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/modules/mod-ustawa-cudzoziemcy.md",
@@ -2180,13 +2309,18 @@
     },
     {
       "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/SKILL.md",
-      "sha256": "17E0DC9FF50F7275811D518C48D696D3EEE6AF0AFD64FF4D682613E4DE9ABA27",
-      "size": 10811
+      "sha256": "D68378382AFF1609C0A9F5FFB746B5ED3F69E0A4AF388473F6E6A2E9D89197E3",
+      "size": 16439
     },
     {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/MAPA-AKTOW.md",
-      "sha256": "E84555850DACC629CC9BBB4B6C2E1EAC80FEB21F9B1558802C5C3873F10A2ED3",
-      "size": 31880
+      "sha256": "3F077786BFC9BA17D4C3CD13BA24D833109EB55C90538333D80D5A02E60BF3CF",
+      "size": 33565
+    },
+    {
+      "path": "skills/dr-06-podatki-finanse-publiczne-aml/MAPA-POKRYCIA.md",
+      "sha256": "FD87ACE49F87C3AEDB62582C8685730A3B96E049123F26A36F12A15669603F11",
+      "size": 10272
     },
     {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/modules/mod-alkohol-tyton-regulacja-sprzedazy.md",
@@ -2234,6 +2368,11 @@
       "size": 17734
     },
     {
+      "path": "skills/dr-06-podatki-finanse-publiczne-aml/modules/mod-OP-czynnosci-sprawdzajace-dzial-V.md",
+      "sha256": "7D2BC0531C13993C846DCBCF497440E344EF012854613254931DA037DB256F16",
+      "size": 13098
+    },
+    {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/modules/mod-OP-dzial-IV-rozdzial-11-dowody.md",
       "sha256": "448A8F3D280C1F2821D144DA852EEA4213F287B065FCE6B24AA6B88A3BD4FE21",
       "size": 10699
@@ -2245,8 +2384,13 @@
     },
     {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/modules/mod-OP-ordynacja-podatkowa.md",
-      "sha256": "D2019680D62429925098CCA234AD727A0E8E4574A5EE13672097A7BB6620FF33",
-      "size": 42714
+      "sha256": "2C09E81D92DB2A5ED797534A09E3F7417C7C1C25A6135454F49002CE7D574150",
+      "size": 46530
+    },
+    {
+      "path": "skills/dr-06-podatki-finanse-publiczne-aml/modules/mod-OP-ulgi-w-splacie-dzial-III-rozdzial-7a.md",
+      "sha256": "1458A778FC827A6DC816BC1470A174A443D77E821B375AFC5F9CA506A6907FEB",
+      "size": 26721
     },
     {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/modules/mod-PIT-podatek-dochodowy-fizyczne.md",
@@ -2345,8 +2489,8 @@
     },
     {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/modules/mod-VAT-import-towarow-i-zwolnienia-importowe.md",
-      "sha256": "0297AD2E7CEFFCFFDE3A0212C810BCEDDE05E7C7BA3FBF46A3EC8D4AC0E509B5",
-      "size": 16889
+      "sha256": "E8951C02749B579593212BD474CE64988A5393A963E19347A3EB8C82A48210B5",
+      "size": 17094
     },
     {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/modules/mod-VAT-klasyfikacja-produktow-baza-niejednoznacznosci.md",
@@ -2520,13 +2664,18 @@
     },
     {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/SKILL.md",
-      "sha256": "52FE33F6E3C1236BABA97B819ED03414F35256183FEC4088E6D826C513E3DFA1",
-      "size": 43301
+      "sha256": "CD91E272071154F8C91E318C8C5E52451506F3C0FEA4007050E14BF74B9E7FF2",
+      "size": 45575
     },
     {
       "path": "skills/dr-07-zamowienia-publiczne-fundusze-ue/MAPA-AKTOW.md",
-      "sha256": "8B03A36318148A06938A16A6634BDBBD74F7FC435DE27DAB4148CE605555017D",
-      "size": 6703
+      "sha256": "5DA4E445F8135CCBAE172C2126CF058BCD0F42CE02CFA1C11A3BB0DD462A5910",
+      "size": 7292
+    },
+    {
+      "path": "skills/dr-07-zamowienia-publiczne-fundusze-ue/MAPA-POKRYCIA.md",
+      "sha256": "5A12743B3FF81CC00CC4442D7764DD8EE6E964FCCD8C0E4C50511687AB6082B6",
+      "size": 8850
     },
     {
       "path": "skills/dr-07-zamowienia-publiczne-fundusze-ue/modules/mod-PrNotariat-notariat-rejestry.md",
@@ -2542,6 +2691,11 @@
       "path": "skills/dr-07-zamowienia-publiczne-fundusze-ue/modules/mod-PZP-dzial-II-kwalifikacja-kryteria-uniewaznienie.md",
       "sha256": "27306CFE73ADBB1ACB65E475819927D6F4CE0831D1866361CBEB2B21BB569C99",
       "size": 12423
+    },
+    {
+      "path": "skills/dr-07-zamowienia-publiczne-fundusze-ue/modules/mod-PZP-dzial-IV-szczegolne-instrumenty.md",
+      "sha256": "28DF26F792AA9C227010B8558CB4B8EC17418CD331414BD168A7426698923049",
+      "size": 15220
     },
     {
       "path": "skills/dr-07-zamowienia-publiczne-fundusze-ue/modules/mod-PZP-dzial-V-VI-sektorowe-obronne-infrastruktura-krytyczna.md",
@@ -2625,13 +2779,13 @@
     },
     {
       "path": "skills/dr-07-zamowienia-publiczne-fundusze-ue/SKILL.md",
-      "sha256": "B7A1360306EABCE5A39A1F9204EF03C3CEE662522EF7305138610FB884D0787F",
-      "size": 8585
+      "sha256": "124BF79BE0A569413D9E17FDA298D537688EF83AC67667B66F973B3F1F2902EF",
+      "size": 11038
     },
     {
       "path": "skills/dr-08-samorzad-terytorialny-prawo-lokalne/MAPA-AKTOW.md",
-      "sha256": "D3FF203BD1631D9C4312AE7891A4289E612082AC4D288F57A3292F0627988FAA",
-      "size": 8358
+      "sha256": "F79BCDF147A69966E8E8CB3B06364EA897FA30502D16334488B9F8B631162AF5",
+      "size": 8304
     },
     {
       "path": "skills/dr-08-samorzad-terytorialny-prawo-lokalne/modules/mod-akty-porzadkowe-bezpieczenstwo-lokalne.md",
@@ -2705,13 +2859,13 @@
     },
     {
       "path": "skills/dr-08-samorzad-terytorialny-prawo-lokalne/modules/mod-ustawa-referendum-lokalne.md",
-      "sha256": "7280D355D40EC4B76EFC6E75B3E40B274128821D2983A1BE1C9E07197F66E020",
-      "size": 2087
+      "sha256": "D48441BD174AAAF78F0AF10B3F9455BB3EB82245E180E4D7CF8639852FDB3467",
+      "size": 2285
     },
     {
       "path": "skills/dr-08-samorzad-terytorialny-prawo-lokalne/modules/mod-ustawa-zabytki-rewitalizacja.md",
-      "sha256": "C8A84C61089522AB94B4269C6B22BE072221DD5EC12E44CF7C0DBACBDD4FAA00",
-      "size": 3889
+      "sha256": "2D2E083214A69D3DC6BE28BDA19C44DC631CF7E2647E00F165E64745AD7519CB",
+      "size": 4011
     },
     {
       "path": "skills/dr-08-samorzad-terytorialny-prawo-lokalne/modules/mod-ustawa-zarzadzanie-kryzysowe.md",
@@ -2725,13 +2879,18 @@
     },
     {
       "path": "skills/dr-08-samorzad-terytorialny-prawo-lokalne/SKILL.md",
-      "sha256": "3D43F2D11CF09E167669F989C8EF292390FF2FBA0A0A508ED8BB6DECD26F3DE2",
-      "size": 5996
+      "sha256": "9DE3DBB849DF0417E59D1D90E7E109395EE4FB47E6F7A321C0A382BAD889EDFA",
+      "size": 5998
     },
     {
       "path": "skills/dr-09-budownictwo-srodowisko-energia-transport/MAPA-AKTOW.md",
       "sha256": "5B1F2AB38943E598DB88CB8BD7375FD1F1CE95CFB3182DA4A4E02BB2E0C40968",
       "size": 28803
+    },
+    {
+      "path": "skills/dr-09-budownictwo-srodowisko-energia-transport/MAPA-POKRYCIA.md",
+      "sha256": "AE6C881D4109EDFE597A407DFCE53F713BEDB4B69FB18F79CE59F3F961AC5D19",
+      "size": 7078
     },
     {
       "path": "skills/dr-09-budownictwo-srodowisko-energia-transport/modules/mod-formy-ochrony-przyrody-obszary-chronione.md",
@@ -2940,13 +3099,13 @@
     },
     {
       "path": "skills/dr-09-budownictwo-srodowisko-energia-transport/SKILL.md",
-      "sha256": "68AA198BA130ACE9AD36C57FFBC66EF49D1AFCE47D415D37A2E8C7D339C7E1D6",
-      "size": 34523
+      "sha256": "8F402C59813BF226BFA8EA68F117FDCA3AF6671BAF4DEE89B337B664261B6AE5",
+      "size": 35011
     },
     {
       "path": "skills/dr-10-zdrowie-farmacja-zywnosc-rolnictwo/MAPA-AKTOW.md",
-      "sha256": "6BD3A6C616DBC125F195C53E114AA0A12B571C9A235BFEC403243E50CC1C5B87",
-      "size": 16269
+      "sha256": "8C8AAE4AF1F7CB419609AF9E473AC125FFD7611C53CA06865753BF82C0416B86",
+      "size": 17056
     },
     {
       "path": "skills/dr-10-zdrowie-farmacja-zywnosc-rolnictwo/modules/mod-GIF-GIS-nadzor-farmaceutyczny-sanitarny.md",
@@ -2955,8 +3114,8 @@
     },
     {
       "path": "skills/dr-10-zdrowie-farmacja-zywnosc-rolnictwo/modules/mod-prawa-ucznia.md",
-      "sha256": "8F345BF167FE0E92A9BE23125A59339AC163367F3B24DA8D35AECB6EC9F166EA",
-      "size": 7716
+      "sha256": "1B96B72241CDF79272EE0DA6C4ADA03878A5E9D15D75BD31761AB449B438EBC9",
+      "size": 7914
     },
     {
       "path": "skills/dr-10-zdrowie-farmacja-zywnosc-rolnictwo/modules/mod-PrFarm-prawo-farmaceutyczne.md",
@@ -3025,8 +3184,8 @@
     },
     {
       "path": "skills/dr-10-zdrowie-farmacja-zywnosc-rolnictwo/modules/mod-ustawa-inspekcja-weterynaryjna.md",
-      "sha256": "35718D75306FA9D7FD5A46A48B24F55ADDBAC23B3BD484BA25E99E7B6512FFF7",
-      "size": 1480
+      "sha256": "C2E1ACDC222FC5510828B2BD8B4BF95ECF1030AA3DA291950C6533FE2C14D0CA",
+      "size": 4402
     },
     {
       "path": "skills/dr-10-zdrowie-farmacja-zywnosc-rolnictwo/modules/mod-ustawa-jakosc-opieka-zdrowotna.md",
@@ -3115,8 +3274,8 @@
     },
     {
       "path": "skills/dr-10-zdrowie-farmacja-zywnosc-rolnictwo/SKILL.md",
-      "sha256": "40A6FD529101B8756D939F3424E821AA476114F3B88A765E1774172DC003A269",
-      "size": 12591
+      "sha256": "970AF0936507FCB234E58101EA928AD54558F3757C61BB13DE9A7347EA420CC5",
+      "size": 12593
     },
     {
       "path": "skills/dr-11-cyfrowe-cyber-ai-dane-ip/MAPA-AKTOW.md",
@@ -3240,8 +3399,8 @@
     },
     {
       "path": "skills/dr-11-cyfrowe-cyber-ai-dane-ip/SKILL.md",
-      "sha256": "7329F591FF09DD57DB44FEE8B4C57694810F4350E8F917B688ED8BFACA459E6C",
-      "size": 10248
+      "sha256": "7EED1DFDEEAFE80399B4026F92213948DB6B3FB40FB965039062EE843C52E116",
+      "size": 10250
     },
     {
       "path": "skills/dr-12-sadownictwo-prokuratura-zawody-prawnicze/MAPA-AKTOW.md",
@@ -3320,8 +3479,8 @@
     },
     {
       "path": "skills/dr-12-sadownictwo-prokuratura-zawody-prawnicze/SKILL.md",
-      "sha256": "9788A328AFD964163B29E7E5CC1A0D79035BCA11F7BCA218980F8B81828A8466",
-      "size": 19137
+      "sha256": "13D41C0B09CA987379B5BA456DCF9DDB8650C85E76B0775B1F179C58388F9931",
+      "size": 19139
     },
     {
       "path": "skills/dr-13-sluzby-bezpieczenstwo-informacje-niejawne/MAPA-AKTOW.md",
@@ -3395,8 +3554,8 @@
     },
     {
       "path": "skills/dr-13-sluzby-bezpieczenstwo-informacje-niejawne/SKILL.md",
-      "sha256": "766510DA35F4527F311D205324E8A476A97752C883974EF0E74C780C6C516CC2",
-      "size": 9787
+      "sha256": "FA429CDFC7305C33CEB87AA92DF14373CB38A31D49081DC6C873260035509003",
+      "size": 9789
     },
     {
       "path": "skills/dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka/MAPA-AKTOW.md",
@@ -3470,8 +3629,8 @@
     },
     {
       "path": "skills/dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka/SKILL.md",
-      "sha256": "5391F105F4EF7719E472DE84E8CBE0983D0A3F3CD4A865F97B79BD2F17464E0C",
-      "size": 12108
+      "sha256": "3FE3B46A80EF20CB460BB76439B94383EAB55A74FE3DEC24925DE90DCAA38911",
+      "size": 12110
     },
     {
       "path": "skills/dr-15-compliance-iso-governance-audyt/MAPA-AKTOW.md",
@@ -3535,8 +3694,8 @@
     },
     {
       "path": "skills/dr-15-compliance-iso-governance-audyt/SKILL.md",
-      "sha256": "DCE0B8D419348AFB9F9250A48DE76CC9C2EB738114297DE93C6B63C435A71F7B",
-      "size": 8813
+      "sha256": "231B1ADBD616FDEE145B17FF2A2F49A5CA07F8DD0E0E10F314192966E12DDC29",
+      "size": 8815
     },
     {
       "path": "skills/dr-16-pisma-strategia-dowody-orzecznictwo/MAPA-AKTOW.md",
@@ -3610,8 +3769,8 @@
     },
     {
       "path": "skills/dr-16-pisma-strategia-dowody-orzecznictwo/SKILL.md",
-      "sha256": "04DC04A49900F5600BA885E6ADBCE082081A9671909A53C4451A5562E3BDD9F2",
-      "size": 10389
+      "sha256": "097E69E4DAC62656CD77D10EF4EBDBBF9E7789C203CD03C494EDB3D70BCD6FAF",
+      "size": 10391
     },
     {
       "path": "skills/orzeczenia-sadowe-v2/references/CHANGELOG.md",
@@ -3635,8 +3794,8 @@
     },
     {
       "path": "skills/orzeczenia-sadowe-v2/SKILL.md",
-      "sha256": "5D732891AFF74360CF221A4598B6C23818ED0486D86B356A58074E1FD297827E",
-      "size": 52544
+      "sha256": "7AF2A53176ACA2BB5E7D2B8C1D2CCA38120225F943E600FEB2054880F60B83A3",
+      "size": 52546
     },
     {
       "path": "skills/pisma-procesowe-v3/modules/MOD-ADMIN.md",
@@ -3695,8 +3854,8 @@
     },
     {
       "path": "skills/pisma-procesowe-v3/modules/MOD-SZABLONY.md",
-      "sha256": "6CE54C7AF777FF4E7FBDF34E2359792FFE40099C2FC8EB8846345D0C2441070B",
-      "size": 12789
+      "sha256": "DC2A83CAE7263A75A399C91D8654CBADCFF1D92B8145D27B0B4158B4D8738F8E",
+      "size": 12977
     },
     {
       "path": "skills/pisma-procesowe-v3/modules/MOD-WALIDACJA.md",
@@ -3710,8 +3869,8 @@
     },
     {
       "path": "skills/pisma-procesowe-v3/references/CHANGELOG.md",
-      "sha256": "B9EF6DE62FB4D0CA3AB5CEA2BA5DE1C7560022E370C858DE9BE66E0D7D62F4AB",
-      "size": 13028
+      "sha256": "5A82F4C4307055AC5268C8DFB710B6500E85ED712C3FE2CCC605AD64339A8965",
+      "size": 6430
     },
     {
       "path": "skills/pisma-procesowe-v3/references/checklists/formal-validator.md",
@@ -3725,8 +3884,8 @@
     },
     {
       "path": "skills/pisma-procesowe-v3/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "D859243B012D552087FEC57E2C4858B952679DD639E1936C9E451E6258E27DAB",
-      "size": 1679
+      "sha256": "9F09C324F1668E514161274D328CFD5AEECAA16125BB916B9553CFC1A469D82E",
+      "size": 1185
     },
     {
       "path": "skills/pisma-procesowe-v3/references/DODATKI.md",
@@ -3810,8 +3969,8 @@
     },
     {
       "path": "skills/pisma-procesowe-v3/references/SELF-CHECK-PISMA.md",
-      "sha256": "9E518785E1CA26F4AE3E3A098F777273198A71A9F6F9A5FA3EFB4C7CCEFC063E",
-      "size": 12380
+      "sha256": "A35C148F24EE1580851238D4BA150CC9EA3A784E9C9A99A1F8A24B4D77DC4E0D",
+      "size": 14249
     },
     {
       "path": "skills/pisma-procesowe-v3/references/templates/odpowiedz-na-pozew-expert-template.md",
@@ -3840,13 +3999,13 @@
     },
     {
       "path": "skills/pisma-procesowe-v3/references/W3-WERYFIKACJA.md",
-      "sha256": "86BB88042D5AE2E7DFBD717AAFDCD21BB9680F1D33BDCBDE62FCD358F6B1E1C7",
-      "size": 16086
+      "sha256": "B215DBC2AF8117CA427419F50CBA35928B4A4142F5F164AB24264FB4834A0B39",
+      "size": 16088
     },
     {
       "path": "skills/pisma-procesowe-v3/SKILL.md",
-      "sha256": "58E290BD5B6179EE078143B33E0E524BEE47AB9891537691230157EFD1CC9438",
-      "size": 48053
+      "sha256": "FB642EC6E223B7A87CF3610AECC458D7C005F33D2DF83C49DE4D49DFD6FFCAE2",
+      "size": 51588
     },
     {
       "path": "skills/pisma-proste-v2/references/CHANGELOG.md",
@@ -3855,8 +4014,8 @@
     },
     {
       "path": "skills/pisma-proste-v2/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "205ADE57F94A73CE446FE806B9B7B046B098281D44A0F2F949F995474D72BF56",
-      "size": 1537
+      "sha256": "7A7BFD8F37BF228719F595A3DB3C6A77D3DD2B338E213D27AA2248D2DE2A8375",
+      "size": 821
     },
     {
       "path": "skills/pisma-proste-v2/references/M1-zasady.md",
@@ -3880,8 +4039,8 @@
     },
     {
       "path": "skills/pisma-proste-v2/references/M6-oplaty.md",
-      "sha256": "2B14ABF737B65F688A01B64E34C74A4D38C6303E6E4A6FB2362742BF854A6769",
-      "size": 7590
+      "sha256": "83FAA59E752B5E52ABF4978C9148FE96CBF8650D1C6070E170062F51F98FC87C",
+      "size": 3718
     },
     {
       "path": "skills/pisma-proste-v2/references/M7-eskalacja.md",
@@ -3950,8 +4109,8 @@
     },
     {
       "path": "skills/pisma-proste-v2/references/SPL-skarga-komornik.md",
-      "sha256": "0739BE55B78BA74BEC15BEE665F484606B578B3D9D35BB52D3FC9C195B8C4A9C",
-      "size": 9290
+      "sha256": "BC244A456F5F43A06972000CD358939EB4775FF3DDDC7BF907343E88CC29321B",
+      "size": 6610
     },
     {
       "path": "skills/pisma-proste-v2/references/SPM-interpretacja-podatkowa.md",
@@ -3965,8 +4124,8 @@
     },
     {
       "path": "skills/pisma-proste-v2/SKILL.md",
-      "sha256": "07D849D50FB5E51568406C5AB8CAC8C49CBF8A9F60AB281293CE6788DDD37944",
-      "size": 20525
+      "sha256": "6C6B642F638510A141AFF9422DD946F95DD6D0B2858CF5788D246AAABA71D3C3",
+      "size": 23534
     },
     {
       "path": "skills/prawny-router-v3/anonimizer/anonimizer-skill.md",
@@ -4000,8 +4159,8 @@
     },
     {
       "path": "skills/prawny-router-v3/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "C8B698CFDF82B2F2DC0D2642BF4B94F116B5D4B0D9F34DABC112EFD0497A986C",
-      "size": 5104
+      "sha256": "91FBE2A28A516BC7CBC1933C49A554FA3B08F20A99E77FBE7063A8CFC2475401",
+      "size": 9206
     },
     {
       "path": "skills/prawny-router-v3/references/cyberprzestepstwa.md",
@@ -4030,7 +4189,7 @@
     },
     {
       "path": "skills/prawny-router-v3/references/KROK0A-anonimizer.md",
-      "sha256": "31E1AABC39EC81D769493739BCBF7A4F070BC56182C71F9C23F0B8F681AD49BF",
+      "sha256": "909BDE211BD057C76D392A0129AA37E4C9B4E0D429AA7CE95824EC0492FD4FB8",
       "size": 5378
     },
     {
@@ -4090,8 +4249,8 @@
     },
     {
       "path": "skills/prawny-router-v3/references/SELF-CHECK.md",
-      "sha256": "0BB7DE718A852390FA8E86D13A59E0A9C53BB9A4766DD0A51846B98A877BEE1B",
-      "size": 2937
+      "sha256": "5BEADADF384E15EFC84CC946D901A4FE11E09C242C2ECB93B434A09402C66D41",
+      "size": 5024
     },
     {
       "path": "skills/prawny-router-v3/references/stalking-nekanie.md",
@@ -4110,8 +4269,8 @@
     },
     {
       "path": "skills/prawny-router-v3/SKILL.md",
-      "sha256": "E83D3F28C43F92216C4F17E41387F8BAE4DE46A54E6D89E3FD2DD2D16C85E48D",
-      "size": 33863
+      "sha256": "AD9AF3F8AEADCD339263D124D5F881618876B162F94CAA4EFB23A0D2D71579C1",
+      "size": 36961
     },
     {
       "path": "skills/prawo-polskie-v2/references/CODEX-SOURCE-FRONTMATTER.yaml",
@@ -4120,13 +4279,13 @@
     },
     {
       "path": "skills/prawo-polskie-v2/ROUTING-MAP.md",
-      "sha256": "3C5C69B463A0A0918D96C037922BC029E1D8CB791800623D1D5ECB892694AFD7",
-      "size": 149317
+      "sha256": "1C0DA513293C6499BC9F8DDADB0BCB4C8F746A351F1E0ED0D4078C91A0B0D116",
+      "size": 155552
     },
     {
       "path": "skills/prawo-polskie-v2/SKILL.md",
-      "sha256": "FE62630093296121DC2782223135799C438A479E3C099E54CA29892DE660F434",
-      "size": 5598
+      "sha256": "130BC71C50180969CECD71CD391AAD4E6C445892E50D258574BBBDE24D99BD53",
+      "size": 5600
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/assets/witness_examination_step_lazy.jsx",
@@ -4160,23 +4319,23 @@
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/MANIFEST.md",
-      "sha256": "7CFF55CFBE9FD789609EA591A5CD092A59388FF89F5BCA68E4C11A90D0DE91BF",
-      "size": 1915
+      "sha256": "3F03D2F7FCE42598E5E7229FE2167A1E8B5118445EBE1011728289166956CC5E",
+      "size": 709
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/README.md",
-      "sha256": "4DFD4C639FD55C184DBE9EBA69D125865D954B7AC343D2E34FC36DFC9F7E5785",
-      "size": 2361
+      "sha256": "327046EDF1F26B89C020B328C6916BE235C42611A817FC5DEE8FD184F2E86DEB",
+      "size": 573
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/references/CHANGELOG.md",
-      "sha256": "60586577FC0EA25B23C20BA7354A326F4B58DB114BE84464E760740101948DEB",
-      "size": 38624
+      "sha256": "E4A339F31DF19A0E0C3C3C87C8F8A095442E09EA215174C5C70AF37F12051174",
+      "size": 23078
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "094703890F59BCD808CCD3B8AA19E78FBB890C99485A9CA75FA34A003CFD1884",
-      "size": 3660
+      "sha256": "10B2FB45D3C888447A1CC14E8C87B3B0AB1920003AA4EFDCAFA428AC326E343C",
+      "size": 3226
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/references/CROSS-EXAMINATION-GATE.md",
@@ -4190,8 +4349,8 @@
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/references/PRAWO-HARDGATE-WITNESS.md",
-      "sha256": "715E425178AAC1C108EED515FF0C1EB8C9058017489BB22DFCE979A9E806C151",
-      "size": 8665
+      "sha256": "2E90B7706608881579D0C8AC88096720B139AFA955EC14C0FAD737CEE96BA3BD",
+      "size": 8807
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/references/QUESTION-ADMISSIBILITY-GATE.md",
@@ -4250,8 +4409,8 @@
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/SKILL.md",
-      "sha256": "41370D914F3280CF3F83F6E391E2A1C33B76C15975DAE563633641FE2BF26B84",
-      "size": 82057
+      "sha256": "E112C3E5C1CDFEF1542DDAA053456A90E65E4EE6D23FEAC42F6CAA3D3A1100EF",
+      "size": 83077
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/templates/QUESTION-MAP-TEMPLATE.md",
@@ -4305,8 +4464,8 @@
     },
     {
       "path": "skills/przewodnik-prawny-v2/SKILL.md",
-      "sha256": "D1611EF15AEB798A98A17318296B9E92AC4993EB86E04CD02380E03AC142FC55",
-      "size": 32970
+      "sha256": "3333BFDE0B93F6EA02774168FD994ADEA3AFA357547A434962E1765E83E2F16F",
+      "size": 34873
     },
     {
       "path": "skills/raport-klienta-v1/references/CODEX-SOURCE-FRONTMATTER.yaml",
@@ -4315,8 +4474,8 @@
     },
     {
       "path": "skills/raport-klienta-v1/SKILL.md",
-      "sha256": "588113D174ADE4844A07154E2585477B0D436FFC79130FC7A44A42C873DCFA97",
-      "size": 19251
+      "sha256": "47C9486E7220BD6416D803AA21F2EBA2FA3ED54545DDE324988D2C085CF775BE",
+      "size": 19253
     },
     {
       "path": "skills/raport-sytuacyjny-v2/references/CODEX-SOURCE-FRONTMATTER.yaml",
@@ -4325,8 +4484,8 @@
     },
     {
       "path": "skills/raport-sytuacyjny-v2/SKILL.md",
-      "sha256": "7D6BA19369121C756EF7488F797E58C2575B876EEE2200AB8BC0256710924B71",
-      "size": 21388
+      "sha256": "0BB045CD339DADA31E3AABB6CF62BD92207821E2724072192C8DA7AD062C709A",
+      "size": 21390
     },
     {
       "path": "skills/shared/ACTIVATION-MATRIX.md",
@@ -4370,8 +4529,8 @@
     },
     {
       "path": "skills/shared/CODEX-ADAPTER.md",
-      "sha256": "9AFAEEE5B3C0420E056E9A56B8543D3EB71B5A7D25FA59D0F5A273A5EBF5E63E",
-      "size": 1733
+      "sha256": "C787B445685AE26B2D54BF8BEAAA91504E95685ABF0312EDD05F9A16F9F43EB4",
+      "size": 1762
     },
     {
       "path": "skills/shared/CP-GATE.md",
@@ -4385,8 +4544,8 @@
     },
     {
       "path": "skills/shared/DEDUPLICATION-POLICY.md",
-      "sha256": "17AEF570861B567B97B764FEB3AA8C2901ED3E7E74779D2ACBC738F7402A30E9",
-      "size": 6716
+      "sha256": "2DBE96DB246E7D9ACDB72B22375978205CFE1120BCB64415359C390464392853",
+      "size": 6522
     },
     {
       "path": "skills/shared/definicje/DEF-ADMINISTRACYJNE.md",
@@ -4445,8 +4604,8 @@
     },
     {
       "path": "skills/shared/DEPENDENCY-GRAPH.md",
-      "sha256": "2884C07D041C074E15318A7036666BCB3CB165003B8A0D791F9C10BFB536868F",
-      "size": 10884
+      "sha256": "E7C4238C22CE66D931C72C67951676E69518100B1CF34621D3DACA12D573730A",
+      "size": 11575
     },
     {
       "path": "skills/shared/DISABILITY-FUNCTIONAL-ASSESSMENT.md",
@@ -4460,8 +4619,13 @@
     },
     {
       "path": "skills/shared/DISCLAIMER.md",
-      "sha256": "77B8BFFD1667B3D4ECADC2FB260E8B2C74778BA15F91596691067E087D4AB511",
-      "size": 7746
+      "sha256": "20B9F7ECDDCD1EBC0A6E7653DAD9352FFED51D78F173D63289CA7741A2CE1141",
+      "size": 7748
+    },
+    {
+      "path": "skills/shared/DOMAIN-LOCK.md",
+      "sha256": "B6388493D0821849681BA2C7DE5F3A041D6DF096C602BE78C9B92E8FB0716FFD",
+      "size": 5114
     },
     {
       "path": "skills/shared/DOWODY-METODOLOGIA.md",
@@ -4490,8 +4654,8 @@
     },
     {
       "path": "skills/shared/HIERARCHIA-ZRODEL.md",
-      "sha256": "78A500AEAEEDCA352BC1714F7CEC65FAFDA7E163BD239FE20FB0DDE4254A57D0",
-      "size": 20823
+      "sha256": "DFBC47CDEAFB4ADE618E71CE105B703D8683C0CE7627F6A1223B250BF2E05EB7",
+      "size": 23845
     },
     {
       "path": "skills/shared/HYBRID-VALIDATION.md",
@@ -4619,14 +4783,19 @@
       "size": 17072
     },
     {
+      "path": "skills/shared/MOD-GENERATOR-AKTU.md",
+      "sha256": "97950E808FB1476F631D4173E43CA42B121141D07EA2086B2B97E6DB85C8A4C1",
+      "size": 8849
+    },
+    {
       "path": "skills/shared/MOD-HISTORIA-STRATEGII.md",
       "sha256": "67BC0D41C1A7FFEF512ABF6B9748FBACD920ACCC57C635C846B4F7AB1A7454F5",
       "size": 7140
     },
     {
       "path": "skills/shared/MOD-IDENTYFIKACJA-STRONY-UMOWY.md",
-      "sha256": "18FE9C959829FB24CB034448511A923670FDBC243A4CCFB92613E956AC877520",
-      "size": 38250
+      "sha256": "C5FFCC9B96F5FCC54E3210E891BD028C332372EBC75B9487F6E7B3AC200B9416",
+      "size": 38234
     },
     {
       "path": "skills/shared/MOD-INTRO.md",
@@ -4915,8 +5084,8 @@
     },
     {
       "path": "skills/shared/PORTALE-BRANZOWE-RZAD-2B.md",
-      "sha256": "48DDB837D2E7637B68CD3B487B967A19264C382D30C54D5E7E0580416BE75BBC",
-      "size": 12327
+      "sha256": "0FEF19BC2CCE12B965AB5D78153152B3FEC4F22E577A7016B22DA99F304AB406",
+      "size": 12421
     },
     {
       "path": "skills/shared/POST-VALIDATION.md",
@@ -4925,8 +5094,8 @@
     },
     {
       "path": "skills/shared/PRAWO-HARDGATE.md",
-      "sha256": "F0BEDB907B6064053328905F0C5CE7947B3B56DE28A997A450810B216294281C",
-      "size": 43292
+      "sha256": "E4734937E91198AA038551BC53EFBB74B8ABAC4B3BA9C3E399F204BF8B404FF8",
+      "size": 55103
     },
     {
       "path": "skills/shared/PRE-W2-VERIFICATION-GATE.md",
@@ -4954,14 +5123,19 @@
       "size": 1609
     },
     {
+      "path": "skills/shared/RATE-COMPLETENESS.md",
+      "sha256": "DA0109492D73C59E75FFB9FD28C81411D4E7E8773C15776EF16F8543AF56664C",
+      "size": 5777
+    },
+    {
       "path": "skills/shared/references/CHANGELOG.md",
-      "sha256": "818E5BE7CF1ECFA4CF8640CF60EB1D16C317A3E669318DF4CD64F8FB8D8E82CC",
-      "size": 11627
+      "sha256": "9A62B8F85D7069B860011F5B3B8E44F0638F843FA016EDFF35A45571C20B4E69",
+      "size": 35522
     },
     {
       "path": "skills/shared/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "1244CDA0B68608B0599416D765CA9B9AE31BB6C2D3A97139094A446C17E465E3",
-      "size": 3598
+      "sha256": "96B276645E32C9154C31EDF60409D4313BCAF98A90C0D2787FD1D63C959A7537",
+      "size": 4187
     },
     {
       "path": "skills/shared/RISK-ASSESSMENT.md",
@@ -4985,8 +5159,8 @@
     },
     {
       "path": "skills/shared/SKILL.md",
-      "sha256": "E8115C039E0CE7ED8262710F22D1542EC2305F6987AB8BF588B9C6C41D6C6D56",
-      "size": 11919
+      "sha256": "ABD8009F5A1CD8C359069E85E3218CBEFAFAE6B108B9EAA100F8048881979A91",
+      "size": 12596
     },
     {
       "path": "skills/shared/SOCIAL-SECURITY-LAW-STANDARD.md",
@@ -5025,8 +5199,8 @@
     },
     {
       "path": "skills/shared/terminy.md",
-      "sha256": "9D4FA3229C28009991C0A379390821671215743B6D4F1FD516376F53A881D01D",
-      "size": 4293
+      "sha256": "CAA48A57E2364B2D79D8EBE03EBC907A4B456EB553340E381803A23149BB8775",
+      "size": 5680
     },
     {
       "path": "skills/shared/tools/append_event.py",
@@ -5320,8 +5494,8 @@
     },
     {
       "path": "skills/shared/WERYFIKACJA-SLAD.md",
-      "sha256": "409B51CD34FA40641FCA26E09CFDA3677815E6066AAACC328A7DFD57E8ED5612",
-      "size": 25263
+      "sha256": "9662DC73FDBD39B453E4B2663EB889DF54F73943C32A4E98117E8A0139254DB7",
+      "size": 25265
     },
     {
       "path": "skills/shared/WLASCIWOSC-GATE.md",

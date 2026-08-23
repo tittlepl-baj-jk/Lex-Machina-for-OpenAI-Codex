@@ -53,7 +53,7 @@ import os
 import re
 import sys
 
-DOMYSLNY_KATALOG = "/mnt/skills/user"
+DOMYSLNY_KATALOG = "../.."
 
 # --- formaty numeracji wpisów changelogu spotykane w systemie ---
 WZORCE_WPISU = [

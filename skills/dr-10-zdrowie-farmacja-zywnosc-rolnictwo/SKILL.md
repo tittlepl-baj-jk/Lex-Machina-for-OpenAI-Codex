@@ -3,7 +3,7 @@ name: "dr-10-zdrowie-farmacja-zywnosc-rolnictwo"
 description: "DR-10: Zdrowie, Farmacja, Żywność, Rolnictwo Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | nsa.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-10-zdrowie-farmacja-zywnosc-rolnictwo"
 ---
 
@@ -43,7 +43,7 @@ Przy sprawach z tej dziedziny rozważ doładowanie (`view`) definicji:
 ## DEFINICJE — shared/definicje/ (nieobecne — adnotacja audytowa 2026-06-14)
 
 Ta dziedzina nie ma dedykowanego pliku w `shared/definicje/`. Zdrowie, farmacja, żywność, rolnictwo — pojęcia dziedzinowe (świadczenie zdrowotne, podmiot leczniczy, produkt leczniczy) zdefiniowane wprost w aktach sektorowych (ustawa o działalności leczniczej, Prawo farmaceutyczne) i pokryte w modułach DR-10. Żaden plik shared/definicje/ nie obejmuje tej dziedziny.
-## Moduły (31 łącznie — ✓ 31 OK, ☐ 0 STUB)
+## Moduły (32 łącznie — ✓ 32 OK, ☐ 0 STUB)
 
 **NAPRAWA 2026-08-13 (F-45, częściowa):** dodano formalne wpisy `[✓]`
 dla dwóch modułów niżej — istniały fizycznie od 2026-08-12 (podział

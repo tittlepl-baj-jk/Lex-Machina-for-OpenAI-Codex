@@ -73,6 +73,36 @@ def main() -> int:
     if manifest.get("active_skill_count") != 32:
         failures.append("manifest active_skill_count must equal 32")
 
+    listed_files = manifest.get("files", [])
+    if not isinstance(listed_files, list):
+        listed_files = []
+        failures.append("manifest files must be a list")
+    listed_by_path = {
+        str(item.get("path")): item
+        for item in listed_files
+        if isinstance(item, dict) and item.get("path")
+    }
+    actual_skill_files = sorted(path for path in SKILLS.rglob("*") if path.is_file()) \
+        if SKILLS.exists() else []
+    actual_paths = {path.relative_to(ROOT).as_posix() for path in actual_skill_files}
+    listed_paths = set(listed_by_path)
+    if listed_paths != actual_paths:
+        missing_from_manifest = sorted(actual_paths - listed_paths)
+        missing_from_tree = sorted(listed_paths - actual_paths)
+        failures.append(
+            "manifest file set differs from skills tree: "
+            f"unlisted={missing_from_manifest}, absent={missing_from_tree}"
+        )
+    for path in actual_skill_files:
+        relative = path.relative_to(ROOT).as_posix()
+        item = listed_by_path.get(relative)
+        if item is None:
+            continue
+        if str(item.get("sha256", "")).upper() != file_sha256(path).upper():
+            failures.append(f"manifest sha256 mismatch: {relative}")
+        if item.get("size") != path.stat().st_size:
+            failures.append(f"manifest size mismatch: {relative}")
+
     skill_dirs = sorted(
         path for path in SKILLS.iterdir()
         if path.is_dir() and (path / "SKILL.md").is_file()
@@ -93,13 +123,16 @@ def main() -> int:
 
     legacy_paths: list[str] = []
     anthropic_endpoints: list[str] = []
+    claude_public_paths: list[str] = []
     for path in SKILLS.rglob("*"):
         if not path.is_file():
             continue
         data = path.read_bytes()
         relative = path.relative_to(ROOT).as_posix()
-        if b"/mnt/skills/user/" in data:
+        if b"/mnt/skills/user" in data:
             legacy_paths.append(relative)
+        if b"/mnt/skills/public/" in data:
+            claude_public_paths.append(relative)
         if b"https://api.anthropic.com" in data:
             anthropic_endpoints.append(relative)
 
@@ -122,6 +155,8 @@ def main() -> int:
 
     if legacy_paths:
         failures.append(f"legacy paths found: {', '.join(legacy_paths)}")
+    if claude_public_paths:
+        failures.append(f"Claude public skill paths found: {', '.join(claude_public_paths)}")
     if anthropic_endpoints:
         failures.append(f"active Anthropic endpoints found: {', '.join(anthropic_endpoints)}")
     if private_hits:

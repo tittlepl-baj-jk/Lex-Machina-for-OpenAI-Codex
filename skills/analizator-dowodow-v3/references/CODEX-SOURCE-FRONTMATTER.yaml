@@ -1,5 +1,5 @@
 name: analizator-dowodow-v3
-version: "5.17.0"
+version: "5.16.1"
 type: executive-analiza
 status: production
 description: |
@@ -20,7 +20,6 @@ dependencies:
     - shared
     - MOD-SKAN-DOWODOW-KOMPLETNY
     - MOD-STEP-TRACKER
-    - MOD-DOKUMENT-GATES
   optional:
     - analizator-umow-v1
     - analiza-sadowa
@@ -36,14 +35,12 @@ validation:
     - PRAWO-HARDGATE
     - SD-VER-GATE-AD
     - STEP-TRACKER-AD
-    - DOKUMENT-GATES-1-8
 pipeline:
   stages:
     - AD-KROK0-BLOKADA
     - AD-KROK0a-MODE
     - AD-KROK0b-SDVER
     - AD-KROK0c-STINIT
-    - AD-KROK0d-DGLOAD
     - AD-KROK1-INTAKE
     - AD-KROK2-ROUTER
     - AD-BLOKG-STRONY
@@ -52,13 +49,11 @@ pipeline:
     - AD-KROK3-WYKONANIE
     - AD-KROK4-DASHBOARD
 changelog: |
-  Wersja bieżąca: 5.17.0. Pełna historia w references/CHANGELOG.md.
-  Skrót 5.17.0 (2026-08-20z): (1) NOWA ZDOLNOŚĆ — KROK 0d DG-LOAD wpina
-  shared/MOD-DOKUMENT-GATES.md (8 bramek pracy na dokumentach, dotąd
-  dostępnych wyłącznie w skillu przesłuchań, F-100 A); (2) 5 bloków
-  strategicznych (KONSEKWENCJE, ATAK, NEGACJA, PROWENIENCJA, DTA-ID)
-  wydzielonych do modules/MD7-bloki-strategiczne.md, treść 1:1, w SKILL.md
-  tablica wyzwalaczy, rejestracja jako E7 w BLOKU E routera (F-100 B);
-  (3) naprawiony nagłówek H1 „v5.1" przy version 5.16.1 (F-101).
-  ⚠️ Wersje 5.16.0 i 5.16.1 nie mają wpisu w żadnym rejestrze — luka
-  odnotowana jawnie w references/CHANGELOG.md.
+  Wersja bieżąca: 5.15.0. Pełna historia (25 wpisów, 4.0.0-5.15.0) w
+  references/CHANGELOG.md — wczytuj na żądanie, NIE trzymaj tu ponownie
+  (F-78, 2026-08-20: to drugie takie porządkowanie tego pola po 2026-07-12;
+  następne audyty dopisujące wpisy wersji NIECH DOPISUJĄ do
+  references/CHANGELOG.md, NIE do tego pola YAML).
+  Skrót ostatniej zmiany: 5.15.0 — dodano BLOK D0 TEZA-GATE (rekonstrukcja
+  tezy centralnej przed oceną mocnych/słabych stron), obowiązkowy przed
+  BLOK D (F-7/ZASADA 11).

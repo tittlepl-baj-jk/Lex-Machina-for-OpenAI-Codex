@@ -260,7 +260,7 @@ Orzeczenie                       → ZAWSZE URL bezpośredni do orzeczenia + dat
 > **Obowiązuje dla:** pism procesowych (.docx), umów, regulaminów, wzorców, OWU
 
 ```
-TRIGGER: każdorazowo PRZED wywołaniem view /mnt/skills/public/docx/SKILL.md
+TRIGGER: każdorazowo PRZED wywołaniem view skill `documents` dostepny w Codex
          i przed finalnym zapisem umowy / regulaminu / wzorca.
 
 ⛔ ZAKAZ: znaczniki [VER: …] i [NIEWERYFIKOWANE] NIE mogą pojawić się

@@ -1,17 +1,8 @@
 name: dr-01-ustroj-konstytucyjny-i-zrodla-prawa
-version: "3.7"   # F-102 (2026-08-20z3): cudzyslow profilaktyczny — przy przejsciu
-                  # na 3.10 niecytowany numer parsowalby sie jako float
-                  # 3.1, czyli MNIEJ niz 3.9. Ten skill byl i tak edytowany
-                  # w tej sesji, wiec poprawka weszla przy okazji.
+version: 3.6
 description: |
   DR-01: Ustrój Konstytucyjny i Źródła Prawa
   Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu.
   Ładuj TYLKO moduł pasujący do sprawy — lazy loading.
   Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill.
   Weryfikacja: isap.sejm.gov.pl | trybunal.gov.pl | sn.pl | nsa.gov.pl | orzeczenia.ms.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)
-changelog: |
-  Wersja bieżąca: 3.7. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
-  (standard systemowy 2026-08-20z4: jeden plik, jedna lokalizacja; zakaz sekcji
-  changelogu w korpusie SKILL.md i zakaz pełnej listy wpisów w tym polu).
-  Skrót 3.7 (2026-08-20z4): historia wyniesiona do references/CHANGELOG.md (nowy plik); wpisy 3.5 i 3.6
-  pozostają oznaczone jako LUKA JAWNA (brak śladu w dzienniku audytu).

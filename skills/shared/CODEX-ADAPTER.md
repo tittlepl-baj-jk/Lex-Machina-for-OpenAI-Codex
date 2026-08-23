@@ -29,4 +29,4 @@ z wersji Claude/Cowork. Nie zmienia metodologii prawnej ani bramek jakości.
 ## Ścieżki
 
 W porcie ścieżki są względne względem pliku zawierającego instrukcję. Nie używaj
-historycznego katalogu `../`.
+historycznych bezwzględnych ścieżek środowiska Claude.

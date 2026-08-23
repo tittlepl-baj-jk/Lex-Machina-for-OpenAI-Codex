@@ -18,7 +18,7 @@ ODEJMOWANE od liczby fizycznej przed porównaniem).
 Test jest DETERMINISTYCZNY — wyłącznie analiza plików na dysku.
 
 Użycie:
-    python3 test_module_count.py [--repo-root /mnt/skills/user] [--quiet]
+    python3 test_module_count.py [--repo-root ../..] [--quiet]
 
 Kod wyjścia:
     0 — wszystkie liczniki zgodne (lub brak deklarowanego licznika)
@@ -78,7 +78,7 @@ def check_count(skill_dir: Path, modules_dir: Path, skill_md: Path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--repo-root", default="/mnt/skills/user")
+    ap.add_argument("--repo-root", default="../..")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
 

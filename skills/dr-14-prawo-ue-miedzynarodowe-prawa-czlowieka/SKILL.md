@@ -3,7 +3,7 @@ name: "dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka"
 description: "DR-14: Prawo UE, Międzynarodowe, Prawa Człowieka Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony obszar prawa UE / prawa międzynarodowego. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | eur-lex.europa.eu | echr.coe.int | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka"
 ---
 
@@ -47,7 +47,7 @@ Przy sprawach z tej dziedziny rozważ doładowanie (`view`) definicji:
 ## DEFINICJE — shared/definicje/ (nieobecne — adnotacja audytowa 2026-06-14)
 
 Ta dziedzina nie ma dedykowanego pliku w `shared/definicje/`. Prawo UE, międzynarodowe, prawa człowieka — definicje TFUE/TUE/KPP/EKPC mają charakter pierwotny (prawo traktatowe) i są pokryte wprost w modułach dziedzinowych (mod-KPP-karta-praw-podstawowych-UE, mod-EKPC-ETPC-prawa-czlowieka). Żaden plik shared/definicje/ nie obejmuje tej dziedziny.
-## Moduły (10 łącznie — ✓ 10 OK, ☐ 0 STUB)
+## Moduły (12 łącznie — ✓ 12 OK, ☐ 0 STUB)
 
 ```
 PRAWO PIERWOTNE UE I PROCEDURY TSUE:

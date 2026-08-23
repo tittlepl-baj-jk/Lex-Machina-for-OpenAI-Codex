@@ -13,8 +13,8 @@ Skanuje cały `../../` i wykrywa:
    nie blokuje, ale wymaga decyzji redakcyjnej.
 
 ```
-python3 ci_check_shared.py --repo-root /mnt/skills/user
-bash install_precommit_hook.sh /mnt/skills/user   # podpina jako git hook
+python3 ci_check_shared.py --repo-root ../..
+bash install_precommit_hook.sh ../..   # podpina jako git hook
 ```
 
 Pierwsze uruchomienie na produkcyjnym stanie silnika (2026-07-12): 0 zerwanych

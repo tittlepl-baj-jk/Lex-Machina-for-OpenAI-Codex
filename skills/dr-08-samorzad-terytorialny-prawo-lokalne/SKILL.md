@@ -3,7 +3,7 @@ name: "dr-08-samorzad-terytorialny-prawo-lokalne"
 description: "DR-08: Samorząd Terytorialny i Prawo Lokalne Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.nsa.gov.pl | dzienniki.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "stable-2026-08-21"
+  source-tree: "development-9e37d60"
   source-directory: "dr-08-samorzad-terytorialny-prawo-lokalne"
 ---
 
