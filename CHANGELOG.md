@@ -9,9 +9,10 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 ### Planowane
 
-- publiczne repozytorium portu;
-- pełny test integracyjny K1-K5 na danych fikcyjnych;
-- wersjonowane wydanie po przejściu checklisty publikacyjnej.
+- kontrolowana aktualizacja z „Wersji rozwojowej” upstream, zamrożonej na
+  commicie `9e37d6092f84b5f1a2fe41717e07611de062951a`;
+- test regresji procesu aktualizacji i wydanie `v0.2.0-codex` po przejściu
+  checklisty publikacyjnej.
 
 ## [0.1.0] - 2026-08-23
 
@@ -29,6 +30,10 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 - wprowadzono bezpieczne fallbacki dla funkcji niedostępnych w Codex;
 - poprawiono wskazane w `manifest.json` martwe odwołania;
 - wykonano statyczną walidację 32/32 skilli z wynikiem `PASS`.
+- wykonano fikcyjny test integracyjny K1–K5 z wynikiem `PASS`;
+- zanonimizowano osobisty e-mail i realistyczne przykłady PESEL oraz dodano
+  trwałą kontrolę potencjalnych sekretów i identyfikatorów;
+- poprawiono międzyplatformową walidację licencji przez normalizację CRLF/LF.
 
 ### Dokumentacja i licencja
 
@@ -37,3 +42,4 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 - oznaczono port jako nieoficjalne dzieło pochodne na GPLv3;
 - zapisano autorstwo Michała Wiatraka i bazowy commit upstream.
 - dodano przenośny walidator publikacyjny i workflow GitHub Actions.
+- opublikowano publiczne repozytorium i tag `v0.1.0-codex`.
