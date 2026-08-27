@@ -3,7 +3,7 @@ name: "dr-16-pisma-strategia-dowody-orzecznictwo"
 description: "DR-16: Pisma, Strategia, Dowody, Orzecznictwo Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony obszar procesowy. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl | nsa.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "dr-16-pisma-strategia-dowody-orzecznictwo"
 ---
 

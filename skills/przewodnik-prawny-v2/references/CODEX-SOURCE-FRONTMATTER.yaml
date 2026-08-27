@@ -1,25 +1,9 @@
 name: przewodnik-prawny-v2
-version: 2.5
+version: "2.6"
 type: ux-guide
 status: production
-description: |
-  Przewodnik Prawny v2 — gospodarz całej sesji prawnej.
-  Stosuj ZAWSZE gdy użytkownik: nie wie od czego zacząć w sprawie prawnej,
-  pyta "co mam zrobić" / "jak to działa" / "czy mam szansę", dostarcza
-  dokument i chce wiedzieć czy jest poprawny, pyta o znaczenie pojęć lub
-  chce sprawdzić cytaty/podstawy prawne, jest zagubiony i potrzebuje
-  prowadzenia krok po kroku, wcześniej użył innego skilla i nie rozumie
-  wyniku, pyta "co możesz dla mnie zrobić" / "jakie masz narzędzia",
-  chce trybu Q&A, jest prawnikiem i pyta jak używać systemu, chce
-  sprawdzić gotowe pismo (KROK F.0) lub chce jego redakcji (MOD-REDAKCJA),
-  chce "surowej analizy" / "bez interpretacji" / samych źródeł i cytatów
-  z lokalizacją bez oceny czy rekomendacji AI (Zasada 8, v2.5).
-  Przewodnik = GOSPODARZ — sam zbiera dane, wywołuje skille, tłumaczy
-  wyniki, proponuje dalej. Wywołuje: wszystkie skille systemu prawnego.
-compatibility:
-  tools:
-    - web_search
-    - web_fetch
+description: "Przewodnik prawny i fallback routera: pomaga zidentyfikować problem, właściwą ścieżkę postępowania, potrzebne dokumenty i kolejny specjalistyczny skill."
+compatibility: "live_web_lookup, file_read, cross_skill_file_read, optional_document_and_interactive_ui"
 changelog:
   - "2.5: Zasada 8 — TRYB SUROWEJ ANALIZY (references/TRYB-SUROWA-ANALIZA.md).
     Orthogonalny do LAIK/PRAWNIK: wyłącza kwalifikację/ocenę/rekomendację,

@@ -1,16 +1,12 @@
 name: shared
-version: "3.19"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: niecytowane `3.17` YAML parsuje
+version: "3.23"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: niecytowane `3.17` YAML parsuje
                   # jako float 3.17, a 3.17 < 3.9 — porządek wersji odwraca się
                   # dla każdego narzędzia porównującego liczbowo. Wykryte
                   # testem T12 (check_wersje_changelog.py), 2026-08-20z.
 type: library
 entrypoint: SKILL.md
 compatibility: "wszystkie skille prawne systemu"
-description: >-
-  Biblioteka plików kanonicznych systemu prawnych skilli — hardgate, walidacja,
-  definicje, terminy, moduły kancelaryjne. NIE jest samodzielnym skillem i NIE
-  odpowiada na zapytania użytkownika: moduły wczytują inne skille przez `view`.
-  Pełny spis modułów — tabele „Zawartość katalogu" w treści tego pliku.
+description: "Kanoniczna biblioteka Lex Machina: hardgate, walidacja, definicje, terminy i moduły wspólne. Nie odpowiada użytkownikowi samodzielnie; zasoby wczytują inne skille."
 dependencies:
   requires: []
   # `shared` z definicji powinien być warstwą bazową bez zależności
@@ -53,14 +49,15 @@ limitations:
 required_modules: []
   # nie ma zastosowania — shared jest wczytywany, nie wczytuje sam siebie
 changelog: |
-  Wersja bieżąca: 3.19. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
-  (standard systemowy 2026-08-20z4: jeden plik, jedna lokalizacja; zakaz sekcji
-  changelogu w korpusie SKILL.md i zakaz pełnej listy wpisów w tym polu).
-  Skrót 3.19 (2026-08-23): usunięto 6 plików historycznych bez roli operacyjnej (202 → 196):
-  AKTY-PRAWNE-MASTER.md (DEPRECATED od 2026-06-14), STATUS.md (rejestr zamrożony 2026-06-09),
-  MOD-WALIDACJA.md (stub bez konsumenta), oba pliki z katalogu checklists/ (zero wywołań;
-  katalog przestał istnieć) oraz portale-branzowe-rzad-2b/czesc-05-changelog.md (treść
-  przeniesiona 1:1 do ANEKSU A w references/CHANGELOG.md). Pełne uzasadnienie per plik
-  oraz lista plików świadomie ZOSTAWIONYCH mimo zerowego wywołania — references/CHANGELOG.md.
-  Skrót 3.18 (2026-08-20z4): pole changelog: w YAML miało 111 linii pełnej historii — wyniesione do
-  references/CHANGELOG.md (nowy plik); w YAML został skrót.
+  Wersja bieżąca: 3.23 (2026-08-27): PRAWO-HARDGATE.md — nowa sekcja
+  "OBOWIĄZEK WIDOCZNEGO ZNACZNIKA W DOSTARCZONEJ ODPOWIEDZI", bezwarunkowa:
+  zamyka lukę między weryfikacją wykonaną w tle a znacznikiem widocznym przy
+  cytacie w dostarczonym tekście. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
+  (standard 2026-08-20z4: jedna lokalizacja; zakaz sekcji changelogu w korpusie
+  SKILL.md i zakaz pełnej listy wpisów w tym polu — pole to było już raz
+  porządkowane, miało 111 linii).
+  Skrót 3.20 (2026-08-23h, F-111 wariant B): PRAWO-HARDGATE.md podzielony
+  967 → 501 l. rdzenia + nowy PRAWO-HARDGATE-ORZECZENIA.md (464 l.), wyzwalacz
+  binarny (sygnatura w tekście); 88 linii historii bramki wyniesione z korpusu.
+  Skrót 3.19: usunięto 6 plików historycznych bez roli operacyjnej (202 → 196).
+  Skrót 3.18: pole changelog: w YAML miało 111 linii — wyniesione do references/.

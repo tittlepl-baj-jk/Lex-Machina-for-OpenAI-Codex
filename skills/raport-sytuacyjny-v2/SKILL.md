@@ -3,7 +3,7 @@ name: "raport-sytuacyjny-v2"
 description: "Raport Sytuacyjny Sprawy v2 — interaktywny widget graficzny renderowany inline. WYWOŁYWANY przez prawny-router-v3 w trzech trybach: [A] OBOWIĄZKOWY — po wygenerowaniu pisma lub ostatnim podsumowującym kroku. [B] PROPOZYCJA — po wgraniu i analizie dokumentów (tylko sugestia słowna). [C] NA ŻĄDANIE — gdy użytkownik pyta o aktualny stan sprawy. RENDERING: show_widget z HTML vanilla JS — NIE present_files, NIE JSX, NIE React. Dane sprawy wbudowane jako literały JS bezpośrednio w HTML widgetu. Zawiera: chronologię z weryfikacją źródeł, mapę ryzyk P1/P2/P3, sprzeczności i luki dowodowe, rekomendacje procesowe z priorytetem, priorytety aspektów (główne/poboczne) z MOD-PRIORYTETY-ASPEKTOW, historię wariantów strategii z MOD-HISTORIA-STRATEGII, eksport PDF."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "raport-sytuacyjny-v2"
 ---
 

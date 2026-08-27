@@ -3,7 +3,7 @@ name: "dr-10-zdrowie-farmacja-zywnosc-rolnictwo"
 description: "DR-10: Zdrowie, Farmacja, Żywność, Rolnictwo Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | nsa.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "dr-10-zdrowie-farmacja-zywnosc-rolnictwo"
 ---
 

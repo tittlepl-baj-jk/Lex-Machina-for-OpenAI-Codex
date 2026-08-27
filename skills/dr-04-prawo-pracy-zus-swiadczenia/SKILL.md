@@ -3,7 +3,7 @@ name: "dr-04-prawo-pracy-zus-swiadczenia"
 description: "DR-04: Prawo Pracy, ZUS, Świadczenia Społeczne Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "dr-04-prawo-pracy-zus-swiadczenia"
 ---
 

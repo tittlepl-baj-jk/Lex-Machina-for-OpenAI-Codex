@@ -18,11 +18,11 @@ GitHub: **tittlepl-baj-jk**.
 ## Status
 
 - 32 aktywne skille dla Codex;
-- bazowy upstream: commit `9e37d6092f84b5f1a2fe41717e07611de062951a`
-  z wersji rozwojowej Michała Wiatraka;
+- bazowy upstream: commit `21bc139886be011691b88b209aae3374b8c2da89`
+  z uniwersalnej wersji rozwojowej Michała Wiatraka;
 - statyczna walidacja portu: 32/32 `PASS`;
 - krytyczne testy regresyjne T1, T2 i T6/T7: `PASS`;
-- wydanie portu: `v0.2.0-codex`;
+- wydanie portu: `v0.3.0-codex`;
 - pakiet jest portem skilli Codex, a nie samodzielną aplikacją ChatGPT ani
   publikacją w katalogu GPT lub Apps.
 

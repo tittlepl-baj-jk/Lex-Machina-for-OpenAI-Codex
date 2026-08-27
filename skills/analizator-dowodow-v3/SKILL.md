@@ -3,7 +3,7 @@ name: "analizator-dowodow-v3"
 description: "Analizator dowodów procesowych v5 — pełny modularny zestaw (dowody + pisma). Stosuj gdy użytkownik: dostarcza dowody, dokumenty, zeznania, nagrania, maile, akta, pisma procesowe, decyzje lub korespondencję do oceny; pyta o siłę dowodów, hierarchię A–D, wartość procesową, pokrycie przesłanek lub spójność dowodów; chce oceny sprawy oczami sądu/przeciwnika/pełnomocnika; pyta o terminy procesowe (KPC/KPK/KPW/KPA/KP); chce ekstrakcji faktów, analizy śledczej (profilowanie, VSA, HUMINT), syntezy faktycznej, łańcuchów przyczynowych lub narracji procesowej; chce ustalić jakich dziedzin prawa dotyczy sprawa (MX: 25 dziedzin). Uruchamia widget graficzny z zakładką Sprzeczności (z prawem / między dok.) LUB raport narracyjny .md ze spisem treści (MD-NARR) na żądanie formatu dokumentu. Nigdy nie oceniaj bez wystarczających informacji — pytaj najpierw."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "analizator-dowodow-v3"
 ---
 

@@ -3,7 +3,7 @@ name: "przesluchanie-swiadkow-v2-min90"
 description: "Przesłuchanie świadków v2 — przygotowanie pytań, kontrprzesłuchanie i scoring dowodowy w sprawach cywilnych, karnych, pracowniczych i administracyjnych. Stosuj gdy użytkownik chce: przygotować pytania do świadka lub biegłego, przeprowadzić impeachment, ocenić wiarygodność zeznań, wykryć sprzeczności z wcześniejszymi zeznaniami, dobrać model przesłuchania do typu sędziego. Pipeline: PRE-W1a SD-VER (skan dowodów, HARD GATE) → PRE-W1 (profil) → KROK 0 → W1 intake → W2 tezy/model → CHECKPOINT-W2 → W3 pytania (FPW, ryzyko 3D, WHY-GATE, SAFE-Q) → W4 próba generalna → W5 binder → W6 direct. ⛔ HARD GATE: zakaz cytowania przepisów/sygnatur z pamięci; zakaz wejścia do WITNESS-INTELLIGENCE bez SD-VER=KOMPLET; WITNESS-SCOPE-LOCK — zakaz dołączania do W2/W3 osób spoza potwierdzonej listy świadków. NIE stosuj do analizy dokumentów bez świadka — użyj analizator-dowodow-v3."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "przesluchanie-swiadkow-v2-min90"
 ---
 

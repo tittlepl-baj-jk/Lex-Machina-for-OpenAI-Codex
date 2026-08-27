@@ -3,7 +3,7 @@ name: "orzeczenia-sadowe-v2"
 description: "Wyszukuje, weryfikuje i cytuje realne orzeczenia sądowe z oficjalnych portali (orzeczenia.ms.gov.pl, sn.pl, orzeczenia.nsa.gov.pl, trybunal.gov.pl, otkzu.trybunal.gov.pl, orzeczenia.uzp.gov.pl, saos.org.pl) oraz sieci lokalnej SA/SO/SR i WSA (CBOSA). Stosuj ZAWSZE gdy pyta o orzecznictwo, wyroki, linię orzeczniczą, precedensy — nawet bez tych słów wprost. Dobiera orzeczenia najbliższe oczekiwanemu rozstrzygnięciu; przy licznej linii przeciwnej — obowiązkowy BILANS. PLAN MINIMUM: 5 orzeczeń wspierających + 5 linii przeciwnej (o ile istnieje), każde z przesłankami rozstrzygnięcia. Nigdy nie cytuj z pamięci — zawsze weryfikacja online przed sygnaturą. NIE stosuj gdy pytanie dotyczy tylko przepisów bez orzeczeń. Pełna historia zmian: references/CHANGELOG.md (nie w tym polu — opis wyzwalający musi zostać zwięzły dla trafności triggerowania skilla)."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "orzeczenia-sadowe-v2"
 ---
 

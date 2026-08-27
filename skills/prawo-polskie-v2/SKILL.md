@@ -3,7 +3,7 @@ name: "prawo-polskie-v2"
 description: "Fasada routera — 16 dziedzin prawa polskiego (DR-01 do DR-16). Wchodzi z: prawny-router-v3 → KROK 1B lub prawny-router-v3 → [10]. Wychodzi do: właściwy DR-skill → moduł aktu prawnego. Zasada: ten plik zawiera TYLKO routing. Treść prawna → w DR-skills."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "prawo-polskie-v2"
 ---
 

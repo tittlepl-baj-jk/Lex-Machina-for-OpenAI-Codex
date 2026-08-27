@@ -3,7 +3,7 @@ name: "analiza-sadowa-v6"
 description: "UŻYWAJ ZAWSZE gdy użytkownik: dostarcza akta, pisma, wyroki, decyzje lub dokumenty prawne; pyta o szanse w sprawie karnej, wykroczeniowej, cywilnej, pracowniczej, administracyjnej; chce ocenić dowody, terminy zawite lub koszty sądowe (KSCU); potrzebuje analizy błędów pełnomocnika strony przeciwnej lub audytu własnych pism; pyta o orzecznictwo, groźbę bezprawną (art. 87 KC), nagrania (art. 267 KK), podwójną kwalifikację kwoty lub e-mail pracownika; pyta o \"narzędzie\"/\"dashboard\"/\"analizator\" → wywołaj widget React; pyta \"co mam zrobić\" / \"czy mam szansę\" / \"czy to zgodne z prawem\". v6: model CZTEROPRZEBIEGOWY z obowiązkową DWUKROTNĄ WERYFIKACJĄ dowodów i pism."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "analiza-sadowa-v6"
 ---
 

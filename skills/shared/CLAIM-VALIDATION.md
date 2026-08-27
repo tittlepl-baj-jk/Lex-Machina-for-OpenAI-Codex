@@ -1,7 +1,7 @@
 # MOD-CLAIM-VALIDATION — Walidacja Twierdzeń Strony względem Materiału Dowodowego
 
-**Plik kanoniczny:** `../shared/CLAIM-VALIDATION.md`
-Wywołuj przez: `view ../shared/CLAIM-VALIDATION.md`
+**Plik kanoniczny:** `shared/CLAIM-VALIDATION.md`
+Wywołuj przez: `view shared/CLAIM-VALIDATION.md`
 
 ---
 

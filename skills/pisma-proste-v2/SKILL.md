@@ -3,7 +3,7 @@ name: "pisma-proste-v2"
 description: "Redagowanie pism procesowych o niskim stopniu złożoności, jeden wątek prawny. Stosuj dla: klauzuli wykonalności, sprzeciwu/zarzutów od nakazu zapłaty, wszczęcia egzekucji, zabezpieczenia roszczenia, zwolnienia od kosztów, zawezwania do ugody, przywrócenia terminu, wglądu do akt, wezwania do zapłaty, uzasadnienia wyroku, doręczenia przez komornika, sprzeciwu od referendarza, interpretacji ZUS, skargi do UODO, oświadczenia o skorzystaniu z sankcji kredytu darmowego (SKD, art. 45 u.k.k.). NIE stosuj do pism wielowątkowych (apelacje, pozwy złożone, w tym pozew o zwrot nadpłaty po SKD) — użyj pisma-procesowe-v3."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "pisma-proste-v2"
 ---
 

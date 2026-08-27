@@ -3,7 +3,7 @@ name: "analizator-umow-v1"
 description: "Analiza, redakcja, negocjacje i generowanie od zera umów oraz dokumentów korporacyjnych/HR/RODO. Stosuj gdy użytkownik: chce ocenić, poprawić, wynegocjować lub napisać umowę (B2B, o pracę, zakaz konkurencji, najem, nieruchomości, dystrybucja, finansowanie, IT/SaaS, PZP/FIDIC, B2C, IP/prawa autorskie, ubezpieczenia, dokumenty founders'/spółka/statut, RODO/regulaminy) lub dokument korporacyjny/regulamin/pełnomocnictwo; chce triage ryzyka klauzul, ocenę z perspektywy drugiej strony, lub poprawę pojedynczego fragmentu umowy. Przepisy, akty UE i klauzule UOKiK weryfikować wyłącznie w źródłach urzędowych przed użyciem — nigdy z pamięci. Pełna historia zmian i metodologia: references/CHANGELOG.md (nie w tym polu — opis wyzwalający musi zostać zwięzły dla trafności triggerowania skilla)."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "analizator-umow-v1"
 ---
 

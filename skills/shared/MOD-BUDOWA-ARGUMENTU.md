@@ -1,9 +1,9 @@
 # MOD-BUDOWA-ARGUMENTU — Obowiązkowy Schemat Budowy Każdego Argumentu
 
-> **Plik:** `../shared/MOD-BUDOWA-ARGUMENTU.md`
+> **Plik:** `shared/MOD-BUDOWA-ARGUMENTU.md`
 > **Status:** PRODUKCJA — plik kanoniczny shared
 > **Pozycja w pipeline:** W2.2 (redakcja pisma) — KAŻDY akapit uzasadnienia
-> **Wywołanie:** `view ../shared/MOD-BUDOWA-ARGUMENTU.md`
+> **Wywołanie:** `view shared/MOD-BUDOWA-ARGUMENTU.md`
 > **Trigger:** OBOWIĄZKOWY dla każdego bloku uzasadnienia w piśmie procesowym
 
 ---

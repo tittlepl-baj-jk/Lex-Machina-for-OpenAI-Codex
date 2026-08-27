@@ -3,7 +3,7 @@ name: "chronologia-sprawy-v1"
 description: "Chronologia Sprawy v1.3 — wielowarstwowa ekstrakcja i porządkowanie zdarzeń prawnych z dokumentów procesowych, akt i dowodów. AUTO-TRIGGER przez prawny-router-v3: ≥2 dokumenty wieloetapowe LUB słowa kluczowe (chronologia, oś czasu, timeline, kolejność zdarzeń, kiedy+potem). Na żądanie: ustalanie kolejności faktów, wykrywanie sprzeczności dat, przygotowanie stanu faktycznego do pozwu/apelacji/odpowiedzi. Osobna oś czasu per wątek prawny, cztery klasy pewności zdarzenia (BEZSPORNE/PEWNE/WYDEDUKOWANE/SPORNE), proweniencja każdego zdarzenia, automatyczny indeks sprzeczności dat i opisów, obowiązkowa korelacja finansowa (kwoty, terminy, strony płatności) z zestawieniem krzyżowym. Integruje się z raport-sytuacyjny-v2."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "chronologia-sprawy-v1"
 ---
 

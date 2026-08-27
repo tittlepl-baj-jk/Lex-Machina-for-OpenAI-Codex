@@ -5,18 +5,18 @@
   "github_owner": "tittlepl-baj-jk",
   "license": "GPL-3.0-only",
   "source": "https://github.com/michaleiatrak-star/Lex-Machina",
-  "source_commit": "9e37d6092f84b5f1a2fe41717e07611de062951a",
-  "source_snapshot": "Wersja rozwojowa, commit 9e37d60, stan 2026-08-23",
+  "source_commit": "21bc139886be011691b88b209aae3374b8c2da89",
+  "source_snapshot": "Wersja rozwojowa uniwersalna 2026-08-27",
   "port_created": "2026-08-23",
-  "port_updated": "2026-08-23",
-  "source_router_sha256": "5D58869270C624C19094D18A9861145B9E0DE18FD906D420A17207218ED74464",
+  "port_updated": "2026-08-27",
+  "source_router_sha256": "A94C1B59A58A9824A02CDFE0649189DAB6486931F2AE2942E740CAC9F09EBC5F",
   "active_skill_count": 32,
   "excluded_top_level": [
     "dr-09-out",
     "przesluchanie-swiadkow-v2-min90-v35"
   ],
-  "path_replacements": 990,
-  "public_docx_path_replacements": 4,
+  "path_replacements": 810,
+  "public_docx_path_replacements": 2,
   "anthropic_endpoint_replacements": 4,
   "port_overrides": [
     "ROUTING-BJ-BW: dead references/modules path replaced with DR routing map",
@@ -31,8 +31,7 @@
     "analiza-sadowa-v6/references/MOD-E.md",
     "analiza-sadowa-v6/references/moduly-spec.md",
     "prawny-router-v3/references/KROK0A-anonimizer.md",
-    "audyt-systemu-v4/references/AUDIT-JOURNAL.md",
-    "shared/MOD-IDENTYFIKACJA-STRONY-UMOWY.md"
+    "audyt-systemu-v4/references/AUDIT-JOURNAL.md"
   ],
   "skills": [
     {
@@ -178,7 +177,7 @@
     {
       "directory": "przewodnik-prawny-v2",
       "name": "przewodnik-prawny-v2",
-      "source_version": "2.5"
+      "source_version": "2.6"
     },
     {
       "directory": "raport-klienta-v1",
@@ -193,7 +192,7 @@
     {
       "directory": "shared",
       "name": "shared",
-      "source_version": "3.19"
+      "source_version": "3.23"
     }
   ],
   "files": [
@@ -299,8 +298,8 @@
     },
     {
       "path": "skills/analiza-sadowa-v6/SKILL.md",
-      "sha256": "FFCB74CD957DFFBCF610907461E05AE7584EDE35878356F0A5D872F76F415F3E",
-      "size": 37749
+      "sha256": "736D9B6E53001018CF63CFC9A019E95EF8B698EEEAA492B5B1F8D0A19B4DC1E5",
+      "size": 37762
     },
     {
       "path": "skills/analizator-dowodow-v3/assets/dashboard.html",
@@ -484,8 +483,8 @@
     },
     {
       "path": "skills/analizator-dowodow-v3/SKILL.md",
-      "sha256": "B7C1356B9634637A4F6214F8719CEC1CC5ADBEEA62CC168D419CA4102A81DF30",
-      "size": 53387
+      "sha256": "E02550A8CF6EBF3B73034F2DD45DD84AB11181E77885A768A1B5D76CB3A4A31C",
+      "size": 53400
     },
     {
       "path": "skills/analizator-dowodow-v3/templates/matryca-dowodowa.md",
@@ -524,8 +523,8 @@
     },
     {
       "path": "skills/analizator-przepisow-v2/SKILL.md",
-      "sha256": "4DBC7BDD28430BB5599B287A1E74479BA254BAA475C130A8B37CE41468DA7A00",
-      "size": 23491
+      "sha256": "933AB273EBA9F0C925E97B8A2664B875EF3C6F1130AEEA98660BD51F96607281",
+      "size": 23504
     },
     {
       "path": "skills/analizator-umow-v1/references/b2b-podwykonawcze.md",
@@ -779,8 +778,8 @@
     },
     {
       "path": "skills/analizator-umow-v1/SKILL.md",
-      "sha256": "EA4A78C4385D18020ACFB72930C18B8B49579C7D842ACF84FF5C70F3CC052EA0",
-      "size": 34733
+      "sha256": "CA27B3617C0E58247379A13838320FD24656444D688A514B9F05C4C965422DD3",
+      "size": 34746
     },
     {
       "path": "skills/analizator-umow-v1/workflows/generator-dokumentow-hr-rodo.md",
@@ -928,6 +927,11 @@
       "size": 129884
     },
     {
+      "path": "skills/audyt-systemu-v4/references/PLAN-TESTU-BRAMEK-F113.md",
+      "sha256": "5C9B63407BA7627D9FD5610CDB73E7B0899753A733E714E5A5044CA3A8C7BEF2",
+      "size": 11406
+    },
+    {
       "path": "skills/audyt-systemu-v4/references/raporty-pokrycia-2026-08-13/00-indeks-raportow-pokrycia.md",
       "sha256": "A62DB715E9F1964A87F87D4FCE7A68B5DFC8971527BB34AEAA54854328F212CB",
       "size": 11751
@@ -1003,6 +1007,11 @@
       "size": 9341
     },
     {
+      "path": "skills/audyt-systemu-v4/references/SPROSTOWANIE-LM-2026-08-23.md",
+      "sha256": "FC2F35CAA7A57A7510722BA1DB319A4CD215FF1DCC324D0661600AF5930F3E74",
+      "size": 3555
+    },
+    {
       "path": "skills/audyt-systemu-v4/references/SYNC-DZU-AUTOMATYCZNY.md",
       "sha256": "4348FEAE13E9494B753627A408167AEB1247BD9D245BBB6092135B395ACB2218",
       "size": 4443
@@ -1016,6 +1025,11 @@
       "path": "skills/audyt-systemu-v4/scripts/bootstrap_last_sync_date.py",
       "sha256": "B113F1E89B2793DB5EC3FDBF9B5F478CBE447ACBD5B27B99C767591C399504FC",
       "size": 4470
+    },
+    {
+      "path": "skills/audyt-systemu-v4/scripts/check_description.py",
+      "sha256": "CA75122B9F3C651FDEFE3E381E6DAF7828B6628CBCB898D84FBDCB52554D17EE",
+      "size": 5242
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/check_dlugosc_modulow.py",
@@ -1056,6 +1070,11 @@
       "path": "skills/audyt-systemu-v4/scripts/mock_eli_server_test.py",
       "sha256": "303E90AAF0FC147BDF1852BFE49467C27BA0EF7885D584EAF5447053BCB57D71",
       "size": 3689
+    },
+    {
+      "path": "skills/audyt-systemu-v4/scripts/ocena_transkryptow_f113.py",
+      "sha256": "B4F10EBFBC9B8B0FA08F1954F13EEC5AF9ABB4A3889BAE88A122C9FA1FCADF87",
+      "size": 8022
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/README.md",
@@ -1104,8 +1123,8 @@
     },
     {
       "path": "skills/audyt-systemu-v4/SKILL.md",
-      "sha256": "7A8470434899C7BF5BF16E7F690E5CB36C2E8C72357221E57CBFA652EE5AA9CA",
-      "size": 51891
+      "sha256": "DEDAC7016CF970AB737A7B8FF0A0D0C567058EE8471A01627D229BABF6D50AA0",
+      "size": 51904
     },
     {
       "path": "skills/audyt-systemu-v4/widgets/WIDGET-MENU.md",
@@ -1128,6 +1147,11 @@
       "size": 582
     },
     {
+      "path": "skills/chronologia-sprawy-v1/references/CHANGELOG.md",
+      "sha256": "73F1C311F8F3A59D4F5DB329107DC08FD63ABFF9761F76DF739543B238D9DE5E",
+      "size": 1413
+    },
+    {
       "path": "skills/chronologia-sprawy-v1/references/CODEX-SOURCE-FRONTMATTER.yaml",
       "sha256": "6DD42D001CFFC21300F6C3AF52722AD31E1F1DD604ED6A32119E0546227B073F",
       "size": 926
@@ -1144,8 +1168,8 @@
     },
     {
       "path": "skills/chronologia-sprawy-v1/SKILL.md",
-      "sha256": "EAA9918E0D87D9C20E04ABE17FE77463940A5BB54F2D7B309D6E53A2420BA0E8",
-      "size": 38833
+      "sha256": "184186A6D3A26C5726C9C41831D06FF1AFA7921AF75C4ED133BD9B426C2A9F06",
+      "size": 38846
     },
     {
       "path": "skills/chronologia-sprawy-v1/upgrade-min8/MIN8-UPGRADE.md",
@@ -1209,8 +1233,8 @@
     },
     {
       "path": "skills/dr-01-ustroj-konstytucyjny-i-zrodla-prawa/SKILL.md",
-      "sha256": "6D1E2F3CDCE66AE05492188EFD10AB84CCC9A3C26C73F96867DCDB7C9276AC44",
-      "size": 8466
+      "sha256": "966EB69E6B6DAF8159689C9F533D345A67DF4AC637CD8D7FCDD1AE30CE7032C9",
+      "size": 8479
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/MAPA-AKTOW.md",
@@ -1579,8 +1603,8 @@
     },
     {
       "path": "skills/dr-02-prawo-cywilne-rodzinne-gospodarcze/SKILL.md",
-      "sha256": "F557B9CEDA948C83007384F22E80572985D592C2FA07B4026E71D5FABA43B71C",
-      "size": 40787
+      "sha256": "1983D5694A9A85BB18F5B600433F89BB8F804F2B4587352472E9E4A95CC49097",
+      "size": 40800
     },
     {
       "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-AKTOW.md",
@@ -1949,8 +1973,8 @@
     },
     {
       "path": "skills/dr-03-prawo-karne-wykroczenia-egzekucja/SKILL.md",
-      "sha256": "758A480166A2689532690F0F936D1AB6479EA1A927D350037C4772B10D8FDA1D",
-      "size": 31525
+      "sha256": "989F7B8ED3630BA10E3BF99E23BB1BF5A70D9F0179701D8D3A8FB5CC0E835875",
+      "size": 31538
     },
     {
       "path": "skills/dr-04-prawo-pracy-zus-swiadczenia/MAPA-AKTOW.md",
@@ -2149,8 +2173,8 @@
     },
     {
       "path": "skills/dr-04-prawo-pracy-zus-swiadczenia/SKILL.md",
-      "sha256": "A760B8196B73A4D70F0C72B208C598884604E872D7B545D265C826F543EF3ABC",
-      "size": 18782
+      "sha256": "E82599146CC426086F65519B52964F0E9438BC83A9EF1DE5F2B99B4B3C9D88FB",
+      "size": 18795
     },
     {
       "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/MAPA-AKTOW.md",
@@ -2309,8 +2333,8 @@
     },
     {
       "path": "skills/dr-05-prawo-administracyjne-sadowoadministracyjne/SKILL.md",
-      "sha256": "55FBB68730A3A93BFDF1560347B508662B33BD70A5DCCCE71A864181A91C22B4",
-      "size": 16165
+      "sha256": "56B2A26E8AC0C9774983E5A6843F0529F67D23D8CAF0AB7E81BC523005725CB5",
+      "size": 16178
     },
     {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/MAPA-AKTOW.md",
@@ -2664,8 +2688,8 @@
     },
     {
       "path": "skills/dr-06-podatki-finanse-publiczne-aml/SKILL.md",
-      "sha256": "1D19681B30FE6E67E16F4CD5EA92B3CDE9528C10292E618AF71B0FAA4C7F642F",
-      "size": 44843
+      "sha256": "FFD38E2BDBA4E24F08BA9BAB168FF1438D47B3B10756E8F0B7ACC4BCA71DF42E",
+      "size": 44856
     },
     {
       "path": "skills/dr-07-zamowienia-publiczne-fundusze-ue/MAPA-AKTOW.md",
@@ -2779,8 +2803,8 @@
     },
     {
       "path": "skills/dr-07-zamowienia-publiczne-fundusze-ue/SKILL.md",
-      "sha256": "C306DC8C1CF10C6384A47092F137E909071F233A2CA3FBC792ED6C6C3BCF6870",
-      "size": 10841
+      "sha256": "A003F523F0849C601F78ED02EA582294E9D6A00A501378A663B4F418BBCCEB03",
+      "size": 10854
     },
     {
       "path": "skills/dr-08-samorzad-terytorialny-prawo-lokalne/MAPA-AKTOW.md",
@@ -2879,8 +2903,8 @@
     },
     {
       "path": "skills/dr-08-samorzad-terytorialny-prawo-lokalne/SKILL.md",
-      "sha256": "0460FAF9F675805CACBEE3740BF788176FD5C51641E04C474FF788152CBDB363",
-      "size": 5875
+      "sha256": "A0380704EEBCE47DC9B260A213ADAC9E49C0104E6C039B0E3D94C800F87FC0BF",
+      "size": 5888
     },
     {
       "path": "skills/dr-09-budownictwo-srodowisko-energia-transport/MAPA-AKTOW.md",
@@ -3099,8 +3123,8 @@
     },
     {
       "path": "skills/dr-09-budownictwo-srodowisko-energia-transport/SKILL.md",
-      "sha256": "E93221D0997B6BA5A8C030CA0825F9B1419B5B54A27F97745815431C011877A6",
-      "size": 34483
+      "sha256": "65EF0149E51593A402A6CF36709CE45707DDC6063E5DCCB787E8B49CEE57C9F4",
+      "size": 34496
     },
     {
       "path": "skills/dr-10-zdrowie-farmacja-zywnosc-rolnictwo/MAPA-AKTOW.md",
@@ -3274,8 +3298,8 @@
     },
     {
       "path": "skills/dr-10-zdrowie-farmacja-zywnosc-rolnictwo/SKILL.md",
-      "sha256": "D14061BAD1E53D1183343118D010ABF10AD2428AE38EC6310969D521EC220022",
-      "size": 12363
+      "sha256": "A4D74BDD8EC5A8A92060AC33D286C070C63A79466E44479416DA3F2E1CD8FCF9",
+      "size": 12376
     },
     {
       "path": "skills/dr-11-cyfrowe-cyber-ai-dane-ip/MAPA-AKTOW.md",
@@ -3399,8 +3423,8 @@
     },
     {
       "path": "skills/dr-11-cyfrowe-cyber-ai-dane-ip/SKILL.md",
-      "sha256": "9629F4DFADCA3E1DF79786C8FA039FC3BB557250C0DA8C68D802481909D9769B",
-      "size": 10065
+      "sha256": "6A4DE6E618B1DD5D217F806E0C5304E5EF1FD45CDCDCE5F7B8D8F8BEC7A8EF4B",
+      "size": 10078
     },
     {
       "path": "skills/dr-12-sadownictwo-prokuratura-zawody-prawnicze/MAPA-AKTOW.md",
@@ -3479,8 +3503,8 @@
     },
     {
       "path": "skills/dr-12-sadownictwo-prokuratura-zawody-prawnicze/SKILL.md",
-      "sha256": "9E0F72B9981109341DF435093789B58581E58E7A09B4A9A5C4B27CA038E8803A",
-      "size": 18814
+      "sha256": "581536961EC709B594C3060CD7F2B3ADE6340799B03C143AC2D54563EDE078BA",
+      "size": 18827
     },
     {
       "path": "skills/dr-13-sluzby-bezpieczenstwo-informacje-niejawne/MAPA-AKTOW.md",
@@ -3554,8 +3578,8 @@
     },
     {
       "path": "skills/dr-13-sluzby-bezpieczenstwo-informacje-niejawne/SKILL.md",
-      "sha256": "16DB150991F61840F6B75CCC1CFDA3AC11341F28BA13DB1130C2444C0A1B92B7",
-      "size": 9605
+      "sha256": "E79F3960A4AFD01F1642F26248AF0C5DACDF052571650946303F1D535F53AC4D",
+      "size": 9618
     },
     {
       "path": "skills/dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka/MAPA-AKTOW.md",
@@ -3629,8 +3653,8 @@
     },
     {
       "path": "skills/dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka/SKILL.md",
-      "sha256": "CFD2DEEB4C65C0734D7EFFB4CAA5841F86C85B1A438A591F6F66AE55811745EF",
-      "size": 11895
+      "sha256": "ADEF2A2ABE0883115765713273F9D33B02DE8D3AC545E107944A9EFA04131D28",
+      "size": 11908
     },
     {
       "path": "skills/dr-15-compliance-iso-governance-audyt/MAPA-AKTOW.md",
@@ -3694,8 +3718,8 @@
     },
     {
       "path": "skills/dr-15-compliance-iso-governance-audyt/SKILL.md",
-      "sha256": "DE2FB5C575FBE80971FAED158A87B20BF6F48237E53A07DC60B74FEC1D499E97",
-      "size": 8646
+      "sha256": "18D26CFCC2C6AD933BD467C4AF40DB0D2D9BDF636580481D0E96D09DC121D8D3",
+      "size": 8659
     },
     {
       "path": "skills/dr-16-pisma-strategia-dowody-orzecznictwo/MAPA-AKTOW.md",
@@ -3769,8 +3793,8 @@
     },
     {
       "path": "skills/dr-16-pisma-strategia-dowody-orzecznictwo/SKILL.md",
-      "sha256": "A8C8C50260E8B34DA72F2AE86D3DBB3FBF2BB02B7C1364F475932A6F21F0702A",
-      "size": 10197
+      "sha256": "1E3A635B93A77EDE80ABB1D67783C1EB14DBA512D098B4E23F5A617FE78239DF",
+      "size": 10210
     },
     {
       "path": "skills/orzeczenia-sadowe-v2/references/CHANGELOG.md",
@@ -3794,8 +3818,8 @@
     },
     {
       "path": "skills/orzeczenia-sadowe-v2/SKILL.md",
-      "sha256": "9E31B3D68C248EC037C61A362558234FEB350AC9984B68770C373805E41EEAC5",
-      "size": 51592
+      "sha256": "FAF41AD2F09845273F1BF22A60CA43FFAB8C803DC6ED0EBA878E1F38B57CC3C5",
+      "size": 51605
     },
     {
       "path": "skills/pisma-procesowe-v3/modules/MOD-ADMIN.md",
@@ -4004,8 +4028,8 @@
     },
     {
       "path": "skills/pisma-procesowe-v3/SKILL.md",
-      "sha256": "051AF1914049AC274B823E43F986F833847A76F17156D37C312E9160D3AAE348",
-      "size": 50689
+      "sha256": "B5A701EAE95865E57E3D2E12F8C6C2AF2E683DD8C7E823DBC39659110D817FF7",
+      "size": 50702
     },
     {
       "path": "skills/pisma-proste-v2/references/CHANGELOG.md",
@@ -4124,8 +4148,8 @@
     },
     {
       "path": "skills/pisma-proste-v2/SKILL.md",
-      "sha256": "03E927A785C221CC69E5A97DA64F4BC7C1A2EE3114466C6C5691F80A4BADEE6F",
-      "size": 23093
+      "sha256": "1357A19CA88A4B81F7CAE537D63103A658557CE4AA595A874232C75520FB5417",
+      "size": 23106
     },
     {
       "path": "skills/prawny-router-v3/anonimizer/anonimizer-skill.md",
@@ -4269,8 +4293,13 @@
     },
     {
       "path": "skills/prawny-router-v3/SKILL.md",
-      "sha256": "FA969842769E1970B6DE342DD7061639C904BE5E5BB28BF5844273ADC4557DE1",
-      "size": 36375
+      "sha256": "2F0EEAE02577CC6D0F0B5190EF12B459329B1510A08E0D9E42A2BAF36F50AF32",
+      "size": 36388
+    },
+    {
+      "path": "skills/prawo-polskie-v2/references/CHANGELOG.md",
+      "sha256": "0B5E09B37FEA6FF6FAB271FF84F7494B94898885D3AAC139512398B4EBBE29C3",
+      "size": 2005
     },
     {
       "path": "skills/prawo-polskie-v2/references/CODEX-SOURCE-FRONTMATTER.yaml",
@@ -4284,8 +4313,8 @@
     },
     {
       "path": "skills/prawo-polskie-v2/SKILL.md",
-      "sha256": "C7FC6E04A36C45F4F130B776FD74D50D327A40E41B115C17819D39CD855064F6",
-      "size": 5484
+      "sha256": "0FC96AA974FCB9283BA4001B6C0A9FEFD20C7E3D0D35020030786B384B5AC635",
+      "size": 5497
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/assets/witness_examination_step_lazy.jsx",
@@ -4409,8 +4438,8 @@
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/SKILL.md",
-      "sha256": "8F8EF01530E28AB4EDA8BAB03B4EAC14E63B2ADE7CE8AB1091EC2331875BD060",
-      "size": 81455
+      "sha256": "383658FC60574C22FC989F6E28D50B5759AB2BFE58EB54BF0E054091466861F2",
+      "size": 81468
     },
     {
       "path": "skills/przesluchanie-swiadkow-v2-min90/templates/QUESTION-MAP-TEMPLATE.md",
@@ -4443,18 +4472,43 @@
       "size": 2322
     },
     {
+      "path": "skills/przewodnik-prawny-v2/agents/openai.yaml",
+      "sha256": "7E1A5550C24F319C0C066FEA840095B2284BB046A0931F76E200DB7DCD85102C",
+      "size": 394
+    },
+    {
+      "path": "skills/przewodnik-prawny-v2/assets/icon.svg",
+      "sha256": "9BE88F8DD4C5E658961515C71389EAFD45142FFA68BCAE58E8DCFF57D178ED91",
+      "size": 667
+    },
+    {
+      "path": "skills/przewodnik-prawny-v2/CHECKSUMS.sha256",
+      "sha256": "4DD3E15944D5A6410CD01179155DB1577BF80AB7CEFE193E332C743BF7CFB0A4",
+      "size": 529
+    },
+    {
+      "path": "skills/przewodnik-prawny-v2/PORTABILITY-MANIFEST.md",
+      "sha256": "22D81BE34B12626DDE54E7E82AEB0BD3A0136556AABDAF7A0F0509F113862042",
+      "size": 920
+    },
+    {
+      "path": "skills/przewodnik-prawny-v2/references/CHANGELOG.md",
+      "sha256": "A37AC168C89CB310793DE02CBB7AC0D119B13C6DDCA0887591F2435044AD9946",
+      "size": 734
+    },
+    {
       "path": "skills/przewodnik-prawny-v2/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "087093952C573FF7CCEA07B0CEF5A60CC3ECCEA095A9CE3CBC12F1430C27F564",
-      "size": 1883
+      "sha256": "6FF0671D301A8DB3EED649BCAACEC641B926A1C2E71B26FE2E0A5F1BD3764704",
+      "size": 1157
     },
     {
       "path": "skills/przewodnik-prawny-v2/references/KROK-F.md",
-      "sha256": "2D2A6B314A8A59CD0460690C6CFF226CEBBBAF0871167B355726DD528805243F",
-      "size": 7938
+      "sha256": "1A4F14600044C88875CFBAD2202207616D40D85E8D643BF9CAEA3748F4AB6E6B",
+      "size": 7908
     },
     {
       "path": "skills/przewodnik-prawny-v2/references/KROK-M.md",
-      "sha256": "C8684158EA35C3FB7B45508FDE6491E19FD80DC1046AA9001F59672B9250C4D4",
+      "sha256": "7806559D91023735267D98964E5B07C14FA2DBB68299A930C4A7A84AEC5A2BE3",
       "size": 8115
     },
     {
@@ -4464,8 +4518,13 @@
     },
     {
       "path": "skills/przewodnik-prawny-v2/SKILL.md",
-      "sha256": "A85486C46CDF866047139E572257659E87AF018622021582D8F7D64CBDFB2789",
-      "size": 34008
+      "sha256": "F2F9A19895830A93A43A4E1592AA0648F6A492C71ACB3901B04712B43C5B5C07",
+      "size": 35207
+    },
+    {
+      "path": "skills/raport-klienta-v1/references/CHANGELOG.md",
+      "sha256": "23F8F788A842C8AE10B05E3F92EC49E16445ACB2FA9B90F6CCAFFD54C5345257",
+      "size": 1363
     },
     {
       "path": "skills/raport-klienta-v1/references/CODEX-SOURCE-FRONTMATTER.yaml",
@@ -4474,8 +4533,13 @@
     },
     {
       "path": "skills/raport-klienta-v1/SKILL.md",
-      "sha256": "B8D7F73400E5E17D993A6DBF1492DC6B23045352C0EC8CB41808D46B63CAE697",
-      "size": 18828
+      "sha256": "6AC457E3BD5003913D2B3BEDC3B51B5B6BF86415C743FC11AEB6A5847BD2F51A",
+      "size": 18841
+    },
+    {
+      "path": "skills/raport-sytuacyjny-v2/references/CHANGELOG.md",
+      "sha256": "A1574386EB90A9AFBCD56A8B2C62E4BDFC8A5A42F23DA6B56B8BB980FE7F73BC",
+      "size": 2604
     },
     {
       "path": "skills/raport-sytuacyjny-v2/references/CODEX-SOURCE-FRONTMATTER.yaml",
@@ -4484,18 +4548,28 @@
     },
     {
       "path": "skills/raport-sytuacyjny-v2/SKILL.md",
-      "sha256": "843194C5B272C38D169EF5D44847788324C19795DFB415B4B8522688FFC75F9C",
-      "size": 20852
+      "sha256": "C80BAF60636E799242BA61512031216039CDEA1D315B3B3423EDCAAF07225090",
+      "size": 20865
     },
     {
       "path": "skills/shared/ACTIVATION-MATRIX.md",
-      "sha256": "F1456D6BE071A2E0F4C014B02D04EF962A0908E6163FD591E14F4F9496AB0EC9",
-      "size": 5406
+      "sha256": "B817C3A462BB38ED5BB739643D7442D2681C2E628DA3010F7AF715D04B6B18F0",
+      "size": 5415
+    },
+    {
+      "path": "skills/shared/agents/openai.yaml",
+      "sha256": "95C8F3EEB40240E417665C2E0E696906BA7269725EA449529AC684D5F61C370E",
+      "size": 387
     },
     {
       "path": "skills/shared/AKTY-PRAWNE-MASTER.md",
-      "sha256": "C06EA25F0F0F026DBA168B7675DEE9EBE079EBBA112D944F2D021593070A174F",
-      "size": 17726
+      "sha256": "7EB885D7E4677552D2E6CC00C21BB797E7293EA54ECF15DED736EA49B2E837BA",
+      "size": 17986
+    },
+    {
+      "path": "skills/shared/assets/icon.svg",
+      "sha256": "E9301497FA98EF56AACA7EDE0857B9A18DC06C34040F0679C609A6BF49B1D38B",
+      "size": 420
     },
     {
       "path": "skills/shared/AUDIT-TRAIL-SPEC.md",
@@ -4523,9 +4597,14 @@
       "size": 676
     },
     {
+      "path": "skills/shared/CHECKSUMS.sha256",
+      "sha256": "52BE0845E5EC7E54634EB0254B246CCD2C0A027F55041206553981861973BA78",
+      "size": 14183
+    },
+    {
       "path": "skills/shared/CLAIM-VALIDATION.md",
-      "sha256": "2D1079609DBAD4C80D751526EB19B3D2D96FBCA7CABC2B696E21AD4C90795930",
-      "size": 14593
+      "sha256": "950D529954A0F16984EFA3ACC8439EE880BB79FE2672C0F2B24653A867352396",
+      "size": 14587
     },
     {
       "path": "skills/shared/CODEX-ADAPTER.md",
@@ -4534,8 +4613,8 @@
     },
     {
       "path": "skills/shared/CP-GATE.md",
-      "sha256": "02564628CA86042676A4CD93E2D4D5226211FDAC446EAB4917E992E0C026A116",
-      "size": 14148
+      "sha256": "1E6D281C8C97D416B73A08F8FEDD5A712E2FD5053414B4521E2ED10C712B6C7D",
+      "size": 14139
     },
     {
       "path": "skills/shared/CROSS-DOMAIN-CONFLICT-ROUTER.md",
@@ -4564,8 +4643,8 @@
     },
     {
       "path": "skills/shared/definicje/DEF-INTERES-WLASNY-WYLACZENIA.md",
-      "sha256": "DBAFAC10BED249454042ED6421912A82E8D2505F58F275B711572C9E20302B6E",
-      "size": 20765
+      "sha256": "529604315032B71C1978C580D5B79C3D5FEA51BC7098EBCA475B973E8D4731D3",
+      "size": 20759
     },
     {
       "path": "skills/shared/definicje/DEF-ODPOWIEDZIALNOSC-SZKODA.md",
@@ -4604,8 +4683,8 @@
     },
     {
       "path": "skills/shared/DEPENDENCY-GRAPH.md",
-      "sha256": "88FF833E56E12DA8E12919827B83E6066481282EADDDB55B3E7B802523082CD8",
-      "size": 11393
+      "sha256": "8A5F9E5F15FEE40772BA7FA9E0C4B419A6521251325057C296FB826E809D0C9D",
+      "size": 11569
     },
     {
       "path": "skills/shared/DISABILITY-FUNCTIONAL-ASSESSMENT.md",
@@ -4619,13 +4698,13 @@
     },
     {
       "path": "skills/shared/DISCLAIMER.md",
-      "sha256": "699FB251835A2E7809EC770AA77CFF6192784E3E839378D189791069B0F2876D",
-      "size": 7530
+      "sha256": "BDF49E9F78EA5473526E2067D5B38FD53F925B55D8A6927E128D671684280BA6",
+      "size": 7502
     },
     {
       "path": "skills/shared/DOMAIN-LOCK.md",
-      "sha256": "28373D7A1C42230EB9BCF05BD3287CA7017125E3E73DCF30C70497DFFE484D32",
-      "size": 5013
+      "sha256": "F5B1EC3D92AFB7844BB14D4E18CD5F7410490D013CF2086DDB88CA8E5CCBDAEB",
+      "size": 5227
     },
     {
       "path": "skills/shared/DOWODY-METODOLOGIA.md",
@@ -4639,28 +4718,28 @@
     },
     {
       "path": "skills/shared/FACT-SOURCE-LOCK.md",
-      "sha256": "D2FC6B0F8C4466EC5AAC4ACA4C5F7EC06636D7F7A6C08547DBAFB61458DFE1A1",
-      "size": 11901
+      "sha256": "C04F18113BC53FB40658C8876CF7F7BFAFC675659871778EC2EF4810E3B376A2",
+      "size": 11892
     },
     {
       "path": "skills/shared/FAKTY_v2.md",
-      "sha256": "6884A0387FDCF178D038E92EC1A39C7994081068C046A8CC0BA80D7D8ADD3EE9",
-      "size": 11536
+      "sha256": "E0BF56C64A4B9CA98C54695C71B6F74B09FAF51BBCD74FC37EBB63C1DC88A074",
+      "size": 11524
     },
     {
       "path": "skills/shared/FORMAL-CHECK.md",
-      "sha256": "A3BC7C6D623C56A56EF2AB12DCA228C1453A291ED0304574807CFE6CC5E349AC",
-      "size": 5197
+      "sha256": "6F26753B44264ADA02A50C7211DC5059CA9414B19181DDA25E3A3A7016749C8F",
+      "size": 5194
     },
     {
       "path": "skills/shared/HIERARCHIA-ZRODEL.md",
-      "sha256": "89E7B5BE166D779ADC0B5D4C60197EFFBBC4C00D605C2551E71EA080DBC1258A",
-      "size": 23420
+      "sha256": "197AD7763C6C455AD5D202933B52270E667AB344D219616F9183331B1ED0FA31",
+      "size": 23417
     },
     {
       "path": "skills/shared/HYBRID-VALIDATION.md",
-      "sha256": "C1E39FABC9E116C2CA38BB18803C819398E66FC2DD824F4CDCB6A4A606DCAE71",
-      "size": 6484
+      "sha256": "4B9E0337402A5E179939C5FBA881F6D8D479E7194BB6E5B72DE92094F8320BDB",
+      "size": 6481
     },
     {
       "path": "skills/shared/INTAKE-GAP.md",
@@ -4669,18 +4748,18 @@
     },
     {
       "path": "skills/shared/INTERPRETACJE-URZEDOWE.md",
-      "sha256": "5E1D297F527B3A4AB8586413B4603A6B88BDCBCB766976622B02C7B0AC78524C",
-      "size": 7198
+      "sha256": "F2667526E0FC19D4D4C486AD2DC38A3B9385D53202F50A48BBE16D70B64FCBAE",
+      "size": 7352
     },
     {
       "path": "skills/shared/ISAP-AUDIT-PROTOCOL.md",
-      "sha256": "C8F8732E0AC19348F726B26C3BE66325EAA99F3CA3B4B36FA5F984239994745A",
-      "size": 1386
+      "sha256": "47747CB56375FE9B2CBE1D547DB581B58387B663B76F92BED30B9AD03550BD0E",
+      "size": 1383
     },
     {
       "path": "skills/shared/ISAP-METRYKI-AKTOW.md",
-      "sha256": "BC57766504B1491FCD8A3DAAAEF9C61C476BE6270DC333A40E7EAAD157AB9715",
-      "size": 11178
+      "sha256": "0DD79FA14F648AB5ECC7105F55FA286118B7397BD56D7B139444032EA5D85621",
+      "size": 11189
     },
     {
       "path": "skills/shared/JUDICIARY-LEGAL-STANDARD.md",
@@ -4714,13 +4793,13 @@
     },
     {
       "path": "skills/shared/LEGAL-REGISTRY.md",
-      "sha256": "C1B898A66D9565464ABA39546702C5EC624648F2546D9362CB7D156691F8F5EA",
-      "size": 5111
+      "sha256": "753D44E1E2F9471138A8119BCB1F3F169C0E447617FF6A0A207163EFE926C8B6",
+      "size": 5864
     },
     {
       "path": "skills/shared/LEGAL-STATUS-LOCK.md",
-      "sha256": "63BC86E1FD847192FCF61BCB4296DC0E963F859215566874A4AD063003755F98",
-      "size": 16741
+      "sha256": "E6DD969A5A8D42BA5051EF2DE91F97A73A9A342B35E88C1C1F4DCE93D631E162",
+      "size": 16735
     },
     {
       "path": "skills/shared/MCP-INTEGRACJA.md",
@@ -4734,38 +4813,38 @@
     },
     {
       "path": "skills/shared/MOD-ATAK-NA-DRAFT.md",
-      "sha256": "4048CEB85C8465B85F735D275E4C111D0D211149E1ADA51183C29941119F6411",
-      "size": 12994
+      "sha256": "6D593949750B68F5402691EE55F83B22C30B70872739D7CE633ED019824DEC96",
+      "size": 12991
     },
     {
       "path": "skills/shared/MOD-ATAK-NA-SWIADKA.md",
-      "sha256": "6DBC391970A2284A6292B09D2E29BF480E04D87BB6597D988E1C5106C4BF2099",
-      "size": 22193
+      "sha256": "33DD7C96A467B43191B15A1261A5085A2D90A917CF868F2415D8E959A6FD39E3",
+      "size": 22227
     },
     {
       "path": "skills/shared/MOD-AUDIT-BUNDLE.md",
-      "sha256": "D5F19BC20FD0971E3D8BDE696F5EFB737E26695775EAA12DE4E7B009A6E876D5",
-      "size": 5712
+      "sha256": "47D6AE56D09D057F63DF7A3A2D6BD129E52BEF4466F26AF38336F040F747ADA0",
+      "size": 5709
     },
     {
       "path": "skills/shared/MOD-BUDOWA-ARGUMENTU.md",
-      "sha256": "275D3E2DF0C939E17311295E93CCE175FE897F9716897F07473CA0BB8A5EF170",
-      "size": 6942
+      "sha256": "82BF0216827C0E0B9A87B9B969AEB050E6783013B6C501C6198777160B340103",
+      "size": 6936
     },
     {
       "path": "skills/shared/MOD-DOKTRYNA.md",
-      "sha256": "6B47D6269A7075D86117D1F260280669B6EB05D429D53055D56EFC1CE59C4F6A",
-      "size": 6187
+      "sha256": "80BBB693EC24CD5E91C24520212A5F7DC40911F05FA83E62E297E3A77C84037B",
+      "size": 6184
     },
     {
       "path": "skills/shared/MOD-DOKUMENT-ANOMALIE_v1.0.0.md",
-      "sha256": "6683B2D5E72FC66CB4430316781C7C9114CD6A59B1F4CC3E8CB63C6CD6DE7E00",
-      "size": 9461
+      "sha256": "D511B949570984E1EFAEFD733D920202D8F48955FF214F7059AED9FC7AC290F0",
+      "size": 9452
     },
     {
       "path": "skills/shared/MOD-DOKUMENT-ANOMALIE_v1.1.0.md",
-      "sha256": "2C05DD3F98761F1914F66665E460269158466C8F24DC54148AF1E95D5E79798B",
-      "size": 9700
+      "sha256": "3E45345CC26D056257E115781F4C81C8BD66E589DB8C6655DD8D9D5426C6A8E5",
+      "size": 9691
     },
     {
       "path": "skills/shared/MOD-DOKUMENT-GATES.md",
@@ -4774,18 +4853,18 @@
     },
     {
       "path": "skills/shared/MOD-ELIMINACJA-TEZ.md",
-      "sha256": "1EE912260CF2C066B4DA7B611B3BFBC92C88C16F7C342A7F07660807B412F17F",
-      "size": 10328
+      "sha256": "0F78499A37FBBB68ACB5CF9A2FD973AC39D743685115C838FFAF2A8D185A28C2",
+      "size": 10322
     },
     {
       "path": "skills/shared/MOD-FSL-DOKUMENTY.md",
-      "sha256": "4683A4CD66FA86BE732A40D2F3E056B3FA081A3529CB9785783C2D79F9229531",
-      "size": 16724
+      "sha256": "6A4AB4FE65F0CC38378588B1CF17AF2D0750AE66B452C82C0B0AE0209196776E",
+      "size": 16721
     },
     {
       "path": "skills/shared/MOD-GENERATOR-AKTU.md",
-      "sha256": "513F6B6D207BBE4E081B5DAFE3D10C02F3CB4764A6D5D5C80445A74C0E10810C",
-      "size": 8655
+      "sha256": "E48942C1E3A26254428D6FEAD0A2392663005CD0F01295E4B835D32297545B7E",
+      "size": 8652
     },
     {
       "path": "skills/shared/MOD-HISTORIA-STRATEGII.md",
@@ -4794,33 +4873,33 @@
     },
     {
       "path": "skills/shared/MOD-IDENTYFIKACJA-STRONY-UMOWY.md",
-      "sha256": "465D2A0B3EF55F0D9E97123D9D8E1CBD026AB587B1C5E4C28747C6F380D09CED",
-      "size": 37581
+      "sha256": "F293D24D45FD027FBD47839ED4310002537B009388CC961DE79BC1CB55ACCE8F",
+      "size": 37590
     },
     {
       "path": "skills/shared/MOD-INTRO.md",
-      "sha256": "FAD895FB7790ACAFD8E9D065BFF87CA4CF14FEC11EE6761AF25E985CB133E240",
-      "size": 4656
+      "sha256": "369E639C9D44ACCCB4CA3A03FAB71550495A9E93C5B6DFC242BE4AB3D1E777F0",
+      "size": 4653
     },
     {
       "path": "skills/shared/MOD-KARTA-DOWODU.md",
-      "sha256": "54E0587458F950A7FF950049790F495DBA578947C0AFC28AD27416A8FCEFEA72",
-      "size": 10643
+      "sha256": "134B96B3A75B06D35EB245B51CD5475051DDC07AC570C58647E5B143E3B7EADB",
+      "size": 10637
     },
     {
       "path": "skills/shared/MOD-KONCENTRACJA.md",
-      "sha256": "6E14B665813F58FDC3D896FF1554849D396E6627E4B94898DD06798E95664B0B",
-      "size": 6020
+      "sha256": "2022FA479F131BE679A48101594A63481A391419C4E3199284161DF97F2CC2CF",
+      "size": 6014
     },
     {
       "path": "skills/shared/MOD-KONTEKST-SESJI.md",
-      "sha256": "2BC8D34989F2EC8E54A4E60F39AD329380B368D7DADFDE58A328532469C33A13",
-      "size": 11341
+      "sha256": "67D8C42A21C5115584B49BE0B6BEA4D56CFC8BED2CA699AAB3471273129967C1",
+      "size": 11359
     },
     {
       "path": "skills/shared/MOD-KOSZT-ODPOWIEDZI.md",
-      "sha256": "F4570CDCCA833303B2DA7429E276204C927578BAA49CF611A35A36654E795F23",
-      "size": 8207
+      "sha256": "D5821FB7BFD13DBD5FF01CD75DD47DEC80D519241B852834F115C3122FC8B93E",
+      "size": 8201
     },
     {
       "path": "skills/shared/MOD-LANCUCH-DOWODOWY.md",
@@ -4829,28 +4908,28 @@
     },
     {
       "path": "skills/shared/MOD-MACIERZ-DOWOD-TEZA.md",
-      "sha256": "81225DCCCB4DDEA73AAE9C68A670D2F82F0B56D8C1B089714EF9405DB73E4878",
-      "size": 26614
+      "sha256": "6C3BD98167B9DEE1EB175B65E0E4D1858E6C6F52239B92E00A69EAE94C4043DA",
+      "size": 26611
     },
     {
       "path": "skills/shared/MOD-MAPA-PRZEPISOW.md",
-      "sha256": "B06B1B959D0CBBC6A945AF6DDA9FAAA59F682F38AD8CF98A21B74EE9BFB47FBA",
-      "size": 10679
+      "sha256": "76390B935A1017B796C32FAC190FC783875A7D65465755A01E5DDFDAF42B59AD",
+      "size": 10676
     },
     {
       "path": "skills/shared/MOD-METODY-BADAWCZE.md",
-      "sha256": "C29567EC9ED2C291C73419FD1C59AF82EE5760F9021B9AC398B04990A04C2F0E",
-      "size": 33904
+      "sha256": "B36C0B39F388F7DE69D1AEBED6A00C077D36B70651DD50E69343B48BB7121D44",
+      "size": 33901
     },
     {
       "path": "skills/shared/MOD-MIKROPODSUMOWANIA.md",
-      "sha256": "18C30CE08E7798ECC20E05E0CA09E9DBF0523923C5BB3C7116B3FA21860AFC47",
-      "size": 5581
+      "sha256": "4A44B6349B51CA7A395F41EF3271700E90E06244DB7F3937860D653B4F64E3A2",
+      "size": 5575
     },
     {
       "path": "skills/shared/MOD-NEGACJA-DOWODOW.md",
-      "sha256": "1030EF6DEDF9CA2BDB2744B564B23E8A6FE4598DD17ECF2B872E9E609A6E6CE1",
-      "size": 32434
+      "sha256": "59C45184CB0CF43C899D7907632A0E6A6961006EF97AF4960EBE1708AFD8C35C",
+      "size": 32431
     },
     {
       "path": "skills/shared/mod-niepelnosprawnosc-intelektualna-gluchota.md",
@@ -4859,8 +4938,8 @@
     },
     {
       "path": "skills/shared/mod-niewidomy-prawa-prawne.md",
-      "sha256": "200DB46D4D7D2A6B020B2A1E4AB3AB89A4AF3E34DC61E1476C302362C8917DE0",
-      "size": 19673
+      "sha256": "E36D26AA105497E3C9C07C58F1C88AC2C09923A227621BE9B876D7FF4B28253B",
+      "size": 19783
     },
     {
       "path": "skills/shared/mod-osoba-niewidoma-prawa-sad.md",
@@ -4869,13 +4948,13 @@
     },
     {
       "path": "skills/shared/MOD-PEER-REVIEW.md",
-      "sha256": "68A714A106683FF088B451D146BD5420D3E3E3A1BAB5849B97CCE134F55651CF",
-      "size": 6412
+      "sha256": "A80C2F3A43AD09379B7B0B9C19D0CFC94E377A4989D38BEEC136C03F995A6FB1",
+      "size": 6409
     },
     {
       "path": "skills/shared/MOD-PORCJOWANIE-DOWODOW.md",
-      "sha256": "E27E3AE1C5724B7F693115EC83E8F5E3CA536FFAAE1120DBE0CA497E29819684",
-      "size": 19724
+      "sha256": "C3B9315015C273D5CE2214CFBAF4F72DEE017F89EB3020F8E3CD9A0977E3EE43",
+      "size": 19721
     },
     {
       "path": "skills/shared/MOD-POSZLAKI-KONTEKST.md",
@@ -4889,8 +4968,8 @@
     },
     {
       "path": "skills/shared/MOD-PRIORYTETY-ASPEKTOW.md",
-      "sha256": "3ABBEF7F08508EE8406D1AD1A92CDFA0D76C2F7B545095196915BD38E403EF48",
-      "size": 14954
+      "sha256": "F96C767FB42F58B70D4067D3B21457013B523913B3E15A930C9A20512659D030",
+      "size": 14951
     },
     {
       "path": "skills/shared/MOD-PROWENIENCJA-DOWODOW.md",
@@ -4904,13 +4983,13 @@
     },
     {
       "path": "skills/shared/MOD-REJESTR-POKRYCIA-JEDNOSTEK.md",
-      "sha256": "635A61A8CD59CC34D05998B6034B451390A30F648B47A651B1E2C77E3BC8552E",
-      "size": 9743
+      "sha256": "463F2BFDD0A50B22B2E9B17FE011FD1323E55AE52EA4754F0ED05D446EC0CEF0",
+      "size": 9740
     },
     {
       "path": "skills/shared/MOD-REJESTR-ZALACZNIKOW-CHECKPOINT.md",
-      "sha256": "CA323104E5614782837765F8677AEB242F73F60B1259CEBD90539D2F5AE6E8DB",
-      "size": 8826
+      "sha256": "8B81AC5F1FA5EA295F123A3193C1D52924CE93FF0666C41BAB28B770171371EB",
+      "size": 8823
     },
     {
       "path": "skills/shared/MOD-SELEKCJA-DOWODOW.md",
@@ -4919,58 +4998,58 @@
     },
     {
       "path": "skills/shared/MOD-SKAN-DOWODOW-KOMPLETNY.md",
-      "sha256": "8F45E95E87B6AD413EA3E32018FFD054A17583C4512A336D3382C7519063723D",
+      "sha256": "82630D04CBAFBDFA59F02BD44BBD728507915A9A573EF774F82E79DE56137E20",
       "size": 35050
     },
     {
       "path": "skills/shared/MOD-SKUTEK-PROCESOWY.md",
-      "sha256": "C6C7FD01187571471B84CBC0CFB4A9146A9872336865AE0D91AA95B7CAE7DCE7",
-      "size": 5681
+      "sha256": "DAAF2529E964CC91C411EF8583BA85E24964377A13962074C684BB9DBA2BDC9E",
+      "size": 5675
     },
     {
       "path": "skills/shared/MOD-STEP-TRACKER.md",
-      "sha256": "632685D3E11CE50DD620D8F261A73665EC895FFB71FF124841ADC1E7AF1A2114",
-      "size": 15565
+      "sha256": "16209B8B555FB72D50251AA9E5C16BFE510CE324CC62FA6743124067CCA4843E",
+      "size": 15562
     },
     {
       "path": "skills/shared/MOD-STRATEGIA-WYBOR.md",
-      "sha256": "0BEF66A92EE14E3900337D5C243E24CCA6EFE20021E632F48848778D47E32AD8",
-      "size": 16593
+      "sha256": "5D22991E68864BBFF319085B5CFDB332D519207D9E92B10662B8413A05BF4486",
+      "size": 16587
     },
     {
       "path": "skills/shared/MOD-STRESS-TEST.md",
-      "sha256": "4E611DA0570365DFAC27C7FA4445B9224E64E9834AE63C39C91281E48E37A823",
-      "size": 8032
+      "sha256": "7DA9F99AE6C1BF93A7E48F670CE88F22D3946FD333E3FE54060AF2FB6AC4DE71",
+      "size": 8026
     },
     {
       "path": "skills/shared/MOD-TIMING.md",
-      "sha256": "B061498E5727562CBFA4A1A6794AE41B22E3C76AB6FB3EA2599FC9A70D212CF2",
-      "size": 8002
+      "sha256": "1EE45E7066FBC4BF849A881F1FF91DAB94608918DC9C628D125F83A9A5138E23",
+      "size": 7996
     },
     {
       "path": "skills/shared/MOD-WALIDACJA.md",
-      "sha256": "066D5D33CD65CA2B64CBBFB388595D35E52D0B1842921598A975E8EAC56CA4E8",
-      "size": 205
+      "sha256": "1524C01E31FF2F1F98B561BF4B2CCF95EA8CAE7A54284D0356B214978AAF0C95",
+      "size": 202
     },
     {
       "path": "skills/shared/MOD-WALIDACJA_v2.md",
-      "sha256": "3314505E70919BE3FFB52A7F00754EE060FC5E77FBB173DE82B236D4CCDCBEC1",
-      "size": 14184
+      "sha256": "3A377C8D1686B85C7D29CC256FB1E36F3EB737CBE8509EE8907563F82142C2D9",
+      "size": 14169
     },
     {
       "path": "skills/shared/MOD-WARIANTY-POZWU.md",
-      "sha256": "B9ACFC5BC7BDB37B597B6F9F1FE26316D865A5352301D8415C805932BEDAE09E",
-      "size": 8260
+      "sha256": "2880F0E7C5E9127CB8B1D82A51BEBFB8494335B9DA0AF0FCD0DD8FBE1BB9339C",
+      "size": 8280
     },
     {
       "path": "skills/shared/MOD-WIDGET-IO.md",
-      "sha256": "5071C1B0074656EA5D505816C03985F5ECB2231DBCBF389DF75B0D5E61BEB049",
-      "size": 10549
+      "sha256": "DD0293942A28A322B2192EAD40CCFB774512E7AF5930832CEED9FDC00AEFB569",
+      "size": 10543
     },
     {
       "path": "skills/shared/MODULE-STANDARD-POLISH-LAW.md",
-      "sha256": "6475C4C21C17CCAE47486D54DF7A3B021C12E40B0F84175C67EA7C059676228C",
-      "size": 2139
+      "sha256": "9625E68FEDB1D57040F5E30F9077ABEF6C03C8037AEBA6D4DDCE8E9310F11F0A",
+      "size": 2242
     },
     {
       "path": "skills/shared/NAZEWNICTWO-STRON.md",
@@ -4994,8 +5073,8 @@
     },
     {
       "path": "skills/shared/orka-bas-leksykon/czesc-03-cywilne-niepelnosprawnosc.md",
-      "sha256": "51067D85740B8E65D453C01D54EE3C5788C2436C2CFC32769545F92369430D1C",
-      "size": 12549
+      "sha256": "0BA227D7B1151A3A9D6C7887BF31F8BCA7C0A6D81342C9AD34F2BB9E4F73C305",
+      "size": 12525
     },
     {
       "path": "skills/shared/orka-bas-leksykon/czesc-04-karne.md",
@@ -5004,8 +5083,8 @@
     },
     {
       "path": "skills/shared/orka-bas-leksykon/czesc-05-kandydaci-prawa-obywatelskie-sporne.md",
-      "sha256": "BA3AB184BBAF40D47F2865C4B163E7B5DBBB97BBB39A41E7B3AD045972DB2374",
-      "size": 11589
+      "sha256": "0E90B1B9AE5A285F0111F3420236DFF8A5CFDD064085C7BD984B0EA1501A9096",
+      "size": 11577
     },
     {
       "path": "skills/shared/orka-bas-leksykon/czesc-06-priorytety-P1.md",
@@ -5019,8 +5098,8 @@
     },
     {
       "path": "skills/shared/orka-bas-leksykon/czesc-08-praktyka-prawnicza.md",
-      "sha256": "B71AA4C1932977036719D668D52AB3371B43F18D47C0EBD2B94713CC228C2997",
-      "size": 17785
+      "sha256": "767CBA8257F53E2514A382CCD5A376DF18BF7F8E69F44C099A010EA0BF8AD360",
+      "size": 17773
     },
     {
       "path": "skills/shared/ORKA-BAS-LEKSYKON.md",
@@ -5039,8 +5118,8 @@
     },
     {
       "path": "skills/shared/ORZECZENIA-OUTPUT-SCHEMA.md",
-      "sha256": "EACB451AC22194FFAC3B3519CEC1E2DE57A3F30FDE8AF0D300486DD368A7FA35",
-      "size": 9552
+      "sha256": "941609AA948A445C1934C66627DE6E638CCC00B62B18F00775D67A0F33C66E59",
+      "size": 9543
     },
     {
       "path": "skills/shared/POLISH-LAW-COMPLETENESS-MATRIX.md",
@@ -5058,9 +5137,14 @@
       "size": 1356
     },
     {
+      "path": "skills/shared/PORTABILITY-MANIFEST.md",
+      "sha256": "A7FD231482A22D637B0C9BB34BDAF642561A27DE6A18877EE0A0C0247FD95327",
+      "size": 6579
+    },
+    {
       "path": "skills/shared/portale-branzowe-rzad-2b/czesc-01-niepelnosprawni-dr02-dr04.md",
-      "sha256": "06B7CB265E7D182812D32B33D24AFBD16DFDEBE7C752A51B6F8A0BF6EC357B76",
-      "size": 22262
+      "sha256": "352BF9989F031E6C9A9021818927B914F1DC9F75284FD3BFD1AC7834A0770B37",
+      "size": 22331
     },
     {
       "path": "skills/shared/portale-branzowe-rzad-2b/czesc-02-dr05-dr09.md",
@@ -5084,8 +5168,8 @@
     },
     {
       "path": "skills/shared/PORTALE-BRANZOWE-RZAD-2B.md",
-      "sha256": "933422A1BCEF59AD04DE4C9BAB28F25F30D293571A6F4B1E52DC2AE3AFC2B658",
-      "size": 12227
+      "sha256": "A32485060852B5F1878EF9AD914E9DD33F4132DB75BF894725FC7D96910329A1",
+      "size": 12224
     },
     {
       "path": "skills/shared/POST-VALIDATION.md",
@@ -5093,14 +5177,19 @@
       "size": 7599
     },
     {
+      "path": "skills/shared/PRAWO-HARDGATE-ORZECZENIA.md",
+      "sha256": "CB7C7F21F5F0FEAF811C5ADB919D0B7BAD080F5CF10382D7CC5D1EA5E3C991FA",
+      "size": 27190
+    },
+    {
       "path": "skills/shared/PRAWO-HARDGATE.md",
-      "sha256": "5BF0095E2BFC80A18C235941B1BC06486B618F47660F40EC27EF6E10AE06D35A",
-      "size": 54197
+      "sha256": "6DBD55EC41491299BCD52EA6615C34B7781BCDAF1B7E20F484E4E9471C6957FB",
+      "size": 30979
     },
     {
       "path": "skills/shared/PRE-W2-VERIFICATION-GATE.md",
-      "sha256": "C1ACFE2EB857743184EF4B4AF3B8A7050DFB6A8894CC93F8407C0AFC86D4B4E3",
-      "size": 18547
+      "sha256": "067AC1B79DA7DA76401F481C2B2D9FD58133A87C59E54679DF869CD90537E2F0",
+      "size": 18529
     },
     {
       "path": "skills/shared/PREKLUZJA-DOWODOWA.md",
@@ -5114,28 +5203,28 @@
     },
     {
       "path": "skills/shared/QUALITY-CHECK.md",
-      "sha256": "625F69C9EFE1096EA7B8E4DDA266BE732A997522A25584DB2D22CDCFAD949BC3",
-      "size": 1706
+      "sha256": "AC704F746A5C924B3DA72D440B45A90B249D02C522292C1B094D59A88FA168EE",
+      "size": 1700
     },
     {
       "path": "skills/shared/raport-sytuacyjny-integracja.md",
-      "sha256": "DEADFB874455BA74DA6AF836395CDE5E57B4EBFECA9779ADD1A31FA92CE0D342",
-      "size": 1558
+      "sha256": "96E652F120086923C723404209817AD85348E09FBCBE9BFEA7689B502D37B941",
+      "size": 1552
     },
     {
       "path": "skills/shared/RATE-COMPLETENESS.md",
-      "sha256": "89A7B47C532AB7AAC8D5A1CBC5364482717548B7FBD826A32DBA5205DF9E22CA",
-      "size": 5667
+      "sha256": "611EEB39509E70FF094E62DFCD8AB317273F5445B5485A8F23E92614B2BF3CF3",
+      "size": 5931
     },
     {
       "path": "skills/shared/references/CHANGELOG.md",
-      "sha256": "44F0F8EB9CB00B4701AF7A5E003AE1AD11BE18FACAB6C79D0C98546C10E427E3",
-      "size": 35011
+      "sha256": "164B80EB62F7476218286B9D945CE9D3F4C60FC8A3F02C517E80A6AA5D5AF2DC",
+      "size": 48846
     },
     {
       "path": "skills/shared/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "DC625E51E063D647257BFD2689A206344840CF860E721C307359E3D10FDE590C",
-      "size": 4121
+      "sha256": "855B5C8A2A6D2ABCA08394D29A82F253751DA2BC9748ABFC26B75EF91B9E962F",
+      "size": 3917
     },
     {
       "path": "skills/shared/RISK-ASSESSMENT.md",
@@ -5158,9 +5247,14 @@
       "size": 2398
     },
     {
+      "path": "skills/shared/SELF-CHECK-ANTY-FASADA.md",
+      "sha256": "0F16DC99652C571A564134018A4AD2E9A32B146D497EE16A623567E60B703D28",
+      "size": 4826
+    },
+    {
       "path": "skills/shared/SKILL.md",
-      "sha256": "98D8677D6A9433C765FE44DC7831844CD2638447C6549702587E55488086FE68",
-      "size": 12413
+      "sha256": "F9710EEBD223D6245D0DCF32F085D49761F3F39DFEC096A89B747CC02094FD2A",
+      "size": 14940
     },
     {
       "path": "skills/shared/SOCIAL-SECURITY-LAW-STANDARD.md",
@@ -5179,18 +5273,18 @@
     },
     {
       "path": "skills/shared/STRATEGIA-PROCESOWA.md",
-      "sha256": "B89FFF23D165D21345AFDB78ECC5F8DFBC3AF8C37728490C518C8650B65484C6",
-      "size": 1696
+      "sha256": "B085584D1988A37A6728E50773AE3AE3AB070BCA8EB6F46684550E57BDB518B9",
+      "size": 1693
     },
     {
       "path": "skills/shared/SYGNATURY.md",
-      "sha256": "CA6E8094080B1C8B100AD1C8BC0841B3D62DC8DCF2D3B4846ACC940B530C96A5",
-      "size": 9433
+      "sha256": "B843B340DEE9C956AA516B39AFBDD0C34399CB391CB20C596892392EE59DC461",
+      "size": 9427
     },
     {
       "path": "skills/shared/TEMPORAL-LAW-CHECK.md",
-      "sha256": "056DFC845203379E770CF54500407019778AF4B260E6942B0ACD4112D5E7CF6D",
-      "size": 1107
+      "sha256": "AAB48A9EB6DE682BCF27EF4E8E5ECAD68E0A9D05EDE72D710C2077D477A5F9CE",
+      "size": 5416
     },
     {
       "path": "skills/shared/TERM-CALC.md",
@@ -5464,8 +5558,8 @@
     },
     {
       "path": "skills/shared/tools/README.md",
-      "sha256": "1AF5D37E204DD25F7D48DB43F9FDF65B477801ADF180D1340D328C3003E3094B",
-      "size": 6185
+      "sha256": "2E0CEA145847FECB1382ECF520F7988AD5D263909E51425F6764EC67CC451898",
+      "size": 6915
     },
     {
       "path": "skills/shared/tools/router_event_parser.py",
@@ -5488,14 +5582,19 @@
       "size": 1643
     },
     {
+      "path": "skills/shared/UNIVERSAL-RUNTIME-ADAPTER.md",
+      "sha256": "7127DDF20169197F75988B8D7132556A28C0145A6A9804E933344182362B6D74",
+      "size": 3738
+    },
+    {
       "path": "skills/shared/WARUNKI-SKUTECZNOSCI.md",
       "sha256": "E11177A4C5CDEF8B86F2E7B2D03F85F1186BF5DCBD8111CADA8046FD7E5D73EF",
       "size": 2217
     },
     {
       "path": "skills/shared/WERYFIKACJA-SLAD.md",
-      "sha256": "D207EE409E64C49715E17D20F28AFE4C6F40D7A40E4F186CE9F297C857C331E3",
-      "size": 24797
+      "sha256": "F9C09289162B3D147270F30D563BCEC69FCB96E496EDD99E167B2AAA4C0CAAE6",
+      "size": 32889
     },
     {
       "path": "skills/shared/WLASCIWOSC-GATE.md",
@@ -5504,13 +5603,13 @@
     },
     {
       "path": "skills/shared/ZAWIADOMIENIA-KRZYZOWE.md",
-      "sha256": "F44D5F3073EBC6CC581BB283D295C53E9F5315382796D3CB9CCE844044D18A0F",
-      "size": 9522
+      "sha256": "9479848ABA5225BB48E9328245B2B635100294E555D4B739D459ED266F1B7206",
+      "size": 9580
     },
     {
       "path": "skills/shared/ZAZALENIE-ADRESAT-GATE.md",
-      "sha256": "A73F8CF9565B8778E1272DDA747EE267CACFAACA7FB7CA7D3091FE5C7F2157B9",
-      "size": 9442
+      "sha256": "FF91ADCF2B33368F3F15F01E4491CC5943FF3919A991FC3F9A5749B08D1D0863",
+      "size": 9461
     }
   ]
 }

@@ -9,6 +9,26 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 Brak zmian.
 
+## [0.3.0] - 2026-08-27
+
+### Upstream
+
+- zsynchronizowano port z uniwersalną wersją rozwojową Lex Machina, commit
+  `21bc139886be011691b88b209aae3374b8c2da89` projektu Michała Wiatraka;
+- przejęto wspólny `UNIVERSAL-RUNTIME-ADAPTER.md`, manifesty przenośności,
+  metadane OpenAI oraz aktualizacje routera, hardgate, narzędzi i modułów;
+- zachowano 32 aktywne skille i wyłączenia dwóch katalogów technicznych.
+
+### Codex port
+
+- znormalizowano rozszerzony frontmatter upstream do schematu obsługiwanego
+  przez Codex i zachowano oryginalne metadane w referencjach;
+- ponownie zastosowano przenośne ścieżki, lokalne zabezpieczenia prywatności
+  i blokadę bezpośrednich wywołań Anthropic API;
+- walidacja statyczna zakończyła się wynikiem 32/32 `PASS`; nie pozostały
+  ścieżki `/mnt/skills/user`, aktywne endpointy Anthropic ani brakujące
+  dokładne cele referencji.
+
 ## [0.2.0] - 2026-08-23
 
 ### Upstream

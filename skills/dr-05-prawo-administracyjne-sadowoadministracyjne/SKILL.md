@@ -3,7 +3,7 @@ name: "dr-05-prawo-administracyjne-sadowoadministracyjne"
 description: "DR-05: Prawo Administracyjne i Sądownictwo Administracyjne Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.nsa.gov.pl | nsa.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "dr-05-prawo-administracyjne-sadowoadministracyjne"
 ---
 

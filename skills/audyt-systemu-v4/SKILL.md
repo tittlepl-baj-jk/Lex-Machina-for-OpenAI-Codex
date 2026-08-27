@@ -3,7 +3,7 @@ name: "audyt-systemu-v4"
 description: "Audyt i kontrola jakości systemu Lex Machina. Używaj, gdy użytkownik żąda audytu spójności, rejestracji modułów, map Dz.U., testów regresji lub wykrycia otwartych ryzyk. Moduł źródłowy: audyt-systemu-v4 — Orchestrator Audytu Systemu Prawnego."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "audyt-systemu-v4"
 ---
 

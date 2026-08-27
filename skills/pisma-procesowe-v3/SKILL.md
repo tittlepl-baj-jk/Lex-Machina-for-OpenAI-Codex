@@ -3,7 +3,7 @@ name: "pisma-procesowe-v3"
 description: "Modularny framework do pism procesowych na poziomie kancelaryjnym. Pipeline: W1 (rama + CLAIM-VALIDATION + RED-TEAM) → W1.2d-PRE (MOD-DOKUMENT-ANOMALIE) → W2 (projekt + executive summary + timing + doktryna + ATAK-NA-DRAFT) → W3 (PODMIOT-GATE → ISAP → orzeczenia → fakty → walidacja A–J z triggerami → LEGAL-QUALITY-GATE → AUDYT-KONCOWY z COURT-SIMULATION → PEER-REVIEW + POST-VALIDATION + UWAGI-REDAKCYJNE) → .docx. Engines specjalistyczne z matrycą aktywacji: appellate-v8 (apelacja), prosecution-v8 (prokuratura), rebuttal-v9 (riposta), theory-of-case (≥2 roszczenia), V10 engines (matryca 4 warunków). Poziom: kancelaryjny — każde pismo przechodzi przez 5-etapową kontrolę jakości (LEGAL-QUALITY-GATE, AUDYT-KONCOWY, PEER-REVIEW, POST-VALIDATION, UWAGI-REDAKCYJNE)."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "pisma-procesowe-v3"
 ---
 

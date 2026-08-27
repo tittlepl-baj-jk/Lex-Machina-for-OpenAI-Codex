@@ -3,7 +3,7 @@ name: "prawny-router-v3"
 description: "Router Prawny v3.16 — orchestrator KAŻDEJ sprawy prawnej. Wykrywa tryb (LAIK/PRAWNIK), koordynuje PRIMARY→SECONDARY→FALLBACK, generuje .docx/.pdf. UŻYWAJ ZAWSZE i AUTOMATYCZNIE. Nigdy nie analizuj bez wczytania tego pliku."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "prawny-router-v3"
 ---
 

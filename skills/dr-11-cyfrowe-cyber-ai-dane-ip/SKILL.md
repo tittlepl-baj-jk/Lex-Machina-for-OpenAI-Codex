@@ -3,7 +3,7 @@ name: "dr-11-cyfrowe-cyber-ai-dane-ip"
 description: "DR-11: Cyfrowe, Cyberbezpieczeństwo, AI, Dane, IP Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | eur-lex.europa.eu | uodo.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "dr-11-cyfrowe-cyber-ai-dane-ip"
 ---
 

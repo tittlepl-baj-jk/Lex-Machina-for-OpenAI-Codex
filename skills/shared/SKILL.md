@@ -1,14 +1,31 @@
 ---
 name: "shared"
-description: "Biblioteka plików kanonicznych systemu prawnych skilli — hardgate, walidacja, definicje, terminy, moduły kancelaryjne. NIE jest samodzielnym skillem i NIE odpowiada na zapytania użytkownika: moduły wczytują inne skille przez `view`. Pełny spis modułów — tabele „Zawartość katalogu\" w treści tego pliku."
+description: "Kanoniczna biblioteka Lex Machina: hardgate, walidacja, definicje, terminy i moduły wspólne. Nie odpowiada użytkownikowi samodzielnie; zasoby wczytują inne skille."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-9e37d60"
+  source-tree: "development-universal-2026-08-27"
   source-directory: "shared"
 ---
 
 > [!IMPORTANT]
 > Port Codex: przed wykonaniem wczytaj `CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
+> **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
+
+
+## ADAPTER RUNTIME — PORTABILITY (ChatGPT / Claude / inne hosty)
+
+`shared` pozostaje JEDYNYM kanonicznym SSOT. Adapter nie zmienia treści modułów prawnych, tylko sposób rozumienia operacji technicznych.
+
+1. `view shared/<plik>` oznacza świeży odczyt `<plik>` z rootu zainstalowanego skilla `shared`. Literalna ścieżka `..` nie jest wymagana. Obowiązkowego odczytu nie zastępuj pamięcią modelu.
+2. Udokumentowane pliki-mosty mogą wskazywać inny osobny skill. `view <skill>/<plik>` oznacza świeży odczyt zasobu z tego skilla przez mechanizm hosta. Brak obowiązkowego zasobu = fail-closed; NIE kopiuj go do `shared`.
+3. `web_search` / `web_fetch` oznaczają świeże wyszukanie lub odczyt źródła. Jeśli host ma inną nazwę narzędzia, użyj równoważnej funkcji. PRAWO-HARDGATE, hierarchia źródeł i statusy pozostają bez zmian.
+4. `/mnt/user-data/...` oznacza rzeczywiste pliki użytkownika dostępne w hoście; wymagany ponowny odczyt jest faktycznym odczytem źródła.
+5. `show_widget`, `present_files`, `create_file`, shell/Python i podobne operacje wykonuj równoważną natywną funkcją hosta, jeśli literalna nazwa nie istnieje. Nie pomijaj bramek jakości.
+6. `tools/` to kod integracyjny portalu. `extract_api_verification_log.py` przyjmuje neutralne `events` i zachowuje zgodność z Claude legacy, generycznymi tool-call oraz Responses-style.
+7. Ze względu na twardy limit 200 plików, 42 technicznych plików przykładowych serwerów MCP jest zachowanych bezstratnie w `tools/mcp-servers/mcp-servers-examples.zip` (SHA-256 `6b16d446e08ec5a3c401b371a7bf697e2b898bf2b903e2a1531a2ec818642756`). Gdy potrzebujesz kodu przykładowego serwera, rozpakuj ten plik; moduły promptowe nie zależą od jego rozwinięcia.
+
+**Zasada nadrzędna:** jeśli istniejąca instrukcja jest zrozumiała i wykonalna w bieżącym hoście, wykonaj ją bez konwersji. Adapter działa tylko na granicy runtime.
 
 # shared/ — Wspólne moduły systemu prawnych skilli
 
@@ -19,7 +36,9 @@ Nie jest samodzielnym skillem — pełni rolę biblioteki referencji.
 
 | Plik | Rola |
 |------|------|
-| `PRAWO-HARDGATE.md` | ⛔ Globalny zakaz cytowania prawa/orzeczeń z pamięci — wczytaj przed każdym przepisem (v2.5: sekwencja B-1→B-2, status 🟡 KOTWICA URZĘDOWA) |
+| `UNIVERSAL-RUNTIME-ADAPTER.md` | Wspólny kontrakt runtime ChatGPT/Claude/Codex: zasoby, narzędzia, prywatność, fallbacki |
+| `PRAWO-HARDGATE.md` | ⛔ Globalny zakaz cytowania prawa/orzeczeń z pamięci — RDZEŃ, wczytaj przed każdym przepisem (zasada absolutna, PERMANENT GATE, hierarchia statusów, BRAMKA ANTY-FASADOWA, KROK 2B/2C). Podzielony 2026-08-23h, F-111: 967 → 501 l. |
+| `PRAWO-HARDGATE-ORZECZENIA.md` | ⛔ ZAŁĄCZNIK orzeczniczy tej samej bramki — wczytaj ZAWSZE, gdy w tekście ma stanąć SYGNATURA (procedura przed orzeczeniem, WTÓRNE-ŹRÓDŁO-STOP, KROK 5A/5B, warstwy uzasadnienia [1]/[2]/[3], self-check orzeczniczy). NIE jest samodzielny — rdzeń obowiązuje równolegle (dodane 2026-08-23h, F-111) |
 | `DOMAIN-LOCK.md` | ⛔ Bramka izolacji dziedzinowej — kontrola na WYJŚCIU, zakaz kwalifikacji spoza PRIMARY bez podstawy faktycznej (dodane 2026-08-23) |
 | `RATE-COMPLETENESS.md` | ⛔ Bramka kompletności szeregu stawek — odsetki/waloryzacja jako funkcja czasu, nie pojedyncza liczba (dodane 2026-08-23) |
 | `MOD-GENERATOR-AKTU.md` | Procedura budowy modułu aktu prawnego G-1…G-8 — od spisu treści aktu, nie od pytania (dodane 2026-08-23) |
@@ -57,15 +76,16 @@ Wszystkie pliki są kanoniczne — nie istnieją stuby ani kopie w innych lokali
 Każdy skill wczytuje pliki z tego katalogu bezpośrednio przez `view`:
 
 ```
-view ../shared/MOD-STEP-TRACKER.md  ← KROK 0-TRACKER (przed wszystkim — ST-INIT)
-view ../shared/MOD-REJESTR-POKRYCIA-JEDNOSTEK.md  ← RPK-INIT (gdy zbiór ≥10 ponumerowanych jednostek, np. seria kazusów)
-view ../shared/PRAWO-HARDGATE.md  ← wymagane przed każdym przepisem/orzeczeniem
-view ../shared/HYBRID-VALIDATION.md
-view ../shared/INTAKE-GAP.md
-view ../shared/POST-VALIDATION.md
-view ../shared/terminy.md
-view ../shared/FAKTY_v2.md
-view ../shared/raport-sytuacyjny-integracja.md
+view shared/MOD-STEP-TRACKER.md  ← KROK 0-TRACKER (przed wszystkim — ST-INIT)
+view shared/MOD-REJESTR-POKRYCIA-JEDNOSTEK.md  ← RPK-INIT (gdy zbiór ≥10 ponumerowanych jednostek, np. seria kazusów)
+view shared/PRAWO-HARDGATE.md  ← wymagane przed każdym przepisem
+view shared/PRAWO-HARDGATE-ORZECZENIA.md  ← DODATKOWO, zawsze gdy pada SYGNATURA orzeczenia (F-111)
+view shared/HYBRID-VALIDATION.md
+view shared/INTAKE-GAP.md
+view shared/POST-VALIDATION.md
+view shared/terminy.md
+view shared/FAKTY_v2.md
+view shared/raport-sytuacyjny-integracja.md
 ```
 
 Nie wczytuj wszystkich naraz — tylko te potrzebne dla danego kroku.
@@ -89,7 +109,7 @@ Nie wczytuj wszystkich naraz — tylko te potrzebne dla danego kroku.
 
 - Wszystkie pliki w tym katalogu są **kanoniczne** — jedyna kopia w systemie
 - Stuby lokalne w katalogach poszczególnych skilli zostały usunięte
-- Skille wywołują pliki bezpośrednio przez `view ../shared/X.md`
+- Skille wywołują pliki bezpośrednio przez `view shared/X.md`
 - Nie twórz lokalnych kopii ani stubów — aktualizuj tylko ten katalog
 
 ## Moduły kancelaryjne v3.0 — obowiązkowe moduły współdzielone
@@ -131,53 +151,53 @@ Nie wczytuj wszystkich naraz — tylko te potrzebne dla danego kroku.
 Przy każdym piśmie gotowym do złożenia generator musi co najmniej wczytać:
 
 ```text
-view ../shared/TRYBY-PROCESOWE.md
-view ../shared/FORMAL-CHECK.md
-view ../shared/BRAKI-FORMALNE.md
-view ../shared/WARUNKI-SKUTECZNOSCI.md
-view ../shared/RISK-ASSESSMENT.md
-view ../shared/QUALITY-CHECK.md
+view shared/TRYBY-PROCESOWE.md
+view shared/FORMAL-CHECK.md
+view shared/BRAKI-FORMALNE.md
+view shared/WARUNKI-SKUTECZNOSCI.md
+view shared/RISK-ASSESSMENT.md
+view shared/QUALITY-CHECK.md
 ```
 
 Gdy występują terminy, dowody, orzecznictwo albo strategia, dodatkowo:
 
 ```text
-view ../shared/TERM-CALC.md
-view ../shared/PREKLUZJA-DOWODOWA.md
-view ../shared/DOWODY-METODOLOGIA.md
-view ../shared/ORZECZENIA-HIERARCHIA.md
-view ../shared/ROSZCZENIA.md
-view ../shared/STRATEGIA-PROCESOWA.md
+view shared/TERM-CALC.md
+view shared/PREKLUZJA-DOWODOWA.md
+view shared/DOWODY-METODOLOGIA.md
+view shared/ORZECZENIA-HIERARCHIA.md
+view shared/ROSZCZENIA.md
+view shared/STRATEGIA-PROCESOWA.md
 ```
 
 Gdy pismo wymaga executive summary, metryki długości lub peer review:
 
 ```text
-view ../shared/MOD-INTRO.md           (pozew/apelacja/pismo >3 str.)
-view ../shared/MOD-KONCENTRACJA.md    (kontrola długości — zawsze)
-view ../shared/MOD-PEER-REVIEW.md     (gdy WPS>50k / ≥3 żądania / apelacja)
-view ../shared/MOD-DOKTRYNA.md        (gdy cytowanie komentarzy w W2)
-view ../shared/MOD-TIMING.md          (gdy pytanie o timing złożenia)
+view shared/MOD-INTRO.md           (pozew/apelacja/pismo >3 str.)
+view shared/MOD-KONCENTRACJA.md    (kontrola długości — zawsze)
+view shared/MOD-PEER-REVIEW.md     (gdy WPS>50k / ≥3 żądania / apelacja)
+view shared/MOD-DOKTRYNA.md        (gdy cytowanie komentarzy w W2)
+view shared/MOD-TIMING.md          (gdy pytanie o timing złożenia)
 ```
 
 Przed W1.3 (eliminacja tez bez pokrycia) i w trakcie W1.2c-PRE (karta dowodowa), obowiązkowo:
 
 ```text
-view ../shared/MOD-ELIMINACJA-TEZ.md  (⛔ W1.2a-POST, po CLAIM-VALIDATION)
-view ../shared/MOD-KARTA-DOWODU.md    (⛔ W1.2c-PRE, po SD-SKAN)
+view shared/MOD-ELIMINACJA-TEZ.md  (⛔ W1.2a-POST, po CLAIM-VALIDATION)
+view shared/MOD-KARTA-DOWODU.md    (⛔ W1.2c-PRE, po SD-SKAN)
 ```
 
 W W2.2 (redakcja każdego bloku uzasadnienia), obowiązkowo w tej kolejności:
 
 ```text
-view ../shared/MOD-BUDOWA-ARGUMENTU.md    (⛔ każdy akapit uzasadnienia)
-view ../shared/MOD-KOSZT-ODPOWIEDZI.md    (⛔ każde główne twierdzenie)
-view ../shared/MOD-SKUTEK-PROCESOWY.md    (⛔ koniec bloku klasy A/B)
-view ../shared/MOD-MIKROPODSUMOWANIA.md   (⛔ koniec każdego rozdziału)
+view shared/MOD-BUDOWA-ARGUMENTU.md    (⛔ każdy akapit uzasadnienia)
+view shared/MOD-KOSZT-ODPOWIEDZI.md    (⛔ każde główne twierdzenie)
+view shared/MOD-SKUTEK-PROCESOWY.md    (⛔ koniec bloku klasy A/B)
+view shared/MOD-MIKROPODSUMOWANIA.md   (⛔ koniec każdego rozdziału)
 ```
 
 Po W2 (projekt pisma gotowy), przed W3/AUDYT-KOŃCOWY, obowiązkowo:
 
 ```text
-view ../shared/MOD-STRESS-TEST.md     (⛔ symulacja odpowiedzi pełnomocnika pozwanego)
+view shared/MOD-STRESS-TEST.md     (⛔ symulacja odpowiedzi pełnomocnika pozwanego)
 ```
