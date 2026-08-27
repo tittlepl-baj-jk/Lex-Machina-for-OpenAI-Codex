@@ -15,6 +15,13 @@ Anthropic.
 Inicjator i opiekun portu: **Jacek Kurzawa (Jack BAI EMM System)** — profil
 GitHub: **tittlepl-baj-jk**.
 
+## Środowiska
+
+Oryginalny Lex Machina dla Claude jest przeznaczony do wersji webowej
+**Claude.ai / Cowork**, gdzie skille instaluje się na koncie Claude. To
+repozytorium zawiera osobny port dla **OpenAI Codex**, uruchamiany lokalnie w
+projekcie Codex; nie instaluje się go w Claude.ai.
+
 ## Status
 
 - 32 aktywne skille dla Codex;
