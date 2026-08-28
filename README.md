@@ -29,7 +29,9 @@ projekcie Codex; nie instaluje się go w Claude.ai.
   z uniwersalnej wersji rozwojowej Michała Wiatraka;
 - statyczna walidacja portu: 32/32 `PASS`;
 - krytyczne testy regresyjne T1, T2 i T6/T7: `PASS`;
-- wydanie portu: `v0.3.0-codex`;
+- wydanie portu: `v0.3.1-codex`;
+- router prawny: `3.32`, z fallbackiem LEX/Legalis/ArsLege przy
+  niedostępności ISAP i obowiązkiem jawnego oznaczenia statusu weryfikacji;
 - pakiet jest portem skilli Codex, a nie samodzielną aplikacją ChatGPT ani
   publikacją w katalogu GPT lub Apps.
 

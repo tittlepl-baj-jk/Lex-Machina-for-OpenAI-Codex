@@ -10,8 +10,11 @@
 - Bazowa gałąź: `main`
 - Ostatni zsynchronizowany commit:
   `21bc139886be011691b88b209aae3374b8c2da89`
+- Selektywny override routera 3.32:
+  `4a10568863edc77774790cbcc13d2984e259a87d`
 - Drzewo źródłowe: `Wersja rozwojowa rozpakowana`
-- Data synchronizacji: 2026-08-27
+- Data synchronizacji pełnego drzewa: 2026-08-27
+- Data selektywnej synchronizacji routera: 2026-08-28
 - Data utworzenia portu: 2026-08-23
 
 ## Konfiguracja Git

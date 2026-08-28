@@ -1,13 +1,10 @@
 name: prawny-router-v3
-version: 3.21
+version: "3.32"
 type: orchestration
 status: production
 entrypoint: SKILL.md
-compatibility: "web_search, web_fetch, show_widget, create_file"
-description: |
-  Router Prawny v3.16 — orchestrator KAŻDEJ sprawy prawnej. Wykrywa tryb (LAIK/PRAWNIK),
-  koordynuje PRIMARY→SECONDARY→FALLBACK, generuje .docx/.pdf.
-  UŻYWAJ ZAWSZE i AUTOMATYCZNIE. Nigdy nie analizuj bez wczytania tego pliku.
+compatibility: "web_search, web_fetch, file_read (view), create_file, show_widget — lub równoważne funkcje hosta wg shared/UNIVERSAL-RUNTIME-ADAPTER.md"
+description: "UŻYWAJ ZAWSZE i AUTOMATYCZNIE przy każdej sprawie prawnej, w każdej jurysdykcji. Wczytaj przed analizą, oceną cudzego materiału lub pismem; uruchamia HARD GATE i routing."
 dependencies:
   requires:
     - shared
@@ -23,6 +20,7 @@ dependencies:
     - dr-10-zdrowie-farmacja-zywnosc-rolnictwo
     - dr-11-cyfrowe-cyber-ai-dane-ip
     - dr-12-sadownictwo-prokuratura-zawody-prawnicze
+    - dr-16-pisma-strategia-dowody-orzecznictwo
     - orzeczenia-sadowe-v2
     - pisma-procesowe-v3
     - pisma-proste-v2
@@ -35,13 +33,15 @@ inputs:
   - opcjonalnie: pliki/dowody wgrane przez użytkownika
   - opcjonalnie: plik kontekstu sesji (eksport z wcześniejszej rozmowy)
 outputs:
-  - decyzja routingu ([1]-[10]) + wywołanie właściwego skilla PRIMARY/SECONDARY/FALLBACK
+  - decyzja routingu ([1]-[11]) + wywołanie właściwego skilla PRIMARY/SECONDARY/FALLBACK
   - finalnie: odpowiedź tekstowa, widget (show_widget) lub dokument .docx/.pdf (create_file)
 confidence: verified-online
   # HARD GATE wymusza web_search/web_fetch dla każdego przepisu/sygnatury —
   # router sam nie generuje treści prawnej z pamięci, tylko orkiestruje.
 escalation:
-  - brak dostępu do isap.sejm.gov.pl / orzeczenia.ms.gov.pl / sn.pl / nsa.gov.pl
+  - brak możliwości pobrania aktu lub jego tekstu z ISAP
+    → wykonaj references/ZRODLA-AKTOW-FALLBACK.md; sam błąd ISAP nie kończy weryfikacji
+  - brak źródła dla powołania po wykorzystaniu dostępnych alternatyw
     → oznacz ⚠️ [NIEWERYFIKOWANE] i poinformuj użytkownika, nie kontynuuj cicho
   - sprawa transgraniczna / prawo obce → pomiń prawo-polskie-v2 i ISAP,
     pozostałe zasady HG aktywne (UP-5)
@@ -53,23 +53,13 @@ limitations:
   - nie zastępuje porady radcy prawnego/adwokata — patrz shared/DISCLAIMER.md (KROK 7, obowiązkowy)
   - jakość i czas odpowiedzi zależą od dostępności i jakości web_search/web_fetch
   - nie ingeruje w kontrolę jakości pipeline'u pisma-procesowe-v3 (tylko deleguje)
-  - "ROZWIĄZANE 2026-07-12 (zamyka ZNALEZISKO 2026-07-04): plik
-    references/kwalifikator-karnomaterialny.md był bajt-w-bajt identyczny
-    (MD5 zgodny) z kanonicznym
-    dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md
-    wskazanym w UP-3 — usunięty. Dwa realne miejsca wywołania, które
-    wskazywały na kopię w routerze (dr-03/modules/mod-KW-kodeks-wykroczen.md
-    i dr-03/modules/mod-KK-KPK-framework-karne.md, po 2 odwołania każdy —
-    view + wpis tabeli ŁĄCZ Z), przekierowane na ścieżkę kanoniczną. Pełny
-    opis w audyt-systemu-v4/references/AUDIT-JOURNAL.md i
-    shared/CHECKLIST-DEDUP.md."
 required_modules:
   - shared/MCP-INTEGRACJA.md  # opcjonalny — patrz KROK 1; tani gdy MCP niepodłączone
   - shared/PRAWO-HARDGATE.md
-  - shared/HIERARCHIA-ZRODEL.md  # kategoryzacja wiarygodności źródeł (Rząd 1/2A/2B/3) — dodane 2026-07-21, ISTNIAŁ od dawna ale ŻADEN DR-skill/router go nie ładował
-  - shared/PORTALE-BRANZOWE-RZAD-2B.md  # rejestr portali branżowych per dziedzina, z weryfikacją site: — dodane 2026-07-21, ten sam błąd co wyżej (zbudowany, nigdy niepodłączony)
+  - shared/HIERARCHIA-ZRODEL.md
+  - shared/PORTALE-BRANZOWE-RZAD-2B.md
   - shared/MOD-STEP-TRACKER.md
-  - shared/MOD-REJESTR-POKRYCIA-JEDNOSTEK.md  # KROK 0-RPK — warunkowy, gdy zbiór ≥10 ponumerowanych jednostek
+  - shared/MOD-REJESTR-POKRYCIA-JEDNOSTEK.md
   - shared/MOD-KONTEKST-SESJI.md
   - shared/MOD-SKAN-DOWODOW-KOMPLETNY.md
   - shared/MOD-REJESTR-ZALACZNIKOW-CHECKPOINT.md
@@ -79,68 +69,11 @@ required_modules:
   - shared/DISCLAIMER.md
   - references/KROK0A-anonimizer.md
   - references/KROK1-detekcja.md
-  - dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md  # kanoniczny, wg UP-3
+  - references/ZRODLA-AKTOW-FALLBACK.md
+  - dr-16-pisma-strategia-dowody-orzecznictwo/modules/mod-narzedzie-kontroler-kompletnosci.md
+  - references/AUDYT-KLUCZA-ODPOWIEDZI.md
+  - dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md
 changelog:
-  - "3.21 (2026-08-18): NOWY KROK 0-RPK — router jest teraz jedynym miejscem
-    decydującym, KIEDY inicjować shared/MOD-REJESTR-POKRYCIA-JEDNOSTEK.md
-    (RPK), zamiast zostawiać tę decyzję wyłącznie w opisie biblioteki
-    shared/SKILL.md, która sama w sobie nie jest samodzielnym skillem i nie
-    ma własnej sekwencji wywołania. Powód: użytkownik trafnie zauważył, że
-    dodanie modułu RPK do shared (2026-08-18, AUDYT-2026-08-18, flaga F-93)
-    nie wystarcza — biblioteka nie decyduje SAMA o swoim wywołaniu, potrzebny
-    jest punkt orkiestracji. Krok umieszczony zaraz po KROK 0-ST (analogicznie
-    do MOD-STEP-TRACKER), z jawnymi sygnałami wyzwalającymi (zbiór ≥10
-    ponumerowanych jednostek, plik źródłowy z numeracją ciągłą, zapowiedź
-    pracy partiami). required_modules i SELF-CHECK rozszerzone. Nie zamyka
-    F-93 w całości — propagacja do pozostałych 5 skilli-konsumentów
-    (analizator-przepisow-v2, analizator-dowodow-v3,
-    przesluchanie-swiadkow-v2-min90, chronologia-sprawy-v1, audyt-systemu-v4)
-    pozostaje otwarta, patrz WARN-OTWARTE.md."
-  - "3.17 (2026-07-21): NAPRAWIONO — shared/HIERARCHIA-ZRODEL.md (istniał
-    od dawna) i shared/PORTALE-BRANZOWE-RZAD-2B.md (zbudowany w tej sesji,
-    16 dziedzin z weryfikacją site:) NIE BYŁY ładowane przez ŻADEN DR-skill
-    ani przez sam router — DOKŁADNIE ten sam wzorzec 'zbudowano, zapomniano
-    podłączyć' co wielokrotnie w tej sesji (moduły niezarejestrowane w
-    SKILL.md, plany bez skryptów, poprawki niezsynchronizowane między
-    mapami). Dodano OBA do required_modules — TERAZ każde wywołanie routera
-    (a więc każdy DR-skill uruchamiany PRZEZ router) ma dostęp do
-    kategoryzacji wiarygodności źródeł i rejestru portali branżowych.
-    Odkryte przy pytaniu użytkownika 'czy wszystkie DR wiedzą o tej bazie
-    portali?' — odpowiedź brzmiała: ŻADEN, naprawiono."
-  - "3.16 (2026-07-13f): KONSOLIDACJA — usunięto zależność od osobnych skilli
-    mcp-zrodla-prawa-v1/audit-trail-portal-v1/sync-dzu-automatyczny-v1 (utworzonych
-    2026-07-13). Ich treść przeniesiono do shared/MCP-INTEGRACJA.md,
-    shared/AUDIT-TRAIL-SPEC.md i audyt-systemu-v4/references/SYNC-DZU-AUTOMATYCZNY.md
-    — bo żaden z nich nie był samodzielnym skillem wywoływanym intencją użytkownika,
-    tylko protokołem/narzędziem ładowanym przez router lub audyt-systemu-v4,
-    dokładnie jak PRAWO-HARDGATE.md czy HYBRID-VALIDATION.md. Powód: uniknięcie
-    duplikowania wzorca 'protokół + narzędzia w shared/tools', na wniosek
-    użytkownika po pytaniu 'czy nie lepiej wdrożyć to jako elementy obecnych
-    skili, a nie tworzyć coś nowego, co duplikuje już istniejące skille?'.
-    Skille w systemie: 36 → 33 (powrót do liczby sprzed 2026-07-13)."
-  - "3.15 (2026-07-13): INTEGRACJA — dodano shared/MCP-INTEGRACJA.md jako opcjonalną
-    warstwę deterministyczną PRZED HARD GATE (nie zamiast). Gdy connector MCP
-    (ISAP/SAOS/CBOSA/KRS/EUR-Lex) jest podłączony i dostępny w rozmowie, router
-    używa go w pierwszej kolejności do weryfikacji powołań; HARD GATE
-    (web_search/web_fetch) pozostaje aktywny bez zmian jako fallback i jako
-    jedyna ścieżka gdy MCP niedostępne. Część realizacji rekomendacji #2 z
-    audytu komercyjnego silnika 2026-07-13 (pełny opis: audyt-systemu-v4/
-    references/AUDIT-JOURNAL.md, wpis AUDYT-2026-07-13)."
-  - "3.14 (2026-07-12): DEDUP — usunięty duplikat
-    references/kwalifikator-karnomaterialny.md (identyczny z kanonicznym
-    dr-03/modules/mod-KK-kwalifikator-karnomaterialny.md, MD5 zgodny),
-    zgłoszony jako ZNALEZISKO 2026-07-04. 2 miejsca wywołania w dr-03
-    przekierowane na ścieżkę kanoniczną. Zamyka pozycję w limitations —
-    pełny opis tam. Część audytu komercyjnego silnika (punkt 4)."
-  - "3.9 (2026-06-26): naprawa [POV-D-TRIGGER] i zasady 'dane z akt ≠ zweryfikowane
-    online' — pełny opis w sekcji CHANGELOG na końcu pliku."
-  - "3.10 (2026-06-26): KROK 0D — obowiązkowe oznaczanie podmiotów ⬛ [DO WERYFIKACJI]
-    — pełny opis w sekcji CHANGELOG na końcu pliku."
-  - "3.11 (2026-07-05): SCALENIE dwóch równoległych gałęzi rozwoju — (a) standaryzacja
-    metadanych frontmatter (dependencies/inputs/outputs/confidence/escalation/
-    limitations/required_modules), wprowadzona w wersji roboczej oznaczonej 3.9
-    z dnia 2026-07-04, z (b) pełną logiką weryfikacji podmiotów KROK 0D +
-    POV-D-TRIGGER z wersji 3.10 (2026-06-26). Żadna funkcja bezpieczeństwa nie
-    została usunięta w procesie scalenia — required_modules rozszerzone o
-    shared/PRE-W2-VERIFICATION-GATE.md, escalation rozszerzone o przypadek
-    podmiotu ⬛ bez dostępu do rejestru."
+  - "3.32 (2026-08-28): poprawne odwołanie BI w DR-16; ISAP pierwszy, LEX/Legalis/ArsLege po nieudanym pobraniu tekstu; references/CHANGELOG.md."
+  - "3.31 (2026-08-28): runtime mapy aktów działają w modelu current-state-only; historia pozostaje w dziennikach/changelogach, a routing korzysta z bieżących COV."
+  - "3.30 (2026-08-27): synchronizacja mapy dziedzinowej z F-108 P1 oraz rzeczywistymi modułami REACH/CLP, akcyzy/cła i cudzoziemców; references/CHANGELOG.md."

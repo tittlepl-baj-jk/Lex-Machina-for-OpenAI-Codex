@@ -8,8 +8,8 @@
   "source_commit": "21bc139886be011691b88b209aae3374b8c2da89",
   "source_snapshot": "Wersja rozwojowa uniwersalna 2026-08-27",
   "port_created": "2026-08-23",
-  "port_updated": "2026-08-27",
-  "source_router_sha256": "A94C1B59A58A9824A02CDFE0649189DAB6486931F2AE2942E740CAC9F09EBC5F",
+  "port_updated": "2026-08-28",
+  "source_router_sha256": "B1C0FBCC618D718287A928038EBF37266A5FC17152A5B127F8947AC33E125F63",
   "active_skill_count": 32,
   "excluded_top_level": [
     "dr-09-out",
@@ -162,7 +162,7 @@
     {
       "directory": "prawny-router-v3",
       "name": "prawny-router-v3",
-      "source_version": "3.21"
+      "source_version": "3.32"
     },
     {
       "directory": "prawo-polskie-v2",
@@ -4152,9 +4152,14 @@
       "size": 23106
     },
     {
+      "path": "skills/prawny-router-v3/agents/openai.yaml",
+      "sha256": "3ABAD9A5E86F5D426B872308E22E02490223981175A2B7CFF96AB0F37649F870",
+      "size": 404
+    },
+    {
       "path": "skills/prawny-router-v3/anonimizer/anonimizer-skill.md",
-      "sha256": "DC333A745B2593F268C171FD47AB5617365128DB64BAD50A5032762802327DE9",
-      "size": 6039
+      "sha256": "E15ADC5A1F666407A84F119F9DB0CDA8A6440884FA97741268F63EEFA2C9C168",
+      "size": 6003
     },
     {
       "path": "skills/prawny-router-v3/anonimizer/assets/anonimizer-widget.legacy.html",
@@ -4163,8 +4168,8 @@
     },
     {
       "path": "skills/prawny-router-v3/anonimizer/assets/AnonimizerPrawny.jsx",
-      "sha256": "81595E0B54674B2CB1450E6AF56AF885E20807671596244F7DF5AAF27A395656",
-      "size": 28224
+      "sha256": "2635ECD95E5E3C3277D040E0CD30AE97EB2ABA70876FD2329AEA36EEE62B3D37",
+      "size": 28445
     },
     {
       "path": "skills/prawny-router-v3/anonimizer/references/BLUEPRINT-SCHEMA.md",
@@ -4177,19 +4182,39 @@
       "size": 1151
     },
     {
+      "path": "skills/prawny-router-v3/assets/icon.svg",
+      "sha256": "8936B24F674A1250D999E2C2B5901374FB4240426F32BD1AE340C352A90D617D",
+      "size": 1738
+    },
+    {
+      "path": "skills/prawny-router-v3/CHECKSUMS.sha256",
+      "sha256": "81869DA6D3BDDEE09D7AFA1CD8EBE8999379571FE4B88C1AFB52B7D4F4EF9E84",
+      "size": 4244
+    },
+    {
+      "path": "skills/prawny-router-v3/PORTABILITY-MANIFEST.md",
+      "sha256": "67D60B5BA7AFB7A0A569662413A03D079D4BF6B4E0184367370ECF445E0EAAAD",
+      "size": 1330
+    },
+    {
+      "path": "skills/prawny-router-v3/references/AUDYT-KLUCZA-ODPOWIEDZI.md",
+      "sha256": "0026370AB9ECF6A1F9859ADD62DAA808E6ABDEB985A4FACCA593CD9512684B33",
+      "size": 4471
+    },
+    {
       "path": "skills/prawny-router-v3/references/CHANGELOG.md",
-      "sha256": "18CCDBAC963E66E767C8CB4622208C6BC72721B0AEB99BC56EA101A471ADE448",
-      "size": 13971
+      "sha256": "9F6D20CD6DD0D17B2A5468554100216BFDAEE88307315AC58EB13EC1DE65E6F0",
+      "size": 22342
     },
     {
       "path": "skills/prawny-router-v3/references/CODEX-SOURCE-FRONTMATTER.yaml",
-      "sha256": "1CDA445CC20FC8B046E5E40006208970A131FA88040C96BE341792C75469B375",
-      "size": 9060
+      "sha256": "8EAEFF52845A682470C51B65D8EDBE4410FF79632A4552065C99A4547EB92A70",
+      "size": 4127
     },
     {
       "path": "skills/prawny-router-v3/references/cyberprzestepstwa.md",
-      "sha256": "F31BDF8EA0D98A237B8E369C09BEA5BC17B91C6CF30BECB677F694EF1D836C69",
-      "size": 8674
+      "sha256": "0B1396280DCF11916D3DE470EC05979AEFAEF02C9399967E223903E4805CEF31",
+      "size": 307
     },
     {
       "path": "skills/prawny-router-v3/references/HARD-GATES-ORZECZNICTWO.md",
@@ -4198,68 +4223,108 @@
     },
     {
       "path": "skills/prawny-router-v3/references/HYBRID-VALIDATION.md",
-      "sha256": "182109E588DD73CA80765E9BBBD72BB1E7C0847B3E93FAA714EE996626553C61",
-      "size": 483
+      "sha256": "CB8954C2481C00ABB7A3D6967DBF494745722D59D7622188F81C2EC8BA632EF2",
+      "size": 477
     },
     {
       "path": "skills/prawny-router-v3/references/ISAP-AUDIT-PROTOCOL.md",
-      "sha256": "BD835B96C6F46B54BD8968A56C71F287168B95361A1AA771BFDB656653B5C3EB",
-      "size": 511
+      "sha256": "72E54B775F8CEBB316889F5D73BA0C31220CFA3C983262DA49BDB73015DF653A",
+      "size": 499
     },
     {
       "path": "skills/prawny-router-v3/references/ISAP-METRYKI-AKTOW.md",
-      "sha256": "2C392F5BA4CAD191E113FC121B923CDDA8BC5A95E8E2B3916FC18F100ED7E510",
-      "size": 7750
+      "sha256": "83775C6331EE725E2999FEFC2416026FDBB3082636CE630B6C12306B1BE06E7F",
+      "size": 7615
     },
     {
       "path": "skills/prawny-router-v3/references/KROK0A-anonimizer.md",
-      "sha256": "652FC1568E09740807FF5D64825AE27A99CF394BD24E7D2E975CE725629249FA",
-      "size": 5236
+      "sha256": "1D50A9C4B0C998B2FB118E4A50E07F833FAB443227620E17F5C9FD61E257B904",
+      "size": 5218
     },
     {
       "path": "skills/prawny-router-v3/references/KROK1-detekcja.md",
-      "sha256": "EF67ECC4159F116650EB30162AC7564D99140C44611C645DFBC165EDDF75D82B",
-      "size": 10661
+      "sha256": "CFC7D813087C95298CA305E9629B069740AEB3D23513C7858F3CC1FDF4D2A2EA",
+      "size": 11747
     },
     {
       "path": "skills/prawny-router-v3/references/kwalifikator-karnomaterialny.md",
+      "sha256": "33CDE349717EA430B1B23EE25AFED070A1942B26F4A9945BFE504A78F453DAD3",
+      "size": 152
+    },
+    {
+      "path": "skills/prawny-router-v3/references/legacy-material-router/cyberprzestepstwa.md",
+      "sha256": "126DFD37769C7B1B67AC4DC638112A69D83347564D367BB1A7B010599A5E52A1",
+      "size": 8684
+    },
+    {
+      "path": "skills/prawny-router-v3/references/legacy-material-router/kwalifikator-karnomaterialny.md",
       "sha256": "4C0B90F293127398E83945009DC0BDF2963D7547F550DAF439B169207BC8F48D",
       "size": 25491
     },
     {
-      "path": "skills/prawny-router-v3/references/mobbing-dyskryminacja.md",
-      "sha256": "4703566D82ACE1FCC08ADC430918265A723E85C78B21A0A11CEC6EAAFAB733E0",
-      "size": 4149
+      "path": "skills/prawny-router-v3/references/legacy-material-router/mobbing-dyskryminacja.md",
+      "sha256": "1FCFDB8486A55C6B11CD56475C0D7D4F346B3DC56E9287334198217819842C93",
+      "size": 4154
     },
     {
-      "path": "skills/prawny-router-v3/references/MOD-WALIDACJA.md",
-      "sha256": "7B44E3F8654F097316AF74BFB4AE0D350AC4D328744275EA68E021DE74A4433C",
-      "size": 334
+      "path": "skills/prawny-router-v3/references/legacy-material-router/przemoc-domowa.md",
+      "sha256": "6C7566D0F990BFA6A398311E164A5E0665BD3F3272BBE9420DA87B6EA98A0FD4",
+      "size": 7727
     },
     {
-      "path": "skills/prawny-router-v3/references/modules/ROUTING-TO-DOMAIN-SKILLS.md",
-      "sha256": "29D702E7B855556B13682975483FE2E9AC9B512D6E5E6FBC719ABAF9866AF7DF",
-      "size": 164
-    },
-    {
-      "path": "skills/prawny-router-v3/references/pokrycie-dziedzinowe.md",
-      "sha256": "00BAAF37089DB7BDCBCE457357589AF4A7C112E9ACEA82A22DE26609D4EFF187",
-      "size": 4287
-    },
-    {
-      "path": "skills/prawny-router-v3/references/przemoc-domowa.md",
-      "sha256": "C93DA70E87A7E20B2EE327E3F580395FA33040ED777750B361CFE88A27FF489D",
-      "size": 7710
-    },
-    {
-      "path": "skills/prawny-router-v3/references/przesluchanie-swiadkow.md",
+      "path": "skills/prawny-router-v3/references/legacy-material-router/przesluchanie-swiadkow.md",
       "sha256": "A6B40A5833A4C01F7AAB6586C021562D79E90E57233F57053F892A67CDA9D3AF",
       "size": 4216
     },
     {
+      "path": "skills/prawny-router-v3/references/legacy-material-router/stalking-nekanie.md",
+      "sha256": "6C054870D323D16CEDE19104AEC6DBBDE588D37B25E63787545F88A4A7644C5E",
+      "size": 5567
+    },
+    {
+      "path": "skills/prawny-router-v3/references/legacy-material-router/tryby-scigania.md",
+      "sha256": "C079B2DCF96480653E9201C540DB29870B8CEE756AF54F4CEB549E608E1554D4",
+      "size": 10137
+    },
+    {
+      "path": "skills/prawny-router-v3/references/legacy-material-router/wykroczenia.md",
+      "sha256": "413F50DA182F8E1B332CC02B1FBDFB0D101A6474D790A5AEBF7CCD28C322188B",
+      "size": 18683
+    },
+    {
+      "path": "skills/prawny-router-v3/references/mobbing-dyskryminacja.md",
+      "sha256": "ACED530CB64DA52C171D2AE05766E85E4D8AEC2F5566C180DC452A72DDD0B936",
+      "size": 134
+    },
+    {
+      "path": "skills/prawny-router-v3/references/MOD-WALIDACJA.md",
+      "sha256": "123B9E76ACBA30EC36573992CFB00394986C25DD9C992DF7A7EE1DE25695CD02",
+      "size": 328
+    },
+    {
+      "path": "skills/prawny-router-v3/references/modules/ROUTING-TO-DOMAIN-SKILLS.md",
+      "sha256": "E2588C3670452240C5A99AFFB9C1CBDE8E219909C0802CB08C11B8B178360CA0",
+      "size": 155
+    },
+    {
+      "path": "skills/prawny-router-v3/references/pokrycie-dziedzinowe.md",
+      "sha256": "E8D5B593038C3BCEB69B25EBAD733F714D29246A1115C37B3381586EDF436892",
+      "size": 6802
+    },
+    {
+      "path": "skills/prawny-router-v3/references/przemoc-domowa.md",
+      "sha256": "F0825F1E211F24D646BA377A1728157AD5F083F450FC483C6515B2DCD9947E57",
+      "size": 187
+    },
+    {
+      "path": "skills/prawny-router-v3/references/przesluchanie-swiadkow.md",
+      "sha256": "ED330D5613938D20461836772BE6C22429E56D26B5AA73AC81F44B7DAC26EF48",
+      "size": 264
+    },
+    {
       "path": "skills/prawny-router-v3/references/ROUTING-BJ-BW.md",
-      "sha256": "ED736CBC2D5007D60DCFA4130E76197CF02AE5F77176F956E2E9F7767069331B",
-      "size": 3919
+      "sha256": "BA2B73DBEDC15254FF5021F127EBC231C25E28F877EC9DE6E46C1FC18F47CC04",
+      "size": 7140
     },
     {
       "path": "skills/prawny-router-v3/references/ROUTING-CONTRADICTION-INTELLIGENCE-V10.md",
@@ -4273,28 +4338,33 @@
     },
     {
       "path": "skills/prawny-router-v3/references/SELF-CHECK.md",
-      "sha256": "ED4BC983B3351AA6D68E855B06082DC12A93477D2D8639F8BEB4595F792B3194",
-      "size": 4945
+      "sha256": "F4220BEFCD1798A520C067F7AE3AB7B81E01604FC39695F740434A4367D38EB5",
+      "size": 7296
     },
     {
       "path": "skills/prawny-router-v3/references/stalking-nekanie.md",
-      "sha256": "6C054870D323D16CEDE19104AEC6DBBDE588D37B25E63787545F88A4A7644C5E",
-      "size": 5567
+      "sha256": "B5E0F61C00470BB4042795F36FE7EF3EA7CBF6ACD2814A07AB239747BB6D43CB",
+      "size": 167
     },
     {
       "path": "skills/prawny-router-v3/references/tryby-scigania.md",
-      "sha256": "1E9711378863B5BE06C771304D5C7CCD2FCADDC6DBAB424A655F658C00DBD3D3",
-      "size": 10068
+      "sha256": "FDD57ED9517472B63A414EA5587459733077E9F9FC0C2A2071E7A98609701F4E",
+      "size": 126
     },
     {
       "path": "skills/prawny-router-v3/references/wykroczenia.md",
-      "sha256": "79079847E939E7B28BCED986733AA0EEB202760EA2E1C59CCC9244EA7C6F0839",
-      "size": 18668
+      "sha256": "45111FBE3ACA92060CBE5D8876C69DB101D0626BB5E9F6FA474A2BBB9CA9B468",
+      "size": 176
+    },
+    {
+      "path": "skills/prawny-router-v3/references/ZRODLA-AKTOW-FALLBACK.md",
+      "sha256": "F406771B149B299A3CD4939F193FC25EA7C693EF365CABA69FE07A3C06ED50EC",
+      "size": 2942
     },
     {
       "path": "skills/prawny-router-v3/SKILL.md",
-      "sha256": "2F0EEAE02577CC6D0F0B5190EF12B459329B1510A08E0D9E42A2BAF36F50AF32",
-      "size": 36388
+      "sha256": "08179415D4AC1072155E65CBDE19BAC539E405FC0BADFAA343E9B9615CD9C164",
+      "size": 17562
     },
     {
       "path": "skills/prawo-polskie-v2/references/CHANGELOG.md",
@@ -5611,5 +5681,7 @@
       "sha256": "FF91ADCF2B33368F3F15F01E4491CC5943FF3919A991FC3F9A5749B08D1D0863",
       "size": 9461
     }
-  ]
+  ],
+  "router_source_commit": "4a10568863edc77774790cbcc13d2984e259a87d",
+  "router_version": "3.32"
 }

@@ -9,6 +9,21 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 Brak zmian.
 
+## [0.3.1] - 2026-08-28
+
+### Upstream
+
+- selektywnie przejęto router prawny 3.32 z commitu
+  `4a10568863edc77774790cbcc13d2984e259a87d` projektu Michała Wiatraka;
+- dodano kontrolowany fallback źródeł przy braku dostępu do ISAP:
+  LEX, Legalis lub ArsLege, bez oznaczania wyniku jako zweryfikowanego
+  bez potwierdzenia treści i stanu prawnego.
+
+### Codex port
+
+- zachowano zgodność routera z aktywną instalacją Codex na komputerze;
+- walidacja statyczna 32 aktywnych skilli zakończyła się wynikiem 32/32 `PASS`.
+
 ## [0.3.0] - 2026-08-27
 
 ### Upstream
