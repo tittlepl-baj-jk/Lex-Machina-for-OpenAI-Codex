@@ -371,4 +371,3 @@ z odpowiedzialnością karną, nie zamiast niej.
   — ograniczenie konstytucyjne dla przyszłej regulacji.
 
 ---
-

@@ -42,7 +42,7 @@ POZIOM 1 — WYKŁADNIA LITERALNA (punkt wyjścia):
   KROK 1.2: Sprawdź definicje pojęć w §1 umowy
   KROK 1.3: Sprawdź czy termin ma znaczenie prawne (art. X ustawy Y)
   KROK 1.4: Zastosuj znaczenie słownikowe jeśli brak definicji umownej
-  
+
   WYNIK: Czy klauzula jest jednoznaczna?
     TAK → Zatrzymaj się. Stosuj brzmienie literalne.
          [Wyjątek: clara non sunt interpretanda — jasnych nie tłumaczymy]
@@ -54,18 +54,18 @@ POZIOM 2 — WYKŁADNIA SUBIEKTYWNA (zamiar stron, art. 65 §2 KC):
     □ Oferta i odpowiedź na ofertę
     □ Rozmowy i ustalenia ustne (dowód ze świadków)
     □ Poprzednie wersje dokumentu (redline)
-  
+
   KROK 2.2: Ustal cel umowy:
     □ Cel wskazany w preambule
     □ Cel wynikający z rodzaju i kontekstu stosunku
     □ Cel ekonomiczny (co każda strona chciała osiągnąć)
-  
+
   KROK 2.3: Sprawdź zachowanie stron PO zawarciu umowy:
     □ Jak strony interpretowały klauzulę w trakcie wykonania?
     □ Czy któraś strona powoływała się wcześniej na konkretne rozumienie?
     □ Czy wykonywano umowę w sposób odpowiadający jednej z interpretacji?
     [SN: zachowanie po zawarciu umowy = dowód na rzeczywisty zamiar]
-  
+
   WYNIK: Czy możemy ustalić zgodny zamiar obu stron?
     TAK → Zastosuj ustalony zamiar — nawet jeśli jest sprzeczny z literą
     NIE → Przejdź do Poziomu 3
@@ -96,9 +96,9 @@ PODSTAWA PRAWNA:
   B2C: art. 385 §2 KC — wprost: "niejednoznaczne postanowienia wzorca
        tłumaczy się na korzyść konsumenta"
   Weryfikuj: isap.sejm.gov.pl → KC → art. 385 §2
-  
+
   B2B: wynika z art. 65 KC przez orzecznictwo SN
-  Weryfikuj: sn.pl → "in dubio contra proferentem" lub "wykładnia umowy 
+  Weryfikuj: sn.pl → "in dubio contra proferentem" lub "wykładnia umowy
              niejasna klauzula autor"
 
 KIEDY STOSOWAĆ:
@@ -170,13 +170,13 @@ PRIORYTET 5 — Ekonomiczny sens transakcji:
 ```
 PROBLEM: "Wszelkie informacje dotyczące Zamawiającego stanowią informacje poufne."
 → Wykładnia literalna: absolutnie wszystko (absurdalna)
-→ Wykładnia celowościowa: informacje handlowe i technologiczne, 
+→ Wykładnia celowościowa: informacje handlowe i technologiczne,
   których ujawnienie szkodzi Zamawiającemu
 
 ALGORYTM:
   1. Ustal CEL klauzuli (ochrona jakich interesów?)
   2. Ustal zakres przez wykładnię celowościową
-  3. Wskaż graniczny przykład: "Informacja X jest poufna; 
+  3. Wskaż graniczny przykład: "Informacja X jest poufna;
      Informacja Y (np. publiczny adres siedziby) nie jest poufna"
   4. Rekomendacja: doprecyzuj definicję przez aneks
 ```
@@ -184,7 +184,7 @@ ALGORYTM:
 ### Klauzula odsyłająca do przyszłych dokumentów
 
 ```
-PROBLEM: "Szczegóły realizacji zostaną określone w harmonogramie stanowiącym 
+PROBLEM: "Szczegóły realizacji zostaną określone w harmonogramie stanowiącym
          Załącznik nr 1 — do ustalenia przez Strony."
 → Brak harmonogramu = brak essentialia negotii?
 → Weryfikuj: KC art. 389 (umowa przedwstępna) vs KC art. 353¹ (swoboda)
@@ -211,7 +211,7 @@ ZASADY (stosuj w kolejności):
      → §3 dotyczy konkretnie wypowiedzenia → szczegółowa
      → §12 "postanowienia ogólne" → ogólna
   3. Jeśli zasady nie rozstrzygają: in dubio contra proferentem
-  
+
 WSKAZANIE: "Sprzeczność między §3 a §12 w zakresie terminu wypowiedzenia
   powinna być rozstrzygnięta przez aneks doprecyzowujący."
 ```
@@ -240,7 +240,7 @@ WYNIK WYKŁADNI:
   INTERPRETACJA A (korzystna dla Strony chronionej):
   "[brzmienie klauzuli wg interpretacji A]"
   Podstawa: [art. X KC + argument z materiału interpretacyjnego]
-  
+
   INTERPRETACJA B (niekorzystna dla Strony chronionej):
   "[brzmienie klauzuli wg interpretacji B]"
   Podstawa: [argument literalny lub arg. drugiej strony]
@@ -248,7 +248,7 @@ WYNIK WYKŁADNI:
 REKOMENDACJA:
   □ Interpretacja A jest silniejsza — bo: [uzasadnienie]
   □ Ryzyko: sąd może przyjąć B — bo: [uzasadnienie]
-  □ Działanie: [doprecyzować aneksem / zachować dokumentację / 
+  □ Działanie: [doprecyzować aneksem / zachować dokumentację /
     zmienić brzmienie na: "..."]
 ```
 

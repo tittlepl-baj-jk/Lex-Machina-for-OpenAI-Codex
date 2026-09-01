@@ -375,7 +375,7 @@ PODSTAWY PRAWNE (weryfikuj aktualne t.j. w ISAP):
   monitoringobywatelski.firr.org.pl — prawa w sądzie
   pfron.org.pl — dofinansowania, stawki
   pip.gov.pl — prawa pracownicze
-  
+
 WEB SEARCH:
   "osoba niewidoma KPK art 79 obrońca z urzędu 2025 2026"
   "osoba niewidoma zapis dźwięku akta sądu KPC art 157"

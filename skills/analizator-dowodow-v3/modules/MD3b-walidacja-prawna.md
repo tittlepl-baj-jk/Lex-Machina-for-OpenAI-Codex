@@ -50,4 +50,3 @@ alerts_data.crit.push({code:'LEG-CONTRA-N', dowod:'[nazwa]',
 ```
 
 ---
-

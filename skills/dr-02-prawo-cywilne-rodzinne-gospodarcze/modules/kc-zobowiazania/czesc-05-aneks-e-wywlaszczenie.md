@@ -94,4 +94,3 @@ forsal.pl [maj 2026], nczas.info [maj 2026], wywlaszczenie.pl,
 inlegis.pl [luty 2026], kancelariajasik.pl, archiwum.gddkia.gov.pl
 [Rząd 1-adjacent]).
 ```
-

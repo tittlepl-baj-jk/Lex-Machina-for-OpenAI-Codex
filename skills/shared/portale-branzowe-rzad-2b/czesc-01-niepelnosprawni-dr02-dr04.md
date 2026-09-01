@@ -199,4 +199,3 @@ WYJĄTKIEM, redakcyjnym portalem 2B, nie kancelaryjnym blogiem.
 > NIE DR-04/DR-08 — te dwa DR nie mają czego szukać poza ZFŚS/subwencją.
 
 | **portaloswiatowy.pl** | ⭐⭐ Portal prawa oświatowego — Karta Nauczyciela (stosunek pracy, wynagrodzenia, awans zawodowy, urlop zdrowotny), zarządzanie szkołą/przedszkolem, nadzór pedagogiczny, RODO w oświacie, bezpieczeństwo dzieci. Kalendarz obowiązków z podstawą prawną, dział "Orzeczenia sądów" dedykowany oświacie (np. SN nt. trzynastki nauczyciela) | ✅ ZWERYFIKOWANE 2026-07-25 (fetch bezpośredni) — treść BARDZO aktualna i precyzyjna (artykuły datowane 15-24 lipca 2026, konkretne Dz.U., np. Dz.U. 2025 poz. 1849 nowelizacja Karty Nauczyciela). Model: częściowo płatny dostęp (Akademia/prenumerata), ale znaczna część artykułów i kalendarz dostępne swobodnie. ⚠️ Zob. KOREKTA 2026-07-27 wyżej — merytoryczne moduły są w DR-10/DR-15, NIE w DR-04/DR-08 jak wcześniej zapisano |
-

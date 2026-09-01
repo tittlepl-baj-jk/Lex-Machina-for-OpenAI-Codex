@@ -41,16 +41,16 @@ MECHANIZM 1 — SIŁA WYŻSZA (vis maior / force majeure):
    lub nienależytego wykonania zobowiązania, chyba że niewykonanie
    lub nienależyte wykonanie jest następstwem okoliczności,
    za które dłużnik odpowiedzialności nie ponosi."
-  
+
   Utrwalona definicja (zweryfikuj aktualną tezę i sygnaturę w sn.pl przed cytowaniem):
   "Zdarzenie zewnętrzne, niemożliwe do przewidzenia i niemożliwe
    do zapobieżenia, którego skutkom nie można się przeciwstawić."
-  
+
   TRZY KUMULATYWNE PRZESŁANKI:
   □ Zewnętrzność — zdarzenie niezależne od woli stron
   □ Nieprzewidywalność — nie można było przewidzieć przy zawarciu
   □ Nieuchronność — nie można zapobiec nawet przy należytej staranności
-  
+
   SKUTEK: zwolnienie z odpowiedzialności odszkodowawczej (art. 471 KC)
   NIE zwalnia automatycznie z obowiązku wykonania świadczenia
   NIE rozwiązuje umowy automatycznie
@@ -79,13 +79,13 @@ MECHANIZM 2 — HARDSHIP (nadzwyczajna zmiana stosunków):
    umowy, sąd może po rozważeniu interesów stron, zgodnie z zasadami
    współżycia społecznego, oznaczyć sposób wykonania zobowiązania,
    wysokość świadczenia lub nawet orzec o rozwiązaniu umowy."
-  
+
   PRZESŁANKI:
   □ Nadzwyczajna zmiana stosunków (nie każda zmiana — np. pandemia, hiperinflacja)
   □ Nadmierne trudności LUB rażąca strata
   □ Brak przewidywalności przy zawarciu
   □ Związek przyczynowy
-  
+
   SKUTEK: sąd MOŻE (nie musi) → modyfikacja umowy, zmiana wysokości, rozwiązanie
   TRYB: wymaga pozwu (nie działa automatycznie)
   PREFERENCJA SN: sąd dąży do modyfikacji > rozwiązania
@@ -114,12 +114,12 @@ KROK 2 — TYP LISTY ZDARZEŃ:
       cyberatak, awarię infrastruktury krytycznej
     → Jeśli brak → ryzyko: klauzula może nie zadziałać przy nowych typach zdarzeń
     REKOMENDACJA: dodaj klauzulę ogólną "oraz inne zdarzenia o podobnym charakterze"
-  
+
   □ LISTA OTWARTA (z przykładami):
     "Za siłę wyższą uznaje się m.in.: [lista]"
     RYZYKO: mniejsze, ale spory o to czy dane zdarzenie "ma podobny charakter"
     → Dla pewności: wymień kluczowe zdarzenia ekspresnie (pandemia, sankcje)
-  
+
   □ BRAK LISTY — KLAUZULA GENERALNA:
     "Za siłę wyższą uznaje się zdarzenia zewnętrzne, nieprzewidywalne i nieuchronne"
     RYZYKO: spory interpretacyjne, ale elastyczność
@@ -184,7 +184,7 @@ ART. 357¹ KC (hardship — wymaga pozwu):
 PRAKTYCZNE KONSEKWENCJE BRAKU KLAUZULI:
   Pro: strona może korzystać z szerszej ochrony art. 471 KC
   Contra: brak pewności co do procedury, terminów, zakresu
-  
+
   REKOMENDACJA: zawsze warto mieć klauzulę FM — eliminuje spory o interpretację
 ```
 

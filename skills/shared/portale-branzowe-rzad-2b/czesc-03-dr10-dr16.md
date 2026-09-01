@@ -170,4 +170,3 @@ DOPIERO PO ustaleniu treści orzeczenia z Rzędu 2A/1.
 ```
 
 ---
-

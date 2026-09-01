@@ -198,4 +198,3 @@ KROK 5: ZAWSZE kategoryzuj wynik wg `shared/HIERARCHIA-ZRODEL.md`
 ```
 
 ---
-

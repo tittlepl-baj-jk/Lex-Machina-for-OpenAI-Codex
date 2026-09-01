@@ -3,7 +3,7 @@ name: "przewodnik-prawny-v2"
 description: "Przewodnik prawny i fallback routera: pomaga zidentyfikować problem, właściwą ścieżkę postępowania, potrzebne dokumenty i kolejny specjalistyczny skill."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-27"
+  source-tree: "development-2026-09-01"
   source-directory: "przewodnik-prawny-v2"
 ---
 

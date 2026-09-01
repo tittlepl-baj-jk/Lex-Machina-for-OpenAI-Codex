@@ -328,4 +328,3 @@ Naprawa:
   Weryfikacja twierdzeń strony vs materiał i przepisy.
   Krok CV-ALT (roszczenie alternatywne) dodany w wersji 1.0.
 ```
-

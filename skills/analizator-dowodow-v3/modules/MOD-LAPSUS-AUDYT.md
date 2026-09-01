@@ -437,4 +437,3 @@ Format:
 Filtry w zakładce "Lapsusy": wg typu | wg autora | wg severity | wg wzorca | wg dokumentu
 Eksport: JSON + MD (sekcja "Lapsusy autorskie") + CSV
 ```
-

@@ -1,8 +1,3 @@
 name: dr-08-samorzad-terytorialny-prawo-lokalne
-version: 3.4
-description: |
-  DR-08: Samorząd Terytorialny i Prawo Lokalne
-  Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu.
-  Ładuj TYLKO moduł pasujący do sprawy — lazy loading.
-  Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill.
-  Weryfikacja: isap.sejm.gov.pl | orzeczenia.nsa.gov.pl | dzienniki.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)
+version: "3.7"
+description: "Samorząd terytorialny i prawo lokalne: gmina, powiat, województwo, uchwały, akty prawa miejscowego, nadzór, kompetencje JST i lokalne planowanie."

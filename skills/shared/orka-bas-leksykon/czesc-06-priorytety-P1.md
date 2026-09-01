@@ -215,4 +215,3 @@ REGUŁA ORKA-REG-01: Definicja "przedsiębiorcy" różni się w:
 ```
 
 ---
-

@@ -76,7 +76,7 @@ KROK 2 — CZY SYSTEM AI JEST WYSOKIEGO RYZYKA? (Art. 6 + Załącznik III):
 KROK 3 — MODELE OGÓLNEGO PRZEZNACZENIA (GPAI)? (Rozdz. V — od 02.08.2025):
   → Duże modele LLM (GPT, Gemini, Claude etc.) = GPAI
   → Jeśli umowa dotyczy GPAI: dodatkowe obowiązki transparentności
-  
+
 KROK 4 — SYSTEM O OGRANICZONYM RYZYKU (transparentność):
   → Chatboty, deepfakes, treści generowane przez AI
   → Obowiązek poinformowania użytkownika że ma do czynienia z AI

@@ -1352,7 +1352,7 @@ function exportMD(){
   lines.push('---');
   lines.push('*Wygenerowano: '+new Date().toLocaleString('pl-PL')+'*');
 
-  
+
   // Strony i świadkowie
   if(persons&&persons.length){
     lines.push('## Strony i świadkowie');lines.push('');
@@ -1416,7 +1416,7 @@ function exportMD(){
       lines.push('');
     });
   }
-  
+
   dlBlob(lines.join('\n'),`raport_${CASE_ID.replace(/\//g,'-')}_${EXPORT_DATE}.md`,'text/markdown;charset=utf-8');
   showToast('✓ Eksport Markdown gotowy');
 }

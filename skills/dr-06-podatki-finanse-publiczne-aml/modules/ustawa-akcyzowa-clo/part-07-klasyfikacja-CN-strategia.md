@@ -132,4 +132,3 @@ Przed końcową odpowiedzią sprawdź:
 | analiza sądowa | `analiza-sadowa-v6` |
 
 ---
-

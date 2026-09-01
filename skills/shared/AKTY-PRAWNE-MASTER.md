@@ -16,9 +16,9 @@
 
 # AKTY-PRAWNE-MASTER — jedyne źródło prawdy o aktualności aktów prawnych
 
-**Wersja:** 1.0  
-**Data ostatniej aktualizacji:** 2026-06-01 (weryfikacja online)  
-**Aktualizuje:** osoba odpowiedzialna za utrzymanie systemu (nie model AI)  
+**Wersja:** 1.0
+**Data ostatniej aktualizacji:** 2026-06-01 (weryfikacja online)
+**Aktualizuje:** osoba odpowiedzialna za utrzymanie systemu (nie model AI)
 **Zastępuje:** LEGAL-REGISTRY.md, ISAP-METRYKI-AKTOW.md, ONLINE-VERIFIED-LEGAL-UPDATES-ROUND1÷4.csv, ISAP-AUDIT-PROTOCOL.md (sekcja metryk)
 
 ---

@@ -23,23 +23,23 @@ RĘKOJMIA (art. 556–576 KC — dla B2B + art. 43a–43n u.p.k. — dla B2C od 
   → W B2C od 01.01.2023: przepisy przeniesione do ustawy o prawach konsumenta
     jako "zgodność towaru z umową" (implementacja dyrektywy 2019/771)
   → W B2B: nadal KC art. 556–576 (rękojmia za wady fizyczne i prawne)
-  
+
   WADA FIZYCZNA (KC art. 556¹): niezgodność z umową, w tym:
   → brak właściwości, które rzecz powinna mieć przy normalnym użytkowaniu
   → brak właściwości, o których zapewnił sprzedawca
   → rzecz niezdatna do konkretnego celu o którym kupujący poinformował sprzedawcę
   → wydanie rzeczy w stanie niezupełnym
-  
+
   WADA PRAWNA (KC art. 556³): rzecz jest własnością osoby trzeciej
-  
+
 GWARANCJA:
   = DOBROWOLNE zobowiązanie GWARANTA (producent/importer/dystrybutor)
   Nie jest obowiązkowa (odróżnienie od rękojmi!)
   Zazwyczaj dotyczy tylko wad fizycznych (nie prawnych)
   Gwarant odpowiada z mocy własnej deklaracji (nie z ustawy)
-  
+
   KUMULACJA: można dochodzić zarówno z rękojmi jak i gwarancji (różne podmioty)
-  
+
 KLUCZOWA ZMIANA 2023 (implementacja dyrektywy 2019/771):
   B2C: zamiast "wady towaru" → "niezgodność towaru z umową" (art. 43b u.p.k.)
   → Weryfikuj: ustawa o prawach konsumenta art. 43a–43n (Dz.U. 2022 poz. 2581)

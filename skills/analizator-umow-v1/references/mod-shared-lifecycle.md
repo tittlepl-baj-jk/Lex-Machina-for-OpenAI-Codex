@@ -88,14 +88,14 @@ PUŁAPKA: Aneks bez klauzuli integralności
 
 SZABLON ANEKSU:
   "ANEKS NR [X] DO UMOWY [NAZWA] Z DNIA [DATA]
-  
+
   zawarty w dniu [data] pomiędzy [Strona A] a [Strona B],
-  
+
   §1. Zmiany do Umowy
   1. §[X] Umowy otrzymuje nowe brzmienie: [nowy tekst]
   2. Do §[Y] Umowy dodaje się ust. [Z] w brzmieniu: [nowy tekst]
   3. §[Z] Umowy skreśla się.
-  
+
   §2. Postanowienia końcowe
   1. Aneks wchodzi w życie z dniem [podpisania / [data]].
   2. W pozostałym zakresie Umowa pozostaje bez zmian.
@@ -122,7 +122,7 @@ ETAP 2 — NOTICE OF BREACH (wezwanie do naprawy):
     □ Żądanie: zaprzestania naruszenia / naprawienia wady / zapłaty
     □ Termin na naprawę (cure period): standardowo 7–30 dni
     □ Skutki braku naprawy w terminie (rozwiązanie, kary, odszkodowanie)
-  
+
   Dlaczego pisemnie?
     → Dowód wysłania wezwania (warunek dochodzenia kary umownej)
     → Przerywa termin przedawnienia (art. 123 KC)
@@ -138,14 +138,14 @@ ETAP 4 — ESKALACJA:
     □ Ustal czy kara jest naliczana automatycznie czy wymaga odrębnego wezwania
     □ Oblicz karę (wg Modułu SHARED-RYZYKO)
     □ Wystaw notę obciążeniową / wezwanie do zapłaty kary
-  
+
   ŚCIEŻKA B: Odszkodowanie (gdy brak kary lub szkoda > kara)
     □ KC art. 484 §1: "W razie niewykonania lub nienależytego wykonania
        zobowiązania kara umowna należy się wierzycielowi"
     □ KC art. 484 §1 zd. 2: odszkodowanie ponad karę — TYLKO gdy umowa
        to przewiduje lub gdy brak klauzuli (wtedy pełne odszkodowanie)
     Weryfikuj: isap.sejm.gov.pl → KC → art. 484
-  
+
   ŚCIEŻKA C: Rozwiązanie umowy
     □ Czy naruszenie jest wystarczająco istotne by uzasadniać rozwiązanie?
     □ Czy umowa przewiduje prawo rozwiązania przy tym typie naruszenia?
@@ -220,18 +220,18 @@ W umowach wieloletnich (>2 lata lub >12 miesięcy o podwyższonym ryzyku inflacj
 
 KLAUZULA WALORYZACYJNA:
   Podstawa: KC art. 358¹ — weryfikuj: isap.sejm.gov.pl → KC → art. 358¹
-  
+
   TYPY:
   □ Indeksacja do wskaźnika (GUS, NBP):
     "Wynagrodzenie podlega corocznemu zwiększeniu o [X%] lub o wskaźnik
      GUS inflacji CPI za poprzedni rok, w zależności co jest wyższe."
     web_search "wskaźnik inflacji GUS CPI [rok bieżący]" — zawsze aktualizuj
-  
+
   □ Klauzula eskalacyjna (po wzroście kosztów):
     "W przypadku wzrostu kosztów surowców / energii / pracy o więcej niż [15%]
      w stosunku do dnia zawarcia Umowy, Strony przeprowadzą negocjacje warunków
      finansowych w terminie [30] dni."
-  
+
   □ Stała cena (brak klauzuli):
     RYZYKO: przy inflacji lub wzroście kosztów wykonawca traci
     REKOMENDACJA: zawsze wpisuj klauzulę waloryzacyjną przy umowach >1 rok

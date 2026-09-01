@@ -4,7 +4,7 @@
 **Źródło weryfikacji:**
 - Zabytki: Dz.U. 2024 poz. 1292 t.j. z 19.08.2024 ✅ VER: 2026-06-05
 - Rewitalizacja: Dz.U. 2024 poz. 278 t.j. ze zm. ✅ VER: 2026-06-05
-- Cmentarze: Dz.U. 2025 poz. 1590 t.j. — ✅ NAPRAWIONE 2026-08-22 (F-82): poprzedni numer 2023 poz. 1284 nieaktualny (obwieszczenie 7.11.2025, nowszy niż nawet pośredni t.j. 2024.576)
+- Cmentarze: **Dz.U. 2025 poz. 1590 t.j.**, stan t.j. 06.11.2025 — RZĄD 1 ELI VER 2026-08-28
 **Zasada:** Każde brzmienie przepisu przed powołaniem → isap.sejm.gov.pl
 
 ---
@@ -22,7 +22,7 @@ Ochrona zabytków (formy ochrony, rejestr zabytków WUOZ, obowiązki właścicie
 
 ```
 1. Wpis do rejestru zabytków (WUOZ — Wojewódzki Urząd Ochrony Zabytków)
-2. Wpis na Listę Dziedzictwa UNESCO
+2. Wpis na **Listę Skarbów Dziedzictwa** (art. 7 pkt 1a)
 3. Uznanie za pomnik historii (Prezydent RP)
 4. Utworzenie parku kulturowego (uchwała rady gminy)
 5. Ustalenia w MPZP / decyzji WZ
@@ -70,20 +70,35 @@ Specjalna Strefa Rewitalizacji (SSR):
 
 ---
 
-## 4. CMENTARZE (Dz.U. 2025 poz. 1590)
+## 4. CMENTARZE (Dz.U. 2025 poz. 1590 t.j.)
 
 ```
 Gmina: obowiązek zapewnienia cmentarza komunalnego
-Tworzenie cmentarzy: minimalna odległość 150 m od zabudowy
+Lokalizacja cmentarza: art. 5 ustawy odsyła do wymagań sanitarnych; obowiązujące
+rozporządzenie z 25.08.1959 r. (Dz.U. nr 52 poz. 315) przewiduje co do zasady
+**150 m** od zabudowań mieszkalnych, zakładów żywnościowych i ujęć wody,
+z możliwością zmniejszenia do **50 m** przy spełnieniu warunku sieci wodociągowej
 
 Prawa do grobu: prawo podmiotowe sui generis (nie własność!):
   → SN: chronione jako dobro osobiste
   → Opłata za przedłużenie: za następne 20 lat
   → Nieopłacony → możliwość likwidacji po min. 20 latach od ostatniego pochowku
 
-Ekshumacja: na wniosek uprawnionych + zezwolenie sanepid + prokuratury (gdy śmierć nagła)
+Ekshumacja — art. 15 ust. 1:
+  → na umotywowaną prośbę osób uprawnionych do pochowania, za zezwoleniem
+    właściwego państwowego inspektora sanitarnego; ALBO
+  → na zarządzenie prokuratora lub sądu; ALBO
+  → na podstawie decyzji inspektora sanitarnego przy przeznaczeniu terenu
+    cmentarza na inny cel. Nie kumuluj tych podstaw jako jednego wymogu.
 
-Czas pochowania: 72 godz. od zgonu (lub 96 przy balsamowaniu)
+Terminy z art. 9:
+  → co do zasady nie wolno pochować zwłok przed upływem **24 godzin** od zgonu;
+  → najpóźniej po **72 godzinach** zwłoki należy usunąć z mieszkania w celu
+    pochowania albo umieścić w domu przedpogrzebowym/kostnicy;
+  → przy wskazanych chorobach zakaźnych — szczególny reżim 24-godzinny;
+  → wyjątek od terminu 72 godzin wymaga utrwalenia zwłok i zezwolenia
+    właściwego inspektora sanitarnego. ⛔ W ustawie nie ma ogólnej reguły
+    „96 godzin po balsamowaniu”.
 ```
 
 ---
@@ -94,7 +109,7 @@ Czas pochowania: 72 godz. od zgonu (lub 96 przy balsamowaniu)
 
 **Output:** Kwalifikacja (zabytki/rewitalizacja/cmentarze) → obowiązki/prawa → organ → sankcje → rekomendacja.
 
-**Powiązania:** `mod-MPZP-WZ-planowanie-przestrzenne` | `dr-09` (pozwolenie na budowę przy zabytku) | `dr-05` → `mod-KPA` | `pisma-procesowe-v3`
+**Powiązania:** `mod-MPZP-WZ-planowanie-przestrzenne` | `dr-09` (pozwolenie na budowę przy zabytku) | `dr-05-prawo-administracyjne-sadowoadministracyjne/modules/mod-KPA-postepowanie-administracyjne.md` | `pisma-procesowe-v3`
 
 **Źródła:**
 - Zabytki: https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20241292

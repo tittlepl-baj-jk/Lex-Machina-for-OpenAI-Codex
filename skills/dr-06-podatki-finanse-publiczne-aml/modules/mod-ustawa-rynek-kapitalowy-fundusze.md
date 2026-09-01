@@ -1,7 +1,7 @@
 # mod-ustawa-rynek-kapitalowy-fundusze
 
 **Status:** moduł klasy kancelaryjnej — poziom DR-03
-**Źródło weryfikacji:** Fundusze inwestycyjne — Dz.U. 2024 poz. 1034 t.j. ze zm. | Obrót instrumentami — Dz.U. 2023 poz. 646 t.j. ze zm. | Oferta publiczna — Dz.U. 2024 poz. 620 t.j. ze zm. | Obligacje — Dz.U. 2024 poz. 708 t.j. ze zm. (POPRAWKA 2026-07-02g: było błędnie 2022.2218)
+**Źródło weryfikacji:** Fundusze inwestycyjne — Dz.U. 2024 poz. 1034 t.j. ze zm. | Obrót instrumentami — Dz.U. 2023 poz. 646 t.j. ze zm. | Oferta publiczna — Dz.U. 2025 poz. 592 t.j. ze zm. | Obligacje — **Dz.U. 2025 poz. 1667 t.j.** — RZĄD 1 ELI VER 2026-08-28 (zastępuje Dz.U. 2024 poz. 708 i dawny błędny wpis 2022.2218)
 **Data weryfikacji online:** 2026-06-05
 **Zasada:** Każde brzmienie przepisu przed powołaniem → isap.sejm.gov.pl
 
@@ -16,10 +16,10 @@ Fundusze inwestycyjne (FIO, SFIO, FIZ, ASI), TFI, rynek kapitałowy (GPW, Cataly
 
 | Akt | Dz.U. | Uwaga |
 |---|---|---|
-| Ustawa o funduszach inwestycyjnych | Dz.U. 2024 poz. 1034 t.j. ze zm. | AIFMD II — implementacja 2024 |
-| Ustawa o obrocie instrumentami finansowymi | Dz.U. 2023 poz. 646 t.j. ze zm. — weryfikuj | MiFID II |
-| Ustawa o ofercie publicznej | Dz.U. 2024 poz. 620 t.j. ze zm. — weryfikuj | Rozp. Prospektowy UE 2017/1129 |
-| Ustawa o obligacjach | Dz.U. 2024 poz. 708 t.j. ze zm. (POPRAWKA 2026-07-02g) | zastępuje nieaktualny 2022.2218 |
+| Ustawa o funduszach inwestycyjnych | Dz.U. 2026 poz. 60 t.j. ze zm. | AIFMD II — implementacja 2024 |
+| Ustawa o obrocie instrumentami finansowymi | Dz.U. 2024 poz. 722 t.j. ze zm. — weryfikuj | MiFID II |
+| Ustawa o ofercie publicznej | Dz.U. 2025 poz. 592 t.j. ze zm. — weryfikuj | Rozp. Prospektowy UE 2017/1129 |
+| Ustawa o obligacjach | Dz.U. 2025 poz. 1667 t.j. ze zm. (POPRAWKA 2026-07-02g) | zastępuje nieaktualny 2022.2218 |
 
 ---
 
@@ -97,9 +97,24 @@ ASI (Alternatywna Spółka Inwestycyjna):
     obecnego rozróżnienia dokument/memorandum), BEZ obowiązku
     ZATWIERDzania przez KNF
 
-Zgromadzenie obligatariuszy (art. 46–51 ustawy o obligacjach — weryfikuj w ISAP):
-  → Przy naruszeniu warunków emisji przez emitenta
-  → Może: zmienić warunki, ustanowić administrora, wymagać wcześniejszego wykupu
+Zgromadzenie obligatariuszy — **Rozdział 5, art. 46-73**, RZĄD 1 ELI:
+  → art. 46: reprezentuje wszystkich obligatariuszy danej serii / danego kodu;
+  → art. 47: jeżeli warunki emisji przewidują zgromadzenie, nie można wyłączyć
+    ani ograniczyć ustawowych zasad rozdziału;
+  → art. 49: uchwały mogą dotyczyć „postanowień kwalifikowanych” warunków emisji,
+    m.in. świadczeń, terminów/miejsca/sposobu spełnienia, konwersji świadczenia
+    niepieniężnego, zabezpieczeń i zasad funkcjonowania zgromadzenia;
+  → art. 50-51: zasady zwołania i zawiadomienia; ustawowy termin zawiadomienia
+    wynosi co najmniej 21 dni;
+  → art. 62 i 65: quorum i większości zależą od rodzaju uchwały; dla zmian
+    postanowień kwalifikowanych obowiązują zaostrzone większości, a w części
+    przypadków wymagane jest jednomyślne głosowanie obecnych obligatariuszy;
+  → art. 67: zmiana warunków emisji uchwałą staje się skuteczna po zgodzie
+    emitenta na zasadach ustawowych;
+  → art. 70-71: uchwała może podlegać zaskarżeniu do sądu.
+  ⛔ Nie utożsamiaj zgromadzenia z ustawowym prawem żądania wcześniejszego
+  wykupu: przesłanki natychmiastowego/przedterminowego wykupu są uregulowane
+  odrębnie, m.in. w art. 74 i nast.
 
 ⭐⭐⭐ INSIDER TRADING — ROZBUDOWANE 2026-08-12, na żądanie użytkownika
 (POPRZEDNIA wersja BYŁA jednozdaniowa I zawierała BŁĄD — cytowała
@@ -171,9 +186,24 @@ prawainwestora.pl.
 
 ---
 
-## 4. QUALITY GATE / OUTPUT
+## 4. MDR A TAJEMNICE SEKTOROWE — OD 1.10.2026
 
-**Quality gate:** Aktualne Dz.U. zweryfikowane? AIFMD II (transpozycja 2024) uwzględniona? Wymogi ESG (SFDR) sprawdzone?
+Ustawa z 29.05.2026 r. (Dz.U. 2026 poz. 846) wprowadza dwie precyzyjne
+podstawy przekazywania informacji MDR Szefowi KAS:
+
+- art. 12 nowelizacji dodaje art. 281 ust. 4a ustawy o funduszach
+  inwestycyjnych — przekazanie informacji na podstawie rozdziału 11a
+  Ordynacji podatkowej nie narusza tajemnicy zawodowej;
+- art. 13 nowelizacji dodaje art. 150 ust. 1 pkt 2b ustawy o obrocie
+  instrumentami finansowymi — udostępnienie służy wykonaniu obowiązków
+  MDR przez Szefa KAS.
+
+Oba wyjątki mają zakres wyznaczony przepisami MDR; nie są ogólnym
+wyłączeniem tajemnicy zawodowej.
+
+## 5. QUALITY GATE / OUTPUT
+
+**Quality gate:** Obligacje: Dz.U. 2025 poz. 1667 t.j. i Rozdział 5 art. 46-73 zweryfikowane w RZĄD 1 ELI 2026-08-28. Aktualne Dz.U. pozostałych aktów zweryfikowane? AIFMD II (transpozycja 2024) uwzględniona? Wymogi ESG (SFDR) sprawdzone?
 
 **Output:** Kwalifikacja (typ funduszu / instrument) → wymogi regulacyjne → nadzór KNF → ryzyka → rekomendacja.
 

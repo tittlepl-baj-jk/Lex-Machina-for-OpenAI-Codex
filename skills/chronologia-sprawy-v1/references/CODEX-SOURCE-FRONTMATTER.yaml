@@ -1,15 +1,6 @@
 name: chronologia-sprawy-v1
-version: 1.5
+version: "1.7"
 type: executive-chronologia
 status: production
-compatibility: "web_search, web_fetch, Anthropic API"
-description: |
-  Chronologia Sprawy v1.3 — wielowarstwowa ekstrakcja i porządkowanie zdarzeń prawnych
-  z dokumentów procesowych, akt i dowodów. AUTO-TRIGGER przez prawny-router-v3: ≥2
-  dokumenty wieloetapowe LUB słowa kluczowe (chronologia, oś czasu, timeline, kolejność
-  zdarzeń, kiedy+potem). Na żądanie: ustalanie kolejności faktów, wykrywanie sprzeczności
-  dat, przygotowanie stanu faktycznego do pozwu/apelacji/odpowiedzi. Osobna oś czasu per
-  wątek prawny, cztery klasy pewności zdarzenia (BEZSPORNE/PEWNE/WYDEDUKOWANE/SPORNE),
-  proweniencja każdego zdarzenia, automatyczny indeks sprzeczności dat i opisów,
-  obowiązkowa korelacja finansowa (kwoty, terminy, strony płatności) z zestawieniem
-  krzyżowym. Integruje się z raport-sytuacyjny-v2.
+compatibility: "live_web_lookup, file_read, optional_interactive_ui"
+description: "Chronologia sprawy z dokumentów i dowodów: oś czasu per wątek, klasy pewności, proweniencja, sprzeczności dat/opisów, korelacja finansowa i opcjonalny interaktywny timeline."

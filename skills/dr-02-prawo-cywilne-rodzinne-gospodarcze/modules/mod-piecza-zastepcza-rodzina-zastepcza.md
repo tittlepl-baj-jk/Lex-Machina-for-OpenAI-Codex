@@ -6,9 +6,7 @@ zastępczą" — dotąd CAŁKOWITA LUKA w całym systemie, mimo że to
 INSTYTUCJA ODRĘBNA od przysposobienia (`mod-KRO-przysposobienie-
 adopcja-miedzynarodowa.md`), często z nią mylona.
 
-> ⛔ HARDGATE — zweryfikuj aktualny t.j. ustawy o wspieraniu rodziny i
-> systemie pieczy zastępczej (9.06.2011) na ISAP — przepis był
-> nowelizowany DZIESIĘCIOKROTNIE (co najmniej), sprawdź najnowszą wersję.
+> ✅ **METRYKA RZĄD 1, VER 2026-08-28:** ustawa z 9.06.2011 o wspieraniu rodziny i systemie pieczy zastępczej — **Dz.U. 2026 poz. 980 t.j.**. Ze względu na częste nowelizacje przed cytowaniem konkretnej jednostki wykonaj fresh hard gate ELI.
 
 ---
 
@@ -80,7 +78,7 @@ FORMA RODZINNA (preferowana ustawowo, ma mieć "szczególne miejsce"):
       nieletnich)
   □ RODZINNY DOM DZIECKA — forma zbliżona do rodziny zastępczej
     zawodowej. ✅ LIMIT ZWERYFIKOWANY 2026-08-13c (art. 61 ustawy,
-    t.j. Dz.U. 2025 poz. 49 — 3+ zgodne źródła): **NIE WIĘCEJ NIŻ 8**
+    t.j. Dz.U. 2026 poz. 980 — 3+ zgodne źródła): **NIE WIĘCEJ NIŻ 8**
     dzieci w tym samym czasie (łącznie z osobami pełnoletnimi
     kontynuującymi pobyt na zasadach art. 37 ust. 2-4/6). WYJĄTEK
     (art. 61 ust. 2): przy konieczności umieszczenia RODZEŃSTWA — za

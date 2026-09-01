@@ -148,10 +148,10 @@ METODOLOGIA:
     → Wartość projektu dla końcowego odbiorcy (jeśli wykonawca opóźni projekt)
     → Strata przychodów klienta za czas przestoju
     → Koszty zastępczego wykonawcy (marża rynkowa: 20–40% wyżej)
-  
+
   Krok 2: Jaka jest maksymalna szkoda klienta z umowy?
     → Wartość umowy × (1 + marża zysku = oczekiwany zysk utracony)
-  
+
   Proxy gdy brak danych (Ścieżka B / PERT — patrz RK.1):
     → O (optymistyczny): wartość umowy brutto
     → M (most likely): 2–3 × wartość umowy
@@ -161,13 +161,13 @@ METODOLOGIA:
 REKOMENDACJA LIMITU (cap liability):
   Standard rynkowy B2B: cap = wartość umowy lub 12 × miesięczne wynagrodzenie
   Minimalny akceptowalny: cap = 150% wartości umowy
-  
+
   BRZMIENIE:
-  "§X. Łączna odpowiedzialność [Strony A] z tytułu niewykonania lub 
+  "§X. Łączna odpowiedzialność [Strony A] z tytułu niewykonania lub
    nienależytego wykonania Umowy, niezależnie od podstawy prawnej,
    jest ograniczona do [kwoty/wartości umowy/12-krotności wynagrodzenia
    miesięcznego], z wyłączeniem szkód wyrządzonych umyślnie."
-  
+
   Weryfikuj dopuszczalność ograniczenia: KC art. 473 §2 — wyłączenie
   odpowiedzialności za szkodę umyślną jest zawsze bezskuteczne.
 ```
@@ -182,10 +182,10 @@ ODSETKI USTAWOWE (weryfikuj ZAWSZE aktualne stawki w NBP/ISAP):
   Stawka ustawowa = stopa referencyjna NBP + 3,5 pp
   Stawka ustawowa za opóźnienie = stopa referencyjna NBP + 5,5 pp
   Stawka maksymalna = dwukrotność odsetek ustawowych za opóźnienie
-  
+
   ⚠ STAWKA NBP ZMIENIA SIĘ — zawsze sprawdzaj aktualne dane:
   web_search "stopa referencyjna NBP [bieżący miesiąc rok]"
-  
+
   Odsetki w transakcjach handlowych (B2B):
   Ustawa o przeciwdziałaniu nadmiernym opóźnieniom w transakcjach handlowych
   Weryfikuj: isap.sejm.gov.pl → t.j. Dz.U. 2023 poz. 1790

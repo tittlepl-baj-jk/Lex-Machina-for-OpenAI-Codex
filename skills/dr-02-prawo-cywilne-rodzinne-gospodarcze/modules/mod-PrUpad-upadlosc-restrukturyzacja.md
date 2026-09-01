@@ -569,7 +569,7 @@ Wierzytelności zaspokajane z masy w kolejności:
   Kategoria I: alimenty, renty, wynagrodzenia pracownicze (bieżące)
   Kategoria II: należności ZUS/US (w ograniczonym zakresie)
   Kategoria III/IV: pozostałe wierzytelności
-  
+
 Wierzytelności z zabezpieczeniem rzeczowym (zastaw, hipoteka):
   Zaspokajane z przedmiotu zabezpieczenia poza kolejnością (art. 336 PrUp)
 ```

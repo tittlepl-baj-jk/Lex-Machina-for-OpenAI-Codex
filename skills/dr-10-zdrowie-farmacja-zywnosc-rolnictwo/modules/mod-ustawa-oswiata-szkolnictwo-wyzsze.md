@@ -46,7 +46,7 @@ Ustal, czy akt jest decyzją administracyjną, czynnością wewnętrzną, uchwa�
 > administracyjnego (kuratorium, skreślenia, decyzje uczelni, KPA/PPSA).
 > ⚠️ **Elementy PRACOWNICZE Karty Nauczyciela** (wynagrodzenie, urlopy,
 > czas pracy, ZFŚS) — BRAK substantywnej treści w całym systemie poza
-> jednolinijkową wzmianką w `dr-04/modules/mod-ustawa-ZFSS.md` — do
+> jednolinijkową wzmianką w `dr-04-prawo-pracy-zus-swiadczenia/modules/mod-ustawa-ZFSS.md` — do
 > rozbudowy, jeśli temat stanie się aktywny (patrz WARN-OTWARTE.md).
 
 ---
@@ -54,7 +54,7 @@ Ustal, czy akt jest decyzją administracyjną, czynnością wewnętrzną, uchwa�
 ## 1A. AUTONOMIA UCZELNI (dodano 2026-07-27, na żądanie użytkownika)
 
 **Podstawa:** art. 3 ust. 1 oraz art. 9 ustawy z 20.07.2018 r. — Prawo o
-szkolnictwie wyższym i nauce (Dz.U.2024.1571 t.j.). Zweryfikowano
+szkolnictwie wyższym i nauce (Dz.U. 2024 poz. 1571 t.j.). Zweryfikowano
 BEZPOŚREDNIO przez isap.sejm.gov.pl (Rząd 1, pobrany PDF ustawy) oraz
 lexlege.pl/arslege.pl/inforlex.pl (Rząd 2B) — wszystkie zgodne.
 ✅ FAZA 3E ZAMKNIĘTA 2026-08-21 (F-45): numer 2024.1571 PONOWNIE
@@ -110,9 +110,10 @@ używanie tych nazw bez spełnienia przesłanek jest naruszeniem ustawy.
 **Podstawa:** ustawa z 14.12.2016 r. — Prawo oświatowe, w szczególności
 Rozdział 8 (art. 168 i nast. — szkoły i placówki niepubliczne) oraz
 art. 14 (szkoła publiczna). Zweryfikowano: lexlege.pl, arslege.pl
-(t.j. Dz.U.2026.820), mvg.pl, lexedu.pl (kancelaria specjalizująca się
+(t.j. Dz.U. 2026 poz. 820), mvg.pl, lexedu.pl (kancelaria specjalizująca się
 w prawie oświatowym).
 ✅ FAZA 3E ZAMKNIĘTA 2026-08-21 (F-45): numer 2026.820 POTWIERDZONY jako
+✅ **REWERYFIKACJA 2026-08-28 / RZĄD 1 ELI:** t.j. Dz.U. 2026 poz. 820 ma stan prawny 07.06.2026. Po t.j. przy cytowaniu należy uwzględniać dalsze zmiany, w tym Dz.U. 2026 poz. 904 oraz incydentalną zmianę z poz. 982. Ustawa z 3.07.2026 r., **Dz.U. 2026 poz. 1036**, wchodzi w życie **1.09.2026** i zmienia m.in. art. 26, 68, 98-99, dodaje art. 98a-98d i 102a oraz zmienia art. 172 — wprowadza ustawową warstwę higieny cyfrowej i zasad korzystania z telefonów/urządzeń w szkołach i przedszkolach. Do 31.08.2026 nie traktować tych nowych przepisów jako obowiązujących.
 NAJNOWSZY t.j. (obwieszczenie 12.06.2026, api.sejm.gov.pl bezpośredni
 cytat — Rząd 1) — nowelizacje uwzględnione w tym t.j. (Karta Nauczyciela,
 zawód psychologa, wygaszenie regulacji ukraińskich) dotyczą tematów

@@ -53,7 +53,7 @@ import os
 import re
 import sys
 
-DOMYSLNY_KATALOG = "../.."
+DOMYSLNY_KATALOG = os.environ.get("LEX_MACHINA_SKILLS_ROOT", os.getcwd())
 
 # --- formaty numeracji wpisów changelogu spotykane w systemie ---
 WZORCE_WPISU = [

@@ -31,7 +31,7 @@ Dowód C wykazuje fakt Z.              Dowód B (kl.A) potwierdza Y niezależnie
 Roszczenie = X + Y + Z → wniosek.     Fakty X+Y → domniemanie faktyczne Z
                                         (art. 231 KPC) wzmocnione D-C (kl.C).
 Problem: przeciwnik atakuje           Z + przesłanka prawna → roszczenie.
-każdy dowód osobno. Obalenie          
+każdy dowód osobno. Obalenie
 jednego = dziura w fundamencie.       Przeciwnik musi obalić KAŻDE ogniwo.
                                        Siła = mnożnik, nie suma.
 

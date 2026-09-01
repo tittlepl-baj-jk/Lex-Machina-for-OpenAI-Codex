@@ -37,15 +37,13 @@ PRZEDMIOT OCHRONY: energia ELEKTRYCZNA, CIEPLNA i JĄDROWA — rodzaj
   (kradzież rzeczy, z progami kwotowymi wpływającymi na
   wykroczenie/przestępstwo)
 
-PRÓG WYKROCZENIE/PRZESTĘPSTWO: SN (uchwała I KZP 43/00) rozstrzygnął,
-  że art. 119 § 1 KW (drobna kradzież, próg 250 zł — ⚠️ SPRAWDŹ
-  AKTUALNY próg, mógł ulec zmianie od czasu tej uchwały wraz z
-  ogólną rewaloryzacją progów majątkowych w KW) NIE MA zastosowania
-  do energii — energia NIE JEST "cudzą rzeczą ruchomą" w rozumieniu
-  KW — SKUTEK: KAŻDA kradzież energii, NIEZALEŻNIE OD WARTOŚCI, jest
-  PRZESTĘPSTWEM z art. 278 § 5 KK, NIGDY wykroczeniem — TO ISTOTNA
-  RÓŻNICA względem zwykłej kradzieży rzeczy, gdzie niska wartość
-  degraduje czyn do wykroczenia
+PRÓG WYKROCZENIE/PRZESTĘPSTWO: aktualny art. 119 § 1 KW posługuje się
+  progiem **800 zł** (Dz.U. 2025 poz. 734; re-ver ELI 2026-08-28), ale
+  próg ten nie powinien być przenoszony automatycznie na kradzież energii.
+  Teza modułu oparta na uchwale SN I KZP 43/00 jest taka, że art. 119 § 1 KW
+  nie ma zastosowania do energii, a czyn kwalifikuje się z art. 278 § 5 KK
+  niezależnie od wartości. ⚠️ Przed powołaniem tej tezy w piśmie wykonaj
+  osobny fresh gate do orzeczenia SN i aktualnego art. 278 § 5 KK.
 
 ⭐⭐ ROZSTRZYGNIĘTA KWESTIA KONSTYTUCYJNA — PODWÓJNA SANKCJA (karna +
   cywilna) NIE NARUSZA ne bis in idem: Trybunał Konstytucyjny
@@ -172,10 +170,13 @@ POTWIERDZONE ORZECZNICTWEM SN: wyrok V KK 321/14 (17.03.2015) —
   dotyczyłaby fizycznego podłączenia się do kabla sieciowego biegnącego
   przez klatkę schodową bloku
 
-RÓWNOLEGŁA ODPOWIEDZIALNOŚĆ WYKROCZENIOWA: art. 107a KW MOŻE
-  RÓWNIEŻ mieć zastosowanie w niektórych sytuacjach (odrębna,
-  dodatkowa podstawa, obok/zamiast art. 267 KK zależnie od
-  okoliczności)
+ART. 107a KW NIE PENALIZUJE SAMEGO nieuprawnionego korzystania z WiFi.
+  Może mieć zastosowanie tylko wtedy, gdy sprawca włącza się bez
+  uprawnienia w transmisję danych ORAZ umyślnie udaremnia lub utrudnia
+  użytkownikowi przekazywanie albo odbiór informacji. Zwykłe używanie
+  cudzego łącza, nawet obniżające przepustowość, nie może być automatycznie
+  utożsamiane z realizacją tych znamion. ✅ [VER: ELI, Dz.U. 2025 poz. 734,
+  art. 107a, odczyt 2026-08-25]
 
 RÓWNOLEGŁA ODPOWIEDZIALNOŚĆ CYWILNA: art. 222 KC (roszczenie
   windykacyjne/negatoryjne) + bezpodstawne wzbogacenie — właściciel
@@ -268,10 +269,10 @@ ANALOGIA DO POWYŻSZYCH ZASAD
 
 ## CROSS-REFERENCJE
 - Oszustwo (art. 286 KK), w tym analogiczny mechanizm przy podmianie
-  części → `dr-03/modules/mod-podmiana-czesci-naprawa-oszustwo.md`
+  części → `dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-podmiana-czesci-naprawa-oszustwo.md`
 - Przestępstwa komputerowe, w tym art. 267 KK w innych kontekstach →
-  `prawny-router-v3/references/cyberprzestepstwa.md`
+  `dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-art267-269c-cyberprzestepstwa.md`
 - Bezumowne korzystanie z rzeczy/nieruchomości (art. 224-225 KC) →
-  `dr-02/modules/mod-KC-cywilne-zobowiazania-odpowiedzialnosc.md`
+  `dr-02-prawo-cywilne-rodzinne-gospodarcze/modules/mod-KC-cywilne-zobowiazania-odpowiedzialnosc.md`
 - Współwłasność, roszczenia między współwłaścicielami → sprawdź
   istniejące moduły dr-02 dot. prawa rzeczowego

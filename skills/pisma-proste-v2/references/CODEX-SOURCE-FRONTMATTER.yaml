@@ -1,18 +1,6 @@
 name: pisma-proste-v2
-version: 2.10
+version: "2.11"
 type: executive-pisma
 status: production
-description: |
-  Redagowanie pism procesowych o niskim stopniu złożoności, jeden wątek
-  prawny. Stosuj dla: klauzuli wykonalności, sprzeciwu/zarzutów od
-  nakazu zapłaty, wszczęcia egzekucji, zabezpieczenia roszczenia,
-  zwolnienia od kosztów, zawezwania do ugody, przywrócenia terminu,
-  wglądu do akt, wezwania do zapłaty, uzasadnienia wyroku, doręczenia
-  przez komornika, sprzeciwu od referendarza, interpretacji ZUS, skargi
-  do UODO, oświadczenia o skorzystaniu z sankcji kredytu darmowego (SKD,
-  art. 45 u.k.k.). NIE stosuj do pism wielowątkowych (apelacje, pozwy
-  złożone, w tym pozew o zwrot nadpłaty po SKD) — użyj pisma-procesowe-v3.
-compatibility:
-  tools:
-    - web_search
-    - web_fetch
+description: "Proste pisma prawne i urzędowe: wezwania, wnioski, odpowiedzi i krótsze dokumenty; kompletność danych, aktualna weryfikacja prawa i walidacja przed wygenerowaniem pliku."
+compatibility: "live_web_lookup, file_read, cross_skill_file_read, optional_document_and_interactive_ui"

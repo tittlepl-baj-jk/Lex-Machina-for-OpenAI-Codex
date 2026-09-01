@@ -25,13 +25,16 @@ projekcie Codex; nie instaluje się go w Claude.ai.
 ## Status
 
 - 32 aktywne skille dla Codex;
-- bazowy upstream: commit `21bc139886be011691b88b209aae3374b8c2da89`
+- bazowy upstream: commit `35cfd9ab388e2eca5544eb45fbaa0a1924dd5429`
   z uniwersalnej wersji rozwojowej Michała Wiatraka;
 - statyczna walidacja portu: 32/32 `PASS`;
 - krytyczne testy regresyjne T1, T2 i T6/T7: `PASS`;
-- wydanie portu: `v0.3.1-codex`;
-- router prawny: `3.32`, z fallbackiem LEX/Legalis/ArsLege przy
+- wydanie portu: `v0.4.0-codex`;
+- router prawny: `3.33`, z fallbackiem LEX/Legalis/ArsLege przy
   niedostępności ISAP i obowiązkiem jawnego oznaczenia statusu weryfikacji;
+- analiza przepisu obejmuje wyjątki, przepisy szczególne i przejściowe,
+  vacatio legis, kolejne nowelizacje po tekście jednolitym oraz relacje
+  lex specialis także między różnymi aktami prawnymi;
 - pakiet jest portem skilli Codex, a nie samodzielną aplikacją ChatGPT ani
   publikacją w katalogu GPT lub Apps.
 
@@ -46,9 +49,9 @@ projekcie Codex; nie instaluje się go w Claude.ai.
 - techniczna korekta rejestracji trzech istniejących modułów i sześciu
   liczników modułów, wykryta podczas pierwszej aktualizacji.
 
-Audyt T3/T11 nadal zgłasza ostrzeżenia wymagające przeglądu map aktów prawnych.
-Są to ostrzeżenia odziedziczone z synchronizowanej wersji rozwojowej, a nie
-potwierdzone rozstrzygnięcia co do aktualności konkretnych aktów.
+Upstream deklaruje zamknięcie mapy egzaminacyjnej na poziomie 52/52 `COV`.
+Walidacja portu potwierdza spójność techniczną i kompletność pakietu, lecz nie
+jest niezależnym potwierdzeniem aktualności każdego przepisu ani aktu prawnego.
 
 Pełne informacje o pochodzeniu znajdują się w [UPSTREAM.md](UPSTREAM.md),
 o autorstwie w [AUTHORS.md](AUTHORS.md), a o modyfikacjach w

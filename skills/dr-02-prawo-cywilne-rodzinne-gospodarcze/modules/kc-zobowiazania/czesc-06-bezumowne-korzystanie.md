@@ -78,4 +78,3 @@ Potwierdzone w 6+ zgodnych źródłach eksperckich (poradnikprzedsiebiorcy.pl
 2026], prawolasu.com, standardyprawa.pl), z bezpośrednimi cytatami
 orzeczeń SN i sądów apelacyjnych.
 ```
-

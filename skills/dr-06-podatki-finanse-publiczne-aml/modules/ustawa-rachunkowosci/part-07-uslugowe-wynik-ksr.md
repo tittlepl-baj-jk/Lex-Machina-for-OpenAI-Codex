@@ -156,4 +156,3 @@ STANDARDY JUŻ PRZYWOŁANE W TYM MODULE (potwierdzenie SPÓJNOŚCI
   dotyczącej PRAWIDŁOWOŚCI konkretnego rozwiązania KSIĘGOWEGO, o ile
   temat JEST przez dany KSR uregulowany.
 ```
-

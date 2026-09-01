@@ -1,14 +1,31 @@
 ---
 name: "dr-03-prawo-karne-wykroczenia-egzekucja"
-description: "DR-03: Prawo Karne, Wykroczenia, Egzekucja Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
+description: "Prawo karne, wykroczenia i egzekucja: KK, KPK, KKW, KW, KPW, KKS, kwalifikacja karnomaterialna, tryby ścigania i wykonanie orzeczeń."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-27"
+  source-tree: "development-2026-09-01"
   source-directory: "dr-03-prawo-karne-wykroczenia-egzekucja"
 ---
 
 > [!IMPORTANT]
 > Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
+> **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
+
+
+## ADAPTER RUNTIME — PORTABILITY (ChatGPT / Claude / inne hosty)
+
+Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
+
+1. `view dr-03-prawo-karne-wykroczenia-egzekucja/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
+2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
+3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
+4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
+5. `show_widget`, `visualize:read_me`, `present_files`, `create_file`, shell/Python i podobne operacje są nazwami semantycznymi. Jeśli host nie ma literalnego narzędzia, użyj równoważnej funkcji natywnej bez omijania bramek jakości.
+6. `/mnt/user-data/...` oznacza rzeczywiste załączniki użytkownika dostępne w bieżącym hoście; wymagany ponowny odczyt ma być faktycznym odczytem źródła.
+
+**Zasada nadrzędna:** instrukcje, które są już zrozumiałe i wykonalne w bieżącym hoście, wykonuj bez konwersji. Adapter działa wyłącznie na granicy runtime.
+
 
 # DR-03 — Prawo Karne, Wykroczenia, Egzekucja
 
@@ -25,7 +42,7 @@ użytkownika) obowiązkowe jest przejście przez drzewo decyzyjne kwalifikacji
 przed podaniem jakiejkolwiek analizy lub pisma:
 
 ```
-view ../dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md
+view dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md
 ```
 
 Zasada naczelna modułu (skrót): nigdy nie kwalifikuj czynu bez przejścia
@@ -47,6 +64,25 @@ najpierw indeks, potem WYŁĄCZNIE właściwy plik części wg tabeli. Ścieżka
 1. Zweryfikuj brzmienie i Dz.U. w `isap.sejm.gov.pl`
 2. Zweryfikuj orzeczenie w `orzeczenia.ms.gov.pl` / `nsa.gov.pl` / `sn.pl`
 3. **NIGDY** nie podawaj artykułu, terminu, kary ani sygnatury wyłącznie z pamięci modelu.
+
+
+> ⛔ **SELF-CHECK ANTY-FASADA — obowiązkowy przed wysłaniem odpowiedzi/pisma**
+> (podłączone 2026-08-24, flaga F-115 P3 — zamknięcie zakresu 16 skilli DR):
+>
+> ```
+> view shared/SELF-CHECK-ANTY-FASADA.md
+> ```
+>
+> Sprawdza dwie rzeczy: (1) czy w tekście stoi „zweryfikowano", data weryfikacji
+> albo URL przy przepisie, dla którego NIE wywołano narzędzia W TEJ ODPOWIEDZI;
+> (2) czy znacznik statusu nie został nadany treści WYGENEROWANEJ w tej odpowiedzi
+> (AF-6). Treść listy jest w module, nie tutaj — celowo, żeby nie powstało kolejne
+> miejsce dryfu (7 wcześniejszych kopii rozjechało się ze źródłem przy pierwszej
+> zmianie brzmienia).
+>
+> ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
+> oznaczenia, tylko je wymusza.
 
 ---
 
@@ -83,11 +119,19 @@ Przy sprawach z tej dziedziny rozważ doładowanie (`view`) definicji:
   obrona obligatoryjna art. 79 §1 pkt 2-4 KPK (→ mod-niewidomy-prawa-prawne.md,
   mod-niepelnosprawnosc-intelektualna-gluchota.md)
 
-## Moduły (62 łącznie — ✓ 62 OK, ☐ 0 STUB; 1 przeniesiony do shared/)
+## Moduły (70 łącznie — ✓ 70 OK, ☐ 0 STUB; 1 przeniesiony do shared/)
 
-  [✓] PORT  mod-nielegalny-pobor-mediow
-              (rejestracja techniczna istniejącego modułu; korekta wykryta przez T1)
+  [✓] OK    mod-KK-current-state-COV
+  [✓] OK    mod-KKW-current-state-COV
+  [✓] OK    mod-KPK-current-state-COV
+  [✓] OK    mod-KW-current-state-COV
+  [✓] OK    mod-KPW-kodeks-postepowania-w-sprawach-o-wykroczenia
+  [✓] OK    mod-narkomania-current-state-COV
 
+```
+  [✓] OK    mod-nielegalny-pobor-mediow
+              (kwalifikacja karna nielegalnego poboru energii i innych mediów)
+```
 
 **NAPRAWA 2026-08-15:** dodano `mod-KPK-podstawy-odwolawcze-przeslanki-
 zarzuty-biegli.md` — naprawa CZĘŚCIOWA F-66 (priorytet 1/3: art. 17,
@@ -124,6 +168,10 @@ AUDIT-JOURNAL.md`.
   [✓] OK    mod-KK-KPK-framework-szczegolowy
   [✓] OK    mod-KKW-kodeks-karny-wykonawczy
               (Kodeks karny wykonawczy — warunkowe przedterminowe zwolnienie (159-163), odroczenie/przerwa (150-158a), dozór elektroniczny (43a-43zf); ZAREJESTROWANY 2026-08-14e (F-77 rozszerzona) — moduł istniał od naprawy F-75, bez wpisu w checkliście)
+  [✓] NOWY  mod-KKW-uzupelnienie-pokrycia-2026
+              (pozostałe części KKW: ogólna, penitencjarna, ograniczenie wolności, zwolnienie, środki i część wojskowa)
+  [✓] NOWY  mod-ustawa-oplaty-w-sprawach-karnych
+              (F-108/8: ustawa z 23.06.1973 r.; poziom B+, pełna mapa art. 1–23 i aktualne stawki z Rządu 1)
   [✓] OK    mod-przerobki-modyfikacje-pojazdow
               (v1.1.0 — dopuszczalne modyfikacje pojazdów, homologacja, motocykle, tachografy; ⚠️ zawiera flagę F-14 (projekt ws. UTO/hulajnóg); ZAREJESTROWANY 2026-08-14e (F-77 rozszerzona))
   [✓] OK    mod-podmiana-czesci-naprawa-oszustwo
@@ -230,7 +278,7 @@ AUDIT-JOURNAL.md`.
                przestępczość zorganizowana art. 258 KK; BLOK I —
                zabójstwa/pobicia art. 148/158-159 KK; BLOK J — przestępstwa
                seksualne art. 197-205 KK w tym wobec dzieci/niepełnosprawnych
-               + Rejestr Sprawców Dz.U. 2026.110; BLOK L — uszkodzenie
+               + Rejestr Sprawców Dz.U. 2026 poz. 110; BLOK L — uszkodzenie
                mienia art. 288 KK / art. 124 KW z progiem 800 zł (część
                2/6 naprawy); BLOK G rozbudowany — podsłuch/nagrania,
                rozróżnienie uczestnik/osoba trzecia art. 267 §2-4 KK,
@@ -307,6 +355,8 @@ AUDIT-JOURNAL.md`.
                STOSOWANYCH przepisów KW), charakter chuligański i jego
                konsekwencje, art. 49/49a/50/52. Drugi priorytet z audytu
                pokrycia KW)
+  [✓] OK    mod-KW-art65-69-instytucje
+               (dodany 2026-08-28: Rozdz. IX KW — usuwa ostatnią lukę numeracyjną między art. 64 i 70; art. 65/65a, 66/66a-66c, 67-69; verified current-state ELI)
   [✓] OK    mod-KK-art127-139-przeciwko-RP
               (dodany 2026-07-17: Rozdz. XVII KK — szpiegostwo (art. 130,
                radykalnie zaostrzone reformą 17.08.2023 w reakcji na wojnę
@@ -462,22 +512,22 @@ AUDIT-JOURNAL.md`.
 ```
 
 > **Przeniesiony do shared/ (2026-07-12):** `mod-KK-stalking-szczegolowy` był
-> bajt-w-bajt identyczny z `prawny-router-v3/references/stalking-nekanie.md`
-> (wykryte przez `ci_check_shared.py`). Scalony pod jedną kanoniczną lokalizacją:
-> `view ../shared/STALKING-NEKANIE.md`. Ładuj stamtąd bezpośrednio —
+> bajt-w-bajt identyczny z dawną kopią routera `stalking-nekanie`
+> (wykryte przez `ci_check_shared.py`; obecny plik routera jest wyłącznie bridge’em). Scalony pod jedną kanoniczną lokalizacją:
+> `view shared/STALKING-NEKANIE.md`. Ładuj stamtąd bezpośrednio —
 > `mod-KK-art190a-stalking.md` zawiera odesłanie. Pełny opis:
 > `audyt-systemu-v4/references/CHECKLIST-DEDUP.md` NOTA-12.
 
 ## Jak wywołać
 
 ```
-view ../dr-03-prawo-karne-wykroczenia-egzekucja/modules/[nazwa-modulu].md
+view dr-03-prawo-karne-wykroczenia-egzekucja/modules/[nazwa-modulu].md
 ```
 
 ## Lokalna mapa aktów prawnych
 
 ```
-view ../dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-AKTOW.md
+view dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-AKTOW.md
 ```
 
 ## Mapa pokrycia treściowego (planowanie rozwoju skilla)
@@ -487,7 +537,7 @@ Przydatny przy planowaniu, które luki uzupełnić w pierwszej kolejności
 (F-83, zasilony 2026-08-22 z audytu źródłowego 2026-08-13):
 
 ```
-view ../dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-POKRYCIA.md
+view dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-POKRYCIA.md
 ```
 
 ## Powiązania zewnętrzne
@@ -501,7 +551,7 @@ view ../dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-POKRYCIA.md
 Po zakończeniu analizy lub przed oddaniem odpowiedzi zawierającej ocenę prawną:
 
 ```text
-view ../shared/DISCLAIMER.md
+view shared/DISCLAIMER.md
 ```
 
 Wybierz wariant odpowiedni do trybu:

@@ -52,7 +52,7 @@ SKALA RYZYKA:
 
 ## AB.2 PODSTAWA PL — KC ART. 385¹–385³
 
-> Weryfikuj: isap.sejm.gov.pl → KC Dz.U. 2025 poz. 1071 t.j. ze zm.
+> Weryfikuj: isap.sejm.gov.pl → KC Dz.U. 2026 poz. 795 t.j. ze zm.
 
 ### Definicja klauzuli abuzywnej (art. 385¹ §1 KC)
 ```
@@ -78,7 +78,7 @@ Najczęstsze w SaaS/marketplace/e-commerce:
   pkt 12 → prawo do zmiany ceny bez prawa odstąpienia
   pkt 16 → kary umowne tylko dla konsumenta, brak symetrii
   pkt 21 → zastrzeżenie nieuzasadnionego terminu dla przedsiębiorcy
-  
+
 → Weryfikuj numery pkt. w aktualnym tekście KC!
 ```
 
@@ -99,7 +99,7 @@ Kluczowe wyroki TSUE — weryfikuj na curia.europa.eu:
   C-260/18 Dziubak:          skutek abuzywności — nieważność umowy frankowej
   C-520/21 Bank M.:          bank bez prawa do wynagrodzenia za kap. po unieważnieniu
   C-215/17 Nova Linea:       informacja przedkontraktowa — pełna przejrzystość
-  
+
 ⚠️ Każda sygnatura: weryfikuj URL w curia.europa.eu przed powołaniem.
 ```
 

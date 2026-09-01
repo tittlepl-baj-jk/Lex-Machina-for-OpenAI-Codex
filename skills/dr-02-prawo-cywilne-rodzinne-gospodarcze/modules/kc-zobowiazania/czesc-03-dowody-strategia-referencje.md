@@ -132,4 +132,3 @@ REKOMENDACJA: □ Sąd — nakaz zapłaty  □ Sąd — tryb zwykły  □ Ugoda 
 - Kurs NBP (aktualna stopa): https://nbp.pl
 
 ---
-

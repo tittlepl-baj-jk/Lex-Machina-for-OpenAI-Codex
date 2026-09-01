@@ -22,8 +22,8 @@ Zasada utrzymania: nie tworzyć duplikatów modułów współdzielonych w skilla
 
 ## Status aktualności prawa — 2026-05-28
 
-Warstwa kancelaryjna: kompletna w granicach `.md skills`.  
-Warstwa prawa pozytywnego: kontrolowana przez `ISAP-METRYKI-AKTOW.md`, ale cytowanie przepisów wymaga bieżącego sprawdzenia ISAP.  
+Warstwa kancelaryjna: kompletna w granicach `.md skills`.
+Warstwa prawa pozytywnego: kontrolowana przez `ISAP-METRYKI-AKTOW.md`, ale cytowanie przepisów wymaga bieżącego sprawdzenia ISAP.
 Zakres nowych trybów: postępowanie podatkowe, KAS, egzekucja administracyjna, regulacyjne, informacja publiczna, planowanie/środowisko, migracje, pomoc społeczna, dyscyplinarne, UODO.
 
 ## Zmiany 2026-06-09

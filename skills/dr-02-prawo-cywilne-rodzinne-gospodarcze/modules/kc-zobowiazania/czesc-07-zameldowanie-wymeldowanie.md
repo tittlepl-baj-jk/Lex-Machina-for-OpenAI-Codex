@@ -156,4 +156,3 @@ Potwierdzone w 7+ zgodnych, aktualnych źródłach eksperckich
 sprawdzonynajemca.pl [x2, maj 2026], gierusradca.pl, prawo-mieszkaniowe.info,
 homly.to [wrzesień 2025]).
 ```
-

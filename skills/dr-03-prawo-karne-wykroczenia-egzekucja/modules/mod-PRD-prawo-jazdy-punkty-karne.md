@@ -324,7 +324,7 @@ Strategie dla: drift/wyścig/zakaz sądowy/brawurowa jazda →
 ## 7. QUALITY GATE
 
 ```
-□ Aktualne t.j. PRD (Dz.U. 2024 poz. 1251 ze zm.) i u.k.p. (Dz.U. 2025 poz. 1226 ze zm.) 
+□ Aktualne t.j. PRD (Dz.U. 2024 poz. 1251 ze zm.) i u.k.p. (Dz.U. 2025 poz. 1226 ze zm.)
   zweryfikowane w ISAP?
 □ Rozporządzenie Dz.U. 2026 poz. 724 — nowe kody i wyłączenia sprawdzone?
 □ Czy zdarzenie jest PRZED czy PO 29.01.2026 / 30.03.2026 / 03.03.2026 / 03.06.2026?

@@ -27,9 +27,9 @@ compatibility:
 
 ```
 □ Co się stało: dostęp, utrata danych, blokada konta, phishing, ransomware
-□ Czy dotyczy danych osobowych? → mod-P RODO
+□ Czy dotyczy danych osobowych? → `dr-11-cyfrowe-cyber-ai-dane-ip/modules/mod-RODO-GDPR-2016-679.md`
 □ Czy dotyczy systemu istotnego? → NIS2/KSC
-□ Czy jest przestępstwo? → mod-T / mod-N
+□ Czy jest przestępstwo? → `dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-art267-269c-cyberprzestepstwa.md` + `mod-KK-KPK-framework-karne.md`
 □ Czy trzeba zgłosić incydent? komu i w jakim terminie?
 □ Jak zabezpieczyć dowody: logi, nagłówki e-mail, IP, zrzuty, hash plików
 ```
@@ -190,7 +190,7 @@ Kluczowe zmiany wdrażające NIS2 (Dyrektywa 2022/2555):
     Wyjątek MSSP (zarządzane usługi cyberbezpieczeństwa): próg już od małego przedsiębiorcy
   → Mechanizm SAMOIDENTYFIKACJI: podmioty rejestrują się samodzielnie (nie decyzja)
   → CSIRT sektorowe: dla każdego sektora/podsektora
-  
+
 Terminy obowiązków dla podmiotów (art. 16 KSC):
   → 12 miesięcy na realizację obowiązków rozdziału 3 (środki bezpieczeństwa):
     do 03.04.2027 dla podmiotów istniejących na 03.04.2026

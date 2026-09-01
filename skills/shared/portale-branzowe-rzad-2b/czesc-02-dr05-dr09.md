@@ -107,4 +107,3 @@ generalistycznego prawo.pl.
 | **muratorplus.pl** | Strona REGULACYJNO-PROCEDURALNA prawa budowlanego — pozwolenie na budowę vs zgłoszenie, procedury administracyjne, terminy (30 dni sprzeciwu), progi ustawowe — KOMPLEMENTARNE do prawniknabudowie.com (TAM spory kontraktowe, TU procedury administracyjne) | ✅ ZWERYFIKOWANE 2026-07-21 (test: pozwolenie na budowę/zgłoszenie — wynik DOSKONAŁY, konkretne cytaty art. 29-30 Prawa budowlanego, terminy, częścią większego portalu "Murator" o budownictwie) |
 | rynekzdrowia.pl | (patrz DR-10 w `czesc-03-dr10-dr16.md`, nie DR-09 — pomyłka kategoryzacyjna wykluczona) | — |
 | gramwzielone.pl (przykładowy wzorzec dla energetyki odnawialnej) | Energetyka, OZE | ⚠️ NIE testowane w tej sesji, punkt startowy |
-

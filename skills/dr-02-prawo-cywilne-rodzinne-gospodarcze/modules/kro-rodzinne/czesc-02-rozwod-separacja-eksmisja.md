@@ -338,4 +338,3 @@ FIZYCZNYM PODZIALE mieszkania lub przyznaniu go jednemu małżonkowi
 ```
 
 ---
-

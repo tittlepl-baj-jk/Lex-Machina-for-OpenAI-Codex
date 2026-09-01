@@ -1,20 +1,8 @@
 name: pisma-procesowe-v3
-version: "5.17"
+version: "5.20"
 type: executive-pisma
 status: production
-description: |
-  Modularny framework do pism procesowych na poziomie kancelaryjnym.
-  Pipeline: W1 (rama + CLAIM-VALIDATION + RED-TEAM) → W1.2d-PRE (MOD-DOKUMENT-ANOMALIE)
-  → W2 (projekt + executive summary + timing + doktryna + ATAK-NA-DRAFT) → W3
-  (PODMIOT-GATE → ISAP → orzeczenia → fakty → walidacja A–J z triggerami
-  → LEGAL-QUALITY-GATE → AUDYT-KONCOWY z COURT-SIMULATION → PEER-REVIEW
-  + POST-VALIDATION + UWAGI-REDAKCYJNE) → .docx.
-  Engines specjalistyczne z matrycą aktywacji: appellate-v8 (apelacja),
-  prosecution-v8 (prokuratura), rebuttal-v9 (riposta), theory-of-case
-  (≥2 roszczenia), V10 engines (matryca 4 warunków).
-  Poziom: kancelaryjny — każde pismo przechodzi przez 5-etapową kontrolę
-  jakości (LEGAL-QUALITY-GATE, AUDYT-KONCOWY, PEER-REVIEW, POST-VALIDATION,
-  UWAGI-REDAKCYJNE).
-compatibility: "Wymaga narzędzi: web_search, web_fetch"
-cp_gate: "../../shared/CP-GATE.md"
+description: "Zaawansowane pisma procesowe: pozwy, odpowiedzi, apelacje, zażalenia i inne pisma wymagające strategii, faktów, dowodów, weryfikacji prawa i finalnej walidacji dokumentu."
+compatibility: "live_web_lookup, file_read, cross_skill_file_read, optional_document_and_interactive_ui"
+cp_gate: "shared/CP-GATE.md"
 reread_gate: "MRG — przed każdym [CP] i każdą odpowiedzią pipeline: view CP-GATE.md + view MOD-STEP-TRACKER.md (zakaz polegania na pamięci)"

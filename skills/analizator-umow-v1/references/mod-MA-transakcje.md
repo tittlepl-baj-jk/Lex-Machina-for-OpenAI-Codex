@@ -36,7 +36,7 @@ KLUCZOWE AKTY PRAWNE (weryfikuj aktualne teksty w ISAP):
    → art. 182: ograniczenia zbycia udziałów z umowy spółki (wymóg zgody)
    → art. 183: prawo pierwszeństwa wspólników
    → art. 151–300: ogólne zasady sp. z o.o.
-   
+
    Spółka akcyjna:
    → art. 337–338: przeniesienie akcji imiennych (pisemna lub elektroniczna)
    → art. 339: ograniczenia zbywalności (statut)
@@ -57,13 +57,13 @@ FORMA UMOWY SPRZEDAŻY UDZIAŁÓW (SP. Z O.O.):
   Art. 180 §1 KSH: pisemna z podpisami notarialnie poświadczonymi (RYGOR NIEWAŻNOŚCI)
   → Nie wystarczy zwykła forma pisemna
   → E-mail, podpis kwalifikowany bez notariusza → NIEWAŻNA transakcja
-  
+
   WYJĄTEK — Spółki S24 (art. 180 §2 KSH):
   → Jeśli spółka była zawiązana przez system S24 (wzorzec teleinformatyczny)
   → Zbycie możliwe elektronicznie: kwalifikowany podpis elektroniczny / podpis zaufany / podpis osobisty
   → Ograniczenie: wyłącznie przez wzorzec systemu — bez własnych postanowień
   → Weryfikuj status spółki (S24 czy tradycyjnie): KRS → dane rejestrowe → tryb zawiązania
-  
+
   → Weryfikuj notariusza przez rejestr: krs.ms.gov.pl
 ```
 
@@ -94,7 +94,7 @@ PUŁAPKA MA-LOI-1: Brak wyraźnego wskazania które klauzule binding, które non
   → Sąd może uznać LOI za umowę przedwstępną (art. 389 KC) → słaby skutek
   → Każda klauzula, której pominięcie oceniasz przez pryzmat art. 390 KC, powinna być
     wyraźnie oznaczona [BINDING] lub [NON-BINDING]
-  
+
 REKOMENDACJA:
   "Niniejszy List Intencyjny nie stanowi umowy przedwstępnej i nie zobowiązuje
    Stron do zawarcia żadnej umowy. Wiążący charakter mają wyłącznie postanowienia
@@ -164,7 +164,7 @@ TYP 3 — EARN-OUT (część ceny zależna od wyników):
   □ Brak ochrony kupującego przez manipulowanie wynikami po closingu
   □ Brak prawa sprzedającego do wglądu w wyniki i weryfikacji obliczeń
   □ Brak klauzuli anti-sandbagging dla miernika
-  
+
   REKOMENDACJA:
   "Earn-out kalkulowany jest na bazie EBITDA [definicja w Załączniku] audytowanego
    przez [audytor z listy] za lata [X–X]. Kupujący zobowiązuje się do prowadzenia
@@ -270,7 +270,7 @@ LIMITY ODPOWIEDZIALNOŚCI — kluczowe do negocjacji:
   - Fundamental reps: 5–7 lat lub do przedawnienia
   - Tax indemnity: do upływu przedawnienia zobowiązań podatkowych
   Weryfikuj: KC art. 119 — strony mogą skracać i wydłużać terminy przedawnienia umownie
-  
+
 □ W&I INSURANCE (ubezpieczenie R&W — opcja):
   Polisy W&I (Warranty & Indemnity Insurance) pokrywają roszczenia z naruszenia R&W.
   Coraz popularniejsze w Polsce przy transakcjach >5 mln EUR.

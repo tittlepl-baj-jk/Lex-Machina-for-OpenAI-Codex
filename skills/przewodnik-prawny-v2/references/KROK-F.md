@@ -190,4 +190,3 @@ Zakończ zawsze KROK I (mapa opcji).
 ```
 
 ---
-

@@ -159,4 +159,3 @@ START: Czy czyn dotyczył systemów informatycznych lub danych?
 ```
 
 ---
-

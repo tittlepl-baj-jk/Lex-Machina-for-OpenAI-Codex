@@ -1,8 +1,3 @@
 name: dr-12-sadownictwo-prokuratura-zawody-prawnicze
-version: 4.10
-description: |
-  DR-12: Sądownictwo, Prokuratura, Zawody Prawnicze
-  Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu.
-  Ładuj TYLKO moduł pasujący do sprawy — lazy loading.
-  Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill.
-  Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl | orzeczenia.nsa.gov.pl (kontrola WSA/NSA wg PPSA, gdzie właściwa) + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)
+version: "4.12"
+description: "Sądownictwo, prokuratura i zawody prawnicze: ustrój sądów, prokuratura, adwokaci, radcowie, notariusze, komornicy, koszty i odpowiedzialność zawodowa."

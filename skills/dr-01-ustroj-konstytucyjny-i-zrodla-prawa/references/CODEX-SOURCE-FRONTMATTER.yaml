@@ -1,8 +1,3 @@
 name: dr-01-ustroj-konstytucyjny-i-zrodla-prawa
-version: 3.6
-description: |
-  DR-01: Ustrój Konstytucyjny i Źródła Prawa
-  Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu.
-  Ładuj TYLKO moduł pasujący do sprawy — lazy loading.
-  Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill.
-  Weryfikacja: isap.sejm.gov.pl | trybunal.gov.pl | sn.pl | nsa.gov.pl | orzeczenia.ms.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)
+version: "3.9"
+description: "Prawo konstytucyjne i ustrojowe: Konstytucja, organy państwa, TK, źródła prawa, legislacja i skarga konstytucyjna; analiza z aktualną weryfikacją źródeł."

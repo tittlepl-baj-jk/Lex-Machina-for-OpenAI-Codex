@@ -1,7 +1,7 @@
 # ISAP-METRYKI-AKTOW — rejestr kontrolny aktów prawnych
 
 **Data audytu:** 2026-08-28
-**Źródło wyłączne:** Internetowy System Aktów Prawnych — `isap.sejm.gov.pl`.  
+**Źródło wyłączne:** Internetowy System Aktów Prawnych — `isap.sejm.gov.pl`.
 **Zasada:** nie cytuj treści przepisu, numeru Dz.U. ani statusu aktu z pamięci. Jeżeli metryka nie znajduje się poniżej albo użytkownik wymaga cytatu przepisu, przed odpowiedzią sprawdź aktualny tekst w ISAP.
 
 ---

@@ -1,20 +1,53 @@
 ---
 name: "raport-klienta-v1"
-description: "Raport dla Klienta v1 — zewnętrzny raport statusu sprawy generowany przez kancelarię dla klienta indywidualnego lub biznesowego. Język uproszczony, bez żargonu procesowego. WYWOŁANIE: NA ŻĄDANIE — NIE automatycznie. Frazy: \"raport dla klienta\" / \"wyślij klientowi\" / \"status dla klienta\" / \"raport zewnętrzny\" / \"raport dla zarządu\". PROFIL [IND]: język prosty, predykcja opisowa, bez kwot ryzyka. PROFIL [BIZ]: język formalny, predykcja procentowa, ryzyko finansowe, wpływ na działalność, rekomendacje zarządu, NDA. TRYBY: standard | zle_wiadomosci | brak_nowosci | ograniczenie_szkod. RENDERING: show_widget HTML vanilla JS — NIE present_files, NIE JSX."
+description: "Raport dla klienta: przekłada analizę prawną na zrozumiały stan sprawy, ryzyka, warianty działania, priorytety i następne kroki bez utraty podstaw źródłowych."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-27"
+  source-tree: "development-2026-09-01"
   source-directory: "raport-klienta-v1"
 ---
 
 > [!IMPORTANT]
 > Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
 
+> **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
+
+
+## ADAPTER RUNTIME — PORTABILITY (ChatGPT / Claude / inne hosty)
+
+Ta sekcja zmienia wyłącznie sposób wykonania operacji technicznych. Metodologia merytoryczna, routing, hard gate’y, checklisty, schematy danych i kryteria finalizacji tego skilla pozostają bez zmian.
+
+1. `view raport-klienta-v1/<plik>` oraz względne `view modules/...`, `view references/...`, `view assets/...` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalny katalog `..` nie jest wymagany.
+2. `view shared/<plik>` oznacza odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu = fail-closed.
+3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt osobnego skilla. Nie vendoryzuj innych skilli.
+4. `web_search` / `web_fetch` oznaczają świeże wyszukanie i odczyt źródła przez równoważną funkcję hosta; zachowaj istniejące wymogi źródeł oficjalnych i statusów weryfikacji.
+5. `present_files`, `create_file` i odwołania do `HOST_CAPABILITY[document_generation]` / generatorów PDF oznaczają użycie natywnej funkcji dokumentowej bieżącego hosta. Brak literalnej nazwy narzędzia nie zwalnia z HYBRID-VALIDATION, POST-VALIDATION, STEP-TRACKER ani innych bramek.
+6. `show_widget`, `visualize:read_me`, `.jsx` i HTML są legacy/natywnymi wariantami UI. Jeśli host ma własny renderer interaktywny, użyj równoważnego widoku zachowującego ten sam model danych i funkcje; jeśli nie, zastosuj pełny fallback tekstowy/plikowy.
+7. `/mnt/user-data/...` oznacza rzeczywiste pliki użytkownika dostępne w hoście; wymagany ponowny odczyt musi być faktycznym odczytem pliku.
+8. Shell/Python/Cowork i podobne operacje traktuj jako techniki pomocnicze. Jeżeli host ich nie udostępnia, użyj natywnej funkcji równoważnej, bez fikcyjnego raportowania wykonania.
+
+**Zasada nadrzędna:** jeśli instrukcja jest już zrozumiała i wykonalna w bieżącym hoście, wykonaj ją bez konwersji. Adapter działa tylko na granicy runtime.
+
+
 # Raport dla Klienta v1.2 — Zewnętrzne Narzędzie Kancelarii
 
 > ⛔ HARD GATE — ZAKAZ CYTOWANIA PRAWA I ORZECZEŃ Z PAMIĘCI
 > Raport może zawierać terminy, przepisy lub sygnatury — przed ich podaniem:
-> `view ../shared/PRAWO-HARDGATE.md`
+> `view shared/PRAWO-HARDGATE.md`
+
+> ⛔ **SELF-CHECK ANTY-FASADA — obowiązkowy przed wysłaniem odpowiedzi/pisma**
+> (podłączone 2026-08-23i, flaga F-115 — ten skill cytuje prawo, a bramki nie miał):
+>
+> ```
+> view shared/SELF-CHECK-ANTY-FASADA.md
+> ```
+>
+> Sprawdza dwie rzeczy: (1) czy w tekście stoi „zweryfikowano", data weryfikacji
+> albo URL przy przepisie, dla którego NIE wywołano narzędzia W TEJ ODPOWIEDZI;
+> (2) czy znacznik statusu nie został nadany treści WYGENEROWANEJ w tej odpowiedzi
+> (AF-6). Treść listy jest w module, nie tutaj — celowo, żeby nie powstało kolejne
+> miejsce dryfu (7 wcześniejszych kopii rozjechało się ze źródłem przy pierwszej
+> zmianie brzmienia).
 
 ---
 
@@ -417,9 +450,9 @@ WYWOŁANIE BEZPOŚREDNIE:
 Gdy wynik ma służyć ocenie ryzyka lub decyzji terminowej:
 
 ```
-view ../shared/RISK-ASSESSMENT.md
-view ../shared/TERM-CALC.md
-view ../shared/QUALITY-CHECK.md
+view shared/RISK-ASSESSMENT.md
+view shared/TERM-CALC.md
+view shared/QUALITY-CHECK.md
 ```
 
 Nie dubluj logiki shared w lokalnych plikach.

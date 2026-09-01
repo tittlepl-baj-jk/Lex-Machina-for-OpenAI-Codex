@@ -1,24 +1,13 @@
 name: raport-sytuacyjny-v2
-version: 2.6
+version: "2.8"
 type: executive-raport
 status: production
-compatibility: "prawny-router-v3, web_search, web_fetch, show_widget"
-description: |
-  Raport Sytuacyjny Sprawy v2 — interaktywny widget graficzny renderowany inline.
-  WYWOŁYWANY przez prawny-router-v3 w trzech trybach:
-  [A] OBOWIĄZKOWY — po wygenerowaniu pisma lub ostatnim podsumowującym kroku.
-  [B] PROPOZYCJA — po wgraniu i analizie dokumentów (tylko sugestia słowna).
-  [C] NA ŻĄDANIE — gdy użytkownik pyta o aktualny stan sprawy.
-  RENDERING: show_widget z HTML vanilla JS — NIE present_files, NIE JSX, NIE React.
-  Dane sprawy wbudowane jako literały JS bezpośrednio w HTML widgetu.
-  Zawiera: chronologię z weryfikacją źródeł, mapę ryzyk P1/P2/P3, sprzeczności
-  i luki dowodowe, rekomendacje procesowe z priorytetem, priorytety aspektów
-  (główne/poboczne) z MOD-PRIORYTETY-ASPEKTOW, historię wariantów strategii
-  z MOD-HISTORIA-STRATEGII, eksport PDF.
-changelog:
-  - "2.6: nowa zakładka Historia strategii (oś czasu wersji z
-    MOD-HISTORIA-STRATEGII, oznaczenie wybranego/odrzuconych wariantów,
-    porównanie wersji, powrót do wariantu); rozszerzenie zakładki Ryzyka o
-    sekcję Priorytety sprawy (aspekty główne/poboczne + metody badawcze z
-    MOD-PRIORYTETY-ASPEKTOW); nowe pola blueprintu: priorytetyAspektow,
-    historiaStrategii"
+compatibility: "live_web_lookup, file_read, cross_skill_file_read, optional_document_and_interactive_ui"
+description: "Raport sytuacyjny sprawy: syntetyzuje fakty, ryzyka, dowody, terminy, warianty i priorytety; może generować interaktywny widok sytuacji i eksport danych."
+changelog: |
+  Wersja bieżąca: 2.8. Pełna historia — references/CHANGELOG.md
+  (plik założony 2026-08-23g przy okazji naprawy F-123; do tej daty wpisy
+  mieszkały w tym polu YAML wbrew ZASADZIE 15 audyt-systemu-v4).
+  Skrót: 2.7 — HARD GATE do shared/PRAWO-HARDGATE.md dla twierdzeń o prawie
+  renderowanych w widgecie (F-123). 2.6 — zakładka Historia strategii,
+  sekcja Priorytety sprawy w zakładce Ryzyka.

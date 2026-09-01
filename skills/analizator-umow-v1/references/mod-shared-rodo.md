@@ -38,7 +38,7 @@ KLUCZOWY PRZEPIS — Art. 28 ust. 3 RODO:
   □ Pomoc przy naruszeniach bezpieczeństwa danych (art. 33–34 RODO)
   □ Usunięcie lub zwrot danych po zakończeniu przetwarzania
   □ Udostępnienie wszelkich niezbędnych informacji + prawo do audytu
-  
+
   SANKCJA za brak DPA: art. 83 ust. 4 RODO → kara do 10 mln EUR lub 2% obrotu
   Przykłady kar UODO za brak/wadliwą umowę powierzenia — zweryfikuj aktualne decyzje: uodo.gov.pl/pl/decyzje-prezesa-uodo
 ```

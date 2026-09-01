@@ -94,13 +94,13 @@ CHARAKTER PRAWNY decyzji WZ (art. 59–63 UPZP — wyjaśnienie ministerialne):
   "Decyzja o warunkach zabudowy NIE rodzi praw do terenu oraz nie narusza prawa
   własności i uprawnień osób trzecich."
   → Organ właściwy: wójt, burmistrz, prezydent miasta
-  
+
   ANALIZA URBANISTYCZNA — obowiązkowy załącznik:
   → Organ wyznacza obszar analizowany wokół działki i przeprowadza analizę funkcji
     i cech zabudowy
   → Wyniki = integralny załącznik do decyzji WZ
   → Brak wyników = wadliwe wydanie decyzji
-  
+
 DECYZJA O POZWOLENIU NA BUDOWĘ — wykonalność (INT7.nsf):
   → Po wykreśleniu wyrazu "ostatecznej" możliwe rozpoczęcie na podstawie
     decyzji WYKONALNEJ (nie ostatecznej) gdy jedyną stroną jest inwestor

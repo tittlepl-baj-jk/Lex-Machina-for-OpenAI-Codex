@@ -1,14 +1,32 @@
 ---
 name: "analiza-sadowa-v6"
-description: "UŻYWAJ ZAWSZE gdy użytkownik: dostarcza akta, pisma, wyroki, decyzje lub dokumenty prawne; pyta o szanse w sprawie karnej, wykroczeniowej, cywilnej, pracowniczej, administracyjnej; chce ocenić dowody, terminy zawite lub koszty sądowe (KSCU); potrzebuje analizy błędów pełnomocnika strony przeciwnej lub audytu własnych pism; pyta o orzecznictwo, groźbę bezprawną (art. 87 KC), nagrania (art. 267 KK), podwójną kwalifikację kwoty lub e-mail pracownika; pyta o \"narzędzie\"/\"dashboard\"/\"analizator\" → wywołaj widget React; pyta \"co mam zrobić\" / \"czy mam szansę\" / \"czy to zgodne z prawem\". v6: model CZTEROPRZEBIEGOWY z obowiązkową DWUKROTNĄ WERYFIKACJĄ dowodów i pism."
+description: "Czteroprzebiegowa analiza akt, pism, wyroków i dowodów: mapa faktów, kwalifikacja prawna, analiza adversarialna, dwukrotna weryfikacja, ocena szans i raport końcowy."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-27"
+  source-tree: "development-2026-09-01"
   source-directory: "analiza-sadowa-v6"
 ---
 
 > [!IMPORTANT]
 > Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
+> **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
+
+
+## ADAPTER RUNTIME — PORTABILITY (ChatGPT / Claude / inne hosty)
+
+Ta sekcja zmienia wyłącznie warstwę wykonawczą. Model czteroprzebiegowy, izolacja faktów od oceny prawnej, dwukrotna weryfikacja, moduły MOD-A…MOD-F i wszystkie bramki jakości pozostają bez zmian.
+
+1. `view analiza-sadowa-v6/<plik>` oraz `view references/...` oznaczają świeży odczyt lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
+2. `view shared/<plik>` oznacza odczyt z osobnego kanonicznego skilla `shared`. NIE kopiuj żadnego modułu `shared` do tej paczki. Brak obowiązkowego modułu = fail-closed.
+3. Odwołania do `analizator-dowodow-v3`, `raport-sytuacyjny-v2`, DR-skilli i innych skilli oznaczają integracje między-skillowe; nie vendoryzuj ich.
+4. `web_search` / `web_fetch` oznaczają świeże wyszukanie i odczyt źródła przez równoważną funkcję hosta, z zachowaniem oficjalnych źródeł i PRAWO-HARDGATE.
+5. `show_widget`, HTML/JSX i legacy instrukcje renderowania oznaczają opcjonalny interaktywny widok. Jeśli host ma natywny renderer, użyj równoważnego UI; brak UI nie blokuje pełnej analizy tekstowej.
+6. Polecenia `pdftoppm`, `pdftotext`, `openpyxl`, `zipfile`, shell/Python oraz `view` plików użytkownika są technikami odczytu. Użyj natywnego parsera hosta, jeśli zapewnia równoważną kompletność; nie deklaruj wykonania narzędzia, którego faktycznie nie użyto.
+7. `/mnt/user-data/...` oznacza rzeczywiste załączniki użytkownika dostępne w hoście. Ponowna weryfikacja dokumentu ma być faktycznym ponownym odczytem źródła.
+8. Wymóg kolejnych wiadomości opisuje separację etapów i punktów STOP; host może realizować ją natywnie w kolejnych turach rozmowy bez ujawniania prywatnego toku rozumowania. Raportuj ustalenia, źródła, wyniki bramek i wnioski, nie ukryty chain-of-thought.
+
+**Zasada nadrzędna:** instrukcje zrozumiałe i wykonalne w bieżącym hoście wykonuj bez konwersji. Adapter działa tylko na granicy runtime.
 
 **Zasada progressive disclosure:** Zacznij od tego pliku. Doładuj references/ tylko gdy
 konkretny moduł jest potrzebny. Widget przez show_widget z HTML (NIE przez .jsx).
@@ -78,7 +96,7 @@ FALLBACK), a nie ten plik — ale dla kogoś czytającego wyłącznie ten skill:
 ## KROK 0 — SKAN KOMPLETNOŚCI PLIKÓW ⛔ HARD GATE
 
 > Wykonaj jako ABSOLUTNIE PIERWSZY krok — przed KOMUNIKATEM STARTOWYM i przed Przejściem I.
-> Mechanizm współdzielony: `view ../shared/MOD-SKAN-DOWODOW-KOMPLETNY.md`
+> Mechanizm współdzielony: `view shared/MOD-SKAN-DOWODOW-KOMPLETNY.md`
 
 ```
 SD-GATE-0: Czy w wiadomości wzmianka o aktach/pismach/dowodach/dokumentach
@@ -155,7 +173,7 @@ Moduły specjalne: błędy pełnomocnika, groźba bezprawna, nagrania, terminy, 
 ## ⛔ HARD GATE — ZAKAZ CYTOWANIA PRAWA I ORZECZEŃ Z PAMIĘCI
 
 > Przed podaniem jakiegokolwiek przepisu, artykułu, terminu lub sygnatury orzeczenia:
-> `view ../shared/PRAWO-HARDGATE.md`
+> `view shared/PRAWO-HARDGATE.md`
 > Jeśli źródło niedostępne → oznacz `⚠️ [NIEWERYFIKOWANE]` i kontynuuj bez treści przepisu.
 
 ### ⛔ BRAMKI TOWARZYSZĄCE (dodane 2026-08-23, F-109)
@@ -165,25 +183,24 @@ kontrolują, CZY ten przepis w ogóle powinien się w analizie znaleźć oraz cz
 liczba jest kompletna. Wykonuj je w PRZEJŚCIU IV (4A, pytania P6–P7):
 
 ```
-□ [ANTY-FASADA] (dodane 2026-08-23, v2.6) Czy w odpowiedzi/piśmie jest słowo
-  „zweryfikowano/zweryfikowałem", pole „data weryfikacji" albo URL przy przepisie,
-  dla którego NIE wywołałem narzędzia W TEJ ODPOWIEDZI? TAK → ⛔ usuń deklarację
-  i datę, URL przeformatuj na 🎯 [CEL — RZĄD 1, NIEOTWARTE: …], przepis oznacz
-  ⚠️ [NIEWERYFIKOWANE]. Wyzwalacz to BRAK WYWOŁANIA, nie brak narzędzi w sesji.
-  ⛔ Zastrzeżenie selektywne (przy sygnaturach tak, przy przepisach nie) = naruszenie.
+□ [ANTY-FASADA + AF-6] Wykonaj self-check antyfasadowy z modułu kanonicznego:
+    view shared/SELF-CHECK-ANTY-FASADA.md
+  ⛔ Treść listy NIE jest tu kopiowana (F-115, 2026-08-23i). Poprzednia kopia
+    miała 1 z 2 pozycji: gdy F-117 dodała AF-6 do źródła, kopie nie zostały
+    zaktualizowane. Jedno miejsce prawdy = jedno miejsce aktualizacji.
 □ [DOMAIN-LOCK] Odpowiedź/pismo zawiera przepis SPOZA dziedziny wiodącej
   (KK/KKS/KW/KPK/KPW przy torze cywilnym, pracowniczym lub administracyjnym —
   albo odwrotnie)? NIE → OK. TAK → (a) konkretny FAKT wypełniający znamię,
   nie skojarzenie tematyczne? (b) właściwy DR wczytany w TEJ odpowiedzi?
   (c) przepis przeszedł PRAWO-HARDGATE w TEJ odpowiedzi? Którekolwiek NIE →
-  ⛔ USUŃ powołanie.  → `view ../shared/DOMAIN-LOCK.md`
+  ⛔ USUŃ powołanie.  → `view shared/DOMAIN-LOCK.md`
 □ [RATE-COMPLETENESS] Występują odsetki / waloryzacja / wskaźnik zmienny
   w czasie? NIE → OK. TAK → przedział zapisany + reżim rozstrzygnięty
   (KC vs transakcje handlowe) + szereg podokresów BEZ LUK + znacznik na
   KAŻDYM wierszu? NIE → nie podawaj kwoty łącznej, pokaż tabelę z ⬛.
-  → `view ../shared/RATE-COMPLETENESS.md`
+  → `view shared/RATE-COMPLETENESS.md`
 □ [STATUSY] Każdy przepis ma znacznik z ZAMKNIĘTEJ hierarchii czterech:
-  ✅ [VER] · 🟡 [KOTWICA-URZĘDOWA] · ⚠️ [NIEWERYFIKOWANE] · ⬛ [DO UZUPEŁNIENIA]?
+  ✅ [VER] · 🟨 [KOTWICA-URZĘDOWA] · ⚠️ [NIEWERYFIKOWANE] · ⬛ [DO UZUPEŁNIENIA]?
   Etykieta spoza tej listy = naruszenie hard gate (PRAWO-HARDGATE v2.5).
 ```
 
@@ -193,7 +210,7 @@ liczba jest kompletna. Wykonuj je w PRZEJŚCIU IV (4A, pytania P6–P7):
 **Cel: Wyłącznie bezsporny stan faktyczny. Zero oceny. Zero prawa.**
 
 > **CLAIM-VALIDATION przed mapowaniem:**
-> `view ../shared/CLAIM-VALIDATION.md`
+> `view shared/CLAIM-VALIDATION.md`
 > Twierdzenia strony nieznajdujące oparcia w dostarczonych dokumentach → oznacz
 > `[⛔ NIEUDOWODNIONE]`; nie wpisuj do Mapy Faktycznej jako faktów.
 > Twierdzenia strony sprzeczne z dokumentami → oznacz `[⛔ SPRZECZNE]`;
@@ -429,7 +446,7 @@ P6. IZOLACJA DZIEDZINOWA  (DOMAIN-LOCK, dodane 2026-08-23 — F-109)
           skojarzeniu tematycznym (dług→oszustwo, konflikt→znęcanie)?
     NIE → ⛔ usuń kwalifikację. Sygnalizacja wątku bez podstawy faktycznej
           wyłącznie opisowo, BEZ numeru artykułu (DL-5).
-    → view ../shared/DOMAIN-LOCK.md
+    → view shared/DOMAIN-LOCK.md
 
 P7. KOMPLETNOŚĆ SZEREGU  (RATE-COMPLETENESS, dodane 2026-08-23 — F-109)
     Czy predykcja §9 lub wyliczenie roszczenia opiera się na odsetkach /
@@ -437,7 +454,7 @@ P7. KOMPLETNOŚĆ SZEREGU  (RATE-COMPLETENESS, dodane 2026-08-23 — F-109)
     TAK → czy szereg podokresów pokrywa cały przedział BEZ LUK, z rozdzielonym
           reżimem i znacznikiem na każdym wierszu?
     NIE → ⛔ nie podawaj kwoty łącznej; tabela z jawnymi ⬛.
-    → view ../shared/RATE-COMPLETENESS.md
+    → view shared/RATE-COMPLETENESS.md
 ```
 
 #### 4B. WERYFIKACJA OSTATECZNA — ponowne przeczytanie dokumentów
@@ -547,7 +564,7 @@ KROK 4 — Raport końcowy §1-§11 (tylko po GATE: ZATWIERDZONE TAK)
    przeciwnik, etap, wartosc, przepis, znamiona, notatki)
 2. visualize:read_me modules=["interactive","mockup"]
 3. ⛔ MOD-WIDGET-IO (OBOWIĄZKOWE przed show_widget):
-   view ../shared/MOD-WIDGET-IO.md
+   view shared/MOD-WIDGET-IO.md
    → wbuduj pasek IO (§3 HTML + §4 CSS + §5 JS) w nagłówek widgetu
    → zaimplementuj ioGetState/ioSetState/ioGetMarkdown dla danych analiza-sadowa
    → ustaw IO_SKILL_ID='analiza-sadowa-v6', IO_CASE_ID=syg
@@ -627,7 +644,7 @@ A+F łącznie: audyt dwustronny. B+D: często w sporach pracowniczych.
         źródłowe; brak view = zakaz opisywania "ponownego przeczytania";
         fakt bez view = oznaczony jako NIEZWERYFIKOWANY z poziomem pewności WĄTPLIWY
 16. SD-SKAN KOMPLETNY (KROK 0) — mechanizm shared:
-    view ../shared/MOD-SKAN-DOWODOW-KOMPLETNY.md
+    view shared/MOD-SKAN-DOWODOW-KOMPLETNY.md
     Wszystkie dokumenty muszą być zinwentaryzowane i odczytane (SD-VER=KOMPLET)
     PRZED Przejściem I. Pominięcie strony lub protokołu sądowego = błąd krytyczny.
 
@@ -728,7 +745,7 @@ WIADOMOŚĆ 6 — WIDGET RAPORTU SYTUACYJNEGO [OBOWIĄZKOWY]
 Wykonaj natychmiast po §11 raportu końcowego, bez pytania o zgodę.
 
 SEKWENCJA:
-  1. view ../shared/raport-sytuacyjny-integracja.md
+  1. view shared/raport-sytuacyjny-integracja.md
      (tylko jeśli nie wczytano w tej sesji)
 
   2. Zbuduj blueprint JSON ze schematu w raport-sytuacyjny-v2/SKILL.md
@@ -828,12 +845,12 @@ Hard gate: nie przygotowuj repliki, odpowiedzi, apelacji bez V10 w Przejściu II
 
 Gdy wynik analizy służy do pisma, strategii lub decyzji terminowej:
 
-view ../shared/TRYBY-PROCESOWE.md
-view ../shared/RISK-ASSESSMENT.md
-view ../shared/TERM-CALC.md
-view ../shared/DOWODY-METODOLOGIA.md
-view ../shared/PREKLUZJA-DOWODOWA.md
-view ../shared/STRATEGIA-PROCESOWA.md
-view ../shared/QUALITY-CHECK.md
+view shared/TRYBY-PROCESOWE.md
+view shared/RISK-ASSESSMENT.md
+view shared/TERM-CALC.md
+view shared/DOWODY-METODOLOGIA.md
+view shared/PREKLUZJA-DOWODOWA.md
+view shared/STRATEGIA-PROCESOWA.md
+view shared/QUALITY-CHECK.md
 
 Nie dubluj logiki shared w lokalnych plikach.

@@ -489,4 +489,3 @@ Podczas generowania pisma procesowego:
   3. Sprawdź C1 (rodzaj gramatyczny) i C2 (kompletność podmiotów)
   4. Wstaw elementy OBL, ADD, POZ/WNP/WSA/ZAW/WEZ w zależności od W1-W7
 ```
-

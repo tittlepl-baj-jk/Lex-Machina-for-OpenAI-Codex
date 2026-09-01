@@ -86,7 +86,7 @@ OD RAZU KROK 2 (bez krok 1) gdy:
 TERMIN ODPOWIEDZIALNOŚCI:
   2 lata od wydania towaru (art. 43c ust. 1 PK)
   Rzeczy używane: można skrócić do 1 roku (umowa)
-  
+
 DOMNIEMANIE NIEZGODNOŚCI:
   2 lata od wydania — ciężar dowodu zgodności NA SPRZEDAWCY
 
@@ -119,7 +119,7 @@ ZAKRES:
 ODPOWIEDZIALNOŚĆ PRZEDSIĘBIORCY:
   Jednorazowe / w częściach: 2 lata od dostarczenia (art. 43l ust. 1 PK)
   Ciągłe (subskrypcja): przez cały czas dostarczania + 2 lata od zakończenia
-  
+
 DOMNIEMANIE NIEZGODNOŚCI: 1 rok (krótszy niż przy towarach)
 
 WYŁĄCZENIE ODPOWIEDZIALNOŚCI (art. 43l ust. 5 PK):

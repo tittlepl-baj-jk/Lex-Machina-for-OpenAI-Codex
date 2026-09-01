@@ -179,7 +179,7 @@ KROK PD3.2 — Wykonaj analizę plików z bieżącej partii:
     DOCX/ODT        → extract-text
     XLSX/CSV        → python3 openpyxl/csv
     JPG/PNG         → view (obraz bezpośredni)
-  
+
   Dla każdego pliku wykonaj analizę zgodnie z aktywnym skillem:
     analizator-dowodow-v3 → kroki MD1/MD2/MD3 per dokument
     pisma-procesowe-v3    → ekstrakcja faktów do W1.3
@@ -361,7 +361,7 @@ Po BLOK B (diagnoza wejścia), PRZED MD1-ekstrakcją:
   STATUS BEZPIECZNY  → kontynuuj MD1 normalnie.
   STATUS ≥ OSTRZEŻENIE → PD1 → PD2 → STOP.
   STATUS KRYTYCZNE   → ⛔ HARD GATE → PD1 → PD2 → STOP.
-  
+
   W każdej partii: MD1/MD2/MD3 wykonaj per plik z bieżącej partii Pi.
   Wyniki MD1/MD2 per plik → akumuluj w STAN_PARTII (PD3.3).
 ```

@@ -9,12 +9,9 @@
 - Repozytorium: <https://github.com/michaleiatrak-star/Lex-Machina>
 - Bazowa gałąź: `main`
 - Ostatni zsynchronizowany commit:
-  `21bc139886be011691b88b209aae3374b8c2da89`
-- Selektywny override routera 3.32:
-  `4a10568863edc77774790cbcc13d2984e259a87d`
+  `35cfd9ab388e2eca5544eb45fbaa0a1924dd5429`
 - Drzewo źródłowe: `Wersja rozwojowa rozpakowana`
-- Data synchronizacji pełnego drzewa: 2026-08-27
-- Data selektywnej synchronizacji routera: 2026-08-28
+- Data synchronizacji pełnego drzewa: 2026-09-01
 - Data utworzenia portu: 2026-08-23
 
 ## Konfiguracja Git

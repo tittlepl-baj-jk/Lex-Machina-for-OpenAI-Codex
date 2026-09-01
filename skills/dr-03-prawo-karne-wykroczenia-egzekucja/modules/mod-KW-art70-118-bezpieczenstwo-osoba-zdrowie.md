@@ -1,6 +1,6 @@
 # mod-KW-art70-118-bezpieczenstwo-osoba-zdrowie
 
-**Wersja:** 1.0 | **Dodano:** 2026-07-17
+**Wersja:** 1.1 | **Dodano:** 2026-07-17 | **Aktualizacja:** 2026-08-27 (art. 82)
 **Rola w systemie:** kontynuacja uzupełniania pokrycia Kodeksu wykroczeń
 — trzy rozdziały o wysokiej częstości praktycznej, dotąd CAŁKOWICIE
 nieobecne w systemie: bezpieczeństwo osób i mienia (X), przeciwko osobie
@@ -62,6 +62,30 @@ publiczności → grzywna do 250 zł albo nagana. Kto ZE ZŁOŚLIWOŚCI lub
 SWAWOLI takie oświetlenie gasi → grzywna do 500 zł (typ umyślny,
 surowszy niż samo zaniechanie).
 
+### Art. 82 — bezpieczeństwo pożarowe
+
+Art. 82 obejmuje zachowania mogące spowodować pożar, jego
+rozprzestrzenianie, utrudnić działanie ratownicze albo ewakuację. Katalog
+§ 1 obejmuje m.in. niedozwolone używanie otwartego ognia i innych źródeł
+zapłonu, prace pożarowo niebezpieczne bez wymaganego zabezpieczenia,
+używanie niesprawnych lub niekontrolowanych instalacji/urządzeń w warunkach
+mogących sprzyjać pożarowi lub wybuchowi, naruszenia zasad dotyczących
+materiałów niebezpiecznych pożarowo oraz inne ustawowo wskazane zachowania.
+
+**Aktualizacja sankcji:** ustawa z 7.11.2025 r. — Dz.U. 2025 poz. 1814
+zmieniła sankcje w art. 82 § 1, 2, 4 i 5 oraz § 3. W aktualnym reżimie
+wskazane jednostki przewidują karę aresztu, ograniczenia wolności albo
+grzywny. Ta sama nowelizacja zmieniła art. 24 § 1a KW i art. 96 § 1ad KPW,
+co ma znaczenie dla maksymalnej grzywny mandatowej.
+
+**RZĄD 1 / weryfikacja 2026-08-27:**
+- ELI, t.j. KW: Dz.U. 2025 poz. 734;
+- ELI, nowelizacja: Dz.U. 2025 poz. 1814.
+
+Przed kwalifikacją konkretnego zachowania odczytaj pełny właściwy paragraf
+art. 82 oraz przepisy ochrony przeciwpożarowej, do których znamiona mogą
+odsyłać.
+
 ### Art. 83 — materiały niebezpieczne
 
 Kto NIEOSTROŻNIE obchodzi się z materiałami wybuchowymi, łatwo
@@ -72,8 +96,8 @@ z `mod-KK-art163-172-bezpieczenstwo-powszechne.md` — przy poważniejszym
 skutku (zagrożenie życia wielu osób/mienia wielkich rozmiarów)
 kwalifikacja przechodzi do art. 163 KK.
 
-⚠️ Pozostałe artykuły rozdziału (72-76, 80-82) NIE zostały w pełni
-zweryfikowane w tej sesji — zweryfikuj na ISAP jeśli sprawa dotyczy
+⚠️ Pozostałe artykuły rozdziału (72-76, 80-81) NIE zostały w pełni
+zweryfikowane w tej sesji; **art. 82 zweryfikowano w ELI 2026-08-27** — zweryfikuj na ISAP jeśli sprawa dotyczy
 zagadnień spoza omówionych wyżej (np. materiały wybuchowe w innych
 kontekstach, ostrzeżenia przy pracach budowlanych).
 
@@ -128,19 +152,27 @@ ale wciąż złośliwy.
 
 ### Art. 107a — udaremnianie transmisji danych (nowszy, cyberprzestrzeń)
 
-⚠️ Zidentyfikowany w tej sesji jako istniejący artykuł ("Udaremnianie lub
-utrudnianie transmisji danych prowadzonej przy użyciu systemu
-teleinformatycznego") — dokładna treść §1 i ewentualnych dalszych
-paragrafów NIE została w pełni potwierdzona, zweryfikuj na ISAP przed
-użyciem. Potencjalne zastosowanie: zakłócanie transmisji internetowych/
-streamingu na poziomie wykroczeniowym (poniżej progu art. 269a KK).
+**§ 1:** sprawca, włączając się bez uprawnienia w transmisję danych
+prowadzoną przy użyciu systemu teleinformatycznego, umyślnie udaremnia
+lub utrudnia użytkownikowi tego systemu przekazywanie lub odbiór
+informacji. Sankcja: ograniczenie wolności albo grzywna nie niższa niż
+1000 zł.
+
+**§ 2:** jeżeli sprawca czynu z § 1 używa słów powszechnie uznanych za
+obelżywe albo w inny sposób dopuszcza się nieobyczajnego wybryku — areszt,
+ograniczenie wolności albo grzywna nie niższa niż 3000 zł.
+
+⛔ Koniunkcja znamion: samo nieuprawnione włączenie się do transmisji nie
+wystarcza; trzeba też udowodnić umyślne udaremnianie lub utrudnianie
+przekazywania albo odbioru informacji. ✅ [VER: ELI, Dz.U. 2025 poz. 734,
+art. 107a, odczyt 2026-08-25]
 
 ### Art. 108 — szczucie psem człowieka
 
-Kto szczuje psem człowieka → ograniczenie wolności, grzywna albo nagana
-(⚠️ górna granica grzywny w źródłach tej sesji podawana niespójnie — 1000
-zł wg jednego źródła z 2018 r., bez górnej granicy wg lexlege aktualnego —
-zweryfikuj aktualną wysokość na ISAP).
+Kto szczuje psem człowieka → ograniczenie wolności, grzywna albo nagana.
+Przepis nie ustanawia szczególnej granicy grzywny, więc działa granica
+ogólna z art. 24 § 1 KW: od 20 do 5000 zł. ✅ [VER: ELI, Dz.U. 2025
+poz. 734, art. 24 § 1 i art. 108, odczyt 2026-08-25]
 
 ---
 
@@ -175,7 +207,7 @@ rodziców odmawiających szczepień dzieci.
 Nieprzestrzeganie NAKAZU, ZAKAZU lub OBOWIĄZKU przez CHOREGO lub
 NOSICIELA choroby zakaźnej albo OSOBĘ SPRAWUJĄCĄ NAD NIMI PIECZĘ —
 bogata linia orzecznicza SN (4 pozycje). **Bezpośrednie powiązanie z
-`dr-01/mod-stany-nadzwyczajne-sytuacje-kryzysowe.md`** — ten przepis
+`dr-01-ustroj-konstytucyjny-i-zrodla-prawa/modules/mod-stany-nadzwyczajne-sytuacje-kryzysowe.md`** — ten przepis
 jest MATERIALNOPRAWNĄ podstawą sankcji za łamanie nakazów kwarantanny/
 izolacji nakładanych w reżimie "stanu epidemii" (ustawa z 2008 r.) —
 bezpośrednio istotny przy analizie kontrowersji konstytucyjnej opisanej
@@ -202,7 +234,7 @@ naruszenie).
 - **`mod-KK-art190a-stalking.md`** — art. 107 KW jako "niższy próg"
   odpowiedzialności za nękanie, gdy brak uporczywości wymaganej przez
   art. 190a KK — ZAWSZE sprawdź oba przepisy łącznie w sprawach o nękanie.
-- **`dr-01/mod-stany-nadzwyczajne-sytuacje-kryzysowe.md`** — art. 116 KW
+- **`dr-01-ustroj-konstytucyjny-i-zrodla-prawa/modules/mod-stany-nadzwyczajne-sytuacje-kryzysowe.md`** — art. 116 KW
   jako podstawa sankcji za naruszenie nakazów w stanie epidemii —
   bezpośrednie powiązanie z kontrowersją konstytucyjną tam opisaną.
 - **`mod-KK-art163-172-bezpieczenstwo-powszechne.md`** — art. 83 KW

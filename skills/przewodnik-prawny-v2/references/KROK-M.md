@@ -182,4 +182,3 @@ Uruchomić? Jeśli tak — wymień dowody które masz, każdy z krótkim opisem.
 ```
 
 ---
-

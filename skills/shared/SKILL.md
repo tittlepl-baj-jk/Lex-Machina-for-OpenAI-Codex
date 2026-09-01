@@ -3,7 +3,7 @@ name: "shared"
 description: "Kanoniczna biblioteka Lex Machina: hardgate, walidacja, definicje, terminy i moduły wspólne. Nie odpowiada użytkownikowi samodzielnie; zasoby wczytują inne skille."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-27"
+  source-tree: "development-2026-09-01"
   source-directory: "shared"
 ---
 

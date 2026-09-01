@@ -241,4 +241,3 @@ PRZESŁANKI: (1) NIEWYKONANIE/nienależyte wykonanie OBOWIĄZKÓW
   UKARANIE grzywną/pozbawieniem WOLNOŚCI NIE wyklucza RÓWNOLEGŁEGO
   dochodzenia ODSZKODOWANIA przez SPÓŁKĘ.
 ```
-

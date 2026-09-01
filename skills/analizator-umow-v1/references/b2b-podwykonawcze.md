@@ -49,7 +49,7 @@ przepis to art. 11 ust. 1 pkt 7a ustawy o PIP, NIE "art. 10 ust. 1 pkt
 7a" jak podawała poprzednia wersja — potwierdzone jednoznacznie
 oficjalnym tekstem ustawy [orka.sejm.gov.pl] i 5+ zgodnymi źródłami
 — pełny opis mechanizmu, w tym niuanse temporalne i zakaz
-retorsji: `dr-04/modules/mod-ustawa-PIP-inspekcja-pracy.md` sekcja 6.2,
+retorsji: `dr-04-prawo-pracy-zus-swiadczenia/modules/mod-ustawa-PIP-inspekcja-pracy.md` sekcja 6.2,
 NIE duplikuj tutaj), SAMODZIELNIE stwierdzić istnienie stosunku pracy —
 BEZ POŚREDNICTWA sądu. Kluczowe dla OCENY RYZYKA w tym module:
   □ ✅ ROZSTRZYGNIĘTE 2026-08-08 (FLAGA F-19 ZAMKNIĘTA): odwołanie od
@@ -453,7 +453,7 @@ MECHANIZM (art. 647¹ KC — aktualne brzmienie po nowelizacji 2017):
   → Formularz sprzeciwu i zgłoszenia: wyłącznie forma pisemna!
 → ZAWSZE wymagaj pisemnego zgłoszenia podwykonawcy inwestorowi przed rozpoczęciem robót
 → Dokumentuj brak sprzeciwu (brak odpowiedzi w 30 dniach = odpowiedzialność inwestora)
-→ Weryfikuj: isap.sejm.gov.pl → KC art. 647¹ (t.j. Dz.U. 2025 poz. 1071)
+→ Weryfikuj: isap.sejm.gov.pl → KC art. 647¹ (t.j. Dz.U. 2026 poz. 795)
 ```
 
 **Pułapka B-2 — Wynagrodzenie podwykonawcy > wynagrodzenie GW:**

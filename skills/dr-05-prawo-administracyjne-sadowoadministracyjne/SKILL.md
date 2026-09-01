@@ -1,14 +1,31 @@
 ---
 name: "dr-05-prawo-administracyjne-sadowoadministracyjne"
-description: "DR-05: Prawo Administracyjne i Sądownictwo Administracyjne Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.nsa.gov.pl | nsa.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
+description: "Prawo administracyjne i sądowoadministracyjne: KPA, PPSA, decyzje, bezczynność, WSA/NSA, egzekucja administracyjna, cudzoziemcy i postępowania urzędowe."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-27"
+  source-tree: "development-2026-09-01"
   source-directory: "dr-05-prawo-administracyjne-sadowoadministracyjne"
 ---
 
 > [!IMPORTANT]
 > Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
+> **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
+
+
+## ADAPTER RUNTIME — PORTABILITY (ChatGPT / Claude / inne hosty)
+
+Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
+
+1. `view dr-05-prawo-administracyjne-sadowoadministracyjne/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
+2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
+3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
+4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
+5. `show_widget`, `visualize:read_me`, `present_files`, `create_file`, shell/Python i podobne operacje są nazwami semantycznymi. Jeśli host nie ma literalnego narzędzia, użyj równoważnej funkcji natywnej bez omijania bramek jakości.
+6. `/mnt/user-data/...` oznacza rzeczywiste załączniki użytkownika dostępne w bieżącym hoście; wymagany ponowny odczyt ma być faktycznym odczytem źródła.
+
+**Zasada nadrzędna:** instrukcje, które są już zrozumiałe i wykonalne w bieżącym hoście, wykonuj bez konwersji. Adapter działa wyłącznie na granicy runtime.
+
 
 # DR-05 — Prawo Administracyjne i Sądownictwo Administracyjne
 
@@ -23,6 +40,25 @@ metadata:
 > gradient weryfikacji cytatu): `view shared/PRAWO-HARDGATE.md` — wczytaj
 > PRZED pierwszym przepisem w każdej odpowiedzi. Integruje się z
 > `shared/ISAP-AUDIT-PROTOCOL.md`.
+
+
+> ⛔ **SELF-CHECK ANTY-FASADA — obowiązkowy przed wysłaniem odpowiedzi/pisma**
+> (podłączone 2026-08-24, flaga F-115 P3 — zamknięcie zakresu 16 skilli DR):
+>
+> ```
+> view shared/SELF-CHECK-ANTY-FASADA.md
+> ```
+>
+> Sprawdza dwie rzeczy: (1) czy w tekście stoi „zweryfikowano", data weryfikacji
+> albo URL przy przepisie, dla którego NIE wywołano narzędzia W TEJ ODPOWIEDZI;
+> (2) czy znacznik statusu nie został nadany treści WYGENEROWANEJ w tej odpowiedzi
+> (AF-6). Treść listy jest w module, nie tutaj — celowo, żeby nie powstało kolejne
+> miejsce dryfu (7 wcześniejszych kopii rozjechało się ze źródłem przy pierwszej
+> zmianie brzmienia).
+>
+> ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
+> oznaczenia, tylko je wymusza.
 
 ---
 
@@ -55,7 +91,9 @@ Przy sprawach z tej dziedziny rozważ doładowanie (`view`) definicji:
 - BAS-W21 Informacja przetworzona (UDIP art. 3 — "szczególna istotność")
 - BAS-W29 Pełnomocnik z urzędu — prawo do sądu (art. 117 KPC)
 
-## Moduły (20 łącznie — ✓ 20 OK, ☐ 0 STUB)
+## Moduły (23 łącznie — ✓ 23 OK, ☐ 0 STUB)
+
+  [✓] OK    mod-KPA-current-state-COV
 
 **NAPRAWA 2026-08-22 (kontynuacja):** dodano `mod-PPSA-orzeczenia-
 sadowe-rozdzial-10.md` — naprawa poz. #8 mapy pokrycia PPSA (ostatnia
@@ -71,7 +109,7 @@ z sankcjami grzywny (art. 149), związanie oceną prawną sądu (art.
 153 — przepis o dużej praktycznej doniosłości), umorzenie
 postępowania (art. 161). Uwzględnia zmianę linii orzeczniczej po
 wyroku TK z 26.02.2025 dot. art. 149 §1 pkt 3. Rząd 1: arslege.pl,
-lexlege.pl (metryka Dz.U.2026.143 t.j.), sip.lex.pl. Pełny opis:
+lexlege.pl (metryka Dz.U. 2026 poz. 143 t.j.), sip.lex.pl. Pełny opis:
 `audyt-systemu-v4/references/AUDIT-JOURNAL.md`.
 
 **NAPRAWA 2026-08-13:** dodano `mod-PPSA-terminy-kasacja-prawo-
@@ -137,10 +175,14 @@ KOMPLETNOŚĆ — wszystkie tematy potwierdzone obecne po podziale.
   [✓] OK    mod-ustawa-RPO
   [✓] OK    mod-ustawa-SKO
   [✓] OK    mod-ustawa-kontrola-administracji
+  [✓] NOWY  mod-ustawa-wojewoda-administracja-rzadowa
+              (F-108/45 P3: dedykowany moduł B+, Dz.U. 2025 poz. 428)
   [✓] OK    mod-ustawa-petycje
   [✓] OK    mod-ustawa-zaskarzanie-decyzji-wlasnosci
   [✓] OK    mod-ustawa-dostepnosc-niepelnosprawni
   [✓] OK    mod-ustawa-sygnalisci
+  [✓] NOWY  mod-PPSA-uzupelnienie-pokrycia-2026
+              (pozostałe działy PPSA: właściwość, strony, pisma, doręczenia, terminy, zażalenie i środki nadzwyczajne)
   [✓] NOWY  mod-PPSA-terminy-kasacja-prawo-pomocy
               (dodany 2026-08-13 — PIERWSZY dedykowany moduł PPSA w
                systemie, naprawa F-64. Uchybienie/przywrócenie terminu
@@ -152,7 +194,7 @@ KOMPLETNOŚĆ — wszystkie tematy potwierdzone obecne po podziale.
                Komplementarny do mod-KPA-tryby-nadzwyczajne-i-
                strategia, NIE duplikuje kwalifikacji skargi do WSA.
                ✅ ROZSZERZONY 2026-08-20 — naprawa F-88, punkt PPSA:
-               nowa sekcja 7, doprecyzowanie ustawą Dz.U. 2026.846
+               nowa sekcja 7, doprecyzowanie ustawą Dz.U. 2026 poz. 846
                [w życie 1.10.2026] terminu skargi do WSA na opinię
                transgraniczną i odmowę jej wydania. ⚠️ [NIEWERYFIKOWANE
                RZĄD 1] — dokładny artykuł i treść NIE potwierdzone,
@@ -229,13 +271,13 @@ materialnego i procesowego (pozostałe moduły powyżej).
 ## Jak wywołać
 
 ```
-view ../dr-05-prawo-administracyjne-sadowoadministracyjne/modules/[nazwa-modulu].md
+view dr-05-prawo-administracyjne-sadowoadministracyjne/modules/[nazwa-modulu].md
 ```
 
 ## Lokalna mapa aktów prawnych
 
 ```
-view ../dr-05-prawo-administracyjne-sadowoadministracyjne/MAPA-AKTOW.md
+view dr-05-prawo-administracyjne-sadowoadministracyjne/MAPA-AKTOW.md
 ```
 
 ## Mapa pokrycia treściowego (planowanie rozwoju skilla)
@@ -247,7 +289,7 @@ zaktualizowania. (F-83, zasilony 2026-08-22; obejmuje na razie wyłącznie
 PPSA — akt bez własnego dedykowanego modułu):
 
 ```
-view ../dr-05-prawo-administracyjne-sadowoadministracyjne/MAPA-POKRYCIA.md
+view dr-05-prawo-administracyjne-sadowoadministracyjne/MAPA-POKRYCIA.md
 ```
 
 ## Powiązania zewnętrzne
@@ -263,7 +305,7 @@ view ../dr-05-prawo-administracyjne-sadowoadministracyjne/MAPA-POKRYCIA.md
 Po zakończeniu analizy lub przed oddaniem odpowiedzi zawierającej ocenę prawną:
 
 ```text
-view ../shared/DISCLAIMER.md
+view shared/DISCLAIMER.md
 ```
 
 Wybierz wariant odpowiedni do trybu:

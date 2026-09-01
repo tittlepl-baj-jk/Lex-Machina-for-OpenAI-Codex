@@ -1,14 +1,33 @@
 ---
 name: "audyt-systemu-v4"
-description: "Audyt i kontrola jakości systemu Lex Machina. Używaj, gdy użytkownik żąda audytu spójności, rejestracji modułów, map Dz.U., testów regresji lub wykrycia otwartych ryzyk. Moduł źródłowy: audyt-systemu-v4 — Orchestrator Audytu Systemu Prawnego."
+description: "Audyt jakości, spójności i bezpieczeństwa systemu prawnych skilli: zależności, wersje, mapy Dz.U., treść merytoryczna, propagacja zmian, deduplikacja i bramki jakości."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-27"
+  source-tree: "development-2026-09-01"
   source-directory: "audyt-systemu-v4"
 ---
 
 > [!IMPORTANT]
 > Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
+> **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
+
+
+## ADAPTER RUNTIME — PORTABILITY (ChatGPT / Claude / inne hosty)
+
+Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Tryby audytu, zasady kontroli merytorycznej, map Dz.U., deduplikacji, propagacji zmian, rejestrów i bramek jakości pozostają bez zmian.
+
+1. `view audyt-systemu-v4/<plik>` oraz względne odwołania do `modules/`, `references/`, `scripts/` i `widgets/` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalna ścieżka `..` nie jest wymagana.
+2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do paczki audytora. Brak obowiązkowego zasobu = fail-closed.
+3. `view <inny-skill>/<plik>` oznacza odczyt/aktywację osobnego skilla przez mechanizm hosta. Audyt może kontrolować zależności między skillami, ale nie vendoryzuje ich.
+4. `web_search` / `web_fetch` oznaczają świeże wyszukanie i odczyt źródła przez równoważną funkcję hosta. Przy audycie prawa zachowaj wymóg źródeł oficjalnych i nie traktuj pamięci modelu jako weryfikacji.
+5. `present_files`, `create_file`, `show_widget`, `visualize:read_me`, Cowork i podobne nazwy są operacjami semantycznymi. Użyj równoważnej natywnej funkcji hosta, jeśli istnieje; jeśli nie, zastosuj tekstowy/plikowy fallback bez fikcyjnego raportowania wykonania.
+6. Skrypty w `scripts/` mają wykrywać root repo względnie lub z `REPO_ROOT`/`LEX_MACHINA_ROOT`; nie zakładaj `..`. Twardy limit wydania pozostaje 200 plików na skill.
+7. Audyt treści i narzędzi może raportować Claude-specific lub ChatGPT-specific tokeny jako portability warnings; sama obecność legacy nazwy nie jest automatycznie błędem, jeśli adapter semantyczny zapewnia równoważne wykonanie.
+8. Nie ujawniaj prywatnego chain-of-thought jako produktu audytu. Raportuj wykryte fakty, ślady weryfikacji, testy, różnice, ryzyka i rekomendowane poprawki.
+
+**Zasada nadrzędna:** instrukcje, które są już zrozumiałe i wykonalne w bieżącym hoście, wykonuj bez konwersji. Adapter działa wyłącznie na granicy runtime.
+
 
 # audyt-systemu-v4 — Orchestrator Audytu Systemu Prawnego
 
@@ -28,7 +47,7 @@ Po zakończeniu audytu: **obowiązkowa aktualizacja plików references**.
 > `AUDIT-JOURNAL.md`, z jawnym wskazaniem w tytule sekcji, że dotyczy skilla
 > proceduralnego, a nie mapy Dz.U. — żeby FAZA 3 (Dz.U.) nie myliła kontekstów.
 > Ta zasada nie jest jednorazowym wyjątkiem — obowiązuje dla każdego kolejnego
-> audytu, dowolnego skilla w `../`.
+> audytu, dowolnego skilla w ``.
 
 ---
 
@@ -161,11 +180,18 @@ Po zakończeniu audytu: **obowiązkowa aktualizacja plików references**.
 Przed jakimkolwiek działaniem wczytaj:
 
 ```
-view ../audyt-systemu-v4/references/AUDIT-JOURNAL.md
-view ../audyt-systemu-v4/references/WARN-OTWARTE.md
-view ../audyt-systemu-v4/references/CHECKLIST-DEDUP.md
-view ../audyt-systemu-v4/references/mapa_dzu_2026-08-21.md
+view audyt-systemu-v4/references/AUDIT-JOURNAL.md
+view audyt-systemu-v4/references/WARN-OTWARTE.md
+view audyt-systemu-v4/references/CHECKLIST-DEDUP.md
+USTAL AKTUALNA_MAPA_DZU: wylistuj references/mapa_dzu_YYYY-MM-DD.md,
+wybierz plik z najpóźniejszą datą w nazwie i sprawdź, że da się go odczytać
+view AKTUALNA_MAPA_DZU
 ```
+
+⛔ Nie wpisuj na stałe daty bieżącej mapy w procedurze. Każda nowa generacja
+zmienia nazwę pliku; brak dynamicznego wyboru powodował odwołania do usuniętej
+mapy z 2026-08-21 mimo obecności mapy z 2026-08-26. Brak choć jednego pliku
+`mapa_dzu_YYYY-MM-DD.md` albo błąd odczytu najnowszego = CRIT i STOP.
 
 Celem jest ustalenie:
 - Jaki był wynik ostatniego audytu (AUDIT-JOURNAL.md → ostatni wpis `## AUDYT-YYYY-MM-DD`)
@@ -186,7 +212,7 @@ Gdy użytkownik wywołuje audyt **bez precyzowania zakresu** (np. "przeprowadź 
 
 1. Wczytaj widget:
 ```
-view ../audyt-systemu-v4/widgets/WIDGET-MENU.md
+view audyt-systemu-v4/widgets/WIDGET-MENU.md
 ```
 
 2. Wyrenderuj menu wielokrotnego wyboru przez `show_widget` (kod JSX z WIDGET-MENU.md).
@@ -225,11 +251,29 @@ albo razem z pozycjami audytowymi.
 
 ---
 
+## FAZA 0D — PAMIĘĆ TRWAŁA ROUTERA (POZYCJA 13)
+
+Po wyborze pozycji 13 albo poleceniu „zsynchronizuj pamięć routera”:
+
+1. `view references/PAMIEC-TRWALA-ROUTER.md`;
+2. porównaj wersję routera z wersją w wydzielonej sekcji trwałych preferencji;
+3. pokaż dokładny diff i pełną treść docelową, po czym zakończ turę;
+4. zapisz dopiero po akceptacji i zweryfikuj ponownym odczytem;
+5. odnotuj wynik w `AUDIT-JOURNAL.md`.
+
+Brak natywnej pamięci trwałej jest wynikiem `NIEOBSŁUGIWANE W HOŚCIE`, nie
+upoważnia do utworzenia zastępczego pliku ani do raportowania fikcyjnego zapisu.
+
+---
+
 ## FAZA 1 — INWENTARYZACJA SYSTEMU
 
 ```bash
-find ../ -not -path "*/archive/*" | sort
+find "$LEX_MACHINA_SKILLS_ROOT" -not -path "*/archive/*" | sort
 ```
+
+Jeżeli host nie udostępnia zmiennej, najpierw rozwiąż semantyczny katalog
+zainstalowanych skilli wg adaptera runtime i użyj jego rzeczywistej ścieżki.
 
 Zbuduj tabelę: skill → liczba plików → rozmiar → status (✅/⚠️/❌).
 
@@ -245,7 +289,7 @@ Wykryj: nowe skille, usunięte skille, zmienione rozmiary.
 Dla każdego SKILL.md sprawdź, czy wszystkie `view`/`load` odwołania wskazują na istniejące pliki:
 
 ```bash
-grep -r "view /mnt/skills" ../ --include="*.md" | grep -v archive
+grep -r "view " "$LEX_MACHINA_SKILLS_ROOT" --include="*.md" | grep -v archive
 ```
 
 Każda ścieżka nieistniejąca = błąd **CRIT**.
@@ -255,7 +299,8 @@ Każda ścieżka nieistniejąca = błąd **CRIT**.
 Sprawdź, czy żaden skill nie odwołuje się do usuniętej wersji innego skilla (np. v1 zamiast v2):
 
 ```bash
-grep -r "przewodnik-prawny-v1\|analiza-sadowa-v5\|pisma-procesowe-v2" ../ --include="*.md" | grep -v archive
+grep -r "przewodnik-prawny-v1\|analiza-sadowa-v5\|pisma-procesowe-v2" \
+  "$LEX_MACHINA_SKILLS_ROOT" --include="*.md" | grep -v archive
 ```
 
 Dodaj tu wzorce wg historii napraw z `references/CHANGELOG.md` i `references/CHECKLIST-DEDUP.md`.
@@ -264,15 +309,30 @@ Dodaj tu wzorce wg historii napraw z `references/CHANGELOG.md` i `references/CHE
 przetrwało 2 miesiące i ~90 sesji, bo FAZA 2A sprawdza tylko ścieżki `view`, a to
 była nazwa w prozie — wzorzec do uwzględnienia przy rozbudowie testu T6.)*
 
-### 2C — Description length (limit 1024 znaków)
+### 2C — Pole description: OBECNOŚĆ + profil uniwersalny ≤200 znaków
 
 Wczytaj moduł i uruchom procedurę:
 
 ```
-view ../audyt-systemu-v4/modules/MOD-DESCRIPTION.md
+view audyt-systemu-v4/modules/MOD-DESCRIPTION.md
 ```
 
-Przekroczenie 1024 = **CRIT**. Zakres 901–1024 = **WARN**.
+Kontrola automatyczna (test **T14**, zalecana zamiast ręcznego liczenia):
+
+```bash
+python3 audyt-systemu-v4/scripts/check_description.py "$LEX_MACHINA_SKILLS_ROOT"
+```
+
+**Brak pola / pole puste = CRIT** (F-130). Długość >200 = **CRIT**,
+181–200 = **WARN**, ≤180 = **OK**. To wspólny profil przenośności; nie
+utrzymuj osobnych opisów per host.
+
+> ⛔ **ROZSZERZENIE 2026-08-24 (F-130).** Ta faza sprawdzała dotąd WYŁĄCZNIE
+> długość — i przez to była ślepa na jedyny przypadek, który naprawdę wystąpił:
+> **brak pola w ogóle**. Skrypt z `MOD-DESCRIPTION.md` dla takiego pliku wypisywał
+> `0` znaków i klasyfikował go jako ✅ OK. `audyt-systemu-v4` — ten plik — był
+> JEDYNYM skillem w systemie bez `description:`, przez nieustaloną liczbę sesji,
+> i żadna faza tego nie zgłosiła. Naprawione na wskazanie użytkownika.
 
 ---
 
@@ -282,7 +342,7 @@ Przekroczenie 1024 = **CRIT**. Zakres 901–1024 = **WARN**.
 
 Wczytaj moduł:
 ```
-view ../audyt-systemu-v4/modules/MOD-INTERLINIE.md
+view audyt-systemu-v4/modules/MOD-INTERLINIE.md
 ```
 
 Wykonaj procedurę wykrycia → napraw każdy plik z ≥2 kolejnymi pustymi liniami → zapisz wynik do raportu.
@@ -291,18 +351,19 @@ Wykonaj procedurę wykrycia → napraw każdy plik z ≥2 kolejnymi pustymi lini
 
 Wczytaj moduł:
 ```
-view ../audyt-systemu-v4/modules/MOD-WSTAWKI.md
+view audyt-systemu-v4/modules/MOD-WSTAWKI.md
 ```
 
 Wykonaj skan regex → oceń każde trafienie wg tabeli kwalifikacji → usuń tylko jednoznacznie opisowe wstawki → zapisz wynik do raportu.
 
-**Zasada obu modułów**: zmiany tylko przez `str_replace` na skopiowanych plikach. Nigdy `sed -i` na `../` (read-only mount).
+**Zasada obu modułów**: zmiany tylko przez `str_replace` na skopiowanych plikach. Nigdy `sed -i` na `` (read-only mount).
 
 ---
 
 ## FAZA 3 — WERYFIKACJA MAPY Dz.U.
 
-Wczytaj: `references/mapa_dzu_2026-08-21.md`
+Wczytaj `AKTUALNA_MAPA_DZU` ustaloną w FAZIE 0. Nie wybieraj mapy na podstawie
+daty zapamiętanej w tym pliku.
 
 ### 3-PULL — Synchronizacja DR-MAPA-AKTOW → ROUTING-MAP → mapa_dzu
 
@@ -313,7 +374,7 @@ Wczytaj: `references/mapa_dzu_2026-08-21.md`
 
 ```bash
 # Zebranie wszystkich Dz.U. z lokalnych map DR
-grep -h "Dz\.U\." ../dr-*/MAPA-AKTOW.md | \
+grep -h "Dz\.U\." dr-*/MAPA-AKTOW.md | \
   grep -oP "Dz\.U\. \d{4} poz\. \d+" | sort -u
 ```
 
@@ -322,7 +383,7 @@ grep -h "Dz\.U\." ../dr-*/MAPA-AKTOW.md | \
 ```bash
 # Znalezienie Dz.U. w MAPA-AKTOW które nie są w ROUTING-MAP
 # (wykonuj manualnie: porównaj output Kroku 1 z ROUTING-MAP.md)
-view ../prawo-polskie-v2/ROUTING-MAP.md
+view prawo-polskie-v2/ROUTING-MAP.md
 ```
 
 **Krok 3 — Porównanie z mapa_dzu:**
@@ -337,7 +398,7 @@ view ../prawo-polskie-v2/ROUTING-MAP.md
 ```bash
 # Znajdź akty z vacatio legis w DR-MAPA-AKTOW
 grep -h "OCZEKUJE\|WCHODZI\|vacatio\|wchodzi w życie" \
-  ../dr-*/MAPA-AKTOW.md | sort -u
+  dr-*/MAPA-AKTOW.md | sort -u
 ```
 
 Każdy wynik Kroku 4 → **sprawdź czy jest wpisany do sekcji MONITORING** w:
@@ -432,7 +493,7 @@ Dla każdego: sprawdź online czy istnieje nowszy akt. Jeśli tak → CRIT. Jeś
 Pełna procedura: `modules/MOD-TRESC-MERYTORYCZNA.md` — wczytaj przed wykonaniem:
 
 ```
-view ../audyt-systemu-v4/modules/MOD-TRESC-MERYTORYCZNA.md
+view audyt-systemu-v4/modules/MOD-TRESC-MERYTORYCZNA.md
 ```
 
 > ⭐ **Mechanizm uzupełniający (dodany 2026-07-26):** gdy transza FAZA 3E
@@ -485,7 +546,8 @@ dla skilli proceduralnych).
 ### 4A — Zakaz cytowania z pamięci
 
 ```bash
-grep -r "Dz\.U\. [0-9]\{4\} poz\." ../ --include="*.md" | grep -v "isap\|weryfikuj\|MAPA\|mapa_dzu\|references\|archive" | head -30
+grep -r "Dz\.U\. [0-9]\{4\} poz\." "$LEX_MACHINA_SKILLS_ROOT" \
+  --include="*.md" | grep -v "isap\|weryfikuj\|MAPA\|mapa_dzu\|references\|archive" | head -30
 ```
 
 Hardkodowane Dz.U. bez kontekstu weryfikacji = **WARN**.
@@ -493,7 +555,8 @@ Hardkodowane Dz.U. bez kontekstu weryfikacji = **WARN**.
 ### 4B — PRAWO-HARDGATE obecny
 
 ```bash
-grep -r "PRAWO-HARDGATE" ../ --include="*.md" | grep -v archive | head -10
+grep -r "PRAWO-HARDGATE" "$LEX_MACHINA_SKILLS_ROOT" \
+  --include="*.md" | grep -v archive | head -10
 ```
 
 Brak HARDGATE w routerze = **CRIT**.
@@ -569,7 +632,7 @@ Po zakończeniu audytu **ZAWSZE** zaktualizuj pliki references (7A obowiązkowo,
 > wpisy sprzed sierpnia 2026 były wstawiane na początku listy.
 
 ```bash
-view ../audyt-systemu-v4/references/AUDIT-JOURNAL.md
+view audyt-systemu-v4/references/AUDIT-JOURNAL.md
 ```
 
 Następnie dopisz wpis `## AUDYT-YYYY-MM-DD[litera]` **na końcu pliku**, poprzedzony
@@ -584,10 +647,9 @@ grep -n "^## AUDYT-$(date +%Y-%m-%d)" references/AUDIT-JOURNAL.md
 
 Jeśli znaleziono nowe t.j. lub zmiany statusów Dz.U.:
 
-> ⛔ **KOREKTA 2026-08-20y — ta sekcja kopiowała mapę ARCHIWALNĄ.** Polecenie
-> `cp` wskazywało `mapa_dzu_2026-06-14.md`, podczas gdy mapą aktualną była wtedy
-> `mapa_dzu_2026-07-15.md`, a dziś jest `mapa_dzu_2026-08-21.md` (tak podaje FAZA 3
-> i `references:` w YAML). Wykonanie
+> ⛔ **KOREKTA 2026-08-20y/2026-08-26 — ta sekcja kopiowała mapę ARCHIWALNĄ.**
+> Polecenie wcześniej wskazywało datę na stałe, więc stawało się błędne przy
+> każdej nowej generacji. Wykonanie
 > FAZY 7B literalnie cofnęłoby mapę o **trzy generacje** (06-14 → 07-02 → 07-04 →
 > 07-15), kasując ~250 wierszy ustaleń, i to bez żadnego sygnału błędu — nowy plik
 > powstałby poprawnie, tylko z przestarzałą treścią. To DRUGIE wystąpienie tej samej
@@ -595,12 +657,11 @@ Jeśli znaleziono nowe t.j. lub zmiany statusów Dz.U.:
 > w tym FAZA 7B"). **Reguła stała: przy każdej zmianie mapy aktualnej sprawdź
 > `grep -n mapa_dzu SKILL.md` i popraw WSZYSTKIE wystąpienia, nie tylko `references:`.**
 
-1. Utwórz nową wersję pliku z datą bieżącą — źródłem jest **mapa aktualna**
-   (dziś `mapa_dzu_2026-08-21.md`; jeśli nie masz pewności, którą to jest, weź
-   plik o najpóźniejszej dacie w nazwie i potwierdź go z `references:` w YAML):
+1. Utwórz nową wersję pliku z datą bieżącą. Źródłem jest wyłącznie
+   `AKTUALNA_MAPA_DZU` ustalona dynamicznie w FAZIE 0:
 ```bash
-cp ../audyt-systemu-v4/references/mapa_dzu_2026-08-21.md \
-   ../audyt-systemu-v4/references/mapa_dzu_YYYY-MM-DD.md
+cp "$AKTUALNA_MAPA_DZU" \
+   audyt-systemu-v4/references/mapa_dzu_YYYY-MM-DD.md
 ```
 
 2. Zaktualizuj w nowym pliku:
@@ -608,14 +669,12 @@ cp ../audyt-systemu-v4/references/mapa_dzu_2026-08-21.md \
    - Zmień statusy `OK` → `PREV` dla zastąpionych t.j.
    - Dodaj nowe wiersze do tabeli (na początku, sortuj malejąco po roku/poz.)
 
-3. Zaktualizuj odwołanie w SKILL.md (sekcja `references:`):
-```
-str_replace: mapa_dzu_2026-06-14.md → mapa_dzu_YYYY-MM-DD.md
-```
+3. Zaktualizuj wpis mapy aktualnej w `references:`. Procedura FAZY 0 i FAZY 3
+   pozostaje dynamiczna — nie wolno dopisywać tam nowej daty na stałe.
 
 Jeśli **brak zmian Dz.U.** — plik mapy pozostaje bez zmian, odnotuj w AUDIT-JOURNAL.md:
 ```
-Dz.U.: brak nowych t.j. — mapa bez zmian (ostatnia: mapa_dzu_2026-08-21.md)
+Dz.U.: brak nowych t.j. — mapa bez zmian (ostatnia: [nazwa AKTUALNA_MAPA_DZU])
 ```
 
 ### 7C — Aktualizacja WARN-OTWARTE.md (ZASADA 10)
@@ -673,6 +732,10 @@ Wywołanie: "sprawdź czy moduł X wymaga aktualizacji po zmianie Y" / "zweryfik
 Wywołanie: "ustaw cotygodniowy audyt" / "zadanie cykliczne ISAP" / wybór pozycji 11 w menu
 → FAZA 0C → `references/SCHEDULED-TASK-COWORK.md` (bez uruchamiania faz audytowych)
 
+### TRYB PAMIĘĆ ROUTERA (pozycja 13 — akcja, nie audyt)
+Wywołanie: „zsynchronizuj pamięć routera” / wybór pozycji 13 w menu
+→ FAZA 0D → `references/PAMIEC-TRWALA-ROUTER.md`
+
 ### TRYB WARN-CLOSE (zamknięcie ostrzeżeń)
 Wywołanie: "zamknij otwarte warningi" / "sprawdź WARN-X"
 → Faza 0 → odczytaj otwarte flagi z `references/WARN-OTWARTE.md` (NIE grepuj
@@ -698,63 +761,36 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
    Naruszenie tej zasady (dostarczenie samego pliku zamiast pełnego skilla) jest błędem
    krytycznym równoważnym CRIT i musi być odnotowane w AUDIT-JOURNAL.
 
-   > 🔴 **PRE-DELIVERY-COMPLETENESS-CHECK (dodane 2026-07-10, po incydencie CRIT
-   > opisanym w AUDIT-JOURNAL.md, wpis AUDYT-2026-07-10b):** sama treść zasady
-   > jako proza okazała się niewystarczająca — została pominięta mimo obecności
-   > w skillu. Dlatego dostarczenie naprawy jakiegokolwiek skilla wymaga
-   > wykonania i pokazania w odpowiedzi poniższej, mechanicznej sekwencji —
-   > nie samego przywołania zasady z pamięci:
+   > 🔴 **PRE-DELIVERY-COMPLETENESS-CHECK — procedura przenośna.** Najpierw
+   > rozwiąż trzy lokalizacje przez adapter hosta: `SKILL_SOURCE` (pełne
+   > źródło skilla), `WORK_COPY` (zapisywalna kopia robocza) i `ARCHIVE`
+   > (plik wynikowy). Żadna z nich nie może być ścieżką założoną dla jednego
+   > hosta.
    >
    > ```bash
-   > # KROK 1 — policz pliki oryginału PRZED jakąkolwiek edycją
-   > find ../<skill> -type f | wc -l
+   > # 1. Stan wejściowy
+   > find "$SKILL_SOURCE" -type f | sort > before.files
    >
-   > # KROK 2 — skopiuj CAŁE drzewo (nie pojedynczy plik) do katalogu roboczego
-   > cp -r ../<skill> /home/claude/full_skills/<skill>
+   > # 2. Pełna kopia; edycje wykonuj wyłącznie w WORK_COPY
+   > cp -R "$SKILL_SOURCE" "$WORK_COPY"
    >
-   > # KROK 3 — dopiero teraz nanieś zmiany na skopiowanym drzewie (str_replace)
+   > # 3. Stan wyjściowy — różnicę liczby plików trzeba jawnie uzasadnić
+   > find "$WORK_COPY" -type f | sort > after.files
    >
-   > # KROK 4 — policz pliki w kopii PO edycji — liczba musi być identyczna
-   > # (edycja treści pliku nie zmienia liczby plików, chyba że świadomie
-   > # dodajesz/usuwasz plik — wtedy różnicę trzeba wprost uzasadnić)
-   > find /home/claude/full_skills/<skill> -type f | wc -l
+   > # 4. Jeden pełny pakiet na jeden skill
+   > zip -r "$ARCHIVE" "$WORK_COPY"
    >
-   > # KROK 5 — spakuj CAŁY katalog (nie pojedyncze pliki) do archiwum
-   > zip -r /mnt/user-data/outputs/<skill>.zip <skill>
+   > # 5. Rozpakuj do świeżego VERIFY_COPY i porównaj bajtowo
+   > diff -rq "$VERIFY_COPY" "$WORK_COPY"
    > ```
    >
-   > **Wynik KROK 1 i KROK 4 musi zostać pokazany w odpowiedzi (liczba=liczba)
-   > PRZED wywołaniem `present_files`.** Jeśli liczby się nie zgadzają bez
-   > wyjaśnienia — to jest CRIT, dostarczenie wstrzymane do wyjaśnienia różnicy.
-   > `present_files` dla naprawy skilla wolno wywołać wyłącznie na archiwum
-   > całego katalogu (`.zip`), nigdy na pojedynczym, samodzielnie skopiowanym
-   > pliku typu `SKILL.md` czy `AUDIT-JOURNAL.md` z pominięciem reszty drzewa.
-   >
-   > 🔴 **KROK 4b — WERYFIKACJA BAJTOWA TREŚCI (dodane 2026-07-25, po
-   > incydencie: dwie kolejne dostawy przeszły test liczby plików, ale NIE
-   > były w ogóle pełnymi skillami — zbiorczy ZIP z wyselekcjonowanymi
-   > plikami z 5-8 różnych skili naraz, bez weryfikacji treści względem
-   > źródła. "Liczba się zgadza" nie jest dowodem, że TREŚĆ w archiwum jest
-   > aktualna i nieuszkodzona.):**
-   >
-   > ```bash
-   > # Po spakowaniu, PRZED present_files — rozpakuj i porównaj TREŚĆ
-   > # każdego pliku w ZIP z aktualnym stanem na dysku:
-   > rm -rf /tmp/verify_<skill> && mkdir -p /tmp/verify_<skill>
-   > unzip -q /mnt/user-data/outputs/<skill>.zip -d /tmp/verify_<skill>
-   > diff -rq /tmp/verify_<skill>/<skill> ../<skill>
-   > # Musi zwrócić PUSTY wynik. Jakakolwiek różnica = CRIT, wstrzymaj dostawę.
-   > ```
-   >
-   > **KROK 0 — ILE SKILLI, TYLE ZIPÓW (przypomnienie, już obowiązywało,
-   > ponownie naruszone 2026-07-25):** gdy sesja dotyczy naprawy wielu
-   > skilli naraz, KROKI 1-4b wykonuje się ODDZIELNIE dla KAŻDEGO skilla,
-   > z OSOBNYM archiwum `<skill>.zip` nazwanym dokładnie jak katalog skilla.
-   > Zbiorczy plik łączący kilka skili (nawet z zachowaniem pełnej struktury
-   > wewnątrz) jest niedopuszczalny — patrz precedens AUDYT-2026-07-06l.
-   > "shared/" i "audyt-systemu-v4/" traktuj jak KAŻDY inny skill w tym
-   > wyliczeniu, jeśli ich pliki były modyfikowane w danej sesji — nie
-   > pomijaj ich z dostawy tylko dlatego, że nie są DR-modułem.
+   > Przed wydaniem pokaż liczbę plików przed/po oraz listę zamierzonych
+   > różnic. `diff` archiwum po rozpakowaniu z `WORK_COPY` musi być pusty.
+   > Dodatkowy `diff` względem `SKILL_SOURCE` ma zawierać wyłącznie zmiany
+   > tej tury. Przy wielu skillach wykonaj procedurę osobno dla każdego;
+   > zakaz pakietu zbiorczego i zakaz dostarczania pojedynczego `SKILL.md`.
+   > Sposób udostępnienia (`present_files`, instalacja skilla lub równoważna
+   > funkcja hosta) nie zmienia wymogu kompletności.
 8. ⛔ **ZASADA WERYFIKACJI NUMERU NIEZALEŻNIE OD NAZWY (dodana 2026-07-02s,
    na wyraźny nakaz użytkownika) — "jeśli nazwy różnią się choć trochę,
    sprawdzaj w ISAP".**
@@ -777,7 +813,7 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
    Dostarczanie wyłącznie zmodyfikowanego pliku bez reszty struktury grozi nieodwracalną
    utratą danych przy wgraniu (nadpisanie katalogu bez pozostałych plików).
 
-   **Reguła:** po każdej naprawie → `find ../<skill>/ -not -path "*/archive/*"` →
+   **Reguła:** po każdej naprawie → `find <skill>/ -not -path "*/archive/*"` →
    skopiuj WSZYSTKIE pliki do `/home/claude/<skill>/` z zachowaniem podfolderów →
    `zip -r <skill>.zip <skill>/` → skopiuj ZIP do `/mnt/user-data/outputs/` →
    `present_files` pliku ZIP. Nigdy nie dostarcza się luźnych plików .md.
@@ -941,6 +977,67 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
     = **WARN**, odnotować w WARN-OTWARTE.md z docelowym podziałem do
     wykonania.
 
+14. ⛔ **ZASADA BRAMKI WYJŚCIOWEJ ZGŁOSZENIA (AUDIT-CLAIM-GATE, dodana
+    2026-08-23g, flaga F-121) — skill audytowy stosuje wobec własnych
+    zgłoszeń dokładnie ten kontrakt weryfikacyjny, którego pilnuje u
+    innych.**
+
+    **Przesłanka (TEST1 §5.2):** trzy diagnozy samoaudytu zostały obalone
+    przez recenzenta zewnętrznego, bo powstały bez weryfikacji w źródle —
+    termin „30 dni" zgłoszony jako prawdopodobna halucynacja (podczas gdy
+    termin ten ma podstawę ustawową i wymagał tylko sprawdzenia zakresu
+    zastosowania), status niedzieli opisany jako jednoznaczny mimo że nie
+    jest, oraz `ROBOTS_DISALLOWED` zakwalifikowany jako „błąd krytyczny
+    infrastruktury" cudzego systemu. **Fałszywy alarm audytu kosztuje tyle
+    samo, co błąd przeoczony** — kieruje sesję naprawczą na nieistniejący
+    problem i podważa zaufanie do pozostałych zgłoszeń w tym samym
+    raporcie, w tym tych trafnych.
+
+    **Reguła:** żadne zgłoszenie audytowe (wiersz w `WARN-OTWARTE.md`,
+    punkt raportu, akapit w `AUDIT-JOURNAL.md`, wiersz raportu różnic) NIE
+    opuszcza skilla w postaci TWIERDZENIA, jeśli nie niesie łącznie trzech
+    pól:
+
+    ```
+    (1) STATUS  — wg rejestru statusów w shared/PRAWO-HARDGATE.md:
+        ✅ [VER: źródło, data]        — potwierdzone w Rzędzie 1
+        🟨 [KOTWICA-URZĘDOWA]         — potwierdzone kotwicą urzędową
+        ⚠️ [NIEWERYFIKOWANE — HIPOTEZA] — NIEpotwierdzone; wolno zgłosić
+                                         WYŁĄCZNIE z tym oznaczeniem
+        (F-116 ANULOWANA — brak osobnej karty statusów, rejestr jest
+        i pozostaje w shared/PRAWO-HARDGATE.md)
+    (2) IDENTYFIKATOR ŹRÓDŁA — plik + numer linii, albo numer Dz.U. +
+        artykuł, albo URL z datą odczytu. „Widziałem gdzieś w systemie"
+        NIE jest identyfikatorem.
+    (3) REPRODUKCJA — polecenie lub sekwencja, którą czytelnik odtworzy
+        zgłoszenie samodzielnie (`grep -n …`, `python3 scripts/…`, „otwórz
+        plik X w. N"). Zgłoszenie nieodtwarzalne przez drugą osobę jest
+        opinią, nie ustaleniem audytowym.
+    ```
+
+    **Zakaz szczególny — KWALIFIKACJA CUDZEGO BŁĘDU:** określenia „błąd
+    krytyczny", „halucynacja", „awaria infrastruktury" opisują PRZYCZYNĘ,
+    a przyczyna prawie nigdy nie jest obserwowalna z zewnątrz. Zgłaszaj
+    OBJAW (co dokładnie zwróciło narzędzie, czego zabrakło w odpowiedzi) i
+    dopiero po nim — osobno oznaczoną — hipotezę przyczyny. `ROBOTS_DISALLOWED`
+    to zaobserwowany objaw; „krytyczna awaria serwisu X" to hipoteza.
+
+    **Egzekwowanie:** `references/FORMAT-RAPORTU-ROZNIC.md` § 4 wymusza te
+    trzy pola w raporcie różnic. Dla pozostałych wyjść bramka jest ręczna —
+    przed zamknięciem sesji przejrzyj każde NOWE zgłoszenie i sprawdź
+    obecność (1)(2)(3). Naruszenie = **WARN** (nie CRIT: zgłoszenie bez
+    pól nie niszczy danych, tylko wprowadza w błąd), odnotowywane jak
+    każda inna flaga.
+
+    ⚠️ **Ograniczenie znane i jawne:** ta bramka, jak każda bramka
+    samo-raportująca (por. F-119, `KROK 3A` w `prawny-router-v3`), jest
+    wiarygodna tylko wtedy, gdy pole (2) da się sprawdzić NIEZALEŻNIE.
+    Sama deklaracja „zweryfikowano" bez identyfikatora, który druga osoba
+    otworzy, jest fasadą tej samej klasy co usterka z TEST2. Skuteczność
+    bramki mierzy dopiero test z grupą kontrolną z **F-113** — do jej
+    zamknięcia obecność ZASADY 14 w pliku dowodzi wyłącznie obecności
+    reguły, nie zmiany zachowania.
+
 ---
 
 ## STRUKTURA KATALOGU
@@ -953,38 +1050,47 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
 > to ten sam wzorzec luki, który wykrywa `check_rejestracja_modulow.py`).
 
 ```
-audyt-systemu-v4/                               ← 53 pliki (stan 2026-08-23, +F-108-lista-MS-egzamin-2026.md)
+audyt-systemu-v4/                               ← 71 plików (stan 2026-08-26)
 ├── SKILL.md                                    ← orchestrator (ten plik)
+├── README.md                                   ← opis skilla dla czytelnika ludzkiego (NIE wczytywany
+│                                                  przez żadną fazę; dopisany do drzewa 2026-08-23g)
 ├── modules/                                    ← 5 modułów, pełna lista w YAML `modules:`
 │   ├── MOD-INTERLINIE.md                       ← zbędne puste linie (FAZA 2D-1)
 │   ├── MOD-WSTAWKI.md                          ← wstawki opisowe (FAZA 2D-2)
-│   ├── MOD-DESCRIPTION.md                      ← długość description, limit 1024 (FAZA 2C)
+│   ├── MOD-DESCRIPTION.md                      ← description, profil ≤200 (FAZA 2C)
 │   ├── MOD-TRESC-MERYTORYCZNA.md               ← FAZA 3E, treść modułów DR po zmianie przepisu
 │   └── MOD-PROPAGACJA-NOWELIZACJI.md           ← propagacja nowelizacji przez CAŁY system
 ├── widgets/
 │   └── WIDGET-MENU.md                          ← menu interaktywne (FAZA 0B)
-├── scripts/                                    ← 16 plików: testy T1-T4, T8, T9, T11, T12, T13,
+├── scripts/                                    ← 24 pliki: testy T1-T4, T8, T9, T11-T19,
 │   │                                             orkiestrator, ci_check_shared (T6/T7),
 │   │                                             check_rejestracja_modulow, sync ELI (3 pliki),
 │   │                                             2 skrypty .sh, README.md — pełna lista w YAML
 │   └── …                                         `scripts:`
-└── references/                                 ← 29 plików
+└── references/                                 ← 38 plików
     ├── AUDIT-JOURNAL.md                        ← dziennik audytów, ~44 tys. linii, 2,6 MB
     ├── WARN-OTWARTE.md                         ← rejestr żywy otwartych flag (ZASADA 10)
     ├── CHANGELOG.md                            ← historia wersji orkiestratora (F-78)
     ├── CHECKLIST-DEDUP.md                      ← mapa pojęć → lokalizacje kanoniczne
-    ├── REGRESSION-TEST-PLAN.md                 ← testy T1-T9 + T11 + T12 + T13
+    ├── REGRESSION-TEST-PLAN.md                 ← testy T1-T17
+    ├── F-136-zakres-DzU-2022-2600.md           ← 116/116 dyspozycji nowelizacji KK i pomiar korpusu
     ├── SYNC-DZU-AUTOMATYCZNY.md                ← + HARMONOGRAM-CRON.md, FORMAT-RAPORTU-ROZNIC.md
     ├── SCHEDULED-TASK-COWORK.md                ← POZYCJA 11 menu (FAZA 0C)
-    ├── mapa_dzu_2026-08-21.md                  ← mapa Dz.U. AKTUALNA (transza 1 F-104)
+    ├── PAMIEC-TRWALA-ROUTER.md                 ← POZYCJA 13 menu (FAZA 0D)
+    ├── SPROSTOWANIE-LM-2026-08-23.md           ← dokument dla autora raportów TEST1-3
+    ├── F-108-lista-MS-egzamin-2026.md          ← benchmark F-108 (52 akty MS; 52/52 B+/COV, 0 FULL)
+    ├── F-108-verification-2026-08-28.md         ← raport źródłowy re-audytu F-108
+    ├── F-104-lista-robocza-mapa-dzu.md         ← lista robocza F-104, rocznik 2026
+    ├── F-104-lista-robocza-roczniki-starsze.md ← lista robocza F-104, roczniki 2013-2025 (F-124)
+    ├── mapa_dzu_2026-08-28.md                  ← mapa Dz.U. AKTUALNA
+    ├── mapa_dzu_2026-08-26.md                  ← POPRZEDNIA generacja
     ├── mapa_dzu_2026-07-15 / 07-04 / 07-02 / 06-14.md  ← POPRZEDNIE generacje, cytowane w dzienniku
-    └── raporty-pokrycia-2026-08-13/            ← 10 raportów + indeks = 11 plików
+    └── raporty-pokrycia-2026-08-13/            ← 12 raportów + indeks = 13 plików
 ```
 
 ---
 
-*Wersja: 6.13 | Ostatnia aktualizacja: 2026-08-20z4. Sekcja CHANGELOG poniżej
-skrócona 2026-08-20 (F-78) — pełna historia w references/CHANGELOG.md.*
+*Wersja: 6.30 | Ostatnia aktualizacja: 2026-08-28 (F-108 domknięte 52/52 B+/COV, 0 FULL; current-state indeksy KW/SUS/zasiłkowej/zwolnień grupowych + moduł KW art. 65–69; prawny-router-v3 3.31).*
 *(Stopka podawała „5.0 | 2026-07-04" przy `version: 6.8` w YAML — rozjazd
 9 wersji, naprawiony 2026-08-20y. **Stopkę aktualizuj razem z polem `version`**;
 jeśli znów zacznie się rozjeżdżać, kandyduje do usunięcia jako pole martwe —
@@ -995,7 +1101,7 @@ tak jak stopkę AUDIT-JOURNAL.md w korekcie 2026-08-15p.)*
 ⛔ **Historia zmian tego skilla NIE mieszka w tym pliku.** Pełny changelog:
 
 ```
-view ../audyt-systemu-v4/references/CHANGELOG.md
+view audyt-systemu-v4/references/CHANGELOG.md
 ```
 
 Skrót bieżącej wersji — pole `changelog:` we frontmatterze powyżej.

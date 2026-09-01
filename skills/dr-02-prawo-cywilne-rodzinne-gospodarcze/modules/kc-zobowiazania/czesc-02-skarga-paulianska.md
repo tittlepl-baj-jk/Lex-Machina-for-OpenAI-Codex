@@ -234,4 +234,3 @@ sygn. **III CZP 60/19**)
   sądowych.
 
 ---
-

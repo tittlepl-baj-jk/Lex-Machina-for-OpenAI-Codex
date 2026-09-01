@@ -10,7 +10,7 @@
 > **v1.17 — przed finalizacją strategii/wysłaniem kontrpropozycji:** uruchom
 > systematyczną ocenę adwersarialną zamiast polegać wyłącznie na intuicji co
 > do słabości własnego projektu —
-> `view ../../analizator-umow-v1/workflows/ocena-drugiej-strony.md`
+> `view analizator-umow-v1/workflows/ocena-drugiej-strony.md`
 > (6 kategorii ataków: niekorzystne potwierdzenia, niejednoznaczności, luki
 > dowodowe, sprzeczności wewnętrzne, błędy obliczeniowe/terminowe, mechanizmy
 > wyjścia). To jest finalna kontrola przed wyjściem dokumentu poza Twoją stronę.
@@ -176,15 +176,15 @@ KROK 3 — KATEGORIA N (nice to have) — negocjuj łącznie:
 
 KROK 4 — KATEGORIA S (should have) — eskalacja:
   → Każda zmiana S powinna mieć przygotowane uzasadnienie + alternatywę
-  → Technika: "Rozumiemy Państwa interes w [X]. Nasz interes w [Y]. 
+  → Technika: "Rozumiemy Państwa interes w [X]. Nasz interes w [Y].
     Czy możemy rozważyć rozwiązanie [Z] które zaspokaja obie strony?"
   → Propozycja alternatywna zawsze lepsza niż samo "nie"
 
 KROK 5 — KATEGORIA M (dealbreaker) — ostatni:
   → Kwestie M przedstawiaj na końcu, gdy relacja jest zbudowana
-  → Formułuj jako potrzebę, nie ultimatum: "Musimy upewnić się, że §12 nie naraża 
+  → Formułuj jako potrzebę, nie ultimatum: "Musimy upewnić się, że §12 nie naraża
     nas na nieograniczoną odpowiedzialność — to wymóg naszego działu prawnego."
-  → Jeśli druga strona odmawia M: "Niestety, bez tej zmiany nie możemy 
+  → Jeśli druga strona odmawia M: "Niestety, bez tej zmiany nie możemy
     zarekomendować podpisania umowy naszemu klientowi."
 
 KROK 6 — ZAMKNIĘCIE:
@@ -210,9 +210,9 @@ PRZYKŁAD:
   "Wykonawca odpowiada za wszelkie szkody powstałe w związku z realizacją Umowy."
 
   WERSJA REDLINE (strona B — propozycja zmiany):
-  "Wykonawca odpowiada za wszelkie [udowodnione, bezpośrednie] szkody 
-   powstałe [wskutek zawinionego niewykonania lub nienależytego wykonania] 
-   [, z wyłączeniem utraconych korzyści,] w związku z realizacją Umowy[, 
+  "Wykonawca odpowiada za wszelkie [udowodnione, bezpośrednie] szkody
+   powstałe [wskutek zawinionego niewykonania lub nienależytego wykonania]
+   [, z wyłączeniem utraconych korzyści,] w związku z realizacją Umowy[,
    do łącznej wysokości wynagrodzenia brutto za ostatnie 12 miesięcy współpracy]."
 
   Elementy w nawiasach [...] = propozycja do negocjacji

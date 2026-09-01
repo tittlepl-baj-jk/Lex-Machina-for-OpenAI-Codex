@@ -46,7 +46,7 @@ Reguła: ORKA-REG-07 (tożsamość biologiczna ≠ tożsamość prawna)
 GOŁĄB jako drób:
   → Ustawa o ochronie zdrowia zwierząt i zwalczaniu chorób zakaźnych: TAK
   → Rozporządzenie o identyfikacji i rejestracji drobiu: TAK
-  
+
 GOŁĄB jako zwierzę gospodarskie NIE będące drobiem:
   → Ustawa o identyfikacji i rejestracji zwierząt: NIE = odrębna kategoria
   → Ustawa łowiecka: NIE jest zwierzyną
@@ -382,4 +382,3 @@ REGUŁA: CRU JSFP ≠ BIP — to odrębny rejestr centralny; ujawnienie umowy
 ```
 
 ---
-

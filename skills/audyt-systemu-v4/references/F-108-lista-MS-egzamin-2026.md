@@ -1,142 +1,84 @@
-# F-108 — lista aktów MS (egzamin wstępny na aplikację 2026) jako benchmark pokrycia
+# F-108 — benchmark 52 aktów MS 2026 — stan bieżący
 
-> **Otwarta:** 2026-08-23 | **Priorytet:** wysoki | **Zakres:** cross — 16 DR
-> **Plik roboczy flagi.** Wiersz sterujący: `WARN-OTWARTE.md`, sekcja A.
-> **Plik siostrzany:** `AUDIT-JOURNAL.md`, wpis AUDYT-2026-08-23.
+**Stan operacyjny:** 2026-08-28
+**Źródło wykazu:** oficjalne ogłoszenie Ministerstwa Sprawiedliwości z 2.04.2026.
+**Funkcja:** bieżący benchmark głębokości pokrycia. Bez historii kategorii obecności.
 
-## Czym jest ta lista i dlaczego jest lepszym benchmarkiem niż dotychczasowe
+## Statusy
 
-Źródło: wykaz tytułów aktów prawnych ogłoszony przez Przewodniczącego zespołu
-do przygotowania pytań testowych na egzamin wstępny dla kandydatów na
-aplikantów adwokackich i radcowskich — 52 pozycje, stan prawny na dzień
-ogłoszenia.
+- 🟢 **B+ / COV** — aktualna struktura aktu jest jawnie zmapowana, istnieje użyteczna treść i fresh gate;
+- 🟡 **B / B+** — akt ma realny routing i treść operacyjną, ale bieżąca mapa pokrycia nie potwierdza jeszcze strukturalnego COV całego aktu;
+- `FULL` — wyłącznie po udokumentowaniu kompletności całego aktu artykuł-po-artykule; COV nie jest FULL.
 
-⚠️ **Metryka aktu prawnego samego wykazu (podstawa prawna ogłoszenia, Dz.U.
-Prawa o adwokaturze i ustawy o radcach prawnych) NIE została zweryfikowana
-w RZĘDZIE 1** — dokument wpłynął do systemu jako tekst przekazany przez
-użytkownika. Do zamknięcia: potwierdzić wykaz na stronie MS/BIP.
-Status: ⚠️ [NIEWERYFIKOWANE — źródło przekazane, nie odczytane]
+## Rejestr 52 aktów
 
-Dlaczego ta lista ma wartość audytową, której nie mają mapy wewnętrzne:
-jest to **zewnętrzny, niezależny od systemu wykaz aktów uznanych przez
-regulatora zawodu za minimum warsztatowe polskiego prawnika**. Dotychczasowe
-mapy (`MAPA-AKTOW.md`, `MAPA-POKRYCIA.md`) rosły reaktywnie — akt trafiał do
-systemu, bo ktoś zadał o niego pytanie. Ta lista mierzy pokrycie względem
-kryterium ustalonego z zewnątrz, więc ujawnia luki, o które nikt dotąd
-nie zapytał. To jest jej jedyna funkcja.
+| ID | Akt | DR | Status bieżący |
+|---:|---|---|---|
+| 1 | Prawo wekslowe | DR-02 | 🟢 B+ / COV |
+| 2 | TFUE | DR-14 | 🟢 B+ / COV |
+| 3 | KPA | DR-05 | 🟢 B+ / COV — Dz.U. 2025 poz. 1691 |
+| 4 | KRO | DR-02 | 🟢 B+ / COV — Dz.U. 2026 poz. 236 |
+| 5 | KC | DR-02 | 🟢 B+ / COV — Dz.U. 2026 poz. 795; Księgi I–IV zmapowane |
+| 6 | KPC | DR-02 | 🟢 B+ / COV |
+| 7 | KW | DR-03 | 🟢 B+ / COV — current-state rozdz. I–XIX; domknięto brak art. 65–69 |
+| 8 | Opłaty w sprawach karnych | DR-03 | 🟢 B+ / COV |
+| 9 | Kodeks pracy | DR-04 | 🟢 B+ / COV — Dz.U. 2025 poz. 277 ze zmianami |
+| 10 | Prawo o adwokaturze | DR-12 | 🟢 B+ / COV |
+| 11 | Księgi wieczyste i hipoteka | DR-02 | 🟢 B+ / COV — Dz.U. 2026 poz. 1066 |
+| 12 | Radcowie prawni | DR-12 | 🟢 B+ / COV |
+| 13 | Prawo spółdzielcze | DR-02 | 🟢 B+ / COV — Dz.U. 2026 poz. 521 |
+| 14 | Fundacje | DR-02 | 🟢 B+ / COV |
+| 15 | RPO | DR-05 | 🟢 B+ / COV — Dz.U. 2024 poz. 1264 |
+| 16 | Prawo o stowarzyszeniach | DR-02 | 🟢 B+ / COV |
+| 17 | Samorząd gminny | DR-08 | 🟢 B+ / COV — Dz.U. 2026 poz. 662 |
+| 18 | TUE | DR-14 | 🟢 B+ / COV |
+| 19 | Prawo autorskie | DR-11 | 🟢 B+ / COV — Dz.U. 2025 poz. 24 |
+| 20 | Własność lokali | DR-02 | 🟢 B+ / COV — Dz.U. 2026 poz. 232 |
+| 21 | Zastaw rejestrowy | DR-02 | 🟢 B+ / COV |
+| 22 | Konstytucja | DR-01 | 🟢 B+ / COV |
+| 23 | KK | DR-03 | 🟢 B+ / COV — Dz.U. 2025 poz. 383 ze zm.; części ogólna, szczególna i wojskowa zmapowane przez `mod-KK-current-state-COV.md` |
+| 24 | KPK | DR-03 | 🟢 B+ / COV — Dz.U. 2026 poz. 490 ze zm.; current-state indeks całej procedury w `mod-KPK-current-state-COV.md` |
+| 25 | KRS | DR-02 | 🟢 B+ / COV |
+| 26 | Gospodarka nieruchomościami | DR-09/08/02 | 🟢 B+ / COV — Dz.U. 2026 poz. 399 |
+| 27 | Samorząd powiatowy | DR-08 | 🟢 B+ / COV — Dz.U. 2025 poz. 1684 |
+| 28 | Samorząd województwa | DR-08 | 🟢 B+ / COV — Dz.U. 2026 poz. 720 |
+| 29 | System ubezpieczeń społecznych | DR-04 | 🟢 B+ / COV — current-state indeks wszystkich 13 rozdziałów |
+| 30 | Zasiłki chorobowe i macierzyńskie | DR-04 | 🟢 B+ / COV — current-state mapa wszystkich 13 rozdziałów |
+| 31 | KKS | DR-03/06 | 🟢 B+ / COV — Dz.U. 2025 poz. 633 ze zmianami |
+| 32 | RPD | DR-05 | 🟢 B+ / COV — Dz.U. 2023 poz. 292 |
+| 33 | KSH | DR-02 | 🟢 B+ / COV |
+| 34 | Spółdzielnie mieszkaniowe | DR-02 | 🟢 B+ / COV — Dz.U. 2026 poz. 889; pełna struktura rozdziałów zmapowana |
+| 35 | Ochrona praw lokatorów | DR-02 | 🟢 B+ / COV |
+| 36 | PUSP | DR-01/12 | 🟢 B+ / COV |
+| 37 | KPW | DR-03 | 🟢 B+ / COV — Dz.U. 2025 poz. 860 |
+| 38 | PPSA | DR-05 | 🟢 B+ / COV |
+| 39 | Prawo upadłościowe | DR-02 | 🟢 B+ / COV |
+| 40 | Zwolnienia grupowe | DR-04 | 🟢 B+ / COV — current-state art. 1–12 i warstwa przejściowa/końcowa |
+| 41 | Ubezpieczenia obowiązkowe, UFG i PBUK | DR-02 | 🟢 B+ / COV |
+| 42 | KSCU | DR-12 | 🟢 B+ / COV — Dz.U. 2025 poz. 1228 |
+| 43 | Przeciwdziałanie narkomanii | DR-03 | 🟢 B+ / COV — t.j. Dz.U. 2023 poz. 1939 + obowiązująca od 27.08.2026 nowelizacja Dz.U. 2026 poz. 1004 |
+| 44 | UOKiK | DR-02/12 | 🟢 B+ / COV |
+| 45 | Wojewoda i administracja rządowa | DR-08 | 🟢 B+ / COV — Dz.U. 2025 poz. 428 |
+| 46 | Opóźnienia w transakcjach handlowych | DR-02 | 🟢 B+ / COV |
+| 47 | Prawa konsumenta | DR-02 | 🟢 B+ / COV |
+| 48 | Prawo restrukturyzacyjne | DR-02 | 🟢 B+ / COV |
+| 49 | Prawo o prokuraturze | DR-12 | 🟢 B+ / COV — Dz.U. 2026 poz. 810 |
+| 50 | Sąd Najwyższy | DR-01 | 🟢 B+ / COV — Dz.U. 2024 poz. 622 ze zm.; aktualna mapa ustrojowo-procesowa w `mod-ustawa-SN-sad-najwyzszy.md` |
+| 51 | Prawo przedsiębiorców | DR-08/02 | 🟢 B+ / COV — Dz.U. 2025 poz. 1480 |
+| 52 | Fundacja rodzinna | DR-02 | 🟢 B+ / COV |
 
-⛔ **Czego ta lista NIE jest:** nie jest listą aktów, które system ma
-pokrywać w całości ani wyłącznie. System pokrywa dziś dziesiątki aktów spoza
-wykazu (podatkowe, budowlane, medyczne, cyber) i to pokrycie zachowuje.
-Wykaz jest **miarą**, nie zakresem.
+## Wynik bieżący
 
-## Wynik pomiaru bazowego — 2026-08-23
+**52/52 aktów ma realny routing/moduł i 52/52 ma potwierdzony status B+/COV. `FULL`: 0/52.**
 
-Metoda: dopasowanie każdej pozycji wykazu do (a) nazw plików modułów,
-(b) wpisów w `dr-*/MAPA-AKTOW.md`, (c) treści modułów. Trafienia po samych
-skrótach (KC, KW, KP, KRO) weryfikowane ręcznie — dają fałszywe dopasowania
-wewnątrz innych wyrazów.
+F-108 został ponownie otwarty po wykryciu czterech braków strukturalnego COV, a następnie domknięty po utworzeniu i rejestracji current-state indeksów KW, SUS, ustawy zasiłkowej i zwolnień grupowych oraz fizycznego modułu KW art. 65–69. COV nadal nie jest FULL; każda konkretna jednostka prawna podlega fresh/temporal gate.
 
-| Kategoria | Liczba | Znaczenie |
-|---|---|---|
-| 🟢 **A** — dedykowany moduł | **39 / 52** | akt ma własny plik modułu |
-| 🟡 **B** — wewnątrz modułu łączonego lub tylko w mapie | **9 / 52** | treść istnieje, ale bez własnej jednostki i bez mapy rozdziałów |
-| 🟠 **C** — wyłącznie fragment w cudzym module | **1 / 52** | brak samodzielnego opracowania |
-| 🔴 **D** — nieobecny | **3 / 52** | zero treści merytorycznej |
+## Priorytet dalszej pracy
 
-**Pokrycie nominalne 75% (A), pokrycie realne nieznane** — kategoria A mówi
-tylko, że moduł istnieje. Precedens KSH z `dr-02/MAPA-POKRYCIA.md` (moduł
-oznaczony „✅ OK" operował na ~14 z ~600 artykułów) pokazuje, że istnienie
-modułu nie jest miarą pokrycia aktu. Dlatego etap 2 tej flagi to badanie
-**po rozdziałach**, nie po istnieniu pliku.
+1. **P1 — utrzymanie aktualności:** po kolejnych nowelizacjach ponawiać walidację current-state i temporal gate.
+2. **P1 — luki poza F-108:** rozwijać akty i zakresy oznaczone żółto w lokalnych mapach DR, bez mieszania ich z zamkniętym benchmarkiem F-108.
+3. **P2 — głębokość:** przechodzenie z B+/COV do wyższej kompletności tylko na podstawie udokumentowanego audytu treści, bez automatycznego nadawania `FULL`.
 
-### 🔴 D — NIEOBECNE (priorytet 1)
+## Reguła źródeł
 
-| # | Akt | Uwaga |
-|---|---|---|
-| 8 | o opłatach w sprawach karnych (23.06.1973) | `mod-KSCU-koszty-sadowe-i-pomoc-prawna.md` pokrywa WYŁĄCZNIE koszty cywilne. Opłaty karne to osobna ustawa i osobny reżim — system nie ma podstawy do wyliczenia opłaty od apelacji karnej ani wniosku o wznowienie |
-| 41 | o ubezpieczeniach obowiązkowych, UFG i PBUK (22.05.2003) | jedyna wzmianka w `mod-ustawa-deweloperska.md` — w innym kontekście (fundusz gwarancyjny deweloperski, NIE UFG). **Masowa praktyka odszkodowawcza (OC komunikacyjne) bez żadnego oparcia w systemie** |
-| 52 | o fundacji rodzinnej (26.01.2023) | jedyna wzmianka w module podatków sektorowych. Instytucja młoda, rosnąca w praktyce sukcesyjnej; brak jakiegokolwiek ujęcia cywilno-korporacyjnego |
-
-### 🟠 C — FRAGMENT (priorytet 1 — bezpośrednia przyczyna usterki testu 5)
-
-| # | Akt | Uwaga |
-|---|---|---|
-| 46 | o przeciwdziałaniu nadmiernym opóźnieniom w transakcjach handlowych (8.03.2013) | istnieje wyłącznie jako wątek w `dr-02/modules/kc-zobowiazania/czesc-01-przedawnienie-kara-umowna-wady-wzbogacenie-odsetki.md` i wzmianka w module UZNK. **To jest akt, na którym poległ test 5** — brak modułu oznacza brak tabeli stawek półrocznych, brak progów rekompensaty i brak kryterium „czy to transakcja handlowa". `shared/RATE-COMPLETENESS.md` (utworzony 2026-08-23) opisuje PROCEDURĘ, ale nie ma modułu, który dostarczyłby jej treści. **Najwyższy priorytet z całej flagi** |
-
-### 🟡 B — BEZ WŁASNEJ JEDNOSTKI (priorytet 2–3)
-
-| # | Akt | Gdzie jest dziś | Prio |
-|---|---|---|---|
-| 51 | Prawo przedsiębiorców (6.03.2018) | rozproszone wzmianki w 4 DR, brak modułu | 2 |
-| 50 | o Sądzie Najwyższym (8.12.2017) | dr-01 zna USP i KRS, ustawy o SN — nie | 2 |
-| 30 | o świadczeniach pieniężnych w razie choroby i macierzyństwa (25.06.1999) | wzmianki w dr-04 | 2 |
-| 40 | o zwolnieniach z przyczyn niedotyczących pracowników (13.03.2003) | wzmianki w dr-04 | 2 |
-| 13 | Prawo spółdzielcze (16.09.1982) | `mod-ustawa-spoldzielnie-wlasnosc-lokali.md` (moduł łączony 3 aktów) | 3 |
-| 34 | o spółdzielniach mieszkaniowych (15.12.2000) | j.w. — ten sam moduł łączony | 3 |
-| 27 | o samorządzie powiatowym (5.06.1998) | `mod-JST-ustroj-samorzad-gminny-powiatowy-wojewodztwa.md` | 3 |
-| 28 | o samorządzie województwa (5.06.1998) | j.w. | 3 |
-| 45 | o wojewodzie i administracji rządowej w województwie (23.01.2009) | 1 wzmianka | 3 |
-
-⚠️ Kategoria B **nie zawsze wymaga wydzielenia**. Moduł łączony jest właściwą
-formą, gdy akty są stosowane razem (spółdzielnie, JST). Kryterium decyzji —
-`shared/MOD-GENERATOR-AKTU.md`, krok G-2.
-
-### 🟢 A — DEDYKOWANY MODUŁ (39 pozycji)
-
-1 Prawo wekslowe · 2 TFUE · 3 KPA · 4 KRO · 5 KC · 6 KPC · 7 KW ·
-9 KP · 10 Prawo o adwokaturze · 11 KWU/hipoteka · 12 o radcach prawnych ·
-14 o fundacjach · 15 o RPO · 16 Prawo o stowarzyszeniach · 17 o samorządzie
-gminnym · 18 TUE · 19 Prawo autorskie · 20 o własności lokali · 21 zastaw
-rejestrowy · 22 Konstytucja · 23 KK · 24 KPK · 25 o KRS · 26 UGN ·
-29 SUS · 31 KKS · 32 o RPD · 33 KSH · 35 ochrona praw lokatorów ·
-36 PUSP · 37 KPW · 38 PPSA · 39 Prawo upadłościowe · 42 KSCU ·
-43 o przeciwdziałaniu narkomanii · 44 UOKiK · 47 o prawach konsumenta ·
-48 Prawo restrukturyzacyjne · 49 Prawo o prokuraturze
-
-⛔ Kategoria A **nie oznacza pokrycia**. Etap 2 obejmuje wszystkie 39.
-
-## Plan flagi — trzy etapy
-
-```
-ETAP 1 ✅ ZAKOŃCZONY 2026-08-23 — pomiar bazowy obecności (ten plik)
-
-ETAP 2 ⬛ POKRYCIE PO ROZDZIAŁACH — dla każdej pozycji A i B:
-       G-3 z MOD-GENERATOR-AKTU (mapa struktury aktu) → wiersz w
-       dr-XX/MAPA-POKRYCIA.md wg formatu ustalonego przez F-83
-       (🟢/🟡/🔴/⚪ per tytuł/dział/rozdział + zakres artykułów).
-       ⛔ Nie hurtem. Transzami po 3–5 aktów, każda transza = wpis
-       w AUDIT-JOURNAL. Kolejność: najpierw akty o największej
-       rozbieżności deklaracja↔treść (wzór: KSH), czyli duże kodeksy
-       i ustawy ustrojowe.
-       ⛔ 9 DR nie ma jeszcze pliku MAPA-POKRYCIA.md (są tylko w dr-02..dr-07).
-       Utworzyć przy pierwszej transży dotyczącej danego DR.
-
-ETAP 3 ⬛ BUDOWA BRAKUJĄCYCH MODUŁÓW — kolejność ustalona:
-       P1: 46 (transakcje handlowe) → 41 (UFG) → 8 (opłaty karne) → 52 (fundacja rodzinna)
-       P2: 51 → 50 → 30 → 40
-       P3: decyzja wydzielać/nie wydzielać dla 13, 34, 27, 28, 45
-       Procedura: shared/MOD-GENERATOR-AKTU.md, kroki G-1…G-8
-```
-
-## Warunki zamknięcia F-108
-
-```
-□ wykaz MS potwierdzony w RZĘDZIE 1 (strona MS / BIP) — dziś ⚠️
-□ ETAP 2 zamknięty dla wszystkich 48 pozycji A+B
-□ ETAP 3: wszystkie pozycje P1 i P2 mają moduł na poziomie ≥ B
-  wg shared/POLISH-LAW-COMPLETENESS-MATRIX.md
-□ pozycje P3 mają jawną, uzasadnioną DECYZJĘ (wydzielić / zostawić
-  w module łączonym) — decyzja jest wynikiem, brak modułu sam w sobie nie jest
-□ każdy nowy moduł zarejestrowany w TRZECH miejscach (REGUŁA 3):
-  dr-XX/SKILL.md · dr-XX/MAPA-AKTOW.md · prawo-polskie-v2/ROUTING-MAP.md
-```
-
-## ⛔ Ograniczenie tego pliku
-
-Ten plik NIE zawiera ani jednego numeru Dz.U. ani daty tekstu jednolitego —
-świadomie. Metryki aktów ustala się dopiero w kroku G-1 generatora, przy
-faktycznej budowie modułu, wg `shared/PRAWO-HARDGATE.md` v2.5 (sekwencja
-B-1 → B-2, przy blokadzie robots — 🟡 KOTWICA URZĘDOWA, warunki K-1…K-4).
-Wpisanie tu numerów „z pamięci", żeby lista wyglądała na kompletną, byłoby
-dokładnie tym błędem, który tę flagę wywołał.
+Prawo polskie: ELI/ISAP lub właściwy urzędowy publikator. Prawo UE: EUR-Lex. Akty samorządów zawodowych: oficjalny organ. Każda konkretna jednostka prawa wymaga fresh gate przed użyciem.

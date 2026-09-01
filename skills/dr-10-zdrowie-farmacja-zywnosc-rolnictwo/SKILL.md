@@ -1,14 +1,31 @@
 ---
 name: "dr-10-zdrowie-farmacja-zywnosc-rolnictwo"
-description: "DR-10: Zdrowie, Farmacja, Żywność, Rolnictwo Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony rozdział aktu. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | nsa.gov.pl | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
+description: "Zdrowie, farmacja, żywność i rolnictwo: działalność lecznicza, prawa pacjenta, produkty lecznicze, żywność, weterynaria i regulacje sektora rolnego."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-27"
+  source-tree: "development-2026-09-01"
   source-directory: "dr-10-zdrowie-farmacja-zywnosc-rolnictwo"
 ---
 
 > [!IMPORTANT]
 > Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
+> **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
+
+
+## ADAPTER RUNTIME — PORTABILITY (ChatGPT / Claude / inne hosty)
+
+Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
+
+1. `view dr-10-zdrowie-farmacja-zywnosc-rolnictwo/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
+2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
+3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
+4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
+5. `show_widget`, `visualize:read_me`, `present_files`, `create_file`, shell/Python i podobne operacje są nazwami semantycznymi. Jeśli host nie ma literalnego narzędzia, użyj równoważnej funkcji natywnej bez omijania bramek jakości.
+6. `/mnt/user-data/...` oznacza rzeczywiste załączniki użytkownika dostępne w bieżącym hoście; wymagany ponowny odczyt ma być faktycznym odczytem źródła.
+
+**Zasada nadrzędna:** instrukcje, które są już zrozumiałe i wykonalne w bieżącym hoście, wykonuj bez konwersji. Adapter działa wyłącznie na granicy runtime.
+
 
 # DR-10 — Zdrowie, Farmacja, Żywność, Rolnictwo
 
@@ -22,6 +39,25 @@ metadata:
 **Prawo farmaceutyczne i medyczne jest nowelizowane kilka razy rocznie.**
 Prawo farmaceutyczne: nowelizacje Dz.U. 2025 poz. 924, 1416, 1537 po t.j. Dz.U. 2026 poz. 612.
 Wykaz leków refundowanych: aktualizowany co 3 miesiące — zawsze sprawdzaj mz.gov.pl.
+
+
+> ⛔ **SELF-CHECK ANTY-FASADA — obowiązkowy przed wysłaniem odpowiedzi/pisma**
+> (podłączone 2026-08-24, flaga F-115 P3 — zamknięcie zakresu 16 skilli DR):
+>
+> ```
+> view shared/SELF-CHECK-ANTY-FASADA.md
+> ```
+>
+> Sprawdza dwie rzeczy: (1) czy w tekście stoi „zweryfikowano", data weryfikacji
+> albo URL przy przepisie, dla którego NIE wywołano narzędzia W TEJ ODPOWIEDZI;
+> (2) czy znacznik statusu nie został nadany treści WYGENEROWANEJ w tej odpowiedzi
+> (AF-6). Treść listy jest w module, nie tutaj — celowo, żeby nie powstało kolejne
+> miejsce dryfu (7 wcześniejszych kopii rozjechało się ze źródłem przy pierwszej
+> zmianie brzmienia).
+>
+> ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
+> oznaczenia, tylko je wymusza.
 
 ---
 
@@ -43,7 +79,7 @@ Przy sprawach z tej dziedziny rozważ doładowanie (`view`) definicji:
 ## DEFINICJE — shared/definicje/ (nieobecne — adnotacja audytowa 2026-06-14)
 
 Ta dziedzina nie ma dedykowanego pliku w `shared/definicje/`. Zdrowie, farmacja, żywność, rolnictwo — pojęcia dziedzinowe (świadczenie zdrowotne, podmiot leczniczy, produkt leczniczy) zdefiniowane wprost w aktach sektorowych (ustawa o działalności leczniczej, Prawo farmaceutyczne) i pokryte w modułach DR-10. Żaden plik shared/definicje/ nie obejmuje tej dziedziny.
-## Moduły (32 łącznie — ✓ 32 OK, ☐ 0 STUB)
+## Moduły (31 łącznie — ✓ 31 OK, ☐ 0 STUB)
 
 **NAPRAWA 2026-08-13 (F-45, częściowa):** dodano formalne wpisy `[✓]`
 dla dwóch modułów niżej — istniały fizycznie od 2026-08-12 (podział
@@ -132,7 +168,7 @@ ZAWODY MEDYCZNE:
   [✓] OK    mod-ustawa-zawod-lekarza
               (ustawa o zawodach lekarza i lekarza dentysty — Dz.U. 2026 poz. 37 t.j.)
   [✓] OK    mod-ustawa-pielegniarka-polozna
-              (ustawa o zawodach pielęgniarki i położnej — Dz.U. 2025 poz. 450 t.j.)
+              (ustawa o zawodach pielęgniarki i położnej — Dz.U. 2026 poz. 15 t.j.)
   [✓] OK    mod-ustawa-zdrowie-psychiczne
               (ustawa o ochronie zdrowia psychicznego — przymus, psychiatria sądowa)
   [✓] OK    mod-ustawa-diagnostyka-laboratoryjna
@@ -194,13 +230,13 @@ EDUKACJA I SPORT:
 ## Jak wywołać
 
 ```
-view ../dr-10-zdrowie-farmacja-zywnosc-rolnictwo/modules/[nazwa-modulu].md
+view dr-10-zdrowie-farmacja-zywnosc-rolnictwo/modules/[nazwa-modulu].md
 ```
 
 ## Lokalna mapa aktów prawnych
 
 ```
-view ../dr-10-zdrowie-farmacja-zywnosc-rolnictwo/MAPA-AKTOW.md
+view dr-10-zdrowie-farmacja-zywnosc-rolnictwo/MAPA-AKTOW.md
 ```
 
 ---
@@ -219,7 +255,7 @@ view ../dr-10-zdrowie-farmacja-zywnosc-rolnictwo/MAPA-AKTOW.md
 Po zakończeniu analizy lub przed oddaniem odpowiedzi zawierającej ocenę prawną:
 
 ```text
-view ../shared/DISCLAIMER.md
+view shared/DISCLAIMER.md
 ```
 
 Wybierz wariant odpowiedni do trybu:

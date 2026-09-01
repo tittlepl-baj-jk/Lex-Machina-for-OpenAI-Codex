@@ -151,7 +151,7 @@ UWAGA: Zarzuty NIE służą do ponownego badania zasadności decyzji źródłowe
 Grzywna w celu przymuszenia:
   → Nakładana wielokrotnie do wykonania obowiązku
   → Max łączna kwota: weryfikuj art. 121 UPEA w ISAP
-  
+
 Wykonanie zastępcze:
   → Organ wykonuje obowiązek na koszt zobowiązanego
 

@@ -28,4 +28,3 @@ Typ: ⚠ ZAWITY · Skutek: [opis] · Podstawa: [art.]
 ```
 
 ---
-

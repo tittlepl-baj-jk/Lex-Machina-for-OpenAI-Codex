@@ -117,7 +117,7 @@ N/A NIGDY nie może wynikać z:
   - braku explicite prośby użytkownika o macierz/łańcuch
 
 WERYFIKACJA przed oznaczeniem N/A — model MUSI odpowiedzieć:
-  □ [CP-FSL-D]:       Czy SD-VER=KOMPLET i czy istnieje ≥1 teza? 
+  □ [CP-FSL-D]:       Czy SD-VER=KOMPLET i czy istnieje ≥1 teza?
                         TAK → AKTYWNY. NIE oznaczaj N/A.
   □ [CP-1c-macierz]:  Czy użytkownik dostarczył ≥2 dowody (pliki)?
                         TAK → AKTYWNY. NIE oznaczaj N/A.
@@ -164,10 +164,10 @@ CP-CHECK (obligatoryjny — nie można pominąć):
 
 CP-CHECK FAIL — komunikat obowiązkowy:
   ⛔ CP-CHECK FAIL — nie mogę wygenerować wersji FINAL.
-  
+
   Otwarte checkpointy blokujące:
     [lista otwartych CP z opisem co jest wymagane]
-  
+
   Mogę wygenerować wersję DRAFT (poglądową) — czy chcesz?
   Wersja DRAFT będzie oznaczona "NIE SKŁADAĆ" w nagłówku.
   Odpowiedz: "tak draft" / "nie"

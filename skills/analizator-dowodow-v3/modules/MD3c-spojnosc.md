@@ -210,8 +210,8 @@ contradictions.push({
 - **OSTRZEŻENIE** — sprzeczność CROSS kwotowa lub datowa >7 dni; kolizja kwalifikacji prawnej między pismami
 - **DO SPRAWDZENIA** — niejednoznaczność semantyczna; różnica opisu nierozstrzygnięta; DOUBT bez dominującego cytatu
 
-Kolizja kwot jest zawsze co najmniej OSTRZEŻENIE.  
-Zmiana wersji bez wyjaśnienia w kolejnym piśmie = INTRA-CONTRA co najmniej DO SPRAWDZENIA.  
+Kolizja kwot jest zawsze co najmniej OSTRZEŻENIE.
+Zmiana wersji bez wyjaśnienia w kolejnym piśmie = INTRA-CONTRA co najmniej DO SPRAWDZENIA.
 Sprzeczność między pismem a dowodem pierwotnym ma pierwszeństwo analityczne przed sprzecznością retoryczną.
 Rozbieżność tożsamości [IDENT] na dokumencie, który jest GŁÓWNYM dowodem dla danej
 przesłanki (np. pokwitowanie odbioru środków, podpis na porozumieniu) = co najmniej

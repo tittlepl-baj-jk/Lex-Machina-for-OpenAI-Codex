@@ -179,7 +179,7 @@ KLAUZULE OBOWIĄZKOWE (brak = 🔴 KRYTYCZNE):
   □ Miejsce wykonywania pracy
   □ Wynagrodzenie (składniki + terminy wypłaty)
   □ Wymiar czasu pracy
-  
+
 KLAUZULE WAŻNE (brak = 🟠 WAŻNE):
   □ Zakaz konkurencji (jeśli stosowany) — art. 101¹ KP
   □ Klauzula poufności (tajemnica pracodawcy)

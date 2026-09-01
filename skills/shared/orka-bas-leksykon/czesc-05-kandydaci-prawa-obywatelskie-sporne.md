@@ -244,4 +244,3 @@ Reguła: obrona powinna zawsze powoływać art. 62a przy małych ilościach +
 ```
 
 ---
-

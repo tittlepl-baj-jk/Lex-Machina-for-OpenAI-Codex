@@ -1,8 +1,3 @@
 name: dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka
-version: 3.5
-description: |
-  DR-14: Prawo UE, Międzynarodowe, Prawa Człowieka
-  Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony obszar prawa UE / prawa międzynarodowego.
-  Ładuj TYLKO moduł pasujący do sprawy — lazy loading.
-  Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill.
-  Weryfikacja: isap.sejm.gov.pl | eur-lex.europa.eu | echr.coe.int | sn.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)
+version: "3.7"
+description: "Prawo UE, międzynarodowe i prawa człowieka: prawo pierwotne i wtórne UE, TSUE, EKPC/ETPC, traktaty, kolizje jurysdykcji i standardy praw człowieka."

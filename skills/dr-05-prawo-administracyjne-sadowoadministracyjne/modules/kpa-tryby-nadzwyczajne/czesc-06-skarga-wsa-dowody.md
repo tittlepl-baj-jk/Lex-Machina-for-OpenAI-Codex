@@ -139,4 +139,3 @@ wojciechrudzki.pl).
 | Nowe okoliczności (wznowienie) | Dokumenty/zeznania/orzeczenia ujawnione po decyzji | różne | średnia | data ujawnienia | precyzyjnie wskaż kiedy dowiedziałeś się |
 
 ---
-

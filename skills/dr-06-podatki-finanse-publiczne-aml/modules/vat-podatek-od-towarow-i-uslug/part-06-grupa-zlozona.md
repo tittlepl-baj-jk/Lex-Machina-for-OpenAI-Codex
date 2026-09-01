@@ -269,4 +269,3 @@ o wyższym priorytecie praktycznym. Pozostałe drobne pozycje z 7.5
 pozostają świadomie nawigacyjne.
 
 ---
-

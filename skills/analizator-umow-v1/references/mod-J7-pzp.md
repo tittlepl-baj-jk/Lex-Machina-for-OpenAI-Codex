@@ -22,7 +22,7 @@ KLUCZOWE AKTY (weryfikuj aktualne teksty):
   Dla stanu na 03.06.2026: plik ujednolicony PZP oprac. 2026-05-27.
   → ZAWSZE sprawdź metrykę aktu i tekst ujednolicony; nie kopiuj nieaktualnych list nowelizacji.
   → Pomocniczo: uzp.gov.pl → „Prawo zamówień publicznych" → aktualna wersja/komunikaty.
-  
+
   Kluczowe artykuły umowne:
   → art. 433 PZP: klauzule abuzywne (niedopuszczalne w umowach PZP)
   → art. 434–435 PZP: czas trwania umowy i wyjątki dla umów na czas nieoznaczony
@@ -32,7 +32,7 @@ KLUCZOWE AKTY (weryfikuj aktualne teksty):
   → art. 455 PZP: dopuszczalne zmiany umowy
   → art. 462–465 PZP: podwykonawstwo i bezpośrednia zapłata podwykonawcom (weryfikuj zakres w ISAP)
   → art. 466 PZP: Prezes UZP jako centralny organ administracji rządowej — NIE podwykonawstwo
-  
+
   FIDIC (dla robotów budowlanych):
   → Czerwona Książka FIDIC 2017 (Conditions of Contract for Construction)
   → Żółta Książka FIDIC 2017 (Plant and Design-Build)
@@ -185,7 +185,7 @@ PRAWO (art. 462–465 PZP — weryfikuj w ISAP):
   □ OBOWIĄZEK: wskazanie w ofercie zakresu robót dla podwykonawców
   □ OBOWIĄZEK: zawarcie umowy z podwykonawcą w formie pisemnej
   □ Zamawiający zatwierdza podwykonawców (lub zgłasza sprzeciw w [30] dni)
-  
+
   BEZPOŚREDNIA ZAPŁATA (art. 465 PZP):
   Podwykonawca może żądać bezpośredniej zapłaty od zamawiającego gdy GW nie płaci.
   Zamawiający płaci bezpośrednio podwykonawcy i potrąca z należności GW.

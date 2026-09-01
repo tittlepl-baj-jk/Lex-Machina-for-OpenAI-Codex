@@ -1,8 +1,3 @@
 name: dr-16-pisma-strategia-dowody-orzecznictwo
-version: 3.2
-description: |
-  DR-16: Pisma, Strategia, Dowody, Orzecznictwo
-  Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony obszar procesowy.
-  Ładuj TYLKO moduł pasujący do sprawy — lazy loading.
-  Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill.
-  Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl | nsa.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)
+version: "3.5"
+description: "Pisma, strategia, dowody i orzecznictwo: routing narzędzi procesowych, analiza dowodowa, research orzeczeń, kalkulatory i wsparcie budowy strategii sprawy."

@@ -1,7 +1,7 @@
 # FORMAL-CHECK — centralna walidacja formalna pisma
 
-**Status:** moduł współdzielony, obowiązkowy dla generatorów pism.  
-**Zakres:** pisma cywilne, pracownicze, gospodarcze, karne, administracyjne, sądowoadministracyjne, egzekucyjne i przedsądowe.  
+**Status:** moduł współdzielony, obowiązkowy dla generatorów pism.
+**Zakres:** pisma cywilne, pracownicze, gospodarcze, karne, administracyjne, sądowoadministracyjne, egzekucyjne i przedsądowe.
 **Zasada:** ten moduł nie zastępuje weryfikacji aktualnego tekstu ustawy. Przed wskazaniem przepisu, terminu albo opłaty sprawdź aktualny tekst aktu prawnego w ISAP / prawo.sejm.gov.pl lub innym oficjalnym źródle.
 
 ## 1. Bramka wejściowa
@@ -118,4 +118,3 @@ bank / zakład ubezpieczeń / Skarb Państwa / powiat
 1. Wypisz podmioty z nagłówka: [A], [B]
 2. Wypisz podmioty z treści pisma
 3. Jeśli treść zawiera [A] + [A] zamiast [A] + [B] → [LA-PODMIOT-POWTORZONY]
-

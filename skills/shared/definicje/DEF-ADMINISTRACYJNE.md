@@ -51,7 +51,7 @@ WYKONALNOŚĆ vs OSTATECZNOŚĆ DECYZJI:
     (może nie być ostateczna — gdy tryb uproszczony, jedna strona)
   Decyzja OSTATECZNA = nie przysługuje od niej odwołanie w toku
     postępowania (art. 16 §1 KPA — weryfikuj)
-  
+
   PRAKTYCZNE ZNACZENIE (prawo budowlane):
   → Pozwolenie na budowę: inwestor jedyna strona → może realizować na decyzji wykonalnej
   → Więcej stron → decyzja musi być OSTATECZNA

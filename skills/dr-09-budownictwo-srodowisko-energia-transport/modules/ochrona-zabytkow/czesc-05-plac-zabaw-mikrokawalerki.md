@@ -216,4 +216,3 @@ Potwierdzone w 9+ zgodnych, EKSTREMALNIE aktualnych źródłach
 [20.01.2026], finwire.pl [20.05.2026], warszawawpigulce.pl,
 knc-nieruchomosci.pl [29.05.2026], remontkawalerki.pl, pewnylokal.pl.
 ```
-

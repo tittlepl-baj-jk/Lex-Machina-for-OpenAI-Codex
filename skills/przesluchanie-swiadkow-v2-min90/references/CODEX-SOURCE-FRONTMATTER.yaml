@@ -1,39 +1,28 @@
 name: przesluchanie-swiadkow-v2-min90
-version: "3.22"
+version: "3.25"
 type: legal-skill
 domain: litigation-witness-examination
 status: production
 default_mode: text
 graphic_mode: on_request_only
 performance_profile: staged-intake-first
-compatibility:
-  - Claude Skills
-  - Modular Legal Skills
+compatibility: "live_web_lookup, file_read, cross_skill_file_read, optional_document_and_interactive_ui; modular Agent Skills environment"
 entrypoint: SKILL.md
-description: |
-  Przesłuchanie świadków v2 — przygotowanie pytań, kontrprzesłuchanie i scoring
-  dowodowy w sprawach cywilnych, karnych, pracowniczych i administracyjnych.
-  Stosuj gdy użytkownik chce: przygotować pytania do świadka lub biegłego,
-  przeprowadzić impeachment, ocenić wiarygodność zeznań, wykryć sprzeczności
-  z wcześniejszymi zeznaniami, dobrać model przesłuchania do typu sędziego.
-  Pipeline: PRE-W1a SD-VER (skan dowodów, HARD GATE) → PRE-W1 (profil) →
-  KROK 0 → W1 intake → W2 tezy/model → CHECKPOINT-W2 → W3 pytania (FPW,
-  ryzyko 3D, WHY-GATE, SAFE-Q) → W4 próba generalna → W5 binder → W6 direct.
-  ⛔ HARD GATE: zakaz cytowania przepisów/sygnatur z pamięci; zakaz wejścia
-  do WITNESS-INTELLIGENCE bez SD-VER=KOMPLET; WITNESS-SCOPE-LOCK — zakaz
-  dołączania do W2/W3 osób spoza potwierdzonej listy świadków.
-  NIE stosuj do analizy dokumentów bez świadka — użyj analizator-dowodow-v3.
+description: "Przygotowanie przesłuchania świadków: analiza akt i dowodów, cele dowodowe, sprzeczności, pytania główne i kontrolne oraz rozbudowane zestawy pytań do świadków."
 dependencies:
   required:
     - shared
-    - analizator-dowodow
+    - analizator-dowodow-v3
     - MOD-SKAN-DOWODOW-KOMPLETNY
     - MOD-REJESTR-ZALACZNIKOW-CHECKPOINT
     - MOD-STEP-TRACKER
+    - MOD-ATAK-NA-SWIADKA   # źródło siatki pojęć dla FUNDAMENT-A w BLOKU A
+                            # (SW-P1 relacja, SW-P3 źródło wiedzy, SW-A1 interes,
+                            # SW-A6 upływ czasu) — dodane 2026-08-23g, flaga F-122
   optional:
-    - chronologia-sprawy
-    - analiza-sadowa
-    - raport-sytuacyjny
+    - chronologia-sprawy-v1
+    - analiza-sadowa-v6
+    - raport-sytuacyjny-v2
     - MOD-KONTEKST-SESJI
     - MOD-PRIORYTETY-ASPEKTOW
     - MOD-SELEKCJA-DOWODOW
@@ -73,14 +62,11 @@ pipeline:
     - W5-BINDER
     - W6-LIVE-DIRECT
 changelog: |
-  Wersja bieżąca: 3.22. Pełna historia (17 wpisów, 3.1-3.19) w
-  references/CHANGELOG.md — wczytuj na żądanie, NIE trzymaj tu ponownie
-  (F-78, 2026-08-20: to drugie takie porządkowanie tego pola po 2026-07-12;
-  następne audyty dopisujące wpisy wersji NIECH DOPISUJĄ do
-  references/CHANGELOG.md, NIE do tego pola YAML).
-  Skrót ostatnich 3 zmian: 3.19 — naprawiono lukę w obsłudze `< truncated
-  lines >` przy odczycie protokołu rozprawy (dziedziczona z
-  shared/MOD-SKAN-DOWODOW-KOMPLETNY). 3.18 — rozdzielono PRAWO-HARDGATE od
-  PRZESŁANKI-GATE jako niezależne obowiązki, dodano FORMALNA-ZGODNOSC-GATE.
-  3.17 — MOD-REJESTR-ZALACZNIKOW-CHECKPOINT jako twarda zależność required
-  (RZ-SHOW-GATE, etap PRE-W1a.4).
+  Wersja bieżąca: 3.25. Pełna historia (19 wpisów, 3.1-3.25) w
+  references/CHANGELOG.md — wczytuj na żądanie, NIE dopisuj wpisów tutaj
+  (ZASADA 15; to pole było już dwukrotnie porządkowane: 2026-07-12 i F-78).
+  Skrót ostatnich 3 zmian: 3.25 — naprawa wstawki F-115 wstawionej wewnątrz
+  bloku ``` sekcji PRE-W1a; blok przeniesiony pod HARD GATE (F-127).
+  3.23 — FUNDAMENT-A w BLOKU A (W3): cztery elementy obowiązkowe przez
+  ODESŁANIE do shared/MOD-ATAK-NA-SWIADKA.md, bez drugiej kopii treści
+  (F-122). 3.19 — obsługa `< truncated lines >` przy odczycie protokołu.

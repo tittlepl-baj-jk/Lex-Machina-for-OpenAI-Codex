@@ -52,7 +52,7 @@ POLA EKSPLOATACJI (art. 50 PrAut) — lista musi być kompletna:
   □ Modyfikacja i tworzenie dzieł pochodnych
   □ Utrwalanie, zwielokrotnianie, tłumaczenie, przystosowanie i rozpowszechnianie programu — formułuj zgodnie z art. 74 PrAut
   UWAGA: dekompilacja i kopie zapasowe to szczególne uprawnienia/ograniczenia z art. 75 PrAut, nie klasyczne „pole eksploatacji”.
-  
+
   DLA OPROGRAMOWANIA (dodaj koniecznie):
   □ Instalacja i uruchomienie na określonej liczbie stanowisk/serwerów
   □ Tworzenie kopii zapasowych (art. 75 ust. 1 PrAut)
@@ -177,12 +177,12 @@ DEFINICJA DOSTĘPNOŚCI — rekomendowane brzmienie:
   "'Dostępność' oznacza możliwość połączenia z Systemem i uzyskania odpowiedzi
    na żądanie HTTP przez niezależne narzędzie monitorujące (URL: [adres])
    w czasie nie dłuższym niż [3000] ms.
-   
+
    'Niedostępność' to każdy okres, gdy Dostępność nie jest zapewniona,
    z wyłączeniem Planowanych Przerw Serwisowych (max [4]h/miesiąc, w godzinach
    [02:00–06:00] CET, z [72]-godzinnym wyprzedzeniem).
    Przerwy niezapowiedziane zawsze wliczają się do czasu Niedostępności.
-   
+
    SLA obliczane jest jako: [(czas okresu rozliczeniowego - czas Niedostępności)
    / czas okresu rozliczeniowego] × 100%"
 
@@ -191,7 +191,7 @@ PROGI SLA I KARY — standard rynkowy:
   99,0–99,9%: 10% miesięcznej opłaty jako Service Credit
   95,0–99,0%: 25% miesięcznej opłaty
   <95,0%: 50% miesięcznej opłaty + prawo rozwiązania
-  
+
   PUŁAPKA: "Service Credit" jako wyłączne odszkodowanie
   → Klient może mieć realną stratę 100× większą niż kredyt SLA
   REKOMENDACJA: "Service Credit nie wyłącza prawa do odszkodowania za szkodę."
@@ -203,7 +203,7 @@ PROGI SLA I KARY — standard rynkowy:
 PUŁAPKA SaaS-2a — Brak klauzuli przeniesienia danych (data portability):
   PROBLEM: Klient chce zmienić dostawcę SaaS → jego dane "więzione" w systemie
   → Eksport w niestandardowym formacie → praktycznie niemożliwy import do innego systemu
-  
+
 REKOMENDACJA:
   "§X. Usługodawca zapewnia Klientowi możliwość eksportu wszystkich danych
    w standardowym formacie ([CSV/JSON/XML/SQL]) na żądanie Klienta, w terminie
@@ -214,7 +214,7 @@ REKOMENDACJA:
 PUŁAPKA SaaS-2b — Dane klienta po zakończeniu umowy:
   PRAWO (art. 28 RODO): procesor musi usunąć lub zwrócić dane po zakończeniu przetwarzania
   → Wczytaj: mod-shared-rodo.md → sekcja RO.4 (Pułapka RO-4)
-  
+
 PUŁAPKA SaaS-2c — Zmiany funkcjonalności bez zgody:
   PROBLEM: "Usługodawca ma prawo modyfikować funkcjonalność Platformy."
   → Usunięcie kluczowej funkcji bez odszkodowania
@@ -232,7 +232,7 @@ PUŁAPKA SaaS-3 — SaaS na AWS/Azure/GCP bez klauzuli:
   → Wymagana: (a) ujawnienie AWS jako podprocesora, (b) standardowe klauzule (SCC)
     jeśli AWS obsługuje dane z serwera w USA
   → Weryfikuj: gdzie fizycznie są serwery? (region EU = mniejsze ryzyko)
-  
+
 LISTA KONTROLNA CHMURY:
   □ Gdzie fizycznie przechowywane dane (kraj / region UE)?
   □ Lista zatwierdzonych podprocesora podana w Załączniku?
@@ -312,7 +312,7 @@ KJ-1 — Solidarna odpowiedzialność bez limitów wewnętrznych (CRITICAL):
   PROBLEM: Zamawiający może żądać 100% wykonania od każdego członka konsorcjum.
   Lider odpowiada za błędy Partnera bez prawa automatycznego regresu.
   RYZYKO: Lider płaci odszkodowanie za cudzy błąd, traci płynność.
-  
+
   REKOMENDACJA — klauzula w umowie wewnętrznej konsorcjum:
   "§X. Odpowiedzialność finansowa Stron wobec siebie jest ograniczona do zakresu
    własnych Zadań określonych w Załączniku nr 1. Strona, która poniosła koszt

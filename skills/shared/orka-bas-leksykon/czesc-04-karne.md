@@ -148,4 +148,3 @@ MULTIRECYDYWA (art. 64 §2 KK): WYKLUCZA warunkowe umorzenie
 ```
 
 ---
-

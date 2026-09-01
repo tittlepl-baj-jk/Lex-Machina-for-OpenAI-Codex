@@ -109,7 +109,7 @@ SW-P5 SPRZECZNOŚCI ZEWNĘTRZNE:
   Porównaj zeznania z dokumentami w aktach:
     Każdy D[id] z SD-FAKTY który opisuje ten sam fakt → zestawienie
   Format: [W-001] vs [D03 str.2] — ROZBIEŻNOŚĆ: [opis]
-  
+
   Porównaj z zeznaniami innych świadków:
     [W1-001 Nawrot] vs [W2-003 Parzych] — SPRZECZNOŚĆ: [opis]
 ```

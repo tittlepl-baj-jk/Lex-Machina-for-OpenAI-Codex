@@ -1,7 +1,7 @@
 # mod-skargi-na-prawo-miejscowe-WSA-NSA
 
 **Status:** moduł klasy kancelaryjnej — poziom DR-03
-**Źródło weryfikacji:** USG art. 101 — Dz.U. 2025 poz. 1153 | PPSA — Dz.U. 2026 poz. 143
+**Źródło weryfikacji:** USG art. 101 — Dz.U. 2026 poz. 662 | PPSA — Dz.U. 2026 poz. 143
 **Data weryfikacji online:** 2026-06-05
 **Zasada:** Każde brzmienie przepisu przed powołaniem → isap.sejm.gov.pl
 
@@ -16,9 +16,9 @@ Skarga na uchwałę lub zarządzenie JST naruszające interes prawny skarżąceg
 
 | Akt | Dz.U. |
 |---|---|
-| USG art. 101–102 | Dz.U. 2025 poz. 1153 t.j. |
+| USG art. 101–102 | Dz.U. 2026 poz. 662 t.j. |
 | USP art. 88–89 | Dz.U. 2025 poz. 1684 t.j. |
-| USW art. 90–91 | Dz.U. 2025 poz. 581 t.j. |
+| USW art. 90–91 | Dz.U. 2026 poz. 720 t.j. |
 | PPSA art. 3 §2 pkt 5, art. 52 §4 | Dz.U. 2026 poz. 143 t.j. |
 
 ---

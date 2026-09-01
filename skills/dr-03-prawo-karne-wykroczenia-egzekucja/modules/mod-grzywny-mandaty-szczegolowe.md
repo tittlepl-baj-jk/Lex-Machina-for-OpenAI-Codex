@@ -235,7 +235,7 @@ WERYFIKUJ: isap.sejm.gov.pl → KPA → Dział IVa art. 189a–189k
 ## 5. EGZEKUCJA ADMINISTRACYJNA NIEZAPŁACONYCH GRZYWIEN/KAR
 
 ```
-Podstawa: UPEA Dz.U. 2023 poz. 2505 t.j. (weryfikuj nowelizacje)
+Podstawa: UPEA Dz.U. 2026 poz. 268 t.j. (weryfikuj nowelizacje)
 Organ egzekucyjny: naczelnik US / wójt (burmistrz/prezydent) / inne
 
 TRYB EGZEKUCJI NALEŻNOŚCI PIENIĘŻNYCH:
@@ -265,7 +265,7 @@ W POSTĘPOWANIU ADMINISTRACYJNYM (KPA):
   Art. 88 KPA — świadek/biegły (50 zł / 200 zł) — zażalenie
   Art. 88a KPA — strona / uczestnik postępowania — weryfikuj w ISAP
   Art. 57 §4 KPA — wezwanie do usunięcia braków formalnych — weryfikuj
-  
+
 W POSTĘPOWANIU SĄDOWYM:
   KPC art. 163, 274 — świadek niestawiający się
   KPK art. 285–287 — świadek/biegły + tryb karny

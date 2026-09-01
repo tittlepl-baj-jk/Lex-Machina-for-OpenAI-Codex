@@ -228,11 +228,11 @@ KROK I2 — Zbuduj struktury wewnętrzne:
 KROK I3 — Potwierdź wczytanie użytkownikowi:
   "[Imię jeśli znane] — wczytałem kontekst sprawy [nazwa].
   Kontynuujemy od: [etap z §8 lub 'nowy etap'].
-  
+
   Aktywne roszczenia: [n] | Zatwierdzone dowody: [n] | Luki: [n] ⬛
   Ostrzeżenia krzyżowe z poprzedniej sesji: [n] 🔴 [jeśli >0: wymień]
   Otwarte kwestie: [n] — najważniejsza: [pierwsza z §7]
-  
+
   Od czego zaczynamy?"
 
 KROK I4 — Integracja z modułami:

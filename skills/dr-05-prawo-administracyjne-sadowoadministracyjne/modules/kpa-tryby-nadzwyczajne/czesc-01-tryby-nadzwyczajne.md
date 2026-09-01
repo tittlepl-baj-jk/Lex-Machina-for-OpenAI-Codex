@@ -154,4 +154,3 @@ w istocie), nie sądowym.
 ```
 
 ---
-

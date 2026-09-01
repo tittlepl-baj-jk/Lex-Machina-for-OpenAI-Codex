@@ -12,7 +12,7 @@ samego rozdziału. To jedna z NAJCZĘSTSZYCH kategorii spraw wykroczeniowych.
 > `mod-KW-KPW-framework-szczegolowy.md`. Ten moduł dostarcza WYŁĄCZNIE
 > materialnoprawną treść Rozdziału XIV KW.
 
-**Zasada:** `view ../../shared/PRAWO-HARDGATE.md` przed każdym
+**Zasada:** `view shared/PRAWO-HARDGATE.md` przed każdym
 przepisem z tego modułu.
 
 ---
@@ -22,7 +22,7 @@ przepisem z tego modułu.
 | Artykuł | Czyn | Próg wartości |
 |---|---|---|
 | 119 | Kradzież/przywłaszczenie cudzej rzeczy ruchomej | ≤800 zł |
-| 120 | Wyrąb drzewa w lesie w celu przywłaszczenia / kradzież drzewa wyrąbanego lub powalonego | ✅ **≤800 zł — ZRÓWNANY z progiem ogólnym** (starsze źródła podają 75 zł/"1/4 minimalnego wynagrodzenia" — to brzmienie SPRZED nowelizacji, obecnie ISAP/lexlege potwierdzają jednolity próg 800 zł, Dz.U.2025.734 t.j.). Obligatoryjna nawiązka w wysokości PODWÓJNEJ wartości drzewa (§3) |
+| 120 | Wyrąb drzewa w lesie w celu przywłaszczenia / kradzież drzewa wyrąbanego lub powalonego | ✅ **≤800 zł — ZRÓWNANY z progiem ogólnym** (starsze źródła podają 75 zł/"1/4 minimalnego wynagrodzenia" — to brzmienie SPRZED nowelizacji, obecnie ISAP/lexlege potwierdzają jednolity próg 800 zł, Dz.U. 2025 poz. 734 t.j.). Obligatoryjna nawiązka w wysokości PODWÓJNEJ wartości drzewa (§3) |
 | 121 | Jazda bez biletu / bez opłaty za przejazd — KWALIFIKOWANA postać: trzecie w ciągu roku wyłudzenie przejazdu mimo dwukrotnie nałożonej kary pieniężnej z taryfy, bez zamiaru zapłaty | — |
 | 122 | Paserstwo (umyślne §1, nieumyślne §2 — łagodniejsze) | ≤800 zł (odpowiednio do progu z art. 119/120) |
 | 123 | ✅ Zabieranie w celu przywłaszczenia cudzych owoców/warzyw/kwiatów Z OGRODU, W NIEZNACZNEJ ILOŚCI — grzywna do 250 zł albo nagana. Ściganie NA WNIOSEK pokrzywdzonego (§2) |
@@ -214,10 +214,10 @@ KROK 5 — Czy czyn popełniono ZA GRANICĄ przez obywatela polskiego?
 
 ---
 
-## 8. LITERATURA I ŹRÓDŁA (zweryfikowane online 2026-07-17)
+## 8. LITERATURA I ŹRÓDŁA (re-ver F-135: 2026-08-28)
 
-- Tekst jednolity Kodeksu wykroczeń — ISAP/lexlege.pl (art. 119, 122, 124
-  potwierdzone z aktualnym progiem 800 zł i wyłączeniami).
+- **RZĄD 1 — ELI / API Sejmu:** Kodeks wykroczeń, t.j. Dz.U. 2025 poz. 734 — art. 119, 120, 122 i 124 potwierdzone z progiem 800 zł; art. 24 § 1 potwierdza ogólną grzywnę 20–5000 zł. Re-ver 2026-08-28.
+- **RZĄD 1 — ELI:** tekst jednolity Dz.U. 2023 poz. 2119 odnotowuje, że zmiany art. 119/120/122/124 do 800 zł weszły w życie 1.10.2023.
 - e-prawnik.pl — komentarz do art. 119-131 (⚠️ część danych na tym portalu
   ODZWIERCIEDLA STARY próg 250 zł/75 zł sprzed podwyżki z 1.10.2023 —
   NIE cytować kwot z tego źródła bez krzyżowej weryfikacji na ISAP).

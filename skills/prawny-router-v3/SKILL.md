@@ -3,7 +3,7 @@ name: "prawny-router-v3"
 description: "UŻYWAJ ZAWSZE i AUTOMATYCZNIE przy każdej sprawie prawnej, w każdej jurysdykcji. Wczytaj przed analizą, oceną cudzego materiału lub pismem; uruchamia HARD GATE i routing."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-28-router-3.32"
+  source-tree: "development-2026-09-01"
   source-directory: "prawny-router-v3"
 ---
 

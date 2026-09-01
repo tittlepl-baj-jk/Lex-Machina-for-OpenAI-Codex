@@ -88,7 +88,7 @@ Dla każdego żądania z W1.2a (CLAIM-VALIDATION):
     Jeśli TAK:
       → Każda możliwa interpretacja tej sprzeczności = osobna ścieżka
       → Dla każdej: wynikająca podstawa prawna + argument procesowy
-      → Przykład: "KRS identyczny" → jeden argument; "błąd pracodawcy" → 
+      → Przykład: "KRS identyczny" → jeden argument; "błąd pracodawcy" →
         drugi, silniejszy; "przejście zakładu art. 23¹ KP" → trzeci, autonomiczny
 
   FORMAT S1:

@@ -197,4 +197,3 @@ DECYZJA O STOSOWANIU MSR: skonsolidowane sprawozdania JEDNOSTEK
   grupy kapitałowej (patrz SEKCJA 5c niżej) — DWA reżimy zwolnień SĄ
   ZE SOBĄ POWIĄZANE proceduralnie.
 ```
-

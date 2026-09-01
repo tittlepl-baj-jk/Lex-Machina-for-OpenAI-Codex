@@ -20,14 +20,14 @@ KLUCZOWE AKTY PRAWNE (weryfikuj aktualne teksty):
    jednorodzinnego oraz Deweloperskim Funduszu Gwarancyjnym (UUDE)
    Obowiązuje: od 01.07.2022 r. dla nowych inwestycji
    isap.sejm.gov.pl → Dz.U. 2024 poz. 695 t.j.
-   
+
 2. Kodeks cywilny:
    Art. 389–390: umowa przedwstępna (słaby/silny skutek)
    Art. 394–396: zadatek i zaliczka
    Art. 158: forma aktu notarialnego dla przeniesienia własności nieruchomości
    Art. 535: umowa sprzedaży
    Art. 556–576: rękojmia za wady
-   
+
 3. Ustawa o własności lokali: Dz.U. 2000 poz. 903 (sygnatura pierwotna)
    ⚠ Weryfikuj aktualny tekst jednolity: isap.sejm.gov.pl → "ustawa o własności lokali"
 
@@ -103,7 +103,7 @@ PRAWO (art. 43 UUDE — weryfikuj w ISAP):
      może nie przyjąć lokalu lub odmówić podpisania aktu
   5. Ogłoszenie upadłości dewelopera
   6. Nabywca zrezygnował z warunków kredytu hipotecznego (14 dni od decyzji kredytowej)
-  
+
   SKUTEK ODSTĄPIENIA (art. 43 ust. 2 UUDE):
   Umowa uważana za niezawartą. Nabywca nie ponosi żadnych kosztów.
   Bank wypłaca środki z MRP nabywcy niezwłocznie.
@@ -111,7 +111,7 @@ PRAWO (art. 43 UUDE — weryfikuj w ISAP):
 PUŁAPKA: Klauzule ograniczające prawo odstąpienia lub nakładające kary
   na nabywcę odstępującego z przyczyn z art. 43 UUDE:
   → NIEWAŻNE z mocy prawa
-  
+
 PUŁAPKA: Brak klauzuli dodatkowego terminu dla dewelopera:
   → Jeśli deweloper opóźnia się → nabywca NIE może odstąpić natychmiast
   → Musi najpierw wyznaczyć min. 120-dniowy termin dodatkowy
@@ -162,7 +162,7 @@ PRAWO (art. 41–42 UUDE — weryfikuj w ISAP):
 RĘKOJMIA ZA WADY (KC art. 556–576 — weryfikuj w ISAP):
   Termin rękojmi: 5 lat od wydania rzeczy (dla nieruchomości)
   Termin na zawiadomienie o wadzie: przed upływem roku od jej wykrycia
-  
+
 PUŁAPKA: Umowa skraca termin rękojmi lub ją wyłącza
   → B2C: wyłączenie/ograniczenie rękojmi wobec konsumenta → BEZSKUTECZNE (KC art. 558)
   → Sprawdź: art. 558 §2 KC — weryfikuj w ISAP

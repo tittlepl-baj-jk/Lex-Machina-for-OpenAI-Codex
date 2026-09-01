@@ -380,4 +380,3 @@ centralizacja rozliczeń JST, pozostałe fakturowanie art. 106a/106d/
 kolejnego etapu.
 
 ---
-

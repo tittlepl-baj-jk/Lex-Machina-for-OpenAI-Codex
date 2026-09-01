@@ -400,7 +400,7 @@ WEKTORY ATAKU NA DOWODY CYFROWE:
        → Nowy trend 2024-2025 (USCOURTS FRE 901(c) propozycja 2025)
 
 OBRONA PRZEZ SZCZEPIENIE (hardening):
-  → PRZED złożeniem e-maila / SMS / zrzutu: 
+  → PRZED złożeniem e-maila / SMS / zrzutu:
     [1] Wyeksportuj pełne nagłówki SMTP (nie tylko treść)
     [2] Zrób hash pliku i zachowaj (narzędzia: sha256sum / md5sum)
     [3] Złóż razem: treść + nagłówki + hash + oświadczenie o sposobie pobrania

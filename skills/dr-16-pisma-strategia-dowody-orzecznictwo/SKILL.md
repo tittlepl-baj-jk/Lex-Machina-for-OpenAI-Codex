@@ -1,14 +1,31 @@
 ---
 name: "dr-16-pisma-strategia-dowody-orzecznictwo"
-description: "DR-16: Pisma, Strategia, Dowody, Orzecznictwo Jeden moduł = jeden akt prawny (Dz.U.) lub wydzielony obszar procesowy. Ładuj TYLKO moduł pasujący do sprawy — lazy loading. Wchodzi z: prawo-polskie-v2 → ROUTING-MAP → ten skill. Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl | nsa.gov.pl + shared/INTERPRETACJE-URZEDOWE.md (rejestr interpretacji urzędowych per dziedzina)"
+description: "Pisma, strategia, dowody i orzecznictwo: routing narzędzi procesowych, analiza dowodowa, research orzeczeń, kalkulatory i wsparcie budowy strategii sprawy."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-universal-2026-08-27"
+  source-tree: "development-2026-09-01"
   source-directory: "dr-16-pisma-strategia-dowody-orzecznictwo"
 ---
 
 > [!IMPORTANT]
 > Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
+> **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
+
+
+## ADAPTER RUNTIME — PORTABILITY (ChatGPT / Claude / inne hosty)
+
+Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
+
+1. `view dr-16-pisma-strategia-dowody-orzecznictwo/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
+2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
+3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
+4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
+5. `show_widget`, `visualize:read_me`, `present_files`, `create_file`, shell/Python i podobne operacje są nazwami semantycznymi. Jeśli host nie ma literalnego narzędzia, użyj równoważnej funkcji natywnej bez omijania bramek jakości.
+6. `/mnt/user-data/...` oznacza rzeczywiste załączniki użytkownika dostępne w bieżącym hoście; wymagany ponowny odczyt ma być faktycznym odczytem źródła.
+
+**Zasada nadrzędna:** instrukcje, które są już zrozumiałe i wykonalne w bieżącym hoście, wykonuj bez konwersji. Adapter działa wyłącznie na granicy runtime.
+
 
 # DR-16 — Pisma, Strategia, Dowody, Orzecznictwo
 
@@ -25,6 +42,25 @@ metadata:
 - E-doręczenia i portal sądowy — przepisy wdrażane etapami; sprawdź aktualny stan w ISAP.
 - Prawo prasowe — ustawa z 1984 r. wielokrotnie nowelizowana; weryfikuj Dz.U. ze zm.
 - Ustawa o archiwach — sprawdź aktualny tekst jednolity w ISAP.
+
+
+> ⛔ **SELF-CHECK ANTY-FASADA — obowiązkowy przed wysłaniem odpowiedzi/pisma**
+> (podłączone 2026-08-24, flaga F-115 P3 — zamknięcie zakresu 16 skilli DR):
+>
+> ```
+> view shared/SELF-CHECK-ANTY-FASADA.md
+> ```
+>
+> Sprawdza dwie rzeczy: (1) czy w tekście stoi „zweryfikowano", data weryfikacji
+> albo URL przy przepisie, dla którego NIE wywołano narzędzia W TEJ ODPOWIEDZI;
+> (2) czy znacznik statusu nie został nadany treści WYGENEROWANEJ w tej odpowiedzi
+> (AF-6). Treść listy jest w module, nie tutaj — celowo, żeby nie powstało kolejne
+> miejsce dryfu (7 wcześniejszych kopii rozjechało się ze źródłem przy pierwszej
+> zmianie brzmienia).
+>
+> ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
+> oznaczenia, tylko je wymusza.
 
 ---
 
@@ -62,7 +98,7 @@ Przy redagowaniu pism rozważ doładowanie (`view`) definicji:
 - BAS-W33/W34 Kara umowna i odsetki — precyzja żądań pozwu
 - BAS-W35 Nakaz zapłaty: terminologia "sprzeciw" vs "zarzuty"
 
-## Moduły (12 łącznie — ✓ 12 OK, ☐ 0 STUB; 1 przeniesiony do shared/)
+## Moduły (11 łącznie — ✓ 11 OK, ☐ 0 STUB; 1 przeniesiony do shared/)
 
 ```
 KPC — PROCEDURY SZCZEGÓLNE I NARZĘDZIA PROCESOWE:
@@ -71,9 +107,9 @@ KPC — PROCEDURY SZCZEGÓLNE I NARZĘDZIA PROCESOWE:
 > (Dz.U. 2026 poz. 468 ze zm. — art. 258–305 KPC; typologia świadków, 10 technik
 > procesowych, cross-examination, impeachment, sekwencje pytań; KPK art. 171,
 > 272, 391; KPC art. 259, 261 — WYMAGA WERYFIKACJI ISAP) był bajt-w-bajt
-> identyczny z `prawny-router-v3/references/przesluchanie-swiadkow.md`
+> kanoniczna warstwa KPC jest w `shared/PRZESLUCHANIE-SWIADKOW-KPC.md`; router zawiera wyłącznie bridge, nie kopię prawa materialnego
 > (wykryte przez `ci_check_shared.py`). Scalony pod jedną kanoniczną lokalizacją:
-> `view ../shared/PRZESLUCHANIE-SWIADKOW-KPC.md`. Dla zaawansowanej
+> `view shared/PRZESLUCHANIE-SWIADKOW-KPC.md`. Dla zaawansowanej
 > strategii przesłuchania (przygotowanie pytań, kontrprzesłuchanie, scoring
 > dowodowy) → osobny skill `przesluchanie-swiadkow-v2-min90`, różny zakres.
 > Pełny opis: `audyt-systemu-v4/references/CHECKLIST-DEDUP.md` NOTA-13.
@@ -154,13 +190,13 @@ NARZĘDZIA PRZEKROJOWE:
 ## Jak wywołać
 
 ```
-view ../dr-16-pisma-strategia-dowody-orzecznictwo/modules/[nazwa-modulu].md
+view dr-16-pisma-strategia-dowody-orzecznictwo/modules/[nazwa-modulu].md
 ```
 
 ## Lokalna mapa aktów prawnych
 
 ```
-view ../dr-16-pisma-strategia-dowody-orzecznictwo/MAPA-AKTOW.md
+view dr-16-pisma-strategia-dowody-orzecznictwo/MAPA-AKTOW.md
 ```
 
 ---
@@ -183,7 +219,7 @@ view ../dr-16-pisma-strategia-dowody-orzecznictwo/MAPA-AKTOW.md
 Po zakończeniu analizy lub przed oddaniem odpowiedzi zawierającej ocenę prawną:
 
 ```text
-view ../shared/DISCLAIMER.md
+view shared/DISCLAIMER.md
 ```
 
 Wybierz wariant odpowiedni do trybu:

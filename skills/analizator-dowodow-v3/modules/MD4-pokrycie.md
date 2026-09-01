@@ -54,4 +54,3 @@ Każdy wiersz oznaczony POŚREDNI lub BRAK powinien mieć odpowiadającą pozycj
 `gaps[]` (z polem `Dotyczy` wskazującym na ten fakt).
 
 ---
-

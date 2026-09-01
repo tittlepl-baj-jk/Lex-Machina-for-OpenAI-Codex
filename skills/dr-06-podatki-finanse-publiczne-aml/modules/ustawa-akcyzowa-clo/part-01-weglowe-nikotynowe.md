@@ -84,7 +84,7 @@ badania pełnego pokrycia akcyzy)
   BYŁA CAŁKOWICIE NIEOBECNA
 
 PODSTAWA PRAWNA: art. 99ca-99cc ustawy akcyzowej (nowe przepisy,
-  Dz.U.2026.412 t.j., Dział 4 rozdz. 3) — potwierdzone BEZPOŚREDNIO
+  Dz.U. 2026 poz. 412 t.j., Dział 4 rozdz. 3) — potwierdzone BEZPOŚREDNIO
   dosłownym tekstem (OpenLEX/sip.lex.pl)
 
 ⭐⭐ HARMONOGRAM WEJŚCIA W ŻYCIE (dwuetapowy, WAŻNE dla oceny
@@ -156,4 +156,3 @@ portalspozywczy.pl [×2], money.pl, pro-log.com.pl [×2, z jednym
 ```
 
 ---
-

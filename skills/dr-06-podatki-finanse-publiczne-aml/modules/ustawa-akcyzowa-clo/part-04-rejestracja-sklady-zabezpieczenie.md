@@ -261,4 +261,3 @@ ROZPORZĄDZENIE WYKONAWCZE: rozporządzenie MF z 21.12.2018 r. W
   składu PODATKOWEGO, WARTO od RAZU zbadać, CZY kwalifikuje się DO
   zabezpieczenia RYCZAŁTOWEGO (oszczędność 70% kwoty ZABEZPIECZENIA).
 ```
-

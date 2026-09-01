@@ -496,7 +496,7 @@ UWAGA od 2022: Do średniej ofert wliczane są wszystkie oferty
 (zmiana — weryfikuj aktualny art. 224 ust. 1 PZP)
 
 Reguła ORKA: Zysk nie jest kryterium — cena może nie przynosić zysku
-i nie być rażąco niska, jeśli pokrywa koszty. Brak definicji legalnej = 
+i nie być rażąco niska, jeśli pokrywa koszty. Brak definicji legalnej =
 konieczność dowodzenia z orzecznictwa KIO.
 ```
 

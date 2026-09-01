@@ -2,7 +2,7 @@
 
 **Wersja:** 1.0 | **Wyodrębniono z SKILL.md:** 2026-06-14 (refaktoryzacja — eliminacja monolitu)
 **Wywołaj z:** analizator-przepisow-v2/SKILL.md → INSTRUKCJE OPERACYJNE, kroki 5–9 i 13.
-**Zasada:** `view ../../shared/PRAWO-HARDGATE.md` przed każdym orzeczeniem i przepisem z tego modułu — sygnatury wyłącznie po weryfikacji online.
+**Zasada:** `view shared/PRAWO-HARDGATE.md` przed każdym orzeczeniem i przepisem z tego modułu — sygnatury wyłącznie po weryfikacji online.
 
 Zawiera moduły: 7 (Linia orzecznicza), 7A (MOD-ORZECZ-PRZEPIS), 7B (MOD-ZBIEZNOSC — mapa powiązań), 7C (MOD-HISTORIA-ZMIAN + MOD-VACATIO-LEGIS), 7D (MOD-KONTEKST-PRAKTYCZNY), 8 (Widget wyników — 7 zakładek).
 
@@ -61,7 +61,7 @@ REKOMENDACJA: [właściwa wykładnia + ryzyko odmiennej interpretacji]
 
 ## MODUŁ 7A — MOD-ORZECZ-PRZEPIS (automatyczne orzecznictwo do przepisu)
 
-**Uruchamiaj automatycznie** po każdej analizie przepisu — bez żądania użytkownika.  
+**Uruchamiaj automatycznie** po każdej analizie przepisu — bez żądania użytkownika.
 Cel: pobranie 3 realnych orzeczeń bezpośrednio dotyczących analizowanego przepisu i wykrycie rozbieżności linii orzeczniczych.
 
 ### Procedura wyszukiwania
@@ -174,7 +174,7 @@ Węzłów: [n] | Zbiegów: [k] | Lex specialis: [l]
 
 ## MODUŁ 7C — MOD-HISTORIA-ZMIAN + MOD-VACATIO-LEGIS (nowelizacje przepisu)
 
-**Uruchamiaj automatycznie** przy każdej analizie — w tle, bez przerywania głównego flow.  
+**Uruchamiaj automatycznie** przy każdej analizie — w tle, bez przerywania głównego flow.
 Wynik prezentuj w dedykowanej zakładce widgetu (Moduł 8 Zakładka 6).
 
 **Szczególnie krytyczny dla:** przepisów podatkowych (PIT/VAT/CIT), KPA, KPC, KP, RODO, prawa budowlanego.
@@ -184,11 +184,11 @@ Wynik prezentuj w dedykowanej zakładce widgetu (Moduł 8 Zakładka 6).
 - nowelizacji wieloetapowej (różne daty wejścia w życie),
 - rozbieżności między wersją w dacie zdarzenia a wersją aktualną.
 ```
-view ../../analizator-przepisow-v2/references/MOD-VACATIO-LEGIS.md
+view analizator-przepisow-v2/references/MOD-VACATIO-LEGIS.md
 ```
 W środowisku produkcyjnym:
 ```
-view ../../analizator-przepisow-v2/references/MOD-VACATIO-LEGIS.md
+view analizator-przepisow-v2/references/MOD-VACATIO-LEGIS.md
 ```
 
 ```
@@ -204,7 +204,7 @@ ALERT KRYTYCZNY:
   Jeśli przepis zmieniony w ostatnich 6 miesiącach → ⚠️ ŚWIEŻA NOWELIZACJA
   Jeśli zmiana w trakcie analizowanego okresu → ⚠️ STAN PRAWNY NIESTAŁY
   Jeśli wykryto vacatio legis lub nowelizację wieloetapową:
-    → view ../../analizator-przepisow-v2/references/MOD-VACATIO-LEGIS.md
+    → view analizator-przepisow-v2/references/MOD-VACATIO-LEGIS.md
     → uruchom procedurę VL-1→VL-4, dodaj alerty VL-A/VL-B/VL-C do raportu
 ```
 
@@ -229,7 +229,7 @@ Rekomendacja: [czy sprawdzić tekst historyczny dla starszej sprawy]
 
 ## MODUŁ 7D — MOD-KONTEKST-PRAKTYCZNY (wyjaśnienie dla laika)
 
-**Uruchamiaj automatycznie** gdy: użytkownik nie jest prawnikiem (wykryj z tonu pytania) LUB użytkownik wprost pyta "co to znaczy" / "jak to działa" / "czy to dotyczy mnie".  
+**Uruchamiaj automatycznie** gdy: użytkownik nie jest prawnikiem (wykryj z tonu pytania) LUB użytkownik wprost pyta "co to znaczy" / "jak to działa" / "czy to dotyczy mnie".
 Prezentuj w osobnym boxie obok analizy technicznej — NIE zastępuje analizy, jest jej uzupełnieniem.
 
 ```

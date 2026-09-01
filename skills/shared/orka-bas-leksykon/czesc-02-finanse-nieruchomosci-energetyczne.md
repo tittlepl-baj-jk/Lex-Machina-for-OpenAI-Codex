@@ -153,4 +153,3 @@ Reguła: Odbiorca wrażliwy ma szczególne prawa: zakaz odłączenia w sezonie g
 ```
 
 ---
-

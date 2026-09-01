@@ -177,7 +177,7 @@ pulshr.pl, bankier.pl, biznesinfo.pl, biznes.wprost.pl).
 ```
 
 
-  
+
 OBECNIE OBOWIĄZUJĄCE ROSZCZENIA (art. 94³ §3–4 KP):
   → Zadośćuczynienie za rozstrój zdrowia: nie mniej niż minimalne wynagrodzenie
   → Odszkodowanie przy rozwiązaniu umowy z powodu mobbingu: nie mniej niż min. wynagrodzenie
@@ -292,11 +292,11 @@ POTWIERDZENIE PRZED DOPUSZCZENIEM DO PRACY:
 OBOWIĄZEK OBECNOŚCI (art. 22 §1 + art. 100 §2 pkt 1 KP):
   "Cechą charakterystyczną stosunku pracy jest obowiązek pozostawania pracownika
   w dyspozycji pracodawcy w określonym miejscu i czasie (art. 22 §1 K.p.)"
-  
+
   USPRAWIEDLIWIENIE NIEOBECNOŚCI:
   → pracodawca powinien być uprzedzony (lub zawiadomiony podczas trwania) — zasada
   → wymagają usprawiedliwienia (rozporządzenie MPiPS z 15 maja 1996 r., Dz.U. Nr 60 poz. 281)
-  
+
   KONSEKWENCJE NIEUSPRAWIEDLIWIONEJ NIEOBECNOŚCI:
   → podstawa do rozwiązania stosunku pracy (art. 52 KP)
   → brak prawa do wynagrodzenia za czas niewykonywania pracy (art. 80 KP)
@@ -312,16 +312,16 @@ URLOP WYCHOWAWCZY (art. 186–186⁷ KP) — stanowisko ministerstwa:
   → brak ograniczenia łącznego czasu urlopów wychowawczych na różne dzieci
   → nie wymaga braku możliwości opieki przez innego domownika
   → pracownik może podjąć pracę lub edukację podczas urlopu wychowawczego
-  
+
   SZCZEGÓLNY URLOP WYCHOWAWCZY (dziecko niepełnosprawne):
   → do 3 lat, nie dłużej niż do 18. roku życia dziecka
   → wymaga: co najmniej 6-miesięczny staż pracy + orzeczenie o niepełnosprawności
-  
+
   OCHRONA STOSUNKU PRACY PRZY URLOPIE WYCHOWAWCZYM:
   → zakaz wypowiedzenia i rozwiązania stosunku pracy
   → obejmuje OKRES DWÓCH TYGODNI poprzedzający urlop wychowawczy
   → modyfikacja tylko przy likwidacji/upadłości pracodawcy lub przyczynach niedotyczących pracownika
-  
+
   URLOP RODZICIELSKI (wg stanu z interpelacji INT7):
   → do 26 tygodni niezależnie od liczby dzieci
   → można łączyć z pracą do 1/2 etatu
@@ -340,14 +340,14 @@ DEFINICJA USTAWOWA (art. 3 ustawy wypadkowej Dz.U. 2025 t.j. — weryfikuj w ISA
   1. NAGŁOŚĆ — zdarzenie powinno zadziać się w ciągu jednej dniówki roboczej;
      orzecznictwo: czas oddziaływania czynnika zewnętrznego ≤ 1 dniówce roboczej
      (np. poranne zdarzenie skutkujące zawałem serca przed końcem pracy = nagłe)
-  
+
   2. PRZYCZYNA ZEWNĘTRZNA — nie wynikająca z wewnętrznych uwarunkowań organizmu;
      brak osłony na maszynie, uszkodzone urządzenie, działanie innych osób, siły przyrody
      ⚠️ Przyczyna zewnętrzna NIE musi być WYŁĄCZNĄ przyczyną — może być splot
      przyczyny zewnętrznej z przyczyną wewnętrzną (orzecznictwo SN)
-  
+
   3. URAZ LUB ŚMIERĆ
-  
+
   4. ZWIĄZEK Z PRACĄ — podczas: wykonywania poleceń pracodawcy, czynności na rzecz
      pracodawcy bez polecenia (ale w interesie pracodawcy), pozostawania w dyspozycji
      pracodawcy w drodze między siedzibą a miejscem wykonywania pracy
@@ -380,7 +380,7 @@ DOCHÓD DLA CELÓW ŚWIADCZEŃ RODZINNYCH (interpretacja MF/IZ4.nsf/1D1D3180):
   Przy ryczałcie ewidencjonowanym: dochód = deklarowany w oświadczeniu
   Minimalny dochód: 6× (zryczałtowany podatek + składka zdrowotna)
   ⚠️ Weryfikuj aktualne progi dochodowe: web_search "świadczenia rodzinne dochód limit 2025 2026"
-  
+
 NIEOBECNOŚĆ USPRAWIEDLIWIONA — elementy (rozp. MPiPS 1996, IZ6.nsf/5187F47C):
   → Pracodawca musi być UPRZEDZONY lub ZAWIADOMIONY PODCZAS TRWANIA nieobecności
   → Nieobecność wymaga USPRAWIEDLIWIENIA zgodnie z rozporządzeniem

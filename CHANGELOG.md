@@ -9,6 +9,29 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 Brak zmian.
 
+## [0.4.0] - 2026-09-01
+
+### Upstream
+
+- wykonano pełną synchronizację z rozwojowym drzewem Lex Machina, commit
+  `35cfd9ab388e2eca5544eb45fbaa0a1924dd5429` projektu Michała Wiatraka;
+- przejęto rozszerzoną analizę przepisu: pełną listę nowelizacji po tekście
+  jednolitym, ustalanie właściwego brzmienia na datę analizy, vacatio legis,
+  przepisy przejściowe, wyjątki oraz relacje lex specialis także między aktami;
+- przejęto aktualizacje map i modułów `current-state-COV` dla 16 dziedzin,
+  korekty wartości prawnych oraz materiały audytowe F-108/F-135/F-138;
+- router 3.33 przywraca jawny katalog oficjalnych domen orzeczniczych.
+
+### Codex port
+
+- zbudowano 1235 plików dla 32 aktywnych skilli z uniwersalnym adapterem
+  runtime i przenośnymi ścieżkami;
+- względem `v0.3.1-codex` zsynchronizowano 709 ścieżek skilli: 198 dodano,
+  451 zmieniono i 60 usunięto;
+- walidacja statyczna zakończyła się wynikiem 32/32 `PASS`; nie pozostały
+  ścieżki `/mnt/skills/user`, aktywne endpointy Anthropic ani brakujące
+  dokładne cele referencji.
+
 ## [0.3.1] - 2026-08-28
 
 ### Upstream
