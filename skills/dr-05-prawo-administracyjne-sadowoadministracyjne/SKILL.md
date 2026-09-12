@@ -3,7 +3,7 @@ name: "dr-05-prawo-administracyjne-sadowoadministracyjne"
 description: "Prawo administracyjne i sądowoadministracyjne: KPA, PPSA, decyzje, bezczynność, WSA/NSA, egzekucja administracyjna, cudzoziemcy i postępowania urzędowe."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-05-prawo-administracyjne-sadowoadministracyjne"
 ---
 

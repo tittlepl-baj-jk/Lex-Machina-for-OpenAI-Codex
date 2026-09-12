@@ -3,7 +3,7 @@ name: "raport-klienta-v1"
 description: "Raport dla klienta: przekłada analizę prawną na zrozumiały stan sprawy, ryzyka, warianty działania, priorytety i następne kroki bez utraty podstaw źródłowych."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "raport-klienta-v1"
 ---
 

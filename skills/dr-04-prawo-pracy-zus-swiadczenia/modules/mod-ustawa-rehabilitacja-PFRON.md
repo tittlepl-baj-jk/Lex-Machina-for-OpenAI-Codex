@@ -194,7 +194,10 @@ Stosuj bezwzględnie `shared/DISABILITY-FUNCTIONAL-ASSESSMENT.md`.
 
 ## ANEKS — ŚWIADCZENIE UZUPEŁNIAJĄCE (500+ dla niepełnosprawnych)
 
-**Akt:** Ustawa z 31.07.2019 r. o świadczeniu uzupełniającym — Dz.U. 2026 poz. 884 t.j.
+**Akt:** Ustawa z 31.07.2019 r. o świadczeniu uzupełniającym dla osób niezdolnych
+do samodzielnej egzystencji — Dz.U. 2026 poz. 723 t.j.
+> ⚠️ KOREKTA 2026-09-01: wcześniej wskazywano tu Dz.U. 2026 poz. 884, który jest
+> tekstem jednolitym USTAWY REHABILITACYJNEJ (PFRON), a nie tej ustawy. ✅ VER 2026-09-01 RZĄD 1 (ELI DU/2026/723: obwieszczenie 27.05.2026, ogł. 2.06.2026, obowiązujący; rejestr t.j. aktu bazowego DU/2019/1622)
 **⚠️ Kwoty zmieniane rokrocznie — ZAWSZE weryfikuj przed cytowaniem:**
 ```
 web_search: "świadczenie uzupełniające 500+ kwota kryterium dochodowe 2025 2026 ZUS"

@@ -282,10 +282,10 @@ ODSZKODOWANIE (art. 36 ust. 1–3 u.p.z.p. — weryfikuj w ISAP):
 
 **Strategia:** Przy odmowie WZ — sprawdź warunki dobrosąsiedzkie (zabudowa na sąsiednich działkach). Przy rencie planistycznej — kwestionuj zasadność i obliczenie podstawy. Przy MPZP sprzecznym z planem ogólnym — zarzut niezgodności z aktem nadrzędnym.
 
-**Quality gate:** MPZP potwierdzony w dzienniki.gov.pl? Plan ogólny uchwalony i obowiązuje? Termin odwołania od WZ (14 dni do SKO) nie upłynął?
+**Quality gate:** MPZP potwierdzony w dziennikiurzedowe.gov.pl? Plan ogólny uchwalony i obowiązuje? Termin odwołania od WZ (14 dni do SKO) nie upłynął?
 
 **Output:** Kwalifikacja instrumentu → procedura → terminy → dowody → zarzuty → rekomendacja.
 
 **Powiązania:** `mod-JST-ustroj-samorzad-gminny-powiatowy-wojewodztwa` | `dr-05` → `mod-ustawa-SKO` | `dr-09` (pozwolenie na budowę) | `pisma-procesowe-v3`
 
-**Źródła:** https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20241130 | https://dzienniki.gov.pl
+**Źródła:** https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20241130 | https://dziennikiurzedowe.gov.pl

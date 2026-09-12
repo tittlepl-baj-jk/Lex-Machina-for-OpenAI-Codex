@@ -1,5 +1,5 @@
 name: prawny-router-v3
-version: "3.33"
+version: "3.47"
 type: orchestration
 status: production
 entrypoint: SKILL.md
@@ -30,28 +30,43 @@ dependencies:
     - użytkownik (punkt wejścia — brak nadrzędnego skilla)
 inputs:
   - opis sprawy użytkownika (tekst wolny)
-  - opcjonalnie: pliki/dowody wgrane przez użytkownika
-  - opcjonalnie: plik kontekstu sesji (eksport z wcześniejszej rozmowy)
+  - "opcjonalnie — pliki/dowody wgrane przez użytkownika"
+  - "opcjonalnie — plik kontekstu sesji (eksport z wcześniejszej rozmowy)"
 outputs:
   - decyzja routingu ([1]-[11]) + wywołanie właściwego skilla PRIMARY/SECONDARY/FALLBACK
-  - finalnie: odpowiedź tekstowa, widget (show_widget) lub dokument .docx/.pdf (create_file)
+  - "finalnie — odpowiedź tekstowa, widget (show_widget) lub dokument .docx/.pdf (create_file)"
 confidence: verified-online
   # HARD GATE wymusza web_search/web_fetch dla każdego przepisu/sygnatury —
   # router sam nie generuje treści prawnej z pamięci, tylko orkiestruje.
 escalation:
-  - brak możliwości pobrania aktu lub jego tekstu z ISAP
-    → wykonaj references/ZRODLA-AKTOW-FALLBACK.md; sam błąd ISAP nie kończy weryfikacji
+  - "⛔ ZANIM orzekniesz o niedostępności JAKIEGOKOLWIEK źródła w kanale kodu
+    → sprawdź kształt żądania wg shared/DOSTEP-MASZYNOWY-API.md §1
+    (neutralny User-Agent, nagłówek Accept, ścieżka robocza zamiast roota,
+    ponowienie). HTTP 502 albo 200 ze stroną zastępczą bywa skutkiem naszego
+    żądania, nie awarii serwisu — zmierzone, flagi F-151/F-157"
+  - "brak możliwości pobrania tekstu aktu z ISAP → to stan NORMALNY, nie awaria:
+    kanał maszynowy ISAP jest martwy (Imperva, pętla 302). Brzmienie weryfikuj
+    przez api.sejm.gov.pl/eli lub eli.gov.pl (ten sam publikator, RZĄD 1),
+    ISAP powołuj jako adres dla człowieka. Dalej: references/ZRODLA-AKTOW-FALLBACK.md"
   - brak dostępu do orzeczenia.ms.gov.pl / sn.pl / nsa.gov.pl
     → wykonaj właściwą procedurę weryfikacji orzecznictwa; jeśli brak potwierdzenia
     po dostępnych alternatywach, oznacz ⚠️ [NIEWERYFIKOWANE] i poinformuj użytkownika
   - brak źródła dla powołania po wykorzystaniu dostępnych alternatyw
     → oznacz ⚠️ [NIEWERYFIKOWANE] i poinformuj użytkownika, nie kontynuuj cicho
-  - sprawa transgraniczna / prawo obce → pomiń prawo-polskie-v2 i ISAP,
-    pozostałe zasady HG aktywne (UP-5)
+  - "sprawa transgraniczna / prawo obce → pomiń prawo-polskie-v2 i ISAP,
+    ale NIE pomijaj weryfikacji — view shared/MIEDZYNARODOWE-GATES.md +
+    shared/HIERARCHIA-ZRODEL-MIEDZYNARODOWE.md, kanał RZĘDU 1 przełączony
+    na depozytariusza/EUR-Lex/bazy organów; pozostałe zasady HG aktywne (UP-5)"
   - użytkownik zagubiony / brak klasyfikacji → [7] FALLBACK, nie zgadywanie dziedziny
-  - podmiot (spółka/organ/sąd) oznaczony ⬛ [DO WERYFIKACJI] i brak dostępu do
+  - "podmiot (spółka/organ/sąd) oznaczony ⬛ [DO WERYFIKACJI] i brak dostępu do
     rejestru (KRS/CEIDG) → STOP, poinformuj użytkownika, ZAKAZ generowania
-    pisma z podmiotem w statusie ⬛
+    pisma z podmiotem w statusie ⬛. ⚠️ Wcześniej sprawdź
+    shared/DOSTEP-MASZYNOWY-API.md §4: KRS działa bez klucza przez
+    api-krs.ms.gov.pl (odpis JSON jest ZANONIMIZOWANY względem PDF),
+    a CEIDG zwraca 401 bez tokenu — to nie jest brak dostępu do rejestru"
+  - "weryfikacja rachunku kontrahenta (biała lista VAT) → ⛔ NIEOSIĄGALNA
+    maszynowo w tym środowisku (wl-api.mf.gov.pl poza listą, F-157).
+    Wykonaj ręcznie i oznacz ⚠️ [NIEWERYFIKOWANE MASZYNOWO] — nie pomijaj w ciszy"
 limitations:
   - nie zastępuje porady radcy prawnego/adwokata — patrz shared/DISCLAIMER.md (KROK 7, obowiązkowy)
   - jakość i czas odpowiedzi zależą od dostępności i jakości web_search/web_fetch
@@ -60,10 +75,14 @@ required_modules:
   - shared/MCP-INTEGRACJA.md  # opcjonalny — patrz KROK 1; tani gdy MCP niepodłączone
   - shared/PRAWO-HARDGATE.md
   - shared/HIERARCHIA-ZRODEL.md
+  - shared/DOSTEP-MASZYNOWY-API.md  # JAK wywołać API/serwis (nagłówki, ścieżki,
+                                    # tokeny, limity); wczytaj przy kanale kodu
   - shared/PORTALE-BRANZOWE-RZAD-2B.md
   - shared/MOD-STEP-TRACKER.md
   - shared/MOD-REJESTR-POKRYCIA-JEDNOSTEK.md
   - shared/MOD-KONTEKST-SESJI.md
+  - shared/MOD-OS-CZASU-PRZESLANEK.md
+  - shared/MOD-WYJATEK-GATE.md
   - shared/MOD-SKAN-DOWODOW-KOMPLETNY.md
   - shared/MOD-REJESTR-ZALACZNIKOW-CHECKPOINT.md
   - shared/MOD-PORCJOWANIE-DOWODOW.md
@@ -72,12 +91,16 @@ required_modules:
   - shared/DISCLAIMER.md
   - references/KROK0A-anonimizer.md
   - references/KROK1-detekcja.md
+  - references/PROFIL-LEKKI.md
   - references/ZRODLA-AKTOW-FALLBACK.md
   - dr-16-pisma-strategia-dowody-orzecznictwo/modules/mod-narzedzie-kontroler-kompletnosci.md
   - references/AUDYT-KLUCZA-ODPOWIEDZI.md
+  - shared/MOD-CN-GATE.md
+  - shared/MOD-REM-GATE.md
   - dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md
 changelog:
-  - "3.33 (2026-08-28): przywrócono jawne domeny orzecznicze w escalation; zachowano BI i fallback ISAP z 3.32; references/CHANGELOG.md."
-  - "3.32 (2026-08-28): poprawne odwołanie BI w DR-16; ISAP pierwszy, LEX/Legalis/ArsLege po nieudanym pobraniu tekstu; references/CHANGELOG.md."
-  - "3.31 (2026-08-28): runtime mapy aktów działają w modelu current-state-only; historia pozostaje w dziennikach/changelogach, a routing korzysta z bieżących COV."
-  - "3.30 (2026-08-27): synchronizacja mapy dziedzinowej z F-108 P1 oraz rzeczywistymi modułami REACH/CLP, akcyzy/cła i cudzoziemców; references/CHANGELOG.md."
+  - '3.47 (2026-09-10o, F-181): legacy-material-router/przemoc-domowa - ustawa
+    2021/1249 (wygasniecie aktu) zastapiona aktualnym t.j. 2024/1673. AKT
+    PRZEMIANOWANY: nazwa o przeciwdzialaniu przemocy w rodzinie jest
+    historyczna, obowiazujaca to o przeciwdzialaniu przemocy domowej.'
+  - 'Pelna historia wszystkich wersji: references/CHANGELOG.md (ZASADA 15).'

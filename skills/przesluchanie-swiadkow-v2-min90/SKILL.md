@@ -3,7 +3,7 @@ name: "przesluchanie-swiadkow-v2-min90"
 description: "Przygotowanie przesłuchania świadków: analiza akt i dowodów, cele dowodowe, sprzeczności, pytania główne i kontrolne oraz rozbudowane zestawy pytań do świadków."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "przesluchanie-swiadkow-v2-min90"
 ---
 

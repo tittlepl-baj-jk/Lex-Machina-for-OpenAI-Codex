@@ -4,7 +4,7 @@
 
 | Tryb | Czynność | Termin | Podstawa |
 |------|----------|--------|----------|
-| KPC | Wniosek o uzasadnienie | **7 dni** | art. 328¹ KPC |
+| KPC | Wniosek o uzasadnienie | **tydzień** (potocznie 7 dni) | art. 328 § 1 KPC |
 | KPC | Apelacja | **14 dni** od doręcz. uzasadn. | art. 369 §1 KPC |
 | KPC | Zażalenie | **7 dni** | art. 394 §2 KPC |
 | KPC | Sprzeciw od nakazu | **14 dni** | art. 503 §1 KPC |

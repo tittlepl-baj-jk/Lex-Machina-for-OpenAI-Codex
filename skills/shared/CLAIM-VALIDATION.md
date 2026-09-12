@@ -228,9 +228,30 @@ rozprawie) — odnotuj to jawnie i opisz ryzyko procesowe.
 
 ## KROK CV-ALT — ROSZCZENIE ALTERNATYWNE (v1.1 — UNIVERSALNY)
 
-> **Trigger:** po klasyfikacji WSZYSTKICH twierdzeń strony (C3).
-> Wykonaj ZAWSZE gdy: ≥1 teza procesowa zidentyfikowana jako `[✅ UDOWODNIONE]`
-> lub `[✅ NORMATYWNE]`.
+> **Trigger — ALTERNATYWA, wystarczy JEDEN z dwóch (rozszerzone 2026-08-31, F-139):**
+>
+> **T-A (wejściowy, dotychczasowy):** po klasyfikacji WSZYSTKICH twierdzeń
+> strony (C3). Wykonaj ZAWSZE gdy: ≥1 teza procesowa zidentyfikowana jako
+> `[✅ UDOWODNIONE]` lub `[✅ NORMATYWNE]`.
+>
+> **T-B (wyjściowy, NOWY):** odpowiedź DOWOLNEGO typu — analiza, opinia,
+> raport, odpowiedź na kazus, audyt cudzego materiału — wskazuje **≥2 podstawy
+> prawne prowadzące do tego samego skutku dla tej samej strony**. Bez względu
+> na to, czy etap C3 w ogóle wystąpił i czy powstaje jakiekolwiek pismo.
+>
+> ⛔ **Powód rozszerzenia (F-139).** Do 2026-08-31 trigger był kluczowany
+> WEJŚCIEM — etapem C3, osiągalnym wyłącznie w torze pism i analizy dowodowej.
+> Pomiar `grep -rln "CLAIM-VALIDATION"` wykazał 29 plików wołających, wśród
+> nich ZERO odwołań z `prawny-router-v3` i ZERO z jakiegokolwiek `dr-XX`.
+> Odpowiedź analityczna generowana torem router → dr-XX → raport nigdy nie
+> docierała do C3, więc bramka była dla niej nieosiągalna — mimo etykiety
+> „UNIVERSALNY" w nagłówku. Wzorzec identyczny z opisanym w
+> `shared/DOMAIN-LOCK.md`: bramka kluczowana wejściem jest z definicji ślepa
+> na to, co powstało PO klasyfikacji. T-B naprawia to na osi relacji podstaw
+> prawnych, tak jak DOMAIN-LOCK naprawił to na osi dziedzin.
+>
+> Przy wyzwoleniu przez T-B pomiń kroki zależne od pisma (CV-ALT.3, CV-ALT.4)
+> i wykonaj CV-ALT.1 → CV-ALT.2 → CV-ALT.5.
 
 ### Cel
 
@@ -256,6 +277,34 @@ KROK CV-ALT.2 — WERYFIKACJA SPÓJNOŚCI:
   □ S2 nie może osłabiać S1 przez implikację → porzuć S2
   □ S2 musi mieć własną, odrębną podstawę prawną → potwierdź przepis
   □ S2 musi być zweryfikowana pod HARDGATE (przepis z ISAP) przed W3
+  □ ⛔ WYKLUCZANIE NORMATYWNE (dodane 2026-08-31, F-139):
+    Czy ZISZCZENIE SIĘ S1 unicestwia PRZESŁANKĘ S2 (albo odwrotnie)?
+    → wykonaj OSOBNE zapytanie o RELACJĘ S1–S2 (orzecznictwo, doktryna),
+      nie o brzmienie każdej z podstaw z osobna
+    → zapisz wynik ZAWSZE, także negatywny:
+      „sprawdzono relację art. X – art. Y — brak orzecznictwa"
+    → TAK: publikuj SEKWENCYJNIE jako gałąź warunkową, NIGDY równolegle
+    → NIE / BRAK WYNIKU: publikuj z jawnym zdaniem
+      „relacja tych podstaw nie została zbadana"
+
+KROK CV-ALT.5 — KONTROLA NA WYJŚCIU (dodany 2026-08-31, F-139):
+  Skan GOTOWEGO tekstu przed wysłaniem. Trafienie = dwie podstawy tego
+  samego żądania połączone „albo / lub / alternatywnie / równolegle",
+  ALBO przedstawione jako równoległe sekcje / wątki / warianty.
+    (a) czy w TEJ odpowiedzi wykonano zapytanie o relację (CV-ALT.2)?
+    (b) czy relacja ma pokrycie źródłowe, czy jest domysłem redakcyjnym?
+    (c) czy użyty spójnik odpowiada ustalonej relacji?
+  Którekolwiek NIE → nie publikuj równolegle; przebuduj na gałąź warunkową.
+
+  ⛔ Relacja między normami jest treścią WYGENEROWANĄ w odpowiedzi, więc
+  zgodnie z AF-6 (`shared/SELF-CHECK-ANTY-FASADA.md`) NIE WOLNO nadać jej
+  znacznika ✅/🟨/📚/⚠️. Nie twórz piątego statusu. Egzekwowanie odbywa się
+  przez wymuszone zdanie w tekście, nie przez znacznik.
+
+  ⚠️ Ograniczenie jawne: CV-ALT.5 jest bramką samo-raportującą — jej
+  obecność dowodzi obecności reguły, nie zmiany zachowania (por. F-113,
+  ZASADA 14 w `audyt-systemu-v4/SKILL.md`). Siłę wymuszającą ma CV-ALT.2,
+  bo produkuje ślad zewnętrzny: zapytanie zostało wykonane albo nie.
 
 KROK CV-ALT.3 — POZYCJA W PIŚMIE:
   S1 = argumentacja główna (pełna, wszystkie argumenty)

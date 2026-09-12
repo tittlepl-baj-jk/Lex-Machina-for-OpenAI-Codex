@@ -3,7 +3,7 @@ name: "dr-01-ustroj-konstytucyjny-i-zrodla-prawa"
 description: "Prawo konstytucyjne i ustrojowe: Konstytucja, organy państwa, TK, źródła prawa, legislacja i skarga konstytucyjna; analiza z aktualną weryfikacją źródeł."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-01-ustroj-konstytucyjny-i-zrodla-prawa"
 ---
 

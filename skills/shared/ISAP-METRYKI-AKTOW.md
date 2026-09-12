@@ -124,7 +124,7 @@
 |---|---|
 | ustawa o systemie ubezpieczeń społecznych | ISAP wskazuje tekst ujednolicony i obwieszczenie tekstu jednolitego Dz.U. 2026 poz. 199; sprawdzać późniejsze zmiany |
 | ustawa o emeryturach i rentach z FUS | ISAP wskazuje tekst jednolity Dz.U. 2025 poz. 1749 oraz zmiany 2026; sprawdzać późniejsze zmiany |
-| ustawa rehabilitacyjna | ISAP wskazuje tekst jednolity Dz.U. 2025 poz. 913 i późniejsze zmiany 2025; sprawdzać późniejsze zmiany |
+| ustawa rehabilitacyjna | tekst jednolity Dz.U. 2026 poz. 884 (✅ VER 2026-09-01 RZĄD 1 (ELI DU/2026/884: obwieszczenie 19.06.2026, ogł. 1.07.2026, obowiązujący; DU/2025/913 — status wygaśnięcie aktu)); poprzedni t.j. 2025 poz. 913 — wygasł; sprawdzać późniejsze zmiany |
 | Prawo o ustroju sądów powszechnych | ISAP wskazuje tekst jednolity Dz.U. 2024 poz. 334 oraz późniejsze zmiany 2025/2026; używać tekstu ujednoliconego ISAP na dzień kontroli |
 | Prawo o adwokaturze | ISAP wskazuje tekst jednolity Dz.U. 2024 poz. 1564 oraz akty wykonawcze i zmiany; kontrolować aktualny tekst ujednolicony |
 | ustawa o radcach prawnych | ISAP wskazuje tekst jednolity Dz.U. 2024 poz. 499 oraz późniejsze akty; kontrolować aktualny tekst ujednolicony |

@@ -77,7 +77,7 @@ nieprzerwane posiadanie (rachunki, zeznania świadków, dane o płaceniu podatk�
 ### BAS-127 — Hipoteka (ustawa o ks. wieczystych i hipotece)
 ```
 Weryfikacja: ustawa z 6.07.1982 r. o ks. wieczystych i hipotece art. 65
-  (Dz.U. 2023 poz. 1984 t.j. — weryfikuj)
+  (**Dz.U. 2026 poz. 1066 t.j.** ✅ [VER] RZĄD 1 2026-09-10n — weryfikuj)
 
 DEFINICJA USTAWOWA (art. 65 ust. 1 u.k.w.h.):
   "W celu zabezpieczenia oznaczonej wierzytelności wynikającej z określonego
@@ -149,11 +149,11 @@ ODRÓŻNIENIE od odpowiedzialności kontraktowej i deliktowej:
 ### BAS-004 — Dziecko niepełnosprawne
 ```
 Weryfikacja: ustawa o rehabilitacji zawodowej i społecznej art. 1 ust. 1
-  (Dz.U. 2025 poz. 913 t.j.) — ZWERYFIKOWANO
+  (Dz.U. 2026 poz. 884 t.j.) — ZWERYFIKOWANO
 Definicja: Osoba z naruszoną sprawnością fizyczną lub psychiczną o przewidywanym
 okresie powyżej 12 miesięcy, wymagająca opieki lub pomocy przewyższającej wsparcie
 typowe dla wieku.
-Podstawa: ustawa o rehabilitacji zawodowej i społecznej (Dz.U. 2025 poz. 913 t.j.)
+Podstawa: ustawa o rehabilitacji zawodowej i społecznej (Dz.U. 2026 poz. 884 t.j.)
 Reguła: Niepełnosprawność dziecka stwierdza PZON (nie lekarz!) — orzeczenie wydaje
 się na wniosek. Bez orzeczenia brak dostępu do świadczeń z tytułu niepełnosprawności.
 ```
@@ -161,7 +161,7 @@ się na wniosek. Bez orzeczenia brak dostępu do świadczeń z tytułu niepełno
 ### BAS-102 — Organizacja pozarządowa w ustawie o rehabilitacji
 ```
 Weryfikacja: MPiPS interp. nr 5781/6.11.2008 + ustawa o rehabilitacji
-  (Dz.U. 2025 poz. 913 t.j.) + ORKA-META-01 — ZWERYFIKOWANO
+  (Dz.U. 2026 poz. 884 t.j.) + ORKA-META-01 — ZWERYFIKOWANO
 Źródło: odpowiedź MPiPS na interpelację nr 5781, 6.11.2008
 Teza: Przy realizacji zadań finansowanych ze środków PFRON stosuje się definicję
 organizacji pozarządowej z ustawy o rehabilitacji, a NIE automatycznie definicję

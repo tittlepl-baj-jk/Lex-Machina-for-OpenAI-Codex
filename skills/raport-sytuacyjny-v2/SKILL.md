@@ -3,7 +3,7 @@ name: "raport-sytuacyjny-v2"
 description: "Raport sytuacyjny sprawy: syntetyzuje fakty, ryzyka, dowody, terminy, warianty i priorytety; może generować interaktywny widok sytuacji i eksport danych."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "raport-sytuacyjny-v2"
 ---
 

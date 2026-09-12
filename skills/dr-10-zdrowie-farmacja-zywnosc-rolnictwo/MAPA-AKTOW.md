@@ -7,7 +7,7 @@ Mapa runtime zawiera wyłącznie bieżące przypisanie **akt / zakres → moduł
 | Akt / zakres | Bieżąca podstawa | Moduł / routing | Status runtime |
 |---|---|---|---|
 | Prawo farmaceutyczne | Dz.U. 2026 poz. 612 t.j. ze zm. | `mod-PrFarm-prawo-farmaceutyczne` + `mod-PrFarm-szczegolowy` | ✅ aktywny; fresh gate |
-| Prawo farmaceutyczne — refundacja / nadzór / sankcje + ustawa refundacyjna | PrFarm jw. + Dz.U. 2026 poz. 253 t.j. ze zm. | `mod-PrFarm-refundacja-nadzor-sankcje` | ✅ aktywny |
+| Prawo farmaceutyczne — refundacja / nadzór / sankcje + ustawa refundacyjna | PrFarm **Dz.U. 2026 poz. 612 t.j.** ✅ [VER] RZĄD 1 2026-09-10h (⛔ KROK 2C: 3 nowelizacje po tekście jednolitym — Dz.U. 2026 poz. 791, 1004, 1079) + ustawa refundacyjna **Dz.U. 2026 poz. 253 t.j.** ✅ [VER] RZĄD 1 2026-09-10h (⛔ KROK 2C: 1 nowelizacja — Dz.U. 2026 poz. 791). ⛔ **WYKAZ leków refundowanych NIE jest aktem Dz.U.** — ogłaszany obwieszczeniem MZ na podstawie art. 37 ust. 1 ustawy refundacyjnej, publikowany w Dzienniku Urzędowym MZ (`dziennikmz.mz.gov.pl`, RZĄD 1, ⛔ SPA); załączniki XLSX/PDF na `gov.pl/web/zdrowie/obwieszczenia-ministra-zdrowia-lista-lekow-refundowanych` (RZĄD 2A). Kanały i pułapki opisane w module | `mod-PrFarm-refundacja-nadzor-sankcje` | ✅ aktywny |
 | GIF / WIF / GIS — nadzór farmaceutyczny i sanitarny | PrFarm jw. + Państwowa Inspekcja Sanitarna: Dz.U. 2024 poz. 416 t.j. ze zm. | `mod-GIF-GIS-nadzor-farmaceutyczny-sanitarny` | ✅ aktywny |
 | Choroby rzadkie / leki sieroce | aktualny dokument programowy MZ + rozporządzenie (WE) nr 141/2000 | `mod-rzadkie-choroby-genetyczne-plan-leki-sieroce` | ✅ aktywny; fresh gate programu |
 | REACH / CLP — chemikalia | rozporządzenie (WE) nr 1907/2006 + rozporządzenie (WE) nr 1272/2008 | `mod-REACH-CLP-chemikalia` | ✅ aktywny; EUR-Lex fresh gate |
@@ -21,7 +21,7 @@ Mapa runtime zawiera wyłącznie bieżące przypisanie **akt / zakres → moduł
 | Ustawa o zawodach pielęgniarki i położnej | Dz.U. 2026 poz. 15 t.j. ze zm. | `mod-ustawa-pielegniarka-polozna` | ✅ aktywny |
 | Ustawa o samorządzie pielęgniarek i położnych | Dz.U. 2025 poz. 1760 t.j. ze zm. | `mod-ustawa-pielegniarka-polozna` — odpowiedzialność zawodowa | ✅ aktywny |
 | Ustawa o medycynie laboratoryjnej | Dz.U. 2025 poz. 1295 t.j. ze zm. | `mod-ustawa-diagnostyka-laboratoryjna` | ✅ aktywny |
-| Ustawa o wyrobach medycznych | Dz.U. 2022 poz. 974 ze zm. | `mod-wyroby-medyczne` | ✅ aktywny; fresh gate |
+| Ustawa o wyrobach medycznych | Dz.U. 2024 poz. 1620 t.j. (akt pierwotny: Dz.U. 2022 poz. 974) | `mod-wyroby-medyczne` | ✅ aktywny; fresh gate |
 | Ustawa o produktach biobójczych | Dz.U. 2021 poz. 24 t.j. ze zm. | `mod-ustawa-produkty-biobojcze` | ✅ aktywny |
 | Prawo oświatowe | Dz.U. 2026 poz. 820 t.j. ze zm. | `mod-ustawa-oswiata-szkolnictwo-wyzsze` + `mod-prawa-ucznia` | ✅ aktywny; temporal gate zmian po t.j. |
 | Prawo o szkolnictwie wyższym i nauce | Dz.U. 2024 poz. 1571 t.j. ze zm. | `mod-ustawa-oswiata-szkolnictwo-wyzsze` | ✅ aktywny |

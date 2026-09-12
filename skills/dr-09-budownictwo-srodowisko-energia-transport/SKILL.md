@@ -3,7 +3,7 @@ name: "dr-09-budownictwo-srodowisko-energia-transport"
 description: "Budownictwo, środowisko, energia i transport: prawo budowlane, planowanie, odpady, ochrona środowiska, energetyka, drogi i regulacje transportowe."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-09-budownictwo-srodowisko-energia-transport"
 ---
 
@@ -532,6 +532,10 @@ view dr-09-budownictwo-srodowisko-energia-transport/MAPA-AKTOW.md
 ## Powiązania zewnętrzne
 - Wchodzi z: `prawo-polskie-v2` → `ROUTING-MAP.md` → ten skill
 - Planowanie przestrzenne (MPZP, WZ) → też `dr-08` → `mod-MPZP-WZ-planowanie-przestrzenne`
+  ⛔ Brzmienie samego planu/uchwały bierz z publikatora: `dziennikiurzedowe.gov.pl`
+  (RZĄD 1) wg ŚCIEŻKI B-L w `shared/PRAWO-HARDGATE.md`. MPZP, plan ogólny i WZ
+  opierają się na aktach prawa miejscowego, których NIE MA w ISAP ani w API ELI
+  (dodane 2026-09-01g, F-154).
 - Podatek od nieruchomości (reforma 2025) → `dr-06`
 - Zamówienia publiczne (budowlane) → `dr-07`
 - Samorząd terytorialny (MPZP, gospodarka komunalna) → `dr-08`

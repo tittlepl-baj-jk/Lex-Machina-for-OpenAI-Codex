@@ -3,7 +3,7 @@ name: "dr-03-prawo-karne-wykroczenia-egzekucja"
 description: "Prawo karne, wykroczenia i egzekucja: KK, KPK, KKW, KW, KPW, KKS, kwalifikacja karnomaterialna, tryby ścigania i wykonanie orzeczeń."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-03-prawo-karne-wykroczenia-egzekucja"
 ---
 

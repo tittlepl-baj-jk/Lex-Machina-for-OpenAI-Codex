@@ -92,4 +92,4 @@ OPINIA RIO (obowiązkowa, niewiążąca):
 
 **Powiązania:** `mod-JST-ustroj-samorzad-gminny-powiatowy-wojewodztwa` | `mod-skargi-na-prawo-miejscowe-WSA-NSA` | `dr-07` → `mod-ustawa-RIO-regionalne-izby` | `pisma-procesowe-v3`
 
-**Źródła:** isap.sejm.gov.pl | https://orzeczenia.nsa.gov.pl | https://dzienniki.gov.pl
+**Źródła:** isap.sejm.gov.pl | https://orzeczenia.nsa.gov.pl | https://dziennikiurzedowe.gov.pl

@@ -3,7 +3,7 @@ name: "dr-02-prawo-cywilne-rodzinne-gospodarcze"
 description: "Prawo cywilne, rodzinne i gospodarcze: KC, KPC, spadki, rodzina, spółki, upadłość, restrukturyzacja, windykacja i odpowiedzialność kontraktowa/deliktowa."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-02-prawo-cywilne-rodzinne-gospodarcze"
 ---
 
@@ -146,8 +146,8 @@ raportu KSH, najpopularniejsza forma spółki w praktyce.
 
 **NAPRAWA 2026-08-14:** dodano `mod-PrRestr-dzial-VI-uklad.md` — zamyka
 rdzeń F-69: Dział VI Prawa restrukturyzacyjnego (Układ, art. 150-179)
-nie miał ani jednego numeru artykułu w systemie. Pełny opis: `audyt-
-systemu-v4/references/AUDIT-JOURNAL.md`.
+nie miał ani jednego numeru artykułu w systemie. Pełny opis:
+`audyt-systemu-v4/references/AUDIT-JOURNAL.md`.
 
 **NAPRAWA 2026-08-13b:** dodano `mod-ustawa-ochrona-praw-lokatorow-
 najem-eksmisja.md` — wypełnienie luki strukturalnej wykrytej w audycie

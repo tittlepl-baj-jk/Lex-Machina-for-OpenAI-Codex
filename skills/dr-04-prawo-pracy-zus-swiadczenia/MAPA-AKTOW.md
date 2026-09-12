@@ -28,7 +28,7 @@ Mapa runtime zawiera wyłącznie bieżące przypisanie **akt / zakres → moduł
 | Ustawa o układach zbiorowych pracy i porozumieniach zbiorowych + routing związkowy | Dz.U. 2025 poz. 1661 ze zm. + właściwe ustawy związkowe | `mod-ustawa-zwiazki-zawodowe-spory-zbiorowe` | ✅ aktywny |
 | Karta Nauczyciela — aspekty pracownicze | Dz.U. 2026 poz. 515 t.j. ze zm. | `mod-ustawa-karta-nauczyciela-pracownicze` | ✅ aktywny; fresh gate |
 | Ustawa o rynku pracy i służbach zatrudnienia | Dz.U. 2025 poz. 620 ze zm. | `mod-ustawa-rynek-pracy-zatrudnienie` | ✅ aktywny |
-| Ustawa o rehabilitacji zawodowej i społecznej oraz zatrudnianiu osób niepełnosprawnych / PFRON | Dz.U. 2025 poz. 913 t.j. ze zm. | `mod-ustawa-rehabilitacja-PFRON` | ✅ aktywny |
+| Ustawa o rehabilitacji zawodowej i społecznej oraz zatrudnianiu osób niepełnosprawnych / PFRON | Dz.U. 2026 poz. 884 t.j. ze zm. | `mod-ustawa-rehabilitacja-PFRON` | ✅ aktywny; ✅ VER 2026-09-01 RZĄD 1 (ELI DU/2026/884: obwieszczenie 19.06.2026, ogł. 1.07.2026, obowiązujący; DU/2025/913 — status wygaśnięcie aktu) |
 | Ustawa o systemie ubezpieczeń społecznych (SUS) — current-state | Dz.U. 2026 poz. 199 t.j. ze zm. | `mod-SUS-current-state-COV.md` + `mod-SUS-ZUS-ubezpieczenia-spoleczne` + rodzina modułów SUS | 🟢 B+/COV; fresh gate |
 | SUS — podstawa wymiaru składek / rozporządzenie składkowe | aktualne brzmienie SUS + właściwego rozporządzenia składkowego | `mod-ROZP-SKLADKOWE-podstawa-wymiaru` | ✅ aktywny; fresh gate kwot, wyłączeń i limitów |
 | SUS — pozostałe rozdziały | jw. | `mod-SUS-uzupelnienie-pokrycia-2026` | 🟡 B |
@@ -41,8 +41,8 @@ Mapa runtime zawiera wyłącznie bieżące przypisanie **akt / zakres → moduł
 | Dodatek pielęgnacyjny / świadczenie rehabilitacyjne / świadczenia pokrewne | FUS + ustawa zasiłkowa + ustawa o świadczeniach rodzinnych | `mod-dodatek-pielegnacyjny-swiadczenie-rehabilitacyjne-wyrownawcze` | ✅ aktywny; fresh gate |
 | Emerytury pomostowe | Dz.U. 2024 poz. 1696 t.j. ze zm. | `mod-emerytury-pomostowe` | ✅ aktywny; fresh gate |
 | Ustawa o świadczeniach rodzinnych + „Za życiem” / programy wsparcia | Dz.U. 2025 poz. 1208 t.j. ze zm. + właściwe akty/programy | `mod-ustawa-swiadczenia-rodzinne` | ✅ aktywny; fresh gate |
-| Ustawa o świadczeniu wspierającym / WZON | Dz.U. 2023 poz. 1429 ze zm. | `mod-ustawa-swiadczenie-wspierajace-WZON` | ✅ aktywny |
-| Ustawa „Aktywny Rodzic” | Dz.U. 2024 poz. 858 ze zm. | `mod-ustawa-aktywny-rodzic` | ✅ aktywny |
+| Ustawa o świadczeniu wspierającym / WZON | Dz.U. 2026 poz. 873 t.j. (akt pierwotny: Dz.U. 2023 poz. 1429) | `mod-ustawa-swiadczenie-wspierajace-WZON` | ✅ aktywny |
+| Ustawa „Aktywny Rodzic” | Dz.U. 2026 poz. 532 t.j. (akt pierwotny: Dz.U. 2024 poz. 858) | `mod-ustawa-aktywny-rodzic` | ✅ aktywny |
 | Ustawa o pomocy społecznej | Dz.U. 2026 poz. 639 t.j. ze zm. | `mod-ustawa-pomoc-spoleczna` | ✅ aktywny; fresh gate kwot |
 | Ustawa o ochronie konkurencji i konsumentów — routing pracowniczo-konsumencki | Dz.U. 2025 poz. 1714 t.j. ze zm. | `mod-ustawa-ochrona-konkurencji-konsumentow-UOKiK` | ✅ aktywny / cross-domain |
 | KPA — sprawy administracyjne świadczeń | Dz.U. 2025 poz. 1691 t.j. ze zm. | DR-05 `mod-KPA-current-state-COV.md` + `mod-KPA-postepowanie-administracyjne` | 🔗 routing DR-05 |

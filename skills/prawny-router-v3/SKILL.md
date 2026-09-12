@@ -3,7 +3,7 @@ name: "prawny-router-v3"
 description: "UŻYWAJ ZAWSZE i AUTOMATYCZNIE przy każdej sprawie prawnej, w każdej jurysdykcji. Wczytaj przed analizą, oceną cudzego materiału lub pismem; uruchamia HARD GATE i routing."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "prawny-router-v3"
 ---
 
@@ -22,6 +22,13 @@ W każdej sprawie prawnej, przed analizą:
    Dla aktów polskich wykonaj też `view references/ZRODLA-AKTOW-FALLBACK.md`.
 6. Przed wysłaniem: `view references/SELF-CHECK.md` i wykonaj inwentarz VER-GRAIN.
 7. Ostatnim elementem odpowiedzi prawnej musi być disclaimer z `shared/DISCLAIMER.md`.
+
+⛔ **KOLEJNOŚĆ ODCZYTU — `view references/PROFIL-LEKKI.md`.** Rdzeń R-1…R-5
+(ten plik, KROK 0A, KROK 1, PRAWO-HARDGATE, SELF-CHECK) jest nieredukowalny.
+Pozostałe zasoby `required_modules` czyta się na wyzwalacz mechaniczny, najpóźniej
+przed pierwszą czynnością, którą regulują. Odroczenie odczytu NIE jest pominięciem
+bramki i NIE zwalnia z żadnej reguły — profil zmienia moment `view`, nigdy zakres
+kontroli. Profil deklaruje się w bloku KROKU 3A.
 
 Brak obowiązkowego odczytu lub źródła → `⛔ TRYB ZDEGRADOWANY` i jawne
 `⚠️ [NIEWERYFIKOWANE]`; zakaz cichego użycia pamięci modelu.
@@ -59,7 +66,17 @@ UP-2: ISAP pierwszy — identyfikacja aktu i próba pobrania tekstu. Gdy pobrani
 UP-3: Sprawy karne → KROK1-detekcja.md kieruje do dr-03; kwalifikacja przez
          view dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md
 UP-4: HYBRID-VALIDATION przed każdym .docx
-UP-5: Zagraniczne → pomiń prawo-polskie-v2 + ISAP, pozostałe zasady aktywne
+UP-5: Zagraniczne → pomiń prawo-polskie-v2 + ISAP; wczytaj
+         shared/MIEDZYNARODOWE-GATES.md + shared/HIERARCHIA-ZRODEL-MIEDZYNARODOWE.md;
+         PODMIANA BRAMEK: OŚ-GATE→MG-1 (ratyfikacja i zakres), WYJ-GATE→MG-2
+         (wykładnia KWPT art. 31-33). ⛔ CN-GATE i REM-GATE NIE są podmieniane —
+         działają w obu ścieżkach. Kanał: bash/curl DZIAŁA dla eur-lex.europa.eu
+         i legal.un.org (zmierzone 2026-09-05, korekta F-162 — poprzednie brzmienie
+         „NIE bash/curl" było fałszywe); dla unoosa/cites/icsid/uncitral
+         web_search→web_fetch. Tabela kanałów: HIERARCHIA-ZRODEL-MIEDZYNARODOWE.md §2
+UP-6: KAŻDA sprawa → CN-GATE przed analizą (shared/MOD-CN-GATE.md) i REM-GATE
+         przed oddaniem (shared/MOD-REM-GATE.md). Bez podmiany, bez wyjątku
+         jurysdykcyjnego
 ```
 
 ## SEKWENCJA GŁÓWNA
@@ -105,6 +122,8 @@ KROK 3A → [ŚLAD ROUTINGU — OBOWIĄZKOWY]
           PRIMARY: [nazwa skilla] — ROUTER-WCZYTANY: [TAK: ścieżka view / NIE]
           SECONDARY: [nazwa(-y) skilla] — ROUTER-WCZYTANY: [TAK / NIE / N-D]
           ODRZUCONE: [skille rozważone i odrzucone] — powód: [jedno zdanie]
+          PROFIL: [PEŁNY / LEKKI] — rdzeń R-1…R-5: [TAK]
+          ODROCZONE: [zasób — wyzwalacz, który jeszcze nie padł / BRAK]
           WERSJA ROUTERA: [numer z YAML frontmatter tego pliku]
           ```
           ⛔ Gdy `ROUTER-WCZYTANY: NIE` dla PRIMARY (np. z powodu braku
@@ -230,9 +249,111 @@ CZY WYNIK TO PISMO [3] lub [4]?
 └── ORZECZNICTWO? → Linki do baz + cytowania → opcja "Dołącz do pisma"
 ```
 
-**BRAMKA CHRONOLOGICZNA** (auto, przed KROK 4):
-Wczytaj gdy ≥2 dokumenty wieloetapowe LUB słowa kluczowe ("chronologia"/"oś czasu"/"timeline"):
-`view chronologia-sprawy-v1/SKILL.md`
+**BRAMKA NORMY CENTRALNEJ** (auto, PRZED wszystkimi pozostałymi) — CN-GATE:
+
+```
+WYZWALACZ MECHANICZNY: czy odpowiedź zawiera rozstrzygnięcie, zarzut,
+  roszczenie albo kwalifikację?  TAK → view shared/MOD-CN-GATE.md
+  → dla KAŻDEJ osi sporu wskaż JEDNĄ jednostkę redakcyjną i wykonaj CN-1…CN-3:
+     CN-1 zakres CZASOWY      — czy norma obowiązywała w chwili miarodajnej
+     CN-2 zakres PODMIOTOWY   — czy obejmuje TEN podmiot (definicja, nie intuicja)
+     CN-3 zakres PRZEDMIOTOWY — czy obejmuje TEN stan (warunek wstępny katalogu)
+  ⛔ BLOKUJĄCA. „NIE" w którymkolwiek punkcie → ZAKAZ kontynuacji na tej normie.
+     Wskaż normę zastępczą i powtórz CN-1…CN-3 albo stwierdź brak podstawy.
+  ⛔ ⬛ nie jest przejściem — przenosi oś sporu do REM-GATE jako rozstrzygnięcie
+     warunkowe.
+  ⛔ OVERRIDE tylko przy normie wyższego rzędu / zwyczaju / orzecznictwie
+     POWOŁANYM I ZWERYFIKOWANYM w tej turze, z jawnym wpisem ⚠️ OVERRIDE.
+     W dziedzinach zakazujących analogii na niekorzyść adresata normy
+     (typowo prawo karne materialne, w tym karne międzynarodowe) override
+     jest ZAKAZANY bezwzględnie — wątpliwość co do zakresu rozstrzyga się
+     na korzyść osoby, wobec której normę próbuje się zastosować.
+  ⛔ Wykonuje się PRZED OŚ-GATE i WYJ-GATE — nie ma sensu ustalać wersji
+     czasowej normy, która nie ma zastosowania.
+```
+
+Luka źródłowa F-163: jednostka redakcyjna należąca do katalogu z warunkiem
+wstępnym zapisanym w nagłówku grupy (nie w samym punkcie) odczytana ze źródła
+i poprawnie zacytowana, przy pominięciu, że stan faktyczny nie spełniał tego
+warunku wstępnego. Wszystkie bramki weryfikacyjne zadziałały; zarzut oparty
+na tej normie i tak był bezpodstawny.
+
+**BRAMKA CHRONOLOGICZNA** (auto, przed KROK 4) — DWA NIEZALEŻNE TORY:
+
+```
+TOR A — OŚ-GATE (wyzwalacz MECHANICZNY, liczbowy):
+  ≥2 daty w opisie stanu faktycznego → view shared/MOD-OS-CZASU-PRZESLANEK.md
+  → wykonaj OŚ-1…OŚ-4, blok wyjściowy WIDOCZNY w odpowiedzi przed konkluzją.
+  ⛔ Warunek jest liczbowy. ZAKAZ warunku ocennego („gdy sprawa wydaje się
+     temporalna") — ocena własnej potrzeby to tryb awarii mierzony przez F-113.
+  ⛔ NIE zwalniają z wykonania polecenia „krótko" / „szybko" / „tylko odpowiedz";
+     blok ma formę skróconą (jedna linia przy zerze trafień), ale musi być.
+
+TOR B — PEŁNA CHRONOLOGIA (dotychczasowy):
+  ≥2 dokumenty wieloetapowe LUB słowa kluczowe („chronologia"/„oś czasu"/
+  „timeline") → view chronologia-sprawy-v1/SKILL.md
+```
+
+Tory są niezależne i mogą odpalić razem. TOR A działa również na materiale
+jednodokumentowym (kazus w pięciu zdaniach) — TOR B na takim materiale nie
+odpalał wcale, co było luką źródłową flagi F-142.
+
+**BRAMKA WYJĄTKÓW** (auto, przed KROK 4) — WYJ-GATE:
+
+```
+WYZWALACZ MECHANICZNY: ≥1 powołany artykuł w odpowiedzi lub piśmie
+  → view shared/MOD-WYJATEK-GATE.md
+  → wykonaj S1…S4, blok WYJ-GATE WIDOCZNY przy pierwszym powołaniu aktu.
+  ⛔ Warunek jest liczbowy: CZY CYTUJESZ ARTYKUŁ? TAK → wykonaj.
+     ZAKAZ warunku ocennego („gdy przepis wygląda na powiązany") — ocena
+     własnej potrzeby to tryb awarii mierzony przez F-113.
+  ⛔ Cztery zamiatania, każde policzalne i każde obowiązkowe w bloku:
+     S1 sąsiedztwo (poprzedni/następny + WSZYSTKIE indeksy górne: art. X¹ NIE
+        jest częścią art. X + nagłówek jednostki nadrzędnej),
+     S2 krawędzie jednostki (pierwszy i ostatni artykuł działu — tam stoją
+        klauzule „nie stosuje się"),
+     S3 akty powiązane (ELI /references + pytanie zamknięte o akt sektorowy
+        dla tej kategorii strony) — lex specialis bywa w INNEJ ustawie,
+     S4 przepisy przejściowe nowelizacji ujawnionych w S1–S3.
+  ⛔ Milczenie NIE jest odpowiedzią negatywną — każda pozycja zamyka się
+     wpisem „brak" albo nazwanym skutkiem. Pominięte zamiatanie = bramka
+     niewykonana, nawet gdy wynik i tak byłby pusty.
+  ⛔ NIE zwalnia z wykonania polecenie „krótko" / „tylko odpowiedz";
+     przy zerze trafień blok ma jedną linię, ale musi być.
+```
+
+WYJ-GATE i OŚ-GATE są niezależne i zwykle odpalają razem: OŚ-GATE odpowiada,
+KIEDY i który reżim, WYJ-GATE — CO TĘ REGUŁĘ WYŁĄCZA. Luka źródłowa F-144:
+art. 770 k.c. odczytany we właściwej wersji czasowej przy pominiętym
+art. 770¹ k.c. pod następnym numerem.
+
+**BRAMKA ŚRODKA NAPRAWCZEGO** (auto, przed oddaniem) — REM-GATE:
+
+```
+WYZWALACZ MECHANICZNY: czy oddajesz analizę, opinię, raport albo pismo?
+  TAK → view shared/MOD-REM-GATE.md → wykonaj REM-1…REM-4:
+     REM-1 ZAKAZ SIEROCEGO ODDALENIA — każde oddalone roszczenie sparowane
+           z najmocniejszą alternatywą rozwiniętą NA TĘ SAMĄ GŁĘBOKOŚĆ;
+           przy braku alternatywy wpisz LISTĘ sprawdzonych reżimów
+     REM-2 ZAKAZ NON LIQUET — ⬛ produkuje rozstrzygnięcie warunkowe
+           („jeżeli X → A, jeżeli nie-X → B", każde z podstawą i środkiem).
+           „Nie badałem w tej turze" dopuszczalne WYŁĄCZNIE jako uzupełnienie,
+           nigdy zamiast. Wyjątek: ⬛ BLOKADA DOPUSZCZALNOŚCI
+     REM-3 ZNACZNIK ≠ SIŁA — rząd źródła zmienia STATUS POWOŁANIA, nigdy
+           objętości ani stanowczości argumentu. Instrument miękki
+           argumentuje się w pełni, ze znacznikiem i z jawną mocą wiążącą
+     REM-4 BUDŻET POKRYCIA — osie sporu oznaczone PEŁNA/CIENKA/⬛;
+           nierównomierność dopuszczalna, ale MUSI być zadeklarowana
+  ⛔ Blok REM-GATE WIDOCZNY w odpowiedzi, nie w przypisie.
+  ⛔ Wykonuje się PRZED HYBRID-VALIDATION.
+  ⛔ Bramka NIE nakazuje uwzględnienia roszczenia ani kompromisu — oddalenie
+     w całości jest prawidłowe, jeżeli przeszło REM-1.
+```
+
+Luka źródłowa F-161: cały aparat optymalizuje pod „nie powołaj złego
+przepisu" i nic nie mówi o „nie zaniż środka naprawczego". Zmierzone
+w partii P4 — obszar rubryki wart 35 pkt niedopracowany, bo droga główna
+została poprawnie zamknięta.
 
 ---
 
@@ -253,8 +374,13 @@ Wczytaj gdy ≥2 dokumenty wieloetapowe LUB słowa kluczowe ("chronologia"/"oś 
 - **Reguła 10 — walidacja:** przed generowaniem wykonaj HYBRID-VALIDATION; zero ⬛ przed oddaniem.
 - **Reguła 11 — dostawa:** `present_files` po walidacji, przed disclaimerem.
 - **Reguła 11a — kroki:** wykonaj ST-INIT i blokujące ST-FINAL z `shared/MOD-STEP-TRACKER.md`.
-- **Reguła 12 — chronologia:** przy ≥2 dokumentach wieloetapowych wykonaj bramkę chronologiczną.
+- **Reguła 12 — chronologia:** wykonaj bramkę chronologiczną — TOR A (OŚ-GATE) przy ≥2 datach w stanie faktycznym, TOR B przy ≥2 dokumentach wieloetapowych. Tory niezależne.
+- **Reguła 12a — wyjątki:** powołujesz artykuł → wykonaj bramkę wyjątków (WYJ-GATE, `shared/MOD-WYJATEK-GATE.md` 2.1), cztery zamiatania S1–S4. Zamiatasz policzalny zakres, nie „szukasz wyjątku". ⛔ S3 zamyka się dopiero po ZAPISANIU OBU OSI: b1 strona chroniona, b2 działalność regulowana (F-170). ⛔ S4 obejmuje także akt przesuwający wyłącznie DATĘ STOSOWANIA aktu głównego — taki akt nie ujawnia się przy odczycie samej normy, więc datę stosowania czytaj w brzmieniu AKTUALNYM, nie pierwotnym (F-171).
+- **Reguła 12b — norma centralna:** rozstrzygasz cokolwiek → wykonaj CN-GATE (`shared/MOD-CN-GATE.md`) PRZED OŚ-GATE i WYJ-GATE. Wskazujesz JEDNĄ jednostkę per oś sporu i sprawdzasz trzy zakresy: czasowy, podmiotowy, przedmiotowy. Wynik „NIE" jest blokujący — poprawnie odczytany przepis bez zastosowania jest groźniejszy niż przepis niezweryfikowany, bo cała dalsza analiza wygląda na rzetelną.
+- **Reguła 12c — środek naprawczy:** oddajesz cokolwiek → wykonaj REM-GATE (`shared/MOD-REM-GATE.md`) przed HYBRID-VALIDATION. Oddalenie bez sparowanej alternatywy, ⬛ bez rozstrzygnięcia warunkowego oraz argument stłumiony znacznikiem źródła to trzy osobne tryby awarii — bramka zamyka wszystkie trzy.
+- **Reguła 12d — próba przed znacznikiem (REM-0):** ⛔ ZANIM oznaczysz powołanie ⚠️ [NIEWERYFIKOWANE] — spróbuj je pobrać, DWUKANAŁOWO: `bash_tool`/`curl` ORAZ `web_search`→`web_fetch`. Kanały mają różne listy dozwolonych domen, więc HTTP 403 w jednym nie dowodzi niczego o drugim (`ohchr.org`: curl 403, web_fetch pełny tekst RZĘDU 1). Znacznik dopuszczalny wyłącznie po porażce w OBU kanałach, zapisanej z kanałem i kodem — „brak dostępu" bez kodu nie jest zapisem porażki, tylko zapisem, że nie wiadomo, czy próbowano. Trzecie wystąpienie tej klasy błędu w tym systemie (F-151, F-162, F-164).
 - **Reguła 14 — ślad weryfikacji:** wykonaj `shared/WERYFIKACJA-SLAD.md`.
+- **Reguła 14a — forma znacznika ✅ (AF-7):** znacznik `✅ [VER]` bez trzech pól — kanału odczytu, identyfikatora aktu lub orzeczenia oraz daty odczytu W TEJ turze — jest NIEWAŻNY i czyta się go jak `⚠️ [NIEWERYFIKOWANE]`. Reguła jest składniowa i sprawdzalna z zewnątrz bez dostępu do logów. Zmierzone: w arkuszu testowym 24 gołe „✅ [VER]", z pięciu sprawdzonych dwa fałszywe (F-169).
 - **Reguła 15 — sygnatury:** wykonaj `shared/SYGNATURY.md`.
 - **Reguła 16 — disclaimer:** wykonaj KROK 7.
 
@@ -300,8 +426,10 @@ Bramki blokujące:
 - PRIMARY faktycznie wczytany i ślad KROKU 3A zgodny z wywołaniami;
 - każdy URL ma znacznik RZĄD;
 - każde powołanie ma świeżą weryfikację lub własne `⚠️ [NIEWERYFIKOWANE]`;
+- każdy znacznik `✅ [VER]` niesie kanał, identyfikator i datę odczytu (AF-7);
 - VER-GRAIN i właściwe reguły warunkowe wykonane;
 - aktywne checkpointy, PRE-W2, RPK i ST-FINAL zamknięte;
+- przy ≥2 datach w stanie faktycznym blok OŚ-GATE jest WIDOCZNY w odpowiedzi przed konkluzją;
 - disclaimer jest ostatnim elementem odpowiedzi prawnej.
 
 Niespełnienie któregokolwiek punktu → STOP; wykonaj brakujący krok albo uruchom

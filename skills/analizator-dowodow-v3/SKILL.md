@@ -1,16 +1,16 @@
 ---
 name: "analizator-dowodow-v3"
-description: "Analizator dowodów procesowych v5 — pełny modularny zestaw (dowody + pisma). Stosuj gdy użytkownik: dostarcza dowody, dokumenty, zeznania, nagrania, maile, akta, pisma procesowe, decyzje lub koresp..."
+description: "Ocena dowodów, dokumentów, zeznań i akt: siła dowodowa, hierarchia A-D, pokrycie przesłanek, sprzeczności, terminy procesowe i analiza śledcza."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "analizator-dowodow-v3"
 ---
 
 > [!IMPORTANT]
 > Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
 
-# Analizator Dowodów Procesowych v5.1
+# Analizator Dowodów Procesowych v5
 
 > ⛔ HARD GATE — ZAKAZ CYTOWANIA PRAWA I ORZECZEŃ Z PAMIĘCI
 > Przed każdą analizą z powołaniem na przepisy lub sygnatury: `view ../shared/PRAWO-HARDGATE.md`
@@ -633,7 +633,7 @@ Po ustaleniu listy modułów z KROK 2:
 > zanim analizator-dowodow-v3 został przebudowany na router KROK 2/3/4
 > (MD/MP-moduły). Nazwa „KROK 4a" **nie istnieje już w tym pliku**, ale
 > pozostała rozsiana po innych skillach (`przesluchanie-swiadkow-v2-min90`,
-> `pisma-procesowe-v3/W1-SZCZEGOLY.md`, `shared/MOD-KONTEKST-SESJI.md`,
+> `pisma-procesowe-v3/references/W1-SZCZEGOLY.md`, `shared/MOD-KONTEKST-SESJI.md`,
 > `shared/MOD-MAPA-PRZEPISOW.md`, `shared/MOD-SELEKCJA-DOWODOW.md`,
 > `shared/MOD-PRIORYTETY-ASPEKTOW.md`, `prawny-router-v3/SKILL.md`,
 > `audyt-systemu-v4/references/CHECKLIST-DEDUP.md`) jako odwołanie do

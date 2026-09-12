@@ -1,9 +1,9 @@
 ---
 name: "analizator-przepisow-v2"
-description: "Analiza przepisów prawa polskiego: aktualne i historyczne brzmienie, przesłanki, wykładnia, orzecznictwo, zbieg norm, nowelizacje, vacatio legis i zastosowanie do stanu faktycznego."
+description: "Analiza przepisów prawa polskiego: brzmienie aktualne i historyczne, przesłanki, wykładnia, orzecznictwo, zbieg norm, nowelizacje i vacatio legis."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "analizator-przepisow-v2"
 ---
 

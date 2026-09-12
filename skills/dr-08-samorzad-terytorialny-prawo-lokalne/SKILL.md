@@ -3,7 +3,7 @@ name: "dr-08-samorzad-terytorialny-prawo-lokalne"
 description: "Samorząd terytorialny i prawo lokalne: gmina, powiat, województwo, uchwały, akty prawa miejscowego, nadzór, kompetencje JST i lokalne planowanie."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-08-samorzad-terytorialny-prawo-lokalne"
 ---
 
@@ -147,7 +147,11 @@ view dr-08-samorzad-terytorialny-prawo-lokalne/MAPA-AKTOW.md
 - Budownictwo / środowisko: `dr-09`
 - Wychodzi do: `pisma-procesowe-v3` / `analiza-sadowa-v6` / `orzeczenia-sadowe-v2`
 - Orzecznictwo: orzeczenia.nsa.gov.pl, cbosa.nsa.gov.pl
-- Prawo miejscowe: dzienniki.gov.pl, BIP właściwego urzędu
+- Prawo miejscowe: dziennikiurzedowe.gov.pl (portal zbiorczy RCL — RZĄD 1), BIP właściwego urzędu jako źródło POMOCNICZE.
+  ⛔ Ścieżka odczytu aktu lokalnego: `shared/PRAWO-HARDGATE.md` → ŚCIEŻKA B-L
+  (akty prawa miejscowego nie mają ELI ani tekstu jednolitego; adresu serwisu
+  wojewódzkiego NIE buduj z szablonu). Korekta 2026-09-01g, F-154 — wcześniej
+  wskazywano tu adres `dzienniki.gov.pl`.
 
 ## ⚖️ DISCLAIMER (obowiązkowy)
 

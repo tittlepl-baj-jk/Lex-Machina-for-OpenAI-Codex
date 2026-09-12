@@ -40,6 +40,21 @@ JEŚLI BLOK 0A nie zamknięty → STOP. Żaden punkt poniżej nie jest wykonywan
           (c) przepis przeszedł PRAWO-HARDGATE w TEJ odpowiedzi?
           którekolwiek NIE → ⛔ USUŃ powołanie.
           Procedura pełna: view shared/DOMAIN-LOCK.md
+□ [CV-ALT / RELACJA PODSTAW] ⛔ KONTROLA NA WYJŚCIU (dodano 2026-08-31, F-139):
+  czy GOTOWA odpowiedź wskazuje ≥2 podstawy prawne prowadzące do tego samego
+  skutku dla tej samej strony — połączone „albo / lub / alternatywnie /
+  równolegle", ALBO rozpisane jako równoległe sekcje / wątki / warianty?
+    NIE → OK
+    TAK → (a) wykonano OSOBNE zapytanie o RELACJĘ tych podstaw w TEJ
+              odpowiedzi (nie o brzmienie każdej z osobna)?
+          (b) relacja ma pokrycie źródłowe, czy jest domysłem redakcyjnym?
+          (c) użyty spójnik odpowiada ustalonej relacji?
+          którekolwiek NIE → ⛔ NIE publikuj równolegle. Przebuduj na gałąź
+          warunkową i dopisz jawne zdanie „relacja tych podstaw nie została
+          zbadana".
+          ⛔ Relacja jest treścią WYGENEROWANĄ — zakaz nadawania jej
+          znacznika ✅/🟨/📚/⚠️ (AF-6). Egzekwowanie przez zdanie, nie znacznik.
+          Procedura pełna: view shared/CLAIM-VALIDATION.md → KROK CV-ALT
 □ [RATE-COMPLETENESS] Odpowiedź zawiera odsetki / waloryzację / wskaźnik zmienny
   w czasie (dodano 2026-08-23)?
     NIE → OK
@@ -60,7 +75,7 @@ JEŚLI BLOK 0A nie zamknięty → STOP. Żaden punkt poniżej nie jest wykonywan
 □ Sprawdziłem shared/ACTIVATION-MATRIX.md przy nakładaniu się skillów?
 □ Wczytałem PRIMARY skill PRZED analizą?
 □ [KROK 3A ŚLAD ROUTINGU] Wypisałem blok TRYB/PRIMARY/SECONDARY/ODRZUCONE/
-  WERSJA ROUTERA/ROUTER-WCZYTANY zaraz po KROK 3, przed KROK 4? Jeśli
+  PROFIL/ODROCZONE/WERSJA ROUTERA/ROUTER-WCZYTANY zaraz po KROK 3, przed KROK 4? Jeśli
   ROUTER-WCZYTANY: NIE dla PRIMARY → dodałem nagłówek ⛔ TRYB ZDEGRADOWANY?
 □ [ŚLAD ROUTINGU] ⛔ KONTROLA NA WYJŚCIU — nie polegaj wyłącznie na własnej
   deklaracji z KROKU 3A:
@@ -71,6 +86,33 @@ JEŚLI BLOK 0A nie zamknięty → STOP. Żaden punkt poniżej nie jest wykonywan
     TAK → ⛔ deklaracja ROUTER-WCZYTANY: TAK w KROK 3A jest FASADĄ — cofnij
           się, faktycznie wywołaj `view` na PRIMARY, PRZEPISZ blok KROK 3A
           zgodnie ze stanem faktycznym po wywołaniu
+□ ⛔ [STAN-ZAŁADOWANY] KONTROLA PRZED ORZECZENIEM O SYSTEMIE (dodano 2026-09-10b, O-6):
+  czy ta odpowiedź twierdzi, że w SYSTEMIE jest luka, błąd, brak pliku,
+  nieaktualna treść albo niedomknięta flaga?
+    NIE → OK
+    TAK → czy porównałem wersję ZAŁADOWANĄ przez hosta z wersją w repozytorium?
+          NIE → ⛔ NIE ORZEKAJ. Host bywa starszy od repozytorium o kilka wydań
+                bez żadnego sygnału — zmierzone 2026-09-09/10: ocena prowadzona
+                na kopii sesyjnej z routerem 3.41 zgłosiła jako usterkę systemu
+                lukę, która w repozytorium (3.42) nie istniała.
+          ⛔ Klasa błędu jak F-151: wniosek z jednego nośnika bez sprawdzenia
+             drugiego. Zanim orzekniesz, wykonaj JEDNO z:
+               • odczytaj `version:` z `SKILL.md` w repozytorium i zestaw
+                 z wersją, którą masz w kontekście,
+               • albo oznacz wniosek jako ⚠️ WARUNKOWY, z jawnym podaniem
+                 wersji, na której pracujesz, i zastrzeżeniem, że nie została
+                 zestawiona ze stanem repozytorium.
+          Nigdy nie zgłaszaj usterki systemu jako ustalonej, mając jeden nośnik.
+□ ⛔ [PROFIL-ODROCZENIA] KONTROLA NA WYJŚCIU (dodano 2026-09-10, F-175):
+  czy w GOTOWEJ odpowiedzi padł wyzwalacz zasobu zadeklarowanego w KROKU 3A jako
+  ODROCZONY (pierwszy URL, pierwszy artykuł, ≥2 daty, rozstrzygnięcie, oddanie
+  wyniku)?
+    NIE → OK
+    TAK → czy widoczne jest odpowiadające mu wywołanie `view` W TEJ odpowiedzi?
+          NIE → ⛔ bramka NIEWYKONANA. Odroczenie odczytu nie jest pominięciem
+          bramki; wykonaj `view` i bramkę teraz albo oznacz ⛔ TRYB ZDEGRADOWANY.
+          ⛔ Rdzeń R-1…R-5 nie podlega odroczeniu w żadnym profilu.
+          Procedura pełna: view references/PROFIL-LEKKI.md
 □ ⛔ VER-GRAIN — KONTROLA NA WYJŚCIU (reguła 24, F-132; wzorzec DOMAIN-LOCK):
   przejrzyj GOTOWĄ odpowiedź i policz w niej powołania wg ziarnistości —
   artykuł + §/ust./pkt, każdą kwotę, próg, termin, liczbę lat kary, datę,
@@ -90,6 +132,12 @@ JEŚLI BLOK 0A nie zamknięty → STOP. Żaden punkt poniżej nie jest wykonywan
 □ Tryb LAIK → raport przez przewodnik-prawny-v2 (KROK H)?
 □ Użytkownik pyta "co możesz zrobić" → przewodnik-prawny-v2 KROK M?
 □ Zaoferowałem kreator (LAIK + pismo)?
+□ ⛔ BRAMKA WYJĄTKÓW (WYJ-GATE) → powołałem ≥1 artykuł? Blok WYJ-GATE JEST
+  w dostarczonym tekście i ma WSZYSTKIE cztery pozycje: S1 sąsiedztwo
+  (z artykułami indeksowanymi), S2 krawędzie jednostki, S3 akty powiązane,
+  S4 przepisy przejściowe?
+  ⛔ POZYCJA BLOKUJĄCA: brak bloku albo brak którejkolwiek z czterech pozycji
+  = bramka niewykonana, także gdy wynik zamiatania jest pusty.
 □ Bramka chronologiczna → wykonana przy ≥2 dokumentach wieloetapowych?
   LAIK: pytanie a/b · PRAWNIK: 1-zdaniowa sugestia
 □ "chronologia"/"oś czasu"/"timeline" → chronologia-sprawy-v1 natychmiast?

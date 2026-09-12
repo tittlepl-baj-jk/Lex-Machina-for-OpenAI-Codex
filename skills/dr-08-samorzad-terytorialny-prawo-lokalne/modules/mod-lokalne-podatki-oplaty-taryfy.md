@@ -57,4 +57,4 @@ OPŁATA TARGOWA, MIEJSCOWA, UZDROWISKOWA:
 
 **Powiązania:** `dr-06` → `mod-ustawa-podatek-nieruchomosci-i-lokalne` (reforma 2025!) | `mod-JST-ustroj-samorzad-gminny-powiatowy-wojewodztwa` | `mod-skargi-na-prawo-miejscowe-WSA-NSA`
 
-**Źródła:** https://isap.sejm.gov.pl | https://dzienniki.gov.pl | https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250000707
+**Źródła:** https://isap.sejm.gov.pl | https://dziennikiurzedowe.gov.pl | https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250000707

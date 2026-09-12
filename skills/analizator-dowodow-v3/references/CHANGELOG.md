@@ -1,12 +1,33 @@
 # CHANGELOG — analizator-dowodow-v3
 
-> Pełna historia napraw i zmian wersji (25 wpisów, 4.0.0...5.15.0).
+> Pełna historia napraw i zmian wersji (wpisy 4.0.0...5.16.3; 5.16.0-5.16.2 odtworzone wtórnie 2026-08-31, F-140).
 > Wyniesiona z SKILL.md 2026-07-12 (runda 2 — redukcja kosztu kontekstu),
 > ZAKTUALIZOWANA 2026-08-20 (F-78, porządkowanie SKILL.md >1000 linii —
 > dopisano wpisy 5.14.2-5.15.0, które od poprzedniej redukcji ponownie
 > trafiały bezpośrednio do pola YAML `changelog` w SKILL.md zamiast
 > tutaj). Wczytuj TYLKO gdy potrzebujesz historii konkretnej naprawy
 > (SKILL.md trzyma tylko krótkie podsumowanie bieżącej wersji).
+
+- 5.16.3 (2026-08-31): F-140 — naprawa regresji dyskowej. Przywrócono `version` 5.16.1 → 5.16.3 i odtworzono brakujące wpisy 5.16.0–5.16.2 z `audyt-systemu-v4/references/AUDIT-JOURNAL.md`. Ponownie naprawiono `modules/MD5-terminy.md`: "art. 328¹ KPC" → **art. 328 § 1 KPC** oraz termin doprowadzony do brzmienia ustawowego ("tydzień"); zweryfikowane niezależnie w tej sesji (arslege.pl + lexlege.pl + standardyprawa.pl + przepisy.gofin.pl, t.j. Dz.U. 2026 poz. 468). Nagłówek H1 sprowadzony do samego MAJOR zgodnie z decyzją generalną F-102(C). Pole `changelog:` zsynchronizowane.
+
+- 5.16.2 (2026-08-04): FAZA 3E — naprawa CRIT w `modules/MD5-terminy.md`: błędny cytat "art. 328¹ KPC" (zbędny indeks górny) dla terminu wniosku o uzasadnienie wyroku → art. 328 KPC. Sprawdzono również MD3b-walidacja-prawna.md i MP2-katalog.md — zgodne z resztą systemu.
+  *(Wpis WTÓRNY, odtworzony 2026-08-31 z AUDIT-JOURNAL.md, sesja AUDYT-2026-08-04i. Ta sama naprawa była wykonywana DWUKROTNIE — patrz nota o regresji na końcu tego wpisu.)*
+
+- 5.16.1 (2026-08-04): rejestracja w toku FAZY 3E; dziennik odnotowuje podbicie 5.16.0 → 5.16.1, nie wyszczególniając zakresu zmian w tym pliku.
+  *(Wpis WTÓRNY, odtworzony 2026-08-31 z AUDIT-JOURNAL.md. ⚠️ ZAKRES NIEUSTALONY — dziennik podaje sam fakt podbicia wersji.)*
+
+- 5.16.0 (2026-07): dodano cross-referencję w sekcji ZASADY STYLU (powiązanie z Zasadą 2B `orzeczenia-sadowe-v2` — surowszy standard cytowania dla orzeczeń i interpretacji ZEWNĘTRZNYCH, odrębny od standardu dla dokumentów własnych sprawy); punkt checklisty dodany w `modules/MP9-jakosc.md` i `checklists/kontrola-jakosci.md`.
+  *(Wpis WTÓRNY, odtworzony 2026-08-31 z AUDIT-JOURNAL.md, tabela "NAPRAWA — ZMIANY W PLIKACH".)*
+
+> ⛔ **NOTA O REGRESJI DYSKOWEJ (F-140, 2026-08-31).** Stan na dysku był STARSZY
+> niż stan odnotowany w dzienniku: `version` wynosił 5.16.1, changelog kończył się
+> na 5.15.0, a naprawiony błąd `art. 328¹` ZNÓW występował w MD5-terminy.md.
+> To **trzecie** wystąpienie tego samego wzorca dla tego pliku — dziennik
+> (AUDYT-2026-08-08a/m oraz wpis przy drugim podbiciu na 5.16.2) opisuje
+> wcześniejszy incydent: nieaktualne archiwum przywrócone po resecie kontenera
+> nadpisało nowszą pracę. Wniosek: naprawa treści nie jest trwała, dopóki
+> dostawa nie jest weryfikowana wobec stanu dysku, a nie tylko wobec archiwum.
+> Wpisy wtórne oznaczone powyżej; przy rozbieżności rozstrzyga dziennik.
 
 - 5.15.0 (2026-07-15, F-7 / ZASADA 11 — audyt proceduralny): dodano BLOK D0 TEZA-GATE, obowiązkowy przed BLOK D (D1-D6) — rekonstrukcja jednym zdaniem tezy centralnej per strona z materiału, zanim ocenione zostaną mocne/słabe strony (D2), ocena prawna (D4) lub raport końcowy (D5). Przyczyna: skill nie miał NIGDZIE (grep 0 wyników) mechanizmu rekonstrukcji tezy — analogiczny wzorzec braku jak w przesluchanie-swiadkow-v2-min90 przed naprawą 3.6 (IMPORTED-QUESTIONS-GATE). Pozostałe 3 wzorce z ZASADY 11 (bramki reaktywne, skan dokumentów, milczące przyjmowanie ustaleń) już były pokryte: KROK 0b SD-VER (HARD GATE od startu), KROK 0c ST-INIT (jawne zgłaszanie pominięć). Pełny opis: audyt-systemu-v4/AUDIT-JOURNAL.md, AUDYT-2026-07-15e.
 

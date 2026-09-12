@@ -25,16 +25,21 @@ projekcie Codex; nie instaluje się go w Claude.ai.
 ## Status
 
 - 32 aktywne skille dla Codex;
-- bazowy upstream: commit `35cfd9ab388e2eca5544eb45fbaa0a1924dd5429`
+- bazowy upstream: commit `05833172bfdef972a8542ca41987c347068fdaaf`
   z uniwersalnej wersji rozwojowej Michała Wiatraka;
 - statyczna walidacja portu: 32/32 `PASS`;
-- krytyczne testy regresyjne T1, T2 i T6/T7: `PASS`;
-- wydanie portu: `v0.4.0-codex`;
-- router prawny: `3.33`, z fallbackiem LEX/Legalis/ArsLege przy
+- pełna regresja strukturalna, w tym T1, T2, T3, T6/T7, T11, T17–T19,
+  T22–T23 i lokalny mock-ELI: `PASS`;
+- wydanie portu: `v0.5.0-codex`;
+- router prawny: `3.47`, z fallbackiem LEX/Legalis/ArsLege przy
   niedostępności ISAP i obowiązkiem jawnego oznaczenia statusu weryfikacji;
 - analiza przepisu obejmuje wyjątki, przepisy szczególne i przejściowe,
   vacatio legis, kolejne nowelizacje po tekście jednolitym oraz relacje
   lex specialis także między różnymi aktami prawnymi;
+- aktualizacja wzmacnia kontrolę przeterminowanych tekstów jednolitych,
+  rozdziela bramki warunkowe od rdzenia routera, obsługuje akty prawa
+  miejscowego i blokuje ocenę systemu bez porównania wersji załadowanej
+  przez hosta z wersją repozytorium;
 - pakiet jest portem skilli Codex, a nie samodzielną aplikacją ChatGPT ani
   publikacją w katalogu GPT lub Apps.
 
@@ -49,7 +54,8 @@ projekcie Codex; nie instaluje się go w Claude.ai.
 - techniczna korekta rejestracji trzech istniejących modułów i sześciu
   liczników modułów, wykryta podczas pierwszej aktualizacji.
 
-Upstream deklaruje zamknięcie mapy egzaminacyjnej na poziomie 52/52 `COV`.
+Upstream deklaruje zamknięcie mapy egzaminacyjnej na poziomie 52/52 `COV`
+oraz korektę 61/61 wykrytych miejsc z przeterminowanymi podstawami prawnymi.
 Walidacja portu potwierdza spójność techniczną i kompletność pakietu, lecz nie
 jest niezależnym potwierdzeniem aktualności każdego przepisu ani aktu prawnego.
 

@@ -181,7 +181,7 @@ Rozporządzenie UE 261/2004 (odszkodowania za opóźnienia/odwołania):
 
 ---
 
-## 7. ELEKTROMOBILNOŚĆ (Dz.U. 2024 poz. 1634)
+## 7. ELEKTROMOBILNOŚĆ (Dz.U. 2024 poz. 1289 t.j.)
 
 ### Strefy Czystego Transportu (SCT)
 

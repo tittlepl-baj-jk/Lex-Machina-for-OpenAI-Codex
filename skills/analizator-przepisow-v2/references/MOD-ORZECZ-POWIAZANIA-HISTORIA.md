@@ -139,6 +139,16 @@ OCENA LINII ORZECZNICZEJ:
 
 **Uruchamiaj gdy:** przepis odsyła do innych artykułów / zachodzi zbieg / ścieżka B (wiele przepisów) / użytkownik pyta o "powiązane przepisy" lub "inne artykuły".
 
+> ⛔ **ROZGRANICZENIE (2026-08-31, F-139) — nie scalać z CV-ALT.**
+> Ten moduł wychodzi od **treści przepisu** i mapuje jego odesłania ustawowe.
+> Relację **dwóch podstaw prawnych tego samego żądania** (czy ziszczenie się
+> jednej wyklucza drugą) rozstrzyga `shared/CLAIM-VALIDATION.md` → KROK CV-ALT,
+> który wychodzi od **żądania strony**, nie od tekstu przepisu.
+> Oba mechanizmy używają słowa „zbieg" i dlatego bywają mylone.
+> Gdy analiza wskazuje ≥2 podstawy prowadzące do tego samego skutku —
+> uruchom CV-ALT (trigger T-B), nie poprzestawaj na mapie odesłań.
+> Wpis rozstrzygający: `audyt-systemu-v4/references/CHECKLIST-DEDUP.md`.
+
 ```
 PROCEDURA:
 1. Przeczytaj treść przepisu — wypisz wszystkie odesłania ustawowe

@@ -3,7 +3,7 @@ name: "dr-12-sadownictwo-prokuratura-zawody-prawnicze"
 description: "Sądownictwo, prokuratura i zawody prawnicze: ustrój sądów, prokuratura, adwokaci, radcowie, notariusze, komornicy, koszty i odpowiedzialność zawodowa."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-12-sadownictwo-prokuratura-zawody-prawnicze"
 ---
 
@@ -307,7 +307,7 @@ ZAWODY PRAWNICZE — USTAWY KORPORACYJNE:
               (Dz.U. 2024 poz. 499; nowelizacja 2025 — OC, praca zdalna;
                pełny intake/strategia/quality gate)
   [✓] OK    mod-ustawa-notariat
-              (⚠️ brak t.j. — weryfikuj każdą nowelizację; taksa notarialna
+              (**Dz.U. 2026 poz. 614 t.j.** ✅ [VER] RZĄD 1 2026-09-10i — obwieszczenie z 30.04.2026, akt bazowy Dz.U. 1991 nr 22 poz. 91, zero nowelizacji po tekście jednolitym; ⛔ poprzedni zapis „brak t.j." był nieprawdziwy; taksa notarialna
                TYLKO z rozp. MS; NTE art. 777 KPC; odmowa czynności;
                pełny intake/strategia/quality gate)
   [✓] OK    mod-ustawa-komornicy-sadowi-zawod

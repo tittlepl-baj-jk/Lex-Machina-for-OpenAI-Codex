@@ -3,7 +3,7 @@ name: "dr-16-pisma-strategia-dowody-orzecznictwo"
 description: "Pisma, strategia, dowody i orzecznictwo: routing narzędzi procesowych, analiza dowodowa, research orzeczeń, kalkulatory i wsparcie budowy strategii sprawy."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-16-pisma-strategia-dowody-orzecznictwo"
 ---
 

@@ -3,7 +3,7 @@ name: "pisma-procesowe-v3"
 description: "Zaawansowane pisma procesowe: pozwy, odpowiedzi, apelacje, zażalenia i inne pisma wymagające strategii, faktów, dowodów, weryfikacji prawa i finalnej walidacji dokumentu."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "pisma-procesowe-v3"
 ---
 

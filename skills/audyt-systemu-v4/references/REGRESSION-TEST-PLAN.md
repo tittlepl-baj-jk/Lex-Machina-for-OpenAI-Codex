@@ -610,6 +610,52 @@ dnia; po naprawie test zwraca zero.
 **Kryterium wyjścia:** zero ⛔. Skill bez `references/CHANGELOG.md` jest poprawny
 tylko dopóki nie ma historii — przy pierwszym wpisie plik zakłada się od razu.
 
+### 12c — ROZSZERZENIE T12 O REGRESJĘ DYSK vs DZIENNIK (2026-08-31, flaga F-140)
+
+Kontrole 12 i 12b porównują nośniki wersji **wewnątrz** skilla. Są przez to ślepe
+na przypadek, w którym cały stan dyskowy cofnął się do starszej generacji: wtedy
+wszystkie nośniki zgadzają się ze sobą i test świeci na zielono. Kontrola 12c
+porównuje `version` na dysku z najwyższym numerem podbicia odnotowanym dla tego
+samego skilla w `references/AUDIT-JOURNAL.md`.
+
+- `dysk < dziennik` → **⛔ REGRESJA DYSKOWA** (komunikat nakazuje sprawdzić TREŚĆ,
+  nie tylko numer — utrata wersji oznacza zwykle utratę napraw),
+- ten sam warunek, ale różny MAJOR → **⚠️** z żądaniem ręcznego sprawdzenia
+  (prawdopodobne trafienie na cudzy numer, nie regresja),
+- brak śladu skilla w dzienniku → milczenie (nie jest błędem).
+
+**Błąd przeszły, przed którym chroni:** `analizator-dowodow-v3` — dysk 5.16.1
+wobec 5.16.2 odnotowanego w dzienniku, changelog urwany na 5.15.0, a naprawiony
+CRIT `art. 328¹ KPC` ZNÓW obecny w `modules/MD5-terminy.md`. **Trzecie** wystąpienie
+tego wzorca dla tego samego pliku; mechanizm opisany w dzienniku przy drugim
+wystąpieniu: nieaktualne archiwum przywrócone po resecie kontenera nadpisało
+nowszą pracę. T12 w wersji sprzed 12c wykrył wyłącznie rozjazd metadanych —
+utratę treści znaleziono dopiero ręcznym cross-checkiem z dziennikiem.
+
+**Zabezpieczenia parsera (wszystkie wymuszone przebiegami kontrolnymi, nie
+hipotezą):** dopasowanie liczy się wyłącznie w segmencie linii zawierającym nazwę
+skilla; wymagany jawny marker wersji (`v` przed numerem albo słowo „wersja"
+w linii); odrzucane majory ≥ 100 (roczniki Dz.U./M.P.).
+
+**Przebiegi kontrolne (2026-08-31):**
+
+| Przebieg | Oczekiwanie | Wynik |
+|---|---|---|
+| Drzewo rzeczywiste, parser bez markera wersji | — | ⚠️ `2026.215` jako rzekoma wersja (numer Dz.U.) |
+| Drzewo rzeczywiste, parser bez segmentacji | — | 4 × ⚠️ cudze numery z linii wyliczających kilka skilli |
+| Drzewo rzeczywiste, parser docelowy | zero | ✅ zero |
+| Mutacja 1: dysk cofnięty do 5.16.1, wszystkie nośniki spójne | ⛔ | ⛔ REGRESJA DYSKOWA wykryta |
+| Mutacja 2: dysk 5.16.9 > dziennik 5.16.2 | brak alarmu 12c | brak (zadziałała tylko istniejąca kontrola luki historii) |
+| Mutacja 3: nowy skill bez śladu w dzienniku | brak alarmu | brak |
+
+**Kryterium wyjścia:** zero ⛔. Każde ⚠️ z tej kontroli wymaga ręcznego sprawdzenia
+linii dziennika PRZED jakąkolwiek naprawą — cztery pierwsze trafienia okazały się
+kontaminacją, nie regresją.
+
+**Znane ograniczenie:** kontrola wykrywa regresję dopiero wtedy, gdy dziennik
+zawiera jawny zapis podbicia. Sesja, która wyda skill bez wpisu „vX→vY", pozostaje
+niewidoczna dla tej kontroli.
+
 ---
 
 ## 13. T13 — PRÓG DŁUGOŚCI MODUŁU (dodane 2026-08-21, obserwacja O-3)
@@ -771,3 +817,217 @@ przy katalogach semantycznych, jak i przy identyfikatorach pakietów hosta.
 
 T17 dowodzi obecności i spójności kontraktu statycznego, nie skuteczności
 behawioralnej. F-113/F-133 pozostają otwarte do testu A/B z transkryptami.
+
+---
+
+## 12. T20 — zamiatania bramki wyjątków (WYJ-GATE, F-144, 2026-08-31d)
+
+**Skrypt:** `scripts/check_wyjatek_gate_eli.py`
+**Priorytet:** ŚREDNI (narzędzie wspierające, nie bramka blokująca)
+
+### Co test rozstrzyga
+
+Czy narzędzie buduje deterministycznie trzy z czterech zamiatań bramki:
+S1 sąsiedztwo redakcyjne, S2 krawędzie jednostki, S3 rejestr odesłań ELI.
+S1 jest jedynym punktem, w którym potknięcie źródłowe F-144 (art. 770¹ k.c.
+pominięty przy poprawnie odczytanym art. 770 k.c.) byłoby wykryte mechanicznie.
+S3 pokrywa przypadek, którego S1 nie łapie: lex specialis w INNEJ ustawie —
+a właśnie tam leżało wyłączenie rękojmi w kazusie 111.
+
+### Kryteria PASS — `--selftest`, 8 pozycji
+
+1. parser rozpoznaje `art. 770¹` jako **osobną jednostkę**, nie fragment art. 770;
+2. zakres S1 dla art. 770 zostaje zbudowany;
+3. `art. 770¹` **jest** w zakresie S1;
+4. sąsiedzi 769 i 771 w zakresie;
+5. jednostka nadrzędna rozpoznana jako TYTUŁ XXIV;
+6. S2 zwraca krawędzie jednostki (art. 765 i art. 771);
+7. S3 spłaszcza rejestr odesłań do listy pozycji;
+8. S3 widzi ustawę konsumencką z 2002 r. w rejestrze.
+
+**Wynik przy wprowadzeniu (2026-08-31d): 8/8 PASS.**
+
+### Mutacja negatywna — obowiązkowa
+
+Usunięcie art. 770¹ z fixture musi usunąć go z zakresu S1. Wykonano: zakres
+zwrócił `['art. 769', 'art. 770', 'art. 771']` — test nie jest pusty.
+
+Gałęzie błędu: artykuł nieznaleziony → exit 3 (potwierdzone); brak dostępu do
+API → exit 2 (potwierdzone realnym odrzuceniem połączenia).
+
+### Ograniczenia
+
+⚠️ **Gałąź sieciowa NIE została uruchomiona na żywym `api.sejm.gov.pl/eli`** —
+domena jest poza listą dozwoloną środowiska audytu. Przetestowano parsery
+i logikę zakresu na fixture, nie integrację.
+
+⛔ Pusty rejestr odesłań w S3 NIE dowodzi braku lex specialis: akt sektorowy,
+który nie odsyła wprost do aktu głównego, w rejestrze się nie pojawi. Skrypt
+wypisuje to ostrzeżenie w wyniku.
+
+⛔ T20 dowodzi, że narzędzie buduje właściwy zakres. NIE dowodzi, że bramka
+WYJ-GATE odpala w odpowiedziach ani że zmienia konkluzje — to pomiar z grupą
+kontrolną wg `PLAN-TESTU-BRAMEK-F113.md`, przypisany do F-144.
+
+---
+
+## 13. T21 — kompletność i zgodność CHECKSUMS.sha256 (F-145, 2026-08-31d)
+
+**Skrypt:** `scripts/check_checksums.py`
+**Priorytet:** KRYTYCZNY
+
+### Po co powstał
+
+`sha256sum -c` odpowiada wyłącznie na pytanie „czy wpisane sumy się zgadzają".
+NIE odpowiada na pytanie „czy każdy plik ma w ogóle wpis" — a plik bez wpisu
+daje wynik **pozornie najzdrowszy**: zero błędów. To ten sam wzorzec, który
+w F-130 pozwolił skillowi bez pola `description:` przechodzić kontrolę
+z wynikiem `0` klasyfikowanym jako ✅ OK.
+
+### Co sprawdza
+
+1. każdy plik skilla ma wpis (wykluczenia: sam plik sum, `__pycache__`, `.pyc`,
+   pliki ukryte, archiwa `.zip` rejestrowane osobno);
+2. każdy wpis wskazuje plik istniejący na dysku;
+3. każda suma zgadza się z zawartością.
+
+### Wynik przy wprowadzeniu (2026-08-31d)
+
+Przed naprawą: **34 rozjazdy w 3 skillach** — `audyt-systemu-v4` 6 plików bez
+wpisu i 12 sum niezgodnych, `prawny-router-v3` 3 niezgodne, `shared` 1 bez
+wpisu i 12 niezgodnych. Po naprawie: **PASS**, 0 rozjazdów.
+
+⚡ Znalezisko uboczne: 3 z 3 skilli miały rozjazd, w tym dwa zmienione w tej
+samej sesji przez audyt — czyli odświeżanie sum nie było częścią procedury
+wydania, tylko czynnością pamiętaną ad hoc. To jest przyczyna F-145, nie sam
+rozjazd.
+
+### Ograniczenie
+
+⛔ Zgodność sumy dowodzi, że plik nie zmienił się OD MOMENTU WPISANIA SUMY.
+Nie dowodzi poprawności treści ani tego, że wpis powstał na właściwej wersji.
+Odświeżenie po zmianie zamierzonej jest częścią wydania, nie tego testu.
+
+---
+
+## T24 — nowelizacje ogłoszone PO dacie tekstu jednolitego
+
+**Skrypt:** `scripts/check_nowelizacje_po_tj.py` · **Dodany:** 2026-09-01j,
+flaga F-156 · **Priorytet:** WYSOKI · **WYMAGA SIECI** (`api.sejm.gov.pl`),
+dlatego stoi POZA orkiestratorem — jak T15 i T20.
+
+### Co sprawdza
+
+Dla każdego numeru Dz.U. w `MAPA-AKTOW.md` każdego skilla: czy wskazany tekst
+jednolity nie ma już ogłoszonych nowelizacji. Liczy **unię** dwóch źródeł
+(F-155): sekcji ELI „Nowelizacje po tekście jednolitym" oraz aktów zmieniających
+aktu bazowego z datą promulgacji późniejszą niż data t.j.
+
+### Dlaczego test, a nie adnotacja w mapie (rozstrzygnięcie F-156)
+
+Przegląd 2026-09-01i wykrył 139 takich pozycji w 16 mapach. Rozważano ręczne
+oznaczenie liczbą przy każdej pozycji — DR-08 dostał je w wydaniu 3.9.
+**W ciągu jednego dnia trzy z tych liczb rozjechały się z rejestrem**
+(planowanie przestrzenne 2→3, zabytki 3→5, drogi publiczne 1→2). Liczba rośnie
+z każdą publikacją Dz.U., więc adnotacja starzeje się szybciej, niż ktokolwiek
+zdąży ją odświeżyć — a mapa z nieaktualną liczbą kłamie z większą pewnością
+siebie niż mapa, która nic nie twierdzi. To ten sam wzorzec co F-82: rejestr
+zgodny sam ze sobą i rozjechany z rzeczywistością.
+
+Rozstrzygnięcie: **wynik powstaje w momencie uruchomienia**. Mapy noszą wyłącznie
+bezliczbowy znacznik „⚠️ nowelizacje po t.j. → T24"; liczbę podaje test.
+
+### Ograniczenia — nazwane wprost
+
+⛔ Test NIE ocenia, czy nowelizacja dotyka akurat tej jednostki redakcyjnej,
+którą zamierzasz cytować. Mówi wyłącznie: „dla tego aktu sam t.j. nie
+wystarczy". Ocena wpływu pozostaje ręczna, jak w WYJ-GATE.
+
+⛔ Test nie widzi nowelizacji nieogłoszonych oraz aktów spoza publikatorów
+objętych API ELI (`DU` i `MP`) — akty prawa miejscowego są poza jego zasięgiem
+z definicji, patrz ŚCIEŻKA B-L w `shared/PRAWO-HARDGATE.md`.
+
+⛔ WARN tego testu to stan świata, nie usterka repozytorium. FAIL zgłaszany jest
+tylko dla pozycji bez pokrycia w ELI albo nieobowiązujących.
+
+### Selftest
+
+`--selftest` (offline, 7 przypadków) pokrywa: obie formy zapisu numeru Dz.U.,
+brak powielania numerów, unię obu źródeł, odrzucenie nowelizacji sprzed t.j.,
+proweniencję każdej pozycji oraz **mutację negatywną** — gdyby test przeszedł na
+samą sekcję API, przypadek „unia liczy 2, nie 1" zgłosiłby FAIL. Siódmy przypadek
+pilnuje, że T24 IMPORTUJE logikę z `check_wyjatek_gate_eli.py`, zamiast ją
+kopiować: dwie rozjeżdżające się implementacje tej samej reguły byłyby gorsze
+niż brak testu.
+
+## T25 — osiągalność źródeł prawnych (`check_domeny_allowlist.py`)
+
+**Dodany:** 2026-09-04, flagi F-152 (ZAMKNIĘTA) / F-157 / F-158.
+**Priorytet:** ŚREDNI. **WYMAGA SIECI** — stoi poza orkiestratorem, jak T15,
+T20 (wariant sieciowy) i T24.
+
+**Co sprawdza:** czy źródła z `references/PORTALE-ORZECZNICZE-API.md` są
+odczytywalne z kanału kodu. 40 sond w 6 grupach (akty, orzecznictwo, rejestry,
+zamówienia, dane, międzynarodowe). Każda sonda ma **stan odniesienia** z
+pomiaru 2026-09-04; test zgłasza **regresję** tylko wtedy, gdy pozycja była
+OK, a dziś nie jest.
+
+**Czego NIE sprawdza:** czy z danego źródła wolno cytować. To
+`shared/HIERARCHIA-ZRODEL.md`, nie ten test.
+
+**Uruchomienie:**
+```bash
+python3 scripts/check_domeny_allowlist.py --selftest     # offline, 15/15
+python3 scripts/check_domeny_allowlist.py                # pełny pomiar
+python3 scripts/check_domeny_allowlist.py --grupa akty
+python3 scripts/check_domeny_allowlist.py --json wynik.json
+```
+Kody wyjścia: 0 = brak regresji, 1 = regresja, 2 = błąd wywołania.
+
+⛔ **Trzy rzeczy, których nie zrobi goły `curl -I`, a ten test tak:**
+1. **Kontrola treści, nie kodu.** SAOS pod UA przeglądarkowym zwraca HTTP 200
+   ze stroną „Przerwa techniczna". Test szuka markera (`must_contain`).
+2. **Rozpoznanie przekierowania poza listę dozwolonych** — 403 z sygnaturą
+   proxy klasyfikowany osobno (`POZA_LISTA`), bo to luka konfiguracji, nie
+   awaria portalu.
+3. **Ponowienie przy 5xx.** Pomiar złapał niepowtarzalne 503 na
+   `rejestr.uokik.gov.pl` i 404 w 2/8 prób na roocie `bzp.uzp.gov.pl`.
+
+⚠️ **Wynik jest ważny tylko przy ustawieniach z `7.0` inwentarza**: neutralny
+UA, `Accept: */*`, timeout ≥ 60 s. Podmiana UA na przeglądarkowy zmienia wynik
+i jest osobno pilnowana przypadkiem selftestu.
+
+---
+
+## T26 — parsowalność frontmatteru (`check_frontmatter_yaml.py`)
+
+**Dodany:** 2026-09-04c, flaga F-159. **Priorytet: KRYTYCZNY.** Offline.
+
+**Co sprawdza:** czy frontmatter każdego `SKILL.md` **parsuje się jako YAML**
+oraz czy `inputs`, `outputs`, `escalation`, `limitations`, `required_modules`
+są listami TEKSTÓW. `changelog` może być listą albo blokiem `|`.
+
+**Czym różni się od T22:** T22 sprawdza, czy frontmatter da się WYODRĘBNIĆ
+(są dwa `---`) i czy zasoby są zarejestrowane — jawnie **bez PyYAML**. Plik
+z uszkodzoną składnią przechodził T22 bezbłędnie. T26 sprawdza, czy da się go
+PRZECZYTAĆ.
+
+**Uruchomienie:**
+```bash
+python3 scripts/check_frontmatter_yaml.py --selftest          # 10/10 offline
+python3 scripts/check_frontmatter_yaml.py                     # całe repo
+python3 scripts/check_frontmatter_yaml.py --katalog PATH
+```
+Kody: 0 = czysto, 1 = usterka, **2 = brak PyYAML** (nie 0 — cicha zgoda
+udawałaby, że sprawdzono).
+
+⛔ **Dlaczego priorytet krytyczny:** nieparsowalny frontmatter oznacza skill,
+który **nie ładuje się na hoście**. Objaw jest mylący — wygląda jak „na dysku
+została stara wersja". Tak zdiagnozowano F-146 i tak samo wyglądał F-159.
+
+⚠️ **Korekta jeszcze przed wydaniem:** pierwsza wersja wymagała, by
+`changelog` był listą, i zgłosiła `shared` jako usterkę. Fałszywy alarm —
+blok `|` jest legalny i wręcz odporniejszy na F-146/F-159. Bramka
+z fałszywymi alarmami zostaje wyłączona po drugim przebiegu, więc reguła
+została zawężona, a selftest dostał przypadek bloku i mutację negatywną
+(`inputs` jako blok `|` **nadal jest usterką** — to pole się iteruje).

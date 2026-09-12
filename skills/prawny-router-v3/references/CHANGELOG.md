@@ -1,5 +1,213 @@
 # CHANGELOG — prawny-router-v3
 
+- 3.47 (2026-09-10o, F-181): **przemoc domowa — przeterminowana podstawa
+  i przemianowany akt.**
+
+  `references/legacy-material-router/przemoc-domowa.md` podawał ustawę
+  o przeciwdziałaniu przemocy jako `Dz.U. 2021 poz. 1249` — status
+  **wygaśnięcie aktu**. Aktualny tekst jednolity: **Dz.U. 2024 poz. 1673**
+  ✅ [VER] RZĄD 1, ⛔ KROK 2C: jedna nowelizacja po nim.
+
+  ⛔ **Akt został PRZEMIANOWANY.** Tytuł „ustawa o przeciwdziałaniu przemocy
+  **w rodzinie**" jest historyczny; obowiązujący to „ustawa o przeciwdziałaniu
+  przemocy **domowej**". Wpisane wprost, bo sama podmiana numeru zostawiłaby
+  nieaktualną nazwę — a to jest dokładnie sygnał, który w tej serii dwukrotnie
+  okazał się wierzchołkiem podmiany aktu (F-148a, 10j).
+
+  Ta sama poprawka w bliźniaczym module `dr-03`.
+
+- 3.46 (2026-09-10l, F-181): legacy-material-router/tryby-scigania: KPK 2024/37 (wygaśnięcie aktu) → 2026/490 + lista 5 nowelizacji po tekście jednolitym
+- 3.45 (2026-09-10b, O-6 / F-180): **zakaz orzekania o systemie z jednego
+  nośnika; rdzeń mniejszy po wydzieleniu gałęzi HARD GATE.**
+
+  **O-6.** Nowa pozycja `[STAN-ZAŁADOWANY]` w `references/SELF-CHECK.md`:
+  jeśli odpowiedź twierdzi, że w systemie jest luka, błąd, brak pliku lub
+  niedomknięta flaga, wolno to orzec dopiero po zestawieniu wersji **załadowanej
+  przez hosta** z wersją w repozytorium. Alternatywa dopuszczalna: oznaczyć
+  wniosek jako ⚠️ WARUNKOWY z podaniem wersji roboczej.
+
+  Podstawa: 2026-09-09/10 ocena prowadzona na kopii sesyjnej z routerem 3.41
+  zgłosiła jako usterkę systemu lukę historii, która w repozytorium (3.42) nie
+  istniała. ⛔ Klasa błędu jak F-151 — wniosek z jednego nośnika bez sprawdzenia
+  drugiego, tym razem po stronie oceniającego, nie źródła.
+
+  **F-180 (skutek dla routera).** Wydzielenie 236 linii gałęzi warunkowych
+  z `shared/PRAWO-HARDGATE.md` zmniejszyło rdzeń R-1…R-5 z ≈100 kB do ≈88 kB.
+  `references/PROFIL-LEKKI.md` 1.1 → 1.2: skorygowana tabela rdzenia, dwa nowe
+  wpisy w warstwie odroczonej (`PRAWO-HARDGATE-BLOKADA.md`,
+  `PRAWO-HARDGATE-AKT-MIEJSCOWY.md`) z wyzwalaczami mechanicznymi.
+
+- 3.44 (2026-09-10, F-179): **korekta przesłanki profilu LEKKIEGO — pomiar
+  z 3.43 był fałszywy w przesłance.**
+
+  Wpis 3.43 uzasadniał profil liczbą „≈219 kB ≈ 54 tys. tokenów ścieżki
+  obowiązkowej przed wczytaniem PRIMARY". Liczba sumowała `MOD-CN-GATE`,
+  `MOD-REM-GATE`, `MOD-WYJATEK-GATE`, `MOD-OS-CZASU-PRZESLANEK`,
+  `HIERARCHIA-ZRODEL`, `MOD-STEP-TRACKER` i `DISCLAIMER` jako koszt
+  bezwarunkowy — a wszystkie mają wyzwalacze warunkowe zapisane u siebie
+  i podlegają **leniwemu ładowaniu**. Host wczytuje treść zasobu przy `view`,
+  nie z góry, więc warstwa warunkowa była leniwa, zanim profil powstał.
+
+  ⛔ Klasa błędu identyczna z **F-164** (REM-0): reguła zbudowana na tezie
+  o świecie, której nikt nie zmierzył. Czwarte wystąpienie w tym systemie
+  (F-151, F-162, F-164, F-179).
+
+  Zmierzone poprawnie 2026-09-10:
+
+  | Warstwa | Kiedy | Rozmiar |
+  |---|---|---:|
+  | `name` + `description` 32 skilli | zawsze | ≈5,9 kB ≈ 1,5 tys. tokenów |
+  | rdzeń R-1…R-5 | po wyzwoleniu routera, bezwarunkowo | ≈100 kB ≈ 25 tys. tokenów |
+  | zasoby warunkowe | po padnięciu wyzwalacza | 0–113 kB |
+
+  Skutek dla profilu: **korzyść jest audytowa, nie wydajnościowa.** Profil nie
+  zmniejsza rdzenia ani o bajt. Zamyka natomiast tryb awarii, który leniwe
+  ładowanie tworzy: **odroczenie cicho stające się pominięciem**, dotąd
+  nieweryfikowalne z zewnątrz. Trzy mechanizmy zamknięcia bez zmian —
+  deklaracja w KROKU 3A, kontrola `[PROFIL-ODROCZENIA]`, zamknięta lista
+  wyzwalaczy w jednym miejscu.
+
+  ⚠️ Realna redukcja kosztu wymagałaby skrócenia rdzenia — `PRAWO-HARDGATE.md`
+  to 41 kB, czyli 41% rdzenia. Osobna decyzja projektowa, inny profil ryzyka,
+  nieobjęta tym wydaniem.
+
+  `references/PROFIL-LEKKI.md` 1.0 → 1.1, sekcja „PO CO ISTNIEJE" przepisana.
+
+- 3.43 (2026-09-10, F-175): **PROFIL LEKKI — kolejność odczytu zasobów
+  obowiązkowych.** `references/PROFIL-LEKKI.md`.
+
+  Zmierzona ścieżka obowiązkowa routera 3.42 (2026-09-10): **≈219 kB ≈ 54 tys.
+  tokenów PRZED** wczytaniem PRIMARY, jego modułów i materiału sprawy. Rdzeń
+  R-1…R-5 (SKILL, KROK 0A, KROK 1, PRAWO-HARDGATE, SELF-CHECK) to ≈106 kB;
+  reszta — HIERARCHIA-ZRODEL, CN, REM, WYJ, OŚ, STEP-TRACKER, DISCLAIMER —
+  ≈113 kB, i cała ta reszta ma już dziś wyzwalacze warunkowe zapisane u siebie.
+
+  ⛔ Kwalifikacja: to jest kwestia bezpieczeństwa, nie wygody. Bramka, której nie
+  da się załadować, nie chroni przed niczym, a presja kontekstowa jest
+  strukturalną przyczyną trybu fasadowego — przeciwko któremu SELF-CHECK ma trzy
+  osobne kontrole. Trzy kontrole na jeden tryb awarii są objawem, nie
+  rozwiązaniem.
+
+  ⚡ **Zbieżność z benchmarkiem 2026-09-08.** Pomiar 2×2 wykazał, że skille mają
+  znak ZALEŻNY od poziomu rozumowania: przy wysokim +3,6 pkt, przy średnim
+  −7,5 pkt. Ujemny znak przy średnim poziomie jest dokładnie tym, czego należy
+  oczekiwać, gdy koszt kontekstu wypiera uwagę z merytoryki. Profil LEKKI
+  atakuje ten mechanizm, nie objaw.
+
+  Plik rozdziela RDZEŃ NIEREDUKOWALNY od warstwy ODROCZONEJ, każdą pozycję
+  z wyzwalaczem MECHANICZNYM i najpóźniejszym momentem odczytu.
+  ⛔ Nie znosi żadnej bramki — zmienia moment `view`, nigdy zakres kontroli.
+  UP-6 (CN-GATE i REM-GATE w każdej sprawie) bez zmian. Cztery przypadki
+  zakazu profilu LEKKIEGO: karne materialne, tura generująca pismo, kategoria
+  [11], błąd odczytu zasobu rdzenia.
+
+  Egzekwowanie: nowa pozycja `[PROFIL-ODROCZENIA]` w `references/SELF-CHECK.md`
+  (kontrola na wyjściu — wyzwalacz padł, a `view` nie ma = bramka niewykonana)
+  oraz dwie linie w bloku KROKU 3A: `PROFIL` i `ODROCZONE`. Deklaracja
+  `PROFIL: LEKKI` bez wypisanej listy odroczeń jest nieweryfikowalna, czyli
+  fasadowa.
+
+- 3.42 (2026-09-09, F-169/F-170/F-171): **trzy łatki po audycie czterech
+  arkuszy odpowiedzi na bank 14 kazusów wieloaspektowych.**
+  Układ pomiaru 2×2 — poziom rozumowania (średni / wysoki) × obecność skilli,
+  ten sam klucz autorski jako rdzeń odniesienia, ta sama pula kazusów.
+  Wynik: bez skilli 84,5 (śr.) i 88,4 (wys.); ze skillami 77,0 (śr.) i 92,0
+  (wys.). Skille nie mają stałego znaku — przy wysokim rozumowaniu +3,6 pkt,
+  przy średnim −7,5 pkt; premia za poziom rozumowania rośnie ze skillami
+  z +3,9 do +15,0. To INTERAKCJA, nie efekt główny.
+  Trzy jednostki obalone, wszystkie w arkuszu skillowanym o średnim
+  rozumowaniu, wszystkie noszące znacznik „✅ [VER]".
+
+  **F-169 — AF-7, forma znacznika ✅ [VER]** (`shared/PRAWO-HARDGATE.md`).
+  Luka źródłowa: rygor nieważności formy istniał WYŁĄCZNIE dla 🎯 [CEL]
+  w AF-2 („brak któregokolwiek z pięciu pól = znacznik NIEWAŻNY"). Znacznik
+  najsilniejszy — ✅ [VER] — był jedynym bez sankcji za niekompletność, mimo
+  że linia 630 pliku od 2026-08-27 przewidywała formę `✅ [VER: źródło, data]`.
+  Asymetria odwrotna do ryzyka. Zmierzone: 24 wystąpienia gołego „✅ [VER]"
+  w jednym arkuszu; z pięciu sprawdzonych dwa fałszywe (data stosowania
+  obowiązków AI Act podana w brzmieniu sprzed rozporządzenia zmieniającego,
+  mimo że akt zmieniający wszedł w życie przed datą weryfikacji arkusza).
+  Wdrożono rygor trzech pól: kanał odczytu, identyfikator aktu lub orzeczenia,
+  data odczytu W TEJ turze. Brak pola = znacznik nieważny, czytany jak
+  ⚠️ [NIEWERYFIKOWANE]. Reguła jest składniowa i sprawdzalna z zewnątrz bez
+  dostępu do logów.
+  ⚠️ Skutek uboczny wdrożenia: dotychczasowe odpowiedzi z gołym „✅ [VER]"
+  stają się formalnie nieoznaczone. Wzrost liczby ⚠️ w pierwszej sesji po
+  wdrożeniu jest dowodem działania reguły, nie nową flagą.
+
+  **F-170 — S3(b2), oś działalności regulowanej**
+  (`shared/MOD-WYJATEK-GATE.md` 2.0→2.1). Luka źródłowa: pytanie zamknięte
+  S3(b) brzmiało „czy obowiązywał akt SEKTOROWY regulujący ten sam stosunek
+  dla tej kategorii strony?", a katalog kategorii obejmował wyłącznie role
+  chronionej strony stosunku prywatnoprawnego (konsument, pacjent, pracownik,
+  rolnik, najemca, inwestor). Akt sektorowy przywiązany do ROLI REGULOWANEJ —
+  sponsora, dostawcy usługi, instytucji obowiązanej, zamawiającego — był poza
+  zasięgiem tego pytania. Zamiatanie wykonane literalnie i poprawnie NIE MOGŁO
+  takiego aktu wskazać. To nie było zaniedbanie wykonawcy, tylko zły zakrój
+  warunku. Wdrożono dwie osie: b1 strona chroniona, b2 działalność regulowana;
+  oba katalogi otwarte, każda oś zamykana osobnym wpisem, „brak" jest wynikiem
+  w każdej z nich. Pozycja S3 w bloku wyjściowym zamyka się dopiero po zapisie
+  obu osi.
+
+  **F-171 — S4(b), akt o etapowym stosowaniu** (tamże). Luka źródłowa: S4
+  obejmowało nowelizacje ujawnione w S1–S3, a S1–S3 patrzą na akt główny.
+  Akt, który przesuwa wyłącznie DATĘ STOSOWANIA aktu głównego, nie zmienia
+  treści żadnej normy, więc nie ujawnia się przy odczycie normy i S1–S3 go nie
+  wskażą. Wdrożono obowiązek odczytu przepisu o rozpoczęciu stosowania
+  (typowo ostatni artykuł, „stosuje się od…", z wyjątkami rozdziałami lub
+  załącznikami) w brzmieniu AKTUALNYM, nie pierwotnym, wraz z zapisem aktu
+  zmieniającego harmonogram. Zapis „akt X stosuje się zasadniczo od DATY" bez
+  ustalenia, czy DATA pochodzi z brzmienia pierwotnego czy aktualnego, jest
+  wykonaniem FASADOWYM: pole wypełnione, kontrola niewykonana.
+
+  **Zmiany w routerze:** wersja 3.41→3.42; Reguła 12a rozszerzona o obie osie
+  S3 i o zakres S4; nowa Reguła 14a (forma znacznika ✅ wg AF-7); SELF-CHECK
+  uzupełniony o bramkę blokującą „każdy znacznik ✅ [VER] niesie kanał,
+  identyfikator i datę odczytu".
+
+  **Wniosek ogólny.** Pomiar potwierdza Regułę 26 („skill nie jest źródłem")
+  i pokazuje jej warunek brzegowy: bramka wymusza POSTAWIENIE znacznika, nie
+  wymusza ODCZYTU. Model o słabszym rozumowaniu wypełnia pole bramki z pamięci
+  i wystawia sobie certyfikat; model o mocniejszym rozumowaniu idzie do źródła,
+  zanim postawi znacznik. Przy identycznym aparacie proceduralnym daje to trzy
+  jednostki obalone w jednym arkuszu i zero w drugim. Rekomendacja doboru:
+  skille uruchamiać RAZEM z najwyższym dostępnym poziomem rozumowania, nie
+  zamiast niego.
+  Zaktualizowane sumy w `shared/CHECKSUMS.sha256`.
+
+- 3.37 (2026-09-01, hotfix F-146): **naprawa CRIT — nieparsowalny frontmatter.**
+  We wpisie 3.36 pola `changelog:` fragment `„≥1 powołany artykuł"` łączył
+  otwarcie typograficzne `„` z zamknięciem prostym `"`. Ponieważ cały wpis jest
+  skalarem w cudzysłowach prostych, ten znak kończył skalar w połowie zdania i
+  parser przerywał odczyt (`expected <block end>, but found '<scalar>'`).
+  Skutek praktyczny: wersja 3.36 nie ładowała się w ogóle — na dysku hosta
+  pozostawała 3.34, a system cicho pracował na starszej generacji bramek
+  (brak WYJ-GATE z 3.36 i brak OŚ-GATE w wariancie 3.35+).
+  Naprawa: zamknięcie zmienione na `”` (poprawna para `„…”`). Zmiana obejmuje
+  JEDEN znak w metadanych; treść proceduralna, routing [1]–[11], bramki i
+  pipeline pism bez zmian. Zaktualizowane sumy w `CHECKSUMS.sha256`.
+  Wniosek profilaktyczny: w YAML cytuj wpisy apostrofami albo pilnuj pary
+  `„…”` — ten sam wzorzec mieszanych cudzysłowów występuje w kilkunastu
+  miejscach `references/` (tam nieszkodliwie, bo poza frontmatterem).
+
+- 3.36 (2026-08-31d, flaga F-144): BRAMKA SĄSIEDZTWA z 3.35 przemianowana na
+  **BRAMKĘ WYJĄTKÓW (WYJ-GATE)** i rozszerzona z jednego zamiatania na cztery:
+  S1 sąsiedztwo redakcyjne, S2 krawędzie jednostki (klauzule zakresowe),
+  S3 akty powiązane z rejestru ELI (lex specialis leżący poza aktem),
+  S4 przepisy przejściowe. Wyzwalacz bez zmian — mechaniczny, „≥1 powołany
+  artykuł". Powód: reguła 3.35 pokrywała tylko jedno z czterech miejsc,
+  w których mieszkają wyjątki, a jej nazwa opisywała czynność zamiast celu;
+  w kazusie 111 wyłączenie rękojmi leżało w INNEJ ustawie, czego S1 nie widzi.
+  Moduł: `shared/MOD-WYJATEK-GATE.md`. Reguła 12a i SELF-CHECK przepisane —
+  pozycja blokująca wymaga teraz wszystkich czterech zamiatań w bloku, także
+  przy wyniku pustym. Bez zmian w routingu [1]–[11] i w pipeline pism.
+  ⛔ Skuteczność NIEZMIERZONA — F-144. Pełny opis:
+  `audyt-systemu-v4/references/AUDIT-JOURNAL.md`, wpis AUDYT-2026-08-31d.
+
+- 3.35 (2026-08-31c, flaga F-144): nowa **BRAMKA SĄSIEDZTWA (US-GATE)** przed KROK 4, wyzwalacz MECHANICZNY „≥1 powołany artykuł" → `shared/MOD-UNIT-SWEEP.md`. Powód: hard gate potwierdza, że cytowany przepis brzmi tak, jak model twierdzi, a kontrola temporalna — że to właściwa wersja; żadna nie pyta, CO LEŻY OBOK. Luka źródłowa (kazus 111): art. 770 k.c. odczytany ze źródła i we właściwym brzmieniu na 20.02.2011, pominięty art. 770¹ k.c. — jednostka pod następnym numerem, odsyłająca kupującego-konsumenta do przepisów o sprzedaży konsumenckiej. Zakres minimalny US-2 obejmuje obowiązkowo artykuły z indeksem górnym, bo to typowe miejsce lex specialis dodanego nowelizacją. Zaktualizowane: `required_modules`, Reguła 12a, SELF-CHECK (pozycja blokująca). Bez zmian w routingu [1]–[11] i w pipeline pism. ⛔ Skuteczność NIEZMIERZONA — pomiar przypisany do F-144. Pełny opis: `audyt-systemu-v4/references/AUDIT-JOURNAL.md`, wpis AUDYT-2026-08-31c.
+
+- 3.34 (2026-08-31, flaga F-142): BRAMKA CHRONOLOGICZNA rozdzielona na dwa niezależne tory. TOR A — OŚ-GATE, wyzwalacz MECHANICZNY „≥2 daty w opisie stanu faktycznego" → `shared/MOD-OS-CZASU-PRZESLANEK.md`. TOR B — dotychczasowy, „≥2 dokumenty wieloetapowe lub słowa kluczowe" → `chronologia-sprawy-v1`. Powód rozdzielenia: dotychczasowy wyzwalacz nie odpalał na materiale jednodokumentowym — kazus zapisany w pięciu zdaniach zawiera cztery daty i pełny problem temporalny, a bramka go nie widziała. Warunek TORU A jest liczbowy celowo; warunek ocenny („gdy sprawa wydaje się temporalna") to ten sam tryb awarii, który mierzy F-113. Zaktualizowane: `required_modules`, Reguła 12, SELF-CHECK (blok OŚ-GATE jako pozycja blokująca przed konkluzją). Bez zmian w routingu [1]–[11] i bez zmian w pipeline pism. Pełny opis: `audyt-systemu-v4/references/AUDIT-JOURNAL.md`, wpis AUDYT-2026-08-31b.
+
 - 3.33 (2026-08-28): przywrócono jawne wskazanie orzeczenia.ms.gov.pl / sn.pl / nsa.gov.pl w sekcji escalation pliku SKILL.md. Niedostępność uruchamia właściwą weryfikację orzecznictwa; brak potwierdzenia po dostępnych alternatywach wymaga oznaczenia NIEWERYFIKOWANE. Zachowano wszystkie pozostałe instrukcje 3.32, w tym kontroler BI i fallback ISAP.
 
 - 3.32 (2026-08-28): przeniesiono poprawkę BI i fallbacku ISAP z osobistej instalacji, zachowując zmiany rozwojowe 3.30–3.31. Dodano zależność DR-16 i poprawny adres kontrolera; nieudane pobranie aktu/tekstu z ISAP uruchamia LEX/Legalis/ArsLege z kontrolą licencji, wersji i kategorii dowodu.
@@ -316,3 +524,44 @@ changelog:
     shared/PRE-W2-VERIFICATION-GATE.md, escalation rozszerzone o przypadek
     podmiotu ⬛ bez dostępu do rejestru."
 ```
+
+## 3.38 (2026-09-04c) — naprawa YAML + podpięcie instrukcji dostępu do API
+
+### Błąd naprawiony (F-159)
+
+`escalation:` zawierał wielolinijkowy element z `weryfikacji: view shared/...`
+w linii kontynuacji. YAML czyta `": "` jako początek mapy → `ScannerError:
+mapping values are not allowed here` w linii 50 → **cały frontmatter
+nieparsowalny**, czyli skill nie ładował się na hoście.
+
+⛔ **To NAWRÓT.** Wpis 3.37 opisuje dokładnie tę samą klasę usterki: „naprawa
+niesparowanego cudzysłowu w polu changelog — otwarcie typograficzne domknięte
+znakiem prostym kończyło skalar YAML w połowie zdania i czyniło CAŁY
+frontmatter nieparsowalnym". Dwa razy pod rząd ta sama awaria, bo **nic w tym
+skillu nie sprawdza, czy własny frontmatter się parsuje**. Naprawa punktowa
+nie usuwa przyczyny — zgłoszone jako F-159, do bramki.
+
+Naprawiono także ciche zniekształcenie typu: `- opcjonalnie: pliki/dowody`
+w `inputs`/`outputs` parsowało się BEZ BŁĘDU jako mapa `{opcjonalnie: "..."}`,
+nie jako tekst. Konsument czytający listę łańcuchów dostawał słownik.
+
+### Zmiana architektoniczna
+
+Instrukcje „jak wywołać API" mieszkały wyłącznie w
+`audyt-systemu-v4/references/PORTALE-ORZECZNICZE-API.md`. Sprawdzone:
+`audyt-systemu-v4` **nie występuje w `dependencies.requires` żadnego skilla
+produkcyjnego** — ani routera, ani `analiza-sadowa-v6`, `prawo-polskie-v2`,
+`pisma-procesowe-v3`, `orzeczenia-sadowe-v2`. Wszystkie wzmianki o tym skillu
+to narracyjne cytaty flag. Instrukcje były więc **niewidoczne z produkcji**.
+
+- Utworzony `shared/DOSTEP-MASZYNOWY-API.md` — wyciąg operacyjny (nagłówki,
+  ścieżki robocze, limity tempa, endpointy ELI/SAOS/KRS/UODO/HUDOC/eZamówienia,
+  token CEIDG, anonimizacja odpisu KRS).
+- Dopisany do `required_modules` routera.
+- `escalation` rozszerzone o trzy pozycje: bramkę „sprawdź kształt żądania,
+  zanim orzekniesz o niedostępności źródła", status ISAP jako **stanu
+  normalnego** (kanał maszynowy martwy — weryfikacja przez ELI, ISAP jako
+  adres dla człowieka) oraz białą listę VAT jako nieosiągalną maszynowo.
+
+⛔ Bez duplikacji: pomiar i jego dowód zostają w `audyt-systemu-v4` (T25),
+w `shared` stoi wyłącznie wyciąg operacyjny.

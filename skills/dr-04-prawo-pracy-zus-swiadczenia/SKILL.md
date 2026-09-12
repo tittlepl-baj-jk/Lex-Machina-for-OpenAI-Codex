@@ -3,7 +3,7 @@ name: "dr-04-prawo-pracy-zus-swiadczenia"
 description: "Prawo pracy, ZUS i świadczenia: KP, zatrudnienie, rozwiązanie stosunku pracy, ubezpieczenia społeczne, emerytury, renty, KRUS, PFRON i pomoc społeczna."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-04-prawo-pracy-zus-swiadczenia"
 ---
 

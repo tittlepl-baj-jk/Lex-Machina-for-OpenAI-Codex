@@ -26,6 +26,16 @@ Powód: rozproszenie historii między trzy lokalizacje było bezpośrednią przy
 fałszywych wyników tego testu w sesji 2026-08-20z3 (szukał w references/, wpisy
 leżały w SKILL.md, raportował nieistniejące luki).
 
+PIĄTA KONTROLA — REGRESJA DYSK vs DZIENNIK (dodana 2026-08-31, F-140).
+Cztery kontrole powyżej porównują nośniki wersji WEWNĄTRZ skilla, więc są ślepe
+na sytuację, w której cały stan dyskowy cofnął się do starszej generacji — wtedy
+wszystkie nośniki zgadzają się ze sobą i test jest zielony. Dokładnie to zdarzyło
+się `analizator-dowodow-v3` po raz TRZECI: dysk 5.16.1 wobec 5.16.2 odnotowanego
+w AUDIT-JOURNAL, a naprawiony CRIT `art. 328¹ KPC` znów obecny w MD5-terminy.md.
+Kontrola porównuje `version` na dysku z najwyższym numerem podbicia odnotowanym
+w dzienniku dla tego samego skilla; `dysk < dziennik` = ⛔ regresja.
+Dziennik jest tu rejestrem ZDARZEŃ (co wydano), nie źródłem prawa ani treści.
+
 Wykrywa dodatkowo PUŁAPKĘ FLOAT: niecytowane `version: 6.10` YAML parsuje jako
 float 6.1 — numer NIŻSZY niż 6.9, co cicho odwraca porządek wersji. Problem
 nie istnieje przy jednocyfrowym minor, więc pojawia się dopiero przy przejściu
@@ -39,13 +49,22 @@ Parser obsługuje te trzy formaty, ale skill o formacie nietypowym zgłosi
 BRAK-CHANGELOGU zamiast realnej niezgodności. Brak pliku references/CHANGELOG.md
 NIE jest błędem — wiele skilli trzyma historię wyłącznie w polu YAML.
 
+Dla kontroli piątej ograniczenie jest inne i celowe: parser czyta WYŁĄCZNIE jawne
+zapisy podbicia (`vX→vY`, `wersja X→**Y**`) w segmencie linii zawierającym nazwę
+skilla, odrzuca majory ≥ 100 (roczniki Dz.U./M.P.) i degraduje trafienie do ⚠️,
+gdy major z dziennika różni się od dyskowego. Wynik ZANIŻONY (przeoczone podbicie)
+jest bezpieczny; wynik ZAWYŻONY dałby fałszywy alarm, a te uczą ignorowania testu.
+Bez tych trzech zabezpieczeń przebiegi kontrolne dawały: numer Dz.U. „2026.215"
+jako rzekomą wersję oraz cztery cudze numery z linii wyliczających kilka skilli.
+
 Kod wyjścia: 0 = brak rozbieżności, 1 = wykryto rozbieżności.
 
 Użycie:
     python3 check_wersje_changelog.py [katalog_ze_skillami] [--profilaktyka]
 
 Klasyfikacja wyników:
-  ⛔ czynny rozjazd  — rejestry podają RÓŻNE numery albo brakuje opisu zmian
+  ⛔ czynny rozjazd  — rejestry podają RÓŻNE numery, brakuje opisu zmian
+                       albo stan dyskowy cofnął się względem dziennika
   ⚠️ ryzyko utajone  — plik działa, ale typ YAML odwraca porządek wersji
   ℹ️ profilaktyka     — jeszcze nic złego, zapobiegnie przyszłej pułapce (--profilaktyka)
 """
@@ -156,6 +175,91 @@ def numery_z_prozy(tresc, pole_changelog):
     return wynik
 
 
+# ⚠️ Wzorzec CELOWO wymaga jawnego markera wersji. Wariant bez markera
+# (samo „X→Y") łapał numery Dz.U. z prozy dziennika — pierwszy przebieg testu
+# negatywnego zwrócił „2026.215" jako rzekomą wersję skilla (F-140, 2026-08-31).
+# To ta sama klasa błędu co trzy fałszywe trafienia pierwszej wersji T12.
+WZORZEC_PODBICIA_V = re.compile(
+    r"\bv(\d+\.\d+(?:\.\d+)?)\s*(?:→|->)\s*\*{0,2}v?(\d+\.\d+(?:\.\d+)?)"
+)
+WZORZEC_PODBICIA_WERSJA = re.compile(
+    r"(\d+\.\d+(?:\.\d+)?)\s*(?:→|->)\s*\*{0,2}v?(\d+\.\d+(?:\.\d+)?)"
+)
+# Numer wersji skilla ma major < 100. Cokolwiek większego to rocznik (Dz.U., M.P.).
+MAX_MAJOR_WERSJI = 100
+
+_CACHE_DZIENNIK = {}
+
+
+def wersje_z_dziennika(baza, nazwa_skilla):
+    """Najwyższa wersja skilla ODNOTOWANA w AUDIT-JOURNAL.md.
+
+    Powód powstania (F-140, 2026-08-31): T12 wykrywa rozjazd metadanych WEWNĄTRZ
+    skilla, ale nie wykrywa sytuacji, w której CAŁY stan dyskowy cofnął się do
+    starszej generacji — bo wtedy wszystkie cztery nośniki zgadzają się ze sobą
+    i test jest zielony. Dokładnie to zdarzyło się `analizator-dowodow-v3`
+    po raz TRZECI: dysk 5.16.1 wobec 5.16.2 w dzienniku, changelog urwany,
+    a naprawiony CRIT `art. 328¹ KPC` znów obecny w MD5-terminy.md.
+    Mechanizm opisany w dzienniku: nieaktualne archiwum przywrócone po resecie
+    kontenera nadpisało nowszą pracę.
+
+    Dziennik jest tu traktowany jako niezależny rejestr ZDARZEŃ (co zostało
+    wydane), nie jako źródło prawa ani źródło treści — służy wyłącznie do
+    porównania numerów.
+
+    ⚠️ Parser jest CELOWO konserwatywny. Szuka wyłącznie jawnego zapisu
+    podbicia (`vX→vY`, `wersja X→**Y**`) w linii, która zawiera nazwę skilla.
+    Nie próbuje interpretować prozy. Wynik zaniżony (przeoczone podbicie)
+    jest bezpieczny — daje fałszywy spokój tylko tam, gdzie i tak nie było
+    sygnału; wynik zawyżony (numer cudzego skilla) dałby fałszywy alarm,
+    a te uczą ignorowania testu (por. trzy błędy parsera w pierwszej wersji
+    T12, AUDYT-2026-08-20z3).
+    """
+    plik = os.path.join(baza, "audyt-systemu-v4", "references", "AUDIT-JOURNAL.md")
+    if plik not in _CACHE_DZIENNIK:
+        if not os.path.exists(plik):
+            _CACHE_DZIENNIK[plik] = None
+        else:
+            _CACHE_DZIENNIK[plik] = open(
+                plik, encoding="utf-8", errors="replace"
+            ).read().splitlines()
+    linie = _CACHE_DZIENNIK[plik]
+    if linie is None:
+        return None
+    znalezione = []
+    for linia in linie:
+        if nazwa_skilla not in linia:
+            continue
+        # ⚠️ Dziennik często wylicza kilka skilli w JEDNEJ linii
+        # („`pisma-proste-v2` v2.5→2.6, `pisma-procesowe-v3` v5.14→5.15").
+        # Bez podziału na segmenty parser przypisywał cudze podbicie — pierwszy
+        # przebieg na drzewie dał tak cztery fałszywe trafienia (F-140).
+        # Dlatego dopasowanie liczy się wyłącznie w segmencie zawierającym nazwę.
+        for segment in re.split(r"[,;]", linia):
+            if nazwa_skilla not in segment:
+                continue
+            _dopasuj_segment(segment, znalezione)
+        continue
+
+    if not znalezione:
+        return None
+    return max(znalezione, key=klucz)
+
+
+def _dopasuj_segment(segment, znalezione):
+    """Wyciąga numer docelowy podbicia z pojedynczego segmentu linii dziennika."""
+    linia = segment
+    if True:
+        trafienia = list(WZORZEC_PODBICIA_V.finditer(linia))
+        if not trafienia and "wersj" in linia.lower():
+            trafienia = list(WZORZEC_PODBICIA_WERSJA.finditer(linia))
+        for m in trafienia:
+            kandydat = m.group(2)
+            if int(kandydat.split(".")[0]) >= MAX_MAJOR_WERSJI:
+                continue  # rocznik Dz.U./M.P., nie wersja skilla
+            znalezione.append(kandydat)
+
+
 def luka_zadeklarowana(katalog, tresc_skill):
     """Czy skill JAWNIE deklaruje lukę historii („LUKA JAWNA").
 
@@ -171,7 +275,7 @@ def luka_zadeklarowana(katalog, tresc_skill):
     return any("LUKA JAWNA" in z for z in zrodla)
 
 
-def sprawdz_skill(katalog, profilaktyka=False):
+def sprawdz_skill(katalog, profilaktyka=False, baza=None):
     plik = os.path.join(katalog, "SKILL.md")
     if not os.path.exists(plik):
         return []
@@ -256,6 +360,31 @@ def sprawdz_skill(katalog, profilaktyka=False):
         if num != wersja and not wersja.startswith(num + "."):
             problemy.append(f"⚠️ ROZJAZD W PLIKU: {gdzie} podaje {num}, `version:` podaje {wersja}.")
 
+    # 5. REGRESJA DYSK vs DZIENNIK (F-140, 2026-08-31)
+    if baza:
+        dz = wersje_z_dziennika(baza, nazwa)
+        if dz:
+            try:
+                if klucz(dz) > klucz(wersja):
+                    if dz.split(".")[0] != wersja.split(".")[0]:
+                        problemy.append(
+                            f"⚠️ DZIENNIK vs DYSK — MAJOR SIĘ RÓŻNI: dziennik odnotowuje "
+                            f"{dz}, na dysku {wersja}. Różnica głównego numeru sugeruje, że "
+                            f"parser trafił na cudzy numer w tej samej linii. SPRAWDŹ RĘCZNIE "
+                            f"przed jakąkolwiek naprawą — nie traktuj tego jako regresji."
+                        )
+                    else:
+                        problemy.append(
+                            f"⛔ REGRESJA DYSKOWA: dziennik odnotowuje wydanie {dz}, a na dysku "
+                            f"jest {wersja} — stan dyskowy jest STARSZY niż odnotowany. "
+                            f"To sygnatura utraty pracy (nieaktualne archiwum nadpisało nowsze), "
+                            f"nie zwykły rozjazd metadanych. ⛔ SPRAWDŹ TREŚĆ, nie tylko numer: "
+                            f"znajdź w AUDIT-JOURNAL naprawy wydane między {wersja} a {dz} "
+                            f"i zweryfikuj, czy przetrwały na dysku."
+                        )
+            except ValueError:
+                pass
+
     return [(nazwa, p) for p in problemy]
 
 
@@ -267,7 +396,7 @@ def main():
     for wpis in sorted(os.listdir(baza)):
         sciezka = os.path.join(baza, wpis)
         if os.path.isdir(sciezka):
-            wszystkie.extend(sprawdz_skill(sciezka, profilaktyka))
+            wszystkie.extend(sprawdz_skill(sciezka, profilaktyka, baza))
 
     print("=" * 72)
     print("TEST T12 — ZGODNOŚĆ METADANYCH WERSJI SKILLA")

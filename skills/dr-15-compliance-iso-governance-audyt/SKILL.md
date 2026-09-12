@@ -3,7 +3,7 @@ name: "dr-15-compliance-iso-governance-audyt"
 description: "Compliance, governance i audyt: systemy zgodności, sygnaliści, AML instytucjonalny, zarządzanie ryzykiem, kontrole, ISO i audyt organizacyjno-prawny."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-15-compliance-iso-governance-audyt"
 ---
 

@@ -45,8 +45,19 @@ def rate_contract(text):
                for a, b in zip(rows, rows[1:]))
 
 
+REJESTR_NAGLOWEK = '## Rejestr 52 aktów'
+REJESTR_KONIEC = '## Wynik bieżący'
+
+
 def inventory_contract(text):
-    section = text.split('## Rejestr postępu', 1)[1].split('**Następna transza:**', 1)[0]
+    # 2026-09-01 (F-147): plik F-108 został przebudowany 2026-08-28 przy domknięciu
+    # flagi — sekcja „## Rejestr postępu" i marker „**Następna transza:**" znikły
+    # razem z warstwą transz. Poprzednia wersja tej funkcji indeksowała [1] po
+    # split() na nieistniejącym nagłówku i kończyła test IndexError-em, czyli
+    # AWARIĄ zamiast czytelnym FAIL. Kotwice są teraz nazwane i sprawdzane wprost.
+    if REJESTR_NAGLOWEK not in text or REJESTR_KONIEC not in text:
+        return False
+    section = text.split(REJESTR_NAGLOWEK, 1)[1].split(REJESTR_KONIEC, 1)[0]
     ids = [int(n) for n in re.findall(r'^\| (\d+) \|', section, re.M)]
     return ids == list(range(1, 53))
 

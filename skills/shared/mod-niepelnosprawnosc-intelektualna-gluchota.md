@@ -332,7 +332,7 @@ PROBLEM 5: ZUS / ORZECZNICTWO RENTOWE (luka systemowa 2025)
 ### IV.1 Świadczenie wspierające — NOWE od 2024 (kluczowe!)
 
 ```
-Podstawa: ustawa z 7.07.2023 r. o świadczeniu wspierającym (Dz.U. 2023 poz. 1429)
+Podstawa: ustawa z 7.07.2023 r. o świadczeniu wspierającym (t.j. Dz.U. 2026 poz. 873; akt pierwotny Dz.U. 2023 poz. 1429)
   wejście w życie: 01.01.2024 r.
 
 KTO: dorosłe osoby z niepełnosprawnościami (≥ 18 lat), zamieszkałe w Polsce,
@@ -364,7 +364,7 @@ web_search: "świadczenie wspierające kwoty 2025 2026 aktualne tabela"
 ### IV.2 Dofinansowanie do wynagrodzenia pracodawcy (PFRON)
 
 ```
-Podstawa: ustawa o rehabilitacji (Dz.U. 2025 poz. 913 t.j.)
+Podstawa: ustawa o rehabilitacji (Dz.U. 2026 poz. 884 t.j.)
 
 Miesięczne dofinansowanie PFRON od wynagrodzenia pracownika z NI lub 03-L:
   Znaczny stopień:  2 400 zł/mies. (podstawowa)
@@ -501,7 +501,7 @@ AKTY PRAWNE (weryfikuj aktualne t.j. w ISAP):
   Ustawa o języku migowym z 19.08.2011 r.
     isap.sejm.gov.pl → Dz.U. 2023 poz. 20
   Ustawa o świadczeniu wspierającym z 7.07.2023 r.
-    isap.sejm.gov.pl → Dz.U. 2023 poz. 1429
+    isap.sejm.gov.pl → t.j. Dz.U. 2026 poz. 873 (akt pierwotny Dz.U. 2023 poz. 1429)
   Rozp. MGPiPS 15.07.2003 ws. orzekania o NP
     isap.sejm.gov.pl → Dz.U. 2021 poz. 857
 

@@ -3,7 +3,7 @@ name: "analizator-umow-v1"
 description: "Analiza, redakcja, negocjacje i generowanie umów oraz dokumentów korporacyjnych, HR i RODO: ryzyka klauzul, B2B/B2C, praca, najem, IT/SaaS, IP, founders, finansowanie i PZP."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "analizator-umow-v1"
 ---
 

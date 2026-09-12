@@ -1,6 +1,26 @@
 # HIERARCHIA-ZRODEL.md — Kanoniczna Kategoryzacja Źródeł (RZĄD 1/2/3)
 
 > **Plik:** `shared/HIERARCHIA-ZRODEL.md`
+> **Wersja:** 1.7 (2026-09-04) — REALIA DOSTĘPNOŚCI uzupełnione o wymogi
+>              kształtu żądania w kanale kodu (F-157); potwierdzone API UODO
+>              jako pierwszy maszynowy kanał orzeczniczy po stronie organu (F-158).
+>              ⛔ Numer skorygowany z 1.6 na 1.7 — 1.6 była już zajęta przez
+>              wpis z 2026-09-01f; kolizja wykryta 2026-09-04c.
+> **Wersja:** 1.6 (2026-09-01f) — uzupełnienie LUK PUBLIKATORÓW. RZĄD 1:
+>              dodano Monitor Polski, Dziennik Ustaw RCL, dzienniki urzędowe
+>              ministrów i urzędów centralnych oraz wojewódzkie dzienniki
+>              urzędowe — jedyny publikator aktów prawa miejscowego, bez
+>              którego DR-08 i DR-09 nie miały skąd wziąć brzmienia uchwały
+>              czy planu miejscowego. RZĄD 2A: interpretacje organów
+>              (EUREKA, BIP GIP — art. 14b ustawy o PIP), rejestry urzędowe
+>              i publikatory ogłoszeń (KRS, KRZ, EKW, CEIDG, REGON, SUDOP,
+>              BZP) oraz materiały legislacyjne (RCL, druki sejmowe) —
+>              te ostatnie z zakazem cytowania brzmienia.
+> **Wersja:** 1.5 (2026-09-01c) — korekta sekcji REALIA DOSTĘPNOŚCI RZĘDU 1
+>              (F-151): rozdzielono blokadę narzędzia od zakazu serwera,
+>              dodano kolumnę kanału kodu, dopisano odesłanie do pułapki
+>              `/text.html` (F-150) oraz nowy RZĄD 2A dla orzecznictwa
+>              organów (UODO, KIO, UKE) z jawnym statusem dostępu.
 > **Wersja:** 1.4 (2026-08-23) — dodano `eli.gov.pl` do RZĘDU 1 (nie było go
 >              tam mimo urzędowego charakteru), sekcję REALIA DOSTĘPNOŚCI
 >              RZĘDU 1 (moc źródła ≠ osiągalność źródła), zamknięcie
@@ -71,18 +91,69 @@
 5. EUR-Lex — https://eur-lex.europa.eu — prawo UE implementowane w Polsce
 6. UODO — https://uodo.gov.pl — przepisy o ochronie danych
 7. BIP właściwego organu — dla rozporządzeń branżowych
+8. **Monitor Polski** (dodane 2026-09-01f) — urzędowy publikator uchwał,
+   obwieszczeń i zarządzeń: `monitorpolski.gov.pl` (RCL) oraz warstwa
+   strukturalna `api.sejm.gov.pl/eli/acts/MP/{rok}/{poz}`. ⛔ System miał
+   dotąd wpiętą wyłącznie ścieżkę Dz.U.; M.P. był publikatorem RZĘDU 1
+   nieobecnym w tej liście, mimo że rozstrzyga o obwieszczeniach i uchwałach
+   powoływanych w sprawach administracyjnych.
+9. **Dziennik Ustaw — RCL** — `dziennikustaw.gov.pl`; ten sam publikator co
+   ISAP/ELI, inny gospodarz serwisu. Przydatny, gdy pozostałe kanały zawodzą.
+10. **Dzienniki urzędowe ministrów i urzędów centralnych** —
+    `dziennikiurzedowe.gov.pl` (indeks centralny).
+11. **Wojewódzkie dzienniki urzędowe** — portal zbiorczy RCL:
+    `dziennikiurzedowe.gov.pl` (dawniej `dziennikiurzedowe.rcl.gov.pl`).
+    ⛔ To JEDYNY publikator **aktów prawa miejscowego** — uchwał rady gminy,
+    zarządzeń wójta, planów miejscowych. Bez niego DR-08 (samorząd) i DR-09
+    (planowanie i budownictwo) nie mają skąd wziąć brzmienia aktu, na którym
+    opiera się rozstrzygnięcie.
+    ⛔⛔ Serwisy poszczególnych województw NIE mają jednolitego wzorca adresu.
+    Zmierzone przykłady: `edziennik.malopolska.uw.gov.pl`,
+    `e-dziennik.szczecin.uw.gov.pl` (inna forma zapisu), mazowieckie —
+    wejście przez `gov.pl/web/uw-mazowiecki`. Adresu NIE buduj z szablonu;
+    wejdź przez portal zbiorczy i weź link stamtąd. (Korekta 2026-09-01g:
+    v1.6 podawała szablon `edziennik.{województwo}.uw.gov.pl` — nieprawdziwy.)
+    ⚠️ Publikatory wojewódzkie NIE są objęte API ELI Sejmu (zmierzone
+    2026-09-01: `api.sejm.gov.pl/eli/acts` zwraca wyłącznie `DU` i `MP`).
 
-### ⛔ REALIA DOSTĘPNOŚCI RZĘDU 1 (zweryfikowane 2026-08-23, v1.4)
+### ⛔ REALIA DOSTĘPNOŚCI RZĘDU 1 (v1.4 2026-08-23, skorygowane v1.5 2026-09-01c,
+### uzupełnione v1.7 2026-09-04 o wymogi kształtu żądania — F-157)
 
 Przynależność do RZĘDU 1 mówi o **mocy** źródła, nie o jego **osiągalności**.
-W obecnym środowisku wykonawczym pozycje 1, 2 i 4 są dostępne WYŁĄCZNIE
-przez indeks wyszukiwarki (snippet); `web_fetch` na te domeny zwraca
-`ROBOTS_DISALLOWED`. Skutek praktyczny, który trzeba znać przy każdym cytacie:
+Osiągalność zależy od KANAŁU, którym host sięga po sieć — i to jest korekta
+wprowadzona przez flagę F-151, bo wersja 1.4 opisywała jeden kanał tak, jakby
+był jedynym.
+
+| Kanał hosta | ISAP | eli.gov.pl | api.sejm.gov.pl |
+|---|---|---|---|
+| `web_fetch` | ROBOTS_DISALLOWED; nadto pętla 302 | ROBOTS_DISALLOWED (decyzja narzędzia — serwer nie zakazuje) | odrzuca URL konstruowany (PERMISSIONS_ERROR) |
+| wykonanie kodu z siecią (`curl`/skrypt) | pętla 302 — **kanał martwy** | HTTP 200 | HTTP 200, pełne API |
+
+⛔ Zmierzone 2026-09-01: `eli.gov.pl/robots.txt` brzmi `User-Agent: * /
+Disallow:` — czyli **zezwala na wszystko**. Blokada `web_fetch` nie jest
+zakazem serwera i nie wolno jej opisywać jako właściwości źródła.
+
+⛔⛔ **Kanał kodu ma własne wymogi (F-157, 2026-09-04).** Wiersz „HTTP 200"
+w tabeli wyżej obowiązuje **tylko dla żądania o właściwym kształcie**:
+neutralny `User-Agent` (`curl/8.5.0` lub brak — **nie** łańcuch
+przeglądarkowy), nagłówek `Accept`, ścieżka robocza zamiast roota.
+Pominięcie któregokolwiek daje objaw nieodróżnialny od awarii źródła:
+`orzeczenia.ms.gov.pl` oddaje 200 pod `curl` i **502** pod Chrome (5/5),
+a SAOS bez `Accept` odpowiada **406**. ⚠️ Najgroźniejszy wariant to
+**HTTP 200 ze stroną zastępczą** — sprawdzaj treść, nie kod odpowiedzi.
+Pełna procedura: `shared/PRAWO-HARDGATE.md`, blok „KANAŁ KODU MA WŁASNE
+WYMOGI"; konkretne endpointy i ich wymogi: `shared/DOSTEP-MASZYNOWY-API.md`. ⛔ Nie wolno na tej podstawie orzec, że źródło RZĘDU 1 jest
+niedostępne, dopóki nie sprawdzono kształtu żądania.
 
 | Co chcesz ustalić | Osiągalne z RZĘDU 1? |
 |---|---|
-| Tożsamość aktu, numer i data aktualnego t.j., status obowiązywania | **TAK** — snippet ISAP/ELI wystarcza |
-| Dosłowne BRZMIENIE artykułu | **NIE** — wymaga zejścia na RZĄD 2B + 🟨 KOTWICA URZĘDOWA |
+| Tożsamość aktu, numer i data aktualnego t.j., status obowiązywania | **TAK** — snippet ISAP/ELI wystarcza w każdym kanale |
+| Dosłowne BRZMIENIE artykułu — host BEZ kanału kodu | **NIE** — zejście na RZĄD 2B + 🟨 KOTWICA URZĘDOWA |
+| Dosłowne BRZMIENIE artykułu — host Z kanałem kodu | **TAK** — `api.sejm.gov.pl` → t.j. → `text.pdf`; kotwica urzędowa NIEUZASADNIONA |
+
+⛔ Przy odczycie treści z API obowiązuje sekwencja B-T1…B-T3 z
+`shared/PRAWO-HARDGATE.md` (pułapka `/text.html` = tekst ogłoszony, F-150).
+Sam fakt pobrania z domeny RZĘDU 1 nie dowodzi, że pobrano wersję aktualną.
 
 ⛔ To NIE otwiera drogi do cytowania z pamięci. Otwiera drogę do jednego,
 ściśle opisanego statusu zastępczego — `shared/PRAWO-HARDGATE.md`, sekcja
@@ -111,8 +182,57 @@ ryzyku dezaktualizacji, redakcja profesjonalna).
 
 **2A — oficjalne, wykonawcze/orzecznicze (znacznik ✅ [VER: ...]):**
 - Orzecznictwo z oficjalnych baz sądowych: sn.pl, orzeczenia.ms.gov.pl,
-  orzeczenia.nsa.gov.pl, trybunal.gov.pl, saos.org.pl (pomocniczo) —
-  procedura wyłącznie wg `shared/PRAWO-HARDGATE.md`.
+  orzeczenia.nsa.gov.pl, trybunal.gov.pl / ipo.trybunal.gov.pl,
+  saos.org.pl (pomocniczo) — procedura wyłącznie wg `shared/PRAWO-HARDGATE.md`.
+- Orzecznictwo i decyzje ORGANÓW (2A, ta sama moc dowodowa co bazy sądowe
+  w zakresie ISTNIENIA rozstrzygnięcia): orzeczenia.uodo.gov.pl,
+  orzeczenia.uzp.gov.pl (KIO), bip.uke.gov.pl, decyzje.uokik.gov.pl,
+  eureka.mf.gov.pl (interpretacje i wiążące informacje KAS).
+  ⛔ Stan dostępu maszynowego, ograniczenia i zastrzeżenia każdej z tych baz:
+  `shared/DOSTEP-MASZYNOWY-API.md` — to jest ŹRÓDŁO OPERACYJNE i leży
+  w `required_modules` routera, więc da się je wczytać z produkcji.
+  ⚠️ `audyt-systemu-v4/references/PORTALE-ORZECZNICZE-API.md` niesie surowy
+  materiał dowodowy pomiaru i **nie jest osiągalny ze ścieżki produkcyjnej** —
+  `audyt-systemu-v4` nie występuje w `dependencies.requires` żadnego skilla
+  produkcyjnego (F-160). Odsyła się do niego jako do dowodu, nigdy jako do
+  instrukcji. Kilka z tych baz samo
+  zastrzega, że NIE jest zbiorem urzędowym — to nie odbiera im RZĘDU 2A dla
+  ustalenia istnienia rozstrzygnięcia, ale zabrania traktowania ich jak
+  publikatora.
+- **Interpretacje i stanowiska organów** (dodane 2026-09-01f):
+  `eureka.mf.gov.pl` — interpretacje indywidualne i ogólne, WIS/WIA (KAS);
+  **BIP urzędu obsługującego Głównego Inspektora Pracy** — interpretacje
+  indywidualne GIP co do tego, czy stosunek prawny jest stosunkiem pracy
+  (art. 14b ustawy o PIP, dodany ustawą Dz.U. 2026 poz. 473, w życie
+  2026-07-08; obowiązek publikacji — art. 14b ust. 15) ✅ [VER:
+  api.sejm.gov.pl/eli → DU/2026/473/text.pdf, 2026-09-01].
+  ⛔ Interpretacja organu NIE jest źródłem prawa i nie zastępuje brzmienia
+  przepisu — jest dowodem stanowiska organu i tak wolno ją powołać.
+- **Decyzje Prezesa UODO — `orzeczenia.uodo.gov.pl`** (dodane 2026-09-04, F-158)
+  — RZĄD 2A. ⭐ **Jedyny polski organ z potwierdzonym, udokumentowanym
+  publicznym REST API do własnych rozstrzygnięć.** Specyfikacja OpenAPI 3.1
+  pod `/api-doc/schemas/openapi.yml`; łańcuch wyszukiwanie → metadane → pełna
+  treść XML zmierzony end-to-end 2026-09-04 (baza `/api`, dokument oddany
+  jako 118 kB XML). Wywołania: `shared/DOSTEP-MASZYNOWY-API.md` §3;
+  dowód pomiaru (materiał audytowy, poza ścieżką produkcyjną — F-160):
+  `audyt-systemu-v4/references/PORTALE-ORZECZNICZE-API.md` §7.6.
+  ⛔ Decyzja organu nadzorczego NIE jest źródłem prawa — powołuje się ją jako
+  rozstrzygnięcie organu, nie jako brzmienie przepisu.
+- **Rejestry urzędowe i publikatory ogłoszeń** (dodane 2026-09-01f) — RZĄD 2A
+  dla ustalenia FAKTU wpisu, nigdy dla brzmienia przepisu:
+  `api-krs.ms.gov.pl` i `wyszukiwarka-krs.ms.gov.pl` (KRS),
+  `krz.ms.gov.pl` (Krajowy Rejestr Zadłużonych — upadłość, restrukturyzacja,
+  umorzone egzekucje; kluczowy dla DR-02), `ekrs.ms.gov.pl/rdf/pd`
+  (sprawozdania finansowe), `ekw.ms.gov.pl` (księgi wieczyste),
+  `dane.biznes.gov.pl` (CEIDG), `api.stat.gov.pl` (REGON/BIR),
+  `sudop.uokik.gov.pl` (pomoc publiczna i de minimis),
+  Biuletyn Zamówień Publicznych — `ezamowienia.gov.pl` / `bzp.uzp.gov.pl`.
+- **Materiały legislacyjne** (dodane 2026-09-01f) — `legislacja.rcl.gov.pl`
+  (projekty rządowe, uzasadnienia, uzgodnienia) oraz `api.sejm.gov.pl/sejm/...`
+  (druki sejmowe, przebieg prac).
+  ⛔⛔ To NIE są źródła prawa i NIE wolno z nich cytować brzmienia — projekt
+  nie jest aktem. Dopuszczalna rola: wykładnia celowościowa i ustalenie, czy
+  zmiana jest w toku. Powołanie zawsze z jawnym słowem „projekt".
 - LEX (sip.lex.pl) i Legalis (sip.legalis.pl) jako ŹRÓDŁO-2 dla BRZMIENIA
   przepisu, gdy ISAP niedostępny i kancelaria posiada aktywną licencję —
   równoważne ISAP wyłącznie w tej roli, zgodnie z `shared/PRAWO-HARDGATE.md`.

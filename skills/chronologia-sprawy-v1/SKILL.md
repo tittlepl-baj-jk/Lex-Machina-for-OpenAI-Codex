@@ -3,7 +3,7 @@ name: "chronologia-sprawy-v1"
 description: "Chronologia sprawy z dokumentów i dowodów: oś czasu per wątek, klasy pewności, proweniencja, sprzeczności dat/opisów, korelacja finansowa i opcjonalny interaktywny timeline."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "chronologia-sprawy-v1"
 ---
 
@@ -235,6 +235,40 @@ SCHEMAT DANYCH (wbuduj jako literały JS w HTML):
   }]
   Pola null → null. Nie wymyślaj dat.
 ```
+
+---
+
+## ⛔ OŚ-GATE — BRAMKA ROZJAZDU CZASOWEGO (przed ekstrakcją, v1.8)
+
+> Wyzwalacz MECHANICZNY: **≥2 daty** w materiale. Nie „gdy sprawa wydaje się
+> temporalna" — warunek ocenny to tryb awarii mierzony flagą F-113.
+
+```
+view shared/MOD-OS-CZASU-PRZESLANEK.md
+```
+
+Relacja do tego skilla — dwie różne rzeczy, wykonywane po kolei:
+
+| | OŚ-GATE (moduł shared) | Chronologia sprawy (ten skill) |
+|---|---|---|
+| Pytanie | ile czasu upłynęło między datami i czy to coś zmienia | co się wydarzyło, kto tak twierdzi, z jaką pewnością |
+| Wejście | same daty | dokumenty, zeznania, proweniencja |
+| Wyjście | siatka interwałów + tablica CHWIL OCENY przesłanek | oś czasu per wątek, klasy pewności, indeks sprzeczności |
+| Próg | jeden akapit tekstu wystarczy | akta wielodokumentowe |
+
+**Kolejność:** OŚ-1 (ekstrakcja dat) wykonaj tu, korzystając z FAZY EKSTRAKCJI
+ZDARZEŃ poniżej jako źródła — daty wyekstrahowane z klasą pewności i
+proweniencją są lepszym wejściem do siatki interwałów niż daty czytane
+„na sucho". OŚ-2…OŚ-4 wykonaj po zamknięciu ekstrakcji, przed formatowaniem
+raportu chronologicznego. Blok wyjściowy OŚ-GATE umieść **przed** sekcją
+wniosków raportu, nie po niej.
+
+**Sprzeczności dat** wykryte w OŚ-1 przekaż do
+`references/sprzecznosci-dat.md` (KATEGORIA A) — moduł shared ich nie
+rozstrzyga, tylko oznacza `⚠️ sprzeczność` i przekazuje dalej.
+
+⛔ Moduł shared **nie jest źródłem prawa**. Jego tablice CHWIL OCENY wskazują,
+gdzie patrzeć; `shared/PRAWO-HARDGATE.md` obowiązuje bez zmian.
 
 ---
 

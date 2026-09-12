@@ -9,6 +9,32 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 Brak zmian.
 
+## [0.5.0] - 2026-09-12
+
+### Upstream
+
+- wykonano pełną synchronizację z rozwojowym drzewem Lex Machina, commit
+  `05833172bfdef972a8542ca41987c347068fdaaf` projektu Michała Wiatraka;
+- przejęto router 3.47, profil lekkiego ładowania zasobów warunkowych oraz
+  kontrolę zgodności wersji załadowanej przez hosta z repozytorium;
+- przejęto nowe bramki dla aktów prawa miejscowego i kontrolowanej blokady,
+  rozszerzone źródła urzędowe, testy nowelizacji po tekście jednolitym oraz
+  test pokrycia orkiestratora;
+- przejęto aktualizację map i podstaw prawnych, w tym zadeklarowane domknięcie
+  listy 61/61 miejsc z przeterminowanymi odwołaniami; statyczny audyt portu
+  nie zastępuje niezależnej weryfikacji merytorycznej tych pozycji.
+
+### Codex port
+
+- zbudowano 1266 plików dla 32 aktywnych skilli z adapterem runtime Codex;
+- względem `v0.4.0-codex` zsynchronizowano 194 ścieżki skilli: 31 dodano
+  i 163 zmieniono;
+- walidacja statyczna zakończyła się wynikiem 32/32 `PASS`; brak dawnych
+  ścieżek `/mnt/skills/user`, aktywnych endpointów Anthropic i brakujących
+  dokładnych celów referencji;
+- pełna regresja strukturalna, w tym nowe T22, T23 i mock-ELI, zakończyła się
+  `PASS`; T4 i T5 pozostają testami ręcznymi zgodnie z upstreamem.
+
 ## [0.4.0] - 2026-09-01
 
 ### Upstream

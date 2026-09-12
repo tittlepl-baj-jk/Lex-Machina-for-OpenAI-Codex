@@ -3,7 +3,7 @@ name: "dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka"
 description: "Prawo UE, międzynarodowe i prawa człowieka: prawo pierwotne i wtórne UE, TSUE, EKPC/ETPC, traktaty, kolizje jurysdykcji i standardy praw człowieka."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka"
 ---
 
@@ -43,6 +43,31 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 - Bruksela Ia: znosi exequatur w UE (od 10.01.2015) — weryfikuj wyjątki
 - Pytanie prejudycjalne art. 267 TFUE: sąd ostatniej instancji ma OBOWIĄZEK, niższy — prawo
 
+
+> ⛔ **BRAMKI MIĘDZYNARODOWE — obowiązkowe dla całej dziedziny** (dodane 2026-09-04,
+> po audycie porównawczym 14 kazusów: ustalenia K-01 zlanie warstw jurysdykcja/prawo
+> właściwe/wykonalność, K-02 atrybucja per podmiot zamiast per zachowanie, K-06 reżim
+> odpowiedzialności założony zamiast odczytanego z tekstu):
+>
+> ```
+> view shared/HIERARCHIA-ZRODEL-MIEDZYNARODOWE.md
+> view shared/MIEDZYNARODOWE-GATES.md
+> view shared/MOD-CN-GATE.md      ← CN-GATE, NIE podlega podmianie przez MG
+> view shared/MOD-REM-GATE.md     ← REM-GATE, NIE podlega podmianie przez MG
+> ```
+>
+> Fail-closed: brak odczytu = zakaz formułowania konkluzji opartej na traktacie,
+> akcie UE lub orzeczeniu organu międzynarodowego.
+>
+> ⛔ **KOREKTA KANAŁU (2026-09-05, F-162).** Poprzednie brzmienie głosiło, że
+> `bash_tool`/`curl` „NIE sięga domen międzynarodowych". Zmierzone — to
+> nieprawda: `eur-lex.europa.eu` i `legal.un.org` zwracają HTTP 200 i pełny
+> tekst, co pozwala pracować na RZĘDZIE 1 zamiast na snippetach. Blokada
+> dotyczy `unoosa.org` (przekierowanie na `www.`, 403), `cites.org` (detekcja
+> bota), `icsid.worldbank.org` i `uncitral.un.org` — tam `web_search` →
+> `web_fetch`. Aktualna tabela kanałów: `HIERARCHIA-ZRODEL-MIEDZYNARODOWE.md` §2.
+> Zanim orzekniesz o niedostępności, sprawdź kształt żądania
+> (`shared/DOSTEP-MASZYNOWY-API.md §1`) — klasa błędu F-151.
 
 > ⛔ **SELF-CHECK ANTY-FASADA — obowiązkowy przed wysłaniem odpowiedzi/pisma**
 > (podłączone 2026-08-24, flaga F-115 P3 — zamknięcie zakresu 16 skilli DR):

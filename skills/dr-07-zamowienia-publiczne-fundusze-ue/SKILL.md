@@ -3,7 +3,7 @@ name: "dr-07-zamowienia-publiczne-fundusze-ue"
 description: "Zamówienia publiczne i fundusze UE: PZP, postępowania zakupowe, KIO, środki ochrony prawnej, finansowanie UE i powiązane zagadnienia realizacyjne."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-07-zamowienia-publiczne-fundusze-ue"
 ---
 

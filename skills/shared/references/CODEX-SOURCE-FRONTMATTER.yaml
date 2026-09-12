@@ -1,5 +1,5 @@
 name: shared
-version: "3.23"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: niecytowane `3.17` YAML parsuje
+version: "3.35"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: niecytowane `3.17` YAML parsuje
                   # jako float 3.17, a 3.17 < 3.9 — porządek wersji odwraca się
                   # dla każdego narzędzia porównującego liczbowo. Wykryte
                   # testem T12 (check_wersje_changelog.py), 2026-08-20z.
@@ -49,15 +49,10 @@ limitations:
 required_modules: []
   # nie ma zastosowania — shared jest wczytywany, nie wczytuje sam siebie
 changelog: |
-  Wersja bieżąca: 3.23 (2026-08-27): PRAWO-HARDGATE.md — nowa sekcja
-  "OBOWIĄZEK WIDOCZNEGO ZNACZNIKA W DOSTARCZONEJ ODPOWIEDZI", bezwarunkowa:
-  zamyka lukę między weryfikacją wykonaną w tle a znacznikiem widocznym przy
-  cytacie w dostarczonym tekście. ⛔ PEŁNA HISTORIA — WYŁĄCZNIE w references/CHANGELOG.md
-  (standard 2026-08-20z4: jedna lokalizacja; zakaz sekcji changelogu w korpusie
-  SKILL.md i zakaz pełnej listy wpisów w tym polu — pole to było już raz
-  porządkowane, miało 111 linii).
-  Skrót 3.20 (2026-08-23h, F-111 wariant B): PRAWO-HARDGATE.md podzielony
-  967 → 501 l. rdzenia + nowy PRAWO-HARDGATE-ORZECZENIA.md (464 l.), wyzwalacz
-  binarny (sygnatura w tekście); 88 linii historii bramki wyniesione z korpusu.
-  Skrót 3.19: usunięto 6 plików historycznych bez roli operacyjnej (202 → 196).
-  Skrót 3.18: pole changelog: w YAML miało 111 linii — wyniesione do references/.
+  Wersja bieżąca: 3.35 (2026-09-10n, F-181): 41 miejsc przestawionych z wygasłych
+  tekstów jednolitych na aktualne — 20 aktów, w tym UFP 2024/1530 → 2025/1483
+  (13 miejsc), dochody JST, PZP, VAT, KPK, PPSA, Prawo energetyczne, AML,
+  KWiH, prawo autorskie, Karta Nauczyciela i inne. ⛔ Dochody JST: stara ustawa
+  została ZASTĄPIONA NOWĄ (Dz.U. 2024 poz. 1572), więc podstawienie jej t.j.
+  2024/356 byłoby powieleniem błędu — ten numer też jest uchylony.
+  Pełna historia wszystkich wersji: references/CHANGELOG.md (ZASADA 15).

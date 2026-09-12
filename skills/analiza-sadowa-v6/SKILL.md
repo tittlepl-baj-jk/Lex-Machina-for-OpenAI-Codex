@@ -3,7 +3,7 @@ name: "analiza-sadowa-v6"
 description: "Czteroprzebiegowa analiza akt, pism, wyroków i dowodów: mapa faktów, kwalifikacja prawna, analiza adversarialna, dwukrotna weryfikacja, ocena szans i raport końcowy."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "analiza-sadowa-v6"
 ---
 

@@ -3,7 +3,7 @@ name: "pisma-proste-v2"
 description: "Proste pisma prawne i urzędowe: wezwania, wnioski, odpowiedzi i krótsze dokumenty; kompletność danych, aktualna weryfikacja prawa i walidacja przed wygenerowaniem pliku."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "pisma-proste-v2"
 ---
 

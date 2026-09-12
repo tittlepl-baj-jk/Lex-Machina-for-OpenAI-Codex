@@ -172,6 +172,30 @@ def main():
     # (np. "ustawa o straży granicznej" w obu mapach, różniące się szykiem).
     SIMILARITY_THRESHOLD = 0.5
 
+    # ⚠️ Zbiór WSZYSTKICH numerów obecnych w mapie głównej — niezależnie od
+    # tego, przy którym wierszu stoją. Bez tego filtra test alarmuje o akcie,
+    # który JEST poprawnie zarejestrowany centralnie, tylko heurystyka sparowała
+    # go z innym, przypadkowo podobnym wierszem. Pierwszy przebieg po dodaniu
+    # filtra (F-141, 2026-08-31): 6 zgłoszeń → 0, wszystkie sześć zweryfikowane
+    # ręcznie jako to samo zjawisko (m.in. „Referendum ogólnokrajowe" sparowane
+    # z wierszem „partie polityczne + referendum", podczas gdy własny wiersz
+    # referendum stoi linijkę niżej z numerem zgodnym z lokalnym).
+    # ⛔ NIE budujemy tego zbioru z `main_pairs`: tamten zbiera tylko PIERWSZY
+    # numer z wiersza, więc akt wymieniony jako drugi w komórce zbiorczej
+    # („Ustawa o PCC + podatek od spadków i darowizn") byłby dla filtra
+    # niewidoczny. Tu skanujemy WSZYSTKIE cytaty Dz.U. w mapie głównej.
+    #
+    # ⚠️ To NIE jest powrót do zmiany cofniętej 2026-07-26. Tamta próba
+    # zbierała wiele numerów per linia jako ŹRÓDŁO PAROWANIA i wywołała
+    # kolizje kombinatoryczne (2 → 14 alarmów). Ten zbiór służy WYŁĄCZNIE
+    # do WYCISZANIA i odpowiada na jedno pytanie: „czy ten numer jest
+    # gdziekolwiek zarejestrowany centralnie?". Operacja jednokierunkowa —
+    # może tylko zmniejszyć liczbę alarmów, nigdy jej zwiększyć.
+    main_numbers = set()
+    for _linia in main_text.splitlines():
+        for _m in DZU_PATTERN.finditer(normalizuj(_linia)):
+            main_numbers.add((_m.group(1), _m.group(2)))
+
     suspicious = 0
     checked_local_maps = 0
     report_lines = []
@@ -199,6 +223,8 @@ def main():
                 continue  # brak wystarczająco podobnego dopasowania — poza zakresem
             m_words, m_prefix, m_year, m_poz = best_match
             if (l_year, l_poz) != (m_year, m_poz):
+                if (l_year, l_poz) in main_numbers:
+                    continue  # numer JEST w mapie głównej, przy innym wierszu
                 dedup_key = (skill_dir.name, l_prefix[:40], m_prefix[:40])
                 if dedup_key in seen_pairs:
                     continue

@@ -1,5 +1,146 @@
 # AUDIT-JOURNAL — Dziennik Audytów Systemu Prawnego AI
 
+## AUDYT-2026-09-09b — F-172: domknięcie T11, nowa generacja mapy Dz.U.
+
+**Polecenie:** kontynuacja sesji AUDYT-2026-09-09 („kontynuuj").
+
+**Zakres.** Jedyna pozycja z poprzedniej tury, którą dało się domknąć bez
+nowego materiału od użytkownika: 20 zgłoszeń T11 (11 numerów unikalnych)
+i powiązany sygnał T15. Reszta otwartych flag albo czeka na środowisko
+(F-171 — powtórzenie pomiaru w innym dniu), albo na decyzję dewelopera
+(F-157), albo na materiał wejściowy (T16 — tekst nowelizacji).
+
+**Metoda.** Dla każdego numeru osobny odczyt `api.sejm.gov.pl/eli/acts/DU/...`
+(RZĄD 1, 2026-09-09): typ, tytuł urzędowy, data ogłoszenia, data wejścia,
+status, akt bazowy. Dla ośmiu obwieszczeń dodatkowy odczyt aktu bazowego
+i jego listy `Inf. o tekście jednolitym` — bez tego kroku nie da się orzec,
+czy dane obwieszczenie jest BIEŻĄCYM t.j., czy już wyprzedzonym. Wszystkie
+osiem okazało się najnowsze. ⛔ Ten drugi odczyt jest wymogiem, nie
+ostrożnością: mapa rozróżnia `OK` i `PREV`, a różnicy nie da się odczytać
+z samego numeru obwieszczenia.
+
+**Wynik.** Nowa generacja `references/mapa_dzu_2026-09-09.md` (632 numery):
+10 wierszy dodanych do tabeli głównej, 1 do MONITORING (2026/1123, wejście
+1.01.2028 — do tabeli głównej nie wolno jej wpisać), 3 wiersze przestawione
+na `PREV` (2022/974, 2023/1429, 2020/1298). Poprzednia generacja zachowana.
+
+**Trzy `PREV` to osobne znalezisko, nie skutek uboczny.** Wiersz 2022/974
+niósł adnotację „nowa ustawa 2022 — brak t.j.", nieprawdziwą od 10.10.2024;
+2023/1429 — „nowa ustawa ze zm." przy istniejącym t.j. 2026/873; 2020/1298 —
+bez wzmianki o t.j. 2026/113. ⛔ Klasa błędu: ZASADA 8 w wariancie CZASOWYM.
+Numer i nazwa były poprawne w chwili zapisu; przeterminowała się ADNOTACJA
+O STANIE. Żaden test w pakiecie tego nie łapie — T3 sprawdza zgodność
+numerów między mapami, T11 obecność, T24 nowelizacje po t.j., ale nikt nie
+pyta, czy wiersz ze słowem „brak t.j." nadal mówi prawdę. Kandydat na nowy
+test przy najbliższej rozbudowie pakietu.
+
+**Sygnał T15 — fałszywy alarm.** `Dz.U. 2023 poz. 1285` w
+`prawo-polskie-v2/ROUTING-MAP.md:219` jest opisany jako akt PIERWOTNY obok
+t.j. 2024/1111. ELI potwierdza: status „akt posiada tekst jednolity", t.j.
+2024/1111. Rejestr był zgodny ze stanem faktycznym; parser T15 czytał numer
+sąsiadujący z t.j. jako deklarację t.j. Zapisane jako ślad do zawężenia
+heurystyki, nie jako usterka mapy — ⛔ i nie „naprawione" przez zmianę zapisu
+w rejestrze, bo rejestr był poprawny.
+
+**Przebieg po zmianie.** T11 OK (0 rozbieżności), T3 OK, T18 OK, T21 PASS,
+T22 PASS, T26 33/33, orkiestrator PASS strukturalny. Otwarte pozostają:
+F-171 (powtórzyć pomiar domen w innym dniu), F-157 (lista dozwolonych —
+deweloper), T24 (z definicji), T4/T5/T16 i korpusowy T20 (ręczne lub
+wymagające materiału wejściowego).
+
+**Wydanie (ZASADA 7).** `audyt-systemu-v4` 6.53 spakowany osobno, liczba
+plików oryginał = kopia = ZIP, `diff -rq` archiwum wobec kopii roboczej pusty,
+sumy `CHECKSUMS.sha256` przeliczone po ostatniej edycji.
+
+## AUDYT-2026-09-09 — pełna grupa T na 33 skillach i naprawy F-169 / F-170
+
+**Polecenie użytkownika:** wykonać testy z grupy T na skillach prawnych, a
+następnie „zająć się naprawami" i wydać skille zgodnie z Regułą 7.
+
+**Zakres i środowisko.** Root zbudowany z dwóch lokalizacji montowania hosta
+(33 katalogi: 32 skille systemu + `prompt-master`), testy uruchamiane z
+`--repo-root`. Skille źródłowe są na tym hoście read-only, więc edycje szły do
+kopii roboczej — zgodnie z PRE-DELIVERY-COMPLETENESS-CHECK (ZASADA 7).
+
+**Przebieg wejściowy (przed naprawami).** Orkiestrator: PASS strukturalny.
+Czerwone: T12 (⛔ luka historii w routerze), T17 (FAIL 2/17), T21 (FAIL, 308
+zgłoszeń). WARN: T11 (20 pozycji), T24 (139 pozycji), T25 (4 regresje).
+Zielone: T1, T2, T3, T6/T7, T8, T9, T13, T14, T18, T19, T19b, T22, T26, MOCK,
+`check_rejestracja_modulow` (16/16 dziedzin, 450 modułów), T15 (552/553),
+selftesty T20 27/27, T24 9/9, T25 17/17. T4, T5 — ręczne. T16 — nieuruchamialny
+bez pliku z tekstem nowelizacji. T20 korpusowo — narzędzie jest punktowe
+(`--act`/`--article`), więc nie ma przebiegu „na całości".
+
+**Diagnoza F-169 (router).** T12 i T17 miały jedną przyczynę: pole
+`changelog:` we frontmatterze routera trzymało pełne wpisy 3.30–3.41, a
+`references/CHANGELOG.md` nie miał 3.38–3.41. To jednocześnie łamało standard
+2026-08-20z4 (jedyna lokalizacja kanoniczna), dawało T12 obraz „version 3.41
+przy changelogu 3.38" i rozdymało plik do 550 linii przy budżecie 500.
+Trzeci składnik: `expected_rules` w T17 nie znała reguł 12b/12c/12d dodanych
+w 3.39/3.40 — test karał za zmianę wykonaną prawidłowo i opisaną.
+
+**Naprawa F-169.** (1) Wpisy 3.38–3.41 przeniesione do
+`prawny-router-v3/references/CHANGELOG.md` w brzmieniu z pola; pole zredukowane
+do skrótu bieżącej wersji; router 3.41 → 3.42. (2) T17 liczy odtąd KORPUS
+(≤500) osobno od frontmatteru (≤150) — zmiana MIARY, nie progu: warunek nazywa
+się „lekki korpus", a liczył plik razem z rejestrami metadanych, więc rósł
+z każdą nową pozycją `required_modules:`. Korpus po naprawie: 438 linii wobec
+~400 z 3.28, czyli gate nadal ma zapas i nadal blokuje rozdęcie procedury.
+⚠️ Alternatywę „500 → 600 na całym pliku" odrzucono: to uciszenie, które
+wróci przy następnym module. (3) Reguły 12b/12c/12d dopisane do kontraktu,
+z warunkiem, że kolejne dopisanie wymaga wpisu w changelogu i w tym dzienniku.
+⛔ Treść proceduralna routera, routing [1]–[11], reguły i bramki — bez zmian.
+
+**Diagnoza i naprawa F-170 (T21).** Cztery skille generują sumy przez
+`find . -type f`, w formacie `./plik.md`; T21 nie normalizował prefiksu, więc
+zgłaszał „BRAK WPISU" dla wszystkich 307 ich plików. Weryfikacja niezależna
+(`sha256sum -c` w każdym z tych katalogów) dała 41/41, 161/161, 19/19 zgodnych
+i JEDEN realny FAILED: `audyt-systemu-v4/references/AUDIT-JOURNAL.md`, edytowany
+bez przeliczenia sumy. ⛔ To jest ta sama klasa ślepoty, dla której T21 powstał
+(F-145), w wariancie odwróconym: nie cisza ukrywała usterkę, tylko szum.
+Dodana `normalizuj()`; obie konwencje przechodzą.
+
+**F-171 OTWARTA — regresje dostępu.** T25 z 2026-09-09: 52 sondy, 40 zgodnych
+z odniesieniem 2026-09-04, cztery regresje — SAOS `/api/search`, `/api/dump`,
+`/api/judgments/{id}` (HTTP 502, 3/3) i `decyzje.uokik.gov.pl` (HTTP 503, 3/3).
+SAOS jest kanałem maszynowym RZĘDU 2A dla orzecznictwa; do powrotu weryfikacja
+sygnatur idzie przez portale pojedynczych sądów (`orzeczenia.warszawa.so.gov.pl`
+odpowiada 200 i ma RSS). ⚠️ Trzykrotna porażka jednego dnia dowodzi
+niedostępności TEGO DNIA — nie wolno z niej orzec wygaszenia usługi (klasa
+błędu F-151/F-162/F-164: orzeczenie o niedostępności bez powtórzonego pomiaru).
+Surowy wynik: `references/F-171-pomiar-domen-2026-09-09.md`. Ten sam przebieg
+pokazał 8 hostów grupy `kandydaci` odpowiadających mimo statusu POZA_LISTA —
+materiał do F-157, decyzja po stronie dewelopera.
+
+**Czego świadomie NIE naprawiono w tej turze.**
+- **T11 (20 pozycji) i T15 (1 problem statusu).** 9 numerów z lokalnych
+  MAPA-AKTOW i 11 z ROUTING-MAP nie ma odpowiednika w mapie Dz.U.; T15 wskazuje
+  `Dz.U. 2023 poz. 1285` w `prawo-polskie-v2/ROUTING-MAP.md:219`, gdzie numer
+  jest jawnie opisany jako akt PIERWOTNY obok t.j. `Dz.U. 2024 poz. 1111` —
+  czyli prawdopodobnie parser bierze akt pierwotny za deklarację t.j., a nie
+  mapa się myli. ⛔ Dopisanie numerów do mapy wymaga TRYBU DZU na każdym akcie
+  osobno (ZASADA 3: tylko po potwierdzeniu online; ZASADA 8: numer weryfikowany
+  niezależnie od nazwy). Zgadywanie tutaj byłoby dokładnie tym, czemu obie
+  zasady zapobiegają. Pozostaje jako zakres do osobnej sesji.
+- **T24 (139 pozycji).** Z definicji nie do „naprawy" — liczba powstaje w
+  momencie uruchomienia i celowo nie jest wpisywana do map (F-156). Wynik
+  zgodny z pomiarem odniesienia F-155.
+- **T6/T7: dwie grupy duplikatów bajtowych.**
+  `analizator-dowodow-v3/modules/MOD-NAZEWNICTWO-STRON.md` = `shared/NAZEWNICTWO-STRON.md`
+  oraz `prawny-router-v3/references/legacy-material-router/stalking-nekanie.md` =
+  `shared/STALKING-NEKANIE.md`. Usunięcie kopii to decyzja redakcyjna o
+  zależnościach (CHECKLIST-DEDUP), nie naprawa mechaniczna — nie wykonano bez
+  polecenia. 596 pozycji „portability" to nadal ścieżki `/mnt/...` w treści
+  skilli; adapter runtime je pokrywa, więc zostają jako przegląd, nie usterka.
+- **Skuteczność bramek.** Wszystko powyżej to testy OBECNOŚCI i spójności.
+  Czy bramki ZMIENIAJĄ ZACHOWANIE, rozstrzyga dopiero F-113 z grupą kontrolną.
+
+**Wydanie (ZASADA 7).** Zmienione skille: `prawny-router-v3` (3.42) i
+`audyt-systemu-v4` (6.52). Każdy spakowany osobno przez `scripts/dostarcz_skill.sh`,
+z porównaniem liczby plików oryginał = kopia = ZIP i `diff -rq` archiwum po
+rozpakowaniu względem kopii roboczej. Sumy `CHECKSUMS.sha256` przeliczone
+w obu skillach po ostatniej edycji.
+
 ## AUDYT-2026-08-27-F108-46 — transakcje handlowe, pierwsza transza P1
 
 **Polecenie:** kontynuacja F-108. **Status całej flagi: OTWARTA.**
@@ -58491,3 +58632,4294 @@ behawioralnego F-113/F-133.
 Wynik: T17 17/17 PASS; test negatywny podmieniający numer 22 na 99
 prawidłowo odrzucił router (dwa niespełnione warunki). T12: brak rozbieżności
 wersji. Końcowa długość routera: 391 linii wobec 924 przed przebudową.
+
+### F-139 — bramka relacji podstaw prawnych była nieosiągalna z toru analitycznego — 2026-08-31
+
+Flaga otwarta i zamknięta w tej samej sesji. Wykryta reaktywnie: użytkowniczka
+przyniosła kontrmateriał do wcześniejszej odpowiedzi na kazus, po czym poprosiła
+o ustalenie przyczyny błędu.
+
+**Objaw.** Odpowiedź analityczna wygenerowana torem `prawny-router-v3` → `dr-02`
+przedstawiła dwie podstawy prawne tego samego żądania (roszczenie windykacyjne
+art. 222 § 1 KC oraz rękojmię za wady prawne) jako ścieżki równoległe, mimo że
+ziszczenie się pierwszej unicestwia przesłankę drugiej. Każdy powołany przepis
+przeszedł HARD GATE i VER-GRAIN. Błąd siedział w RELACJI między zweryfikowanymi
+jednostkami — treści, której żadna bramka nie sprawdzała. Kontrmateriał wskazał
+wyrok SN z 18.10.2023, II CSKP 1771/22 (zweryfikowany w sn.pl), rozstrzygający
+tę relację wprost.
+
+**Diagnoza pierwsza — BŁĘDNA, odnotowana świadomie.** Wstępnie postawiono tezę,
+że system nie ma żadnej bramki na relacje między normami, i zaproponowano nowy
+moduł. Audyt tę tezę obalił: `shared/CLAIM-VALIDATION.md` → KROK CV-ALT istniał
+od 2026-06-23, z wpisem w `CHECKLIST-DEDUP.md` i etykietą „UNIVERSALNY".
+Wdrożenie propozycji wprowadziłoby duplikat — dokładnie tę klasę usterki, którą
+`CHECKLIST-DEDUP.md` ma wykrywać. Odnotowane, bo to ten sam wzorzec co objaw
+pierwotny: twierdzenie o strukturze postawione bez sprawdzenia, ponieważ nie
+wyglądało na coś, co się sprawdza.
+
+**Diagnoza właściwa — luka w OSIĄGALNOŚCI, nie w istnieniu.** Pomiar:
+
+    grep -rln "CLAIM-VALIDATION"  → 29 plików; ZERO z prawny-router-v3,
+                                     ZERO z jakiegokolwiek dr-XX
+    grep -rln "MOD-ZBIEZNOSC"     → 2 pliki, oba w analizator-przepisow-v2
+    CLAIM-VALIDATION.md:231       → trigger CV-ALT = etap C3 (tor pism)
+    CLAIM-VALIDATION.md:254-257   → CV-ALT.2 znał sprzeczność logiczną,
+                                     nie znał wykluczania normatywnego
+
+Trigger był kluczowany WEJŚCIEM (typ zlecenia = pismo/analiza dowodowa), nie
+WYJŚCIEM (obecność ≥2 podstaw w gotowym tekście). Odpowiedź analityczna nigdy
+nie docierała do C3. Wzorzec identyczny z opisanym w `shared/DOMAIN-LOCK.md`:
+bramka kluczowana wejściem jest ślepa na to, co powstało po klasyfikacji.
+DOMAIN-LOCK naprawił to na osi dziedzin; na osi relacji podstaw prawnych nie.
+
+Druga, węższa luka: nawet osiągalny CV-ALT.2 by nie zadziałał. Sprawdzał
+sprzeczność logiczną, a art. 222 § 1 KC i rękojmia nie są sprzeczne — one
+wzajemnie się wykluczają normatywnie.
+
+**Zakres wykonany.**
+
+1. `shared/CLAIM-VALIDATION.md` — trigger CV-ALT rozbity na alternatywę:
+   T-A (wejściowy, dotychczasowy etap C3) oraz T-B (wyjściowy, nowy):
+   odpowiedź dowolnego typu wskazująca ≥2 podstawy prowadzące do tego samego
+   skutku dla tej samej strony. Przy T-B wykonywane są CV-ALT.1 → .2 → .5,
+   z pominięciem kroków zależnych od pisma.
+2. `shared/CLAIM-VALIDATION.md` — CV-ALT.2 rozszerzony o pozycję WYKLUCZANIE
+   NORMATYWNE: osobne zapytanie o relację S1–S2, wynik zapisywany zawsze, także
+   negatywny (wzorzec KROK T-3 z `shared/TEMPORAL-LAW-CHECK.md`).
+3. `shared/CLAIM-VALIDATION.md` — dodany KROK CV-ALT.5, kontrola na wyjściu,
+   skan gotowego tekstu po spójnikach i po równoległych sekcjach. Zawiera jawny
+   zakaz nadawania relacji znacznika statusu (AF-6) i jawne ograniczenie:
+   bramka samo-raportująca, jej obecność dowodzi obecności reguły, nie zmiany
+   zachowania (por. F-113, ZASADA 14).
+4. `prawny-router-v3/references/SELF-CHECK.md` — nowa pozycja
+   `[CV-ALT / RELACJA PODSTAW]` w bloku kontroli na wyjściu, obok DOMAIN-LOCK.
+   To domyka osiągalność: router jest wczytywany przy każdej sprawie prawnej,
+   więc pokrywa wszystkie dr-XX i skille pochodne bez propagacji jeden po jednym.
+5. `audyt-systemu-v4/references/CHECKLIST-DEDUP.md` — zaktualizowany wiersz
+   CV-ALT oraz nowy wiersz rozgraniczający CV-ALT od MOD-ZBIEZNOSC. Oba
+   mechanizmy używają słowa „zbieg" i bywają mylone, ale mają różny punkt
+   wyjścia: CV-ALT wychodzi od żądania strony, MOD-ZBIEZNOSC od treści przepisu.
+   Rozstrzygnięcie: NIE scalać, brak duplikatu.
+6. `analizator-przepisow-v2/references/MOD-ORZECZ-POWIAZANIA-HISTORIA.md` —
+   wzajemny pointer w MODULE 7B, zapobiegający przyszłemu scaleniu.
+
+**Kryteria zamknięcia — sprawdzone.**
+
+    K1 osiągalność   prawny-router-v3/references/SELF-CHECK.md woła
+                     CLAIM-VALIDATION                                    ✔
+    K2 dedup         wiersz rozgraniczający w CHECKLIST-DEDUP.md +
+                     wzajemny pointer w MOD-ZBIEZNOSC                    ✔
+    K3 integralność  ci_check_shared.py (T6/T7): brak zerwanych odwołań  ✔
+
+**Ograniczenie jawne.** Punkty 3 i 4 to bramki samo-raportujące; ich skuteczność
+podlega temu samemu zastrzeżeniu co F-113 i nie została zmierzona. Siłę
+wymuszającą ma wyłącznie punkt 2, ponieważ produkuje ślad zewnętrzny: zapytanie
+o relację zostało wykonane albo nie. Odnotowania wymaga też droga wykrycia —
+usterkę ujawniła konfrontacja dwóch niezależnych opracowań, nie bramka
+wewnętrzna. Dwa przebiegi tego samego modelu by jej nie wykryły.
+
+### F-140 — T12 ujawnił regresję dyskową, nie tylko rozjazd metadanych — 2026-08-31
+
+Wyzwalacz: polecenie użytkownika „zajmij się T12" po dostawie F-139, gdzie T12
+zgłoszono jako dwa rozjazdy zastane, poza zakresem tamtej flagi.
+
+**Metoda — najpierw weryfikacja raportu, potem naprawa.** Zgodnie z wnioskiem
+z AUDYT-2026-08-20z3 („nowy test weryfikuj ręcznie, zanim naprawisz system pod
+jego dyktando") sprawdzono obie pozycje w dzienniku przed dopisaniem czegokolwiek.
+To zachowało się dokładnie tak, jak zapowiadał tamten wniosek: jedna pozycja
+okazała się prostym brakiem wpisu, druga — objawem czegoś poważniejszego.
+
+**Pozycja 1 — `dr-02`, luka historii 3.43 → 3.44.** Historia istniała w dzienniku
+(AUDYT-2026-08-26c, sekcja „Zamknięte flagi" → F-86; potwierdzenie w
+AUDYT-2026-08-27 pkt 1 i 4: DR-02 78→79 plików). Odtworzona jako wpis WTÓRNY
+z odesłaniem do sesji-źródła. Nic nie zmyślano.
+
+**Pozycja 2 — `analizator-dowodow-v3`: REGRESJA DYSKOWA.** Dziennik odnotowuje
+`version` 5.16.2 w dwóch niezależnych miejscach (l. 29871, l. 34127) oraz wprost
+stwierdza (l. 57312), że „wpisy 5.16.x już istniały w references/CHANGELOG.md".
+Na dysku: `version` = 5.16.1, changelog urwany na 5.15.0. Stan dyskowy był więc
+STARSZY niż stan odnotowany — wersja cofnęła się.
+
+Test decydujący wykonano na treści, nie na metadanych: sprawdzono, czy naprawiony
+błąd `art. 328¹ KPC` → `art. 328 KPC` (CRIT z AUDYT-2026-08-04i) przetrwał.
+**Nie przetrwał** — `modules/MD5-terminy.md` znów zawierał zbędny indeks górny.
+Utracono zatem treść, nie tylko numer wersji.
+
+To TRZECIE wystąpienie tego wzorca dla tego samego pliku. Wpis przy drugim
+podbiciu na 5.16.2 opisuje mechanizm wprost: naprawa „padła ofiarą incydentu
+infrastrukturalnego (reset kontenera)", bo przywrócone archiwum samo pochodziło
+sprzed naprawy.
+
+**Naprawy.**
+
+1. `analizator-dowodow-v3/modules/MD5-terminy.md` — `art. 328¹ KPC` →
+   `art. 328 § 1 KPC`, termin doprowadzony do brzmienia ustawowego („tydzień",
+   nie „7 dni"). ⛔ Nie przyjęto ustalenia z dziennika na wiarę: dziennik jest
+   rejestrem systemu, nie źródłem prawa. Weryfikacja niezależna w tej sesji —
+   arslege.pl + lexlege.pl + standardyprawa.pl + przepisy.gofin.pl, zgodnie,
+   t.j. Dz.U. 2026 poz. 468.
+2. `analizator-dowodow-v3/references/CHANGELOG.md` — odtworzone wpisy 5.16.0,
+   5.16.1, 5.16.2 (wszystkie oznaczone jako WTÓRNE, z odesłaniem do sesji-źródła)
+   + nowy 5.16.3 + NOTA O REGRESJI DYSKOWEJ. Przy 5.16.1 zakres jawnie oznaczony
+   jako NIEUSTALONY — dziennik podaje sam fakt podbicia, więc wpisano to zamiast
+   prawdopodobnie brzmiącego zdania.
+3. `analizator-dowodow-v3/SKILL.md` — `version` 5.16.1 → "5.16.3"; nagłówek H1
+   „v5.1" → „v5" (decyzja generalna F-102(C): duplikat metadanej się usuwa, nie
+   synchronizuje); pole `changelog:` zsynchronizowane. YAML parsuje się poprawnie.
+4. `dr-02/references/CHANGELOG.md` — wpis 3.44 odtworzony; `CHECKSUMS.sha256`
+   zaktualizowany WYŁĄCZNIE dla tego pliku (18 pozostałych FAILED to stan zastany,
+   świadomie nietknięty — regeneracja całego manifestu zamaskowałaby realny
+   rozjazd i skasowała dowód, że istniał).
+
+**Kontrola skuteczności.** T12 przed: 2 ⛔ + 2 ⚠️. T12 po: ✅ brak rozbieżności.
+
+**Zakres resztkowy — flaga POZOSTAJE OTWARTA.** T12 wykrył rozjazd metadanych,
+ale NIE wykrył utraty treści; tę znaleziono dopiero ręcznym cross-checkiem
+z dziennikiem, uruchomionym wyłącznie dlatego, że metadane były podejrzane.
+Gdyby wersja cofnęła się razem z treścią (spójnie), T12 byłby zielony, a błąd
+w art. 328 wróciłby po raz czwarty niezauważony. Brakuje testu porównującego
+`version` na dysku z najwyższą wersją odnotowaną w dzienniku dla tego samego
+skilla — regresja to `dysk < dziennik`.
+
+⚠️ Nie zbudowano go w tej sesji świadomie: nowy test wymaga rejestracji
+w czterech rejestrach i przebiegu „przed/po" na całym drzewie, a doświadczenie
+z T12 (trzy własne błędy parsera w pierwszej wersji, AUDYT-2026-08-20z3) pokazuje,
+że test napisany naprędce produkuje fałszywe alarmy, które uczą ignorowania
+własnych wyników. To zadanie na osobną sesję, nie dopisek.
+
+**Wniosek.** Zgodnie z doktryną tego systemu („flaga opisująca wzorzec zamyka się
+testem, nie naprawą") — F-140 jest wzorcem, nie incydentem: trzy wystąpienia,
+ten sam plik, ten sam mechanizm. Czwarta naprawa ręczna będzie droższa niż test.
+
+### F-140 ZAMKNIĘTA — T12 rozszerzony o kontrolę 12c (regresja dysk vs dziennik) — 2026-08-31
+
+Wyzwalacz: polecenie użytkownika „zrób T12" — realizacja zakresu resztkowego
+F-140, pozostawionego jawnie otwartym w poprzednim wpisie.
+
+**Luka, którą kontrola zamyka.** Cztery dotychczasowe kontrole T12 porównują
+nośniki wersji WEWNĄTRZ skilla. Są przez to ślepe na przypadek, w którym cały
+stan dyskowy cofnął się do starszej generacji — wtedy wszystkie nośniki zgadzają
+się ze sobą i test świeci na zielono. W poprzedniej sesji regresję
+`analizator-dowodow-v3` wykryto tylko dlatego, że cofnięcie było NIESPÓJNE
+(version 5.16.1 przy H1 „v5.1"). Gdyby cofnęło się spójnie, T12 nie zgłosiłby nic,
+a błąd `art. 328¹ KPC` wróciłby po raz czwarty niezauważony.
+
+**Kontrola 12c** porównuje `version` na dysku z najwyższym numerem podbicia
+odnotowanym dla tego samego skilla w AUDIT-JOURNAL. `dysk < dziennik` = ⛔.
+Komunikat nakazuje wprost sprawdzić TREŚĆ, nie tylko numer — bo utrata wersji
+oznacza zwykle utratę napraw. Dziennik jest tu rejestrem ZDARZEŃ (co wydano),
+nie źródłem prawa ani treści.
+
+**Trzy zabezpieczenia parsera — każde wymuszone przebiegiem, nie hipotezą.**
+Zgodnie z wnioskiem z AUDYT-2026-08-20z3 („test napisany naprędce produkuje
+fałszywe alarmy, które uczą ignorowania własnych wyników") pierwsza wersja
+była celowo testowana, zanim cokolwiek uznano za gotowe:
+
+1. Bez wymogu jawnego markera wersji parser zwrócił `2026.215` — numer Dz.U.
+   z prozy dziennika — jako rzekomą wersję skilla. Naprawa: wymagane `v` przed
+   numerem albo słowo „wersja" w linii; odrzucane majory ≥ 100 (roczniki).
+2. Bez podziału linii na segmenty parser przypisywał cudze podbicia: dziennik
+   wylicza kilka skilli w jednej linii („`pisma-proste-v2` v2.5→2.6,
+   `pisma-procesowe-v3` v5.14→5.15"). Pierwszy przebieg na drzewie dał tak
+   CZTERY fałszywe trafienia (pisma-proste-v2, pisma-procesowe-v3,
+   prawny-router-v3, shared). Wszystkie cztery zweryfikowano ręcznie w dzienniku
+   przed jakąkolwiek zmianą — wszystkie okazały się kontaminacją. Naprawa:
+   dopasowanie wyłącznie w segmencie zawierającym nazwę skilla.
+3. Bramka MAJOR: różny główny numer degraduje trafienie do ⚠️ z żądaniem
+   ręcznego sprawdzenia. To ona wyłapała oba powyższe błędy, zanim zdążyły
+   udawać ⛔ — warto ją zachować nawet teraz, gdy parser jest zacieśniony.
+
+**Przebiegi kontrolne.**
+
+    Drzewo, parser bez markera wersji     → ⚠️ "2026.215" (numer Dz.U.)
+    Drzewo, parser bez segmentacji        → 4 × ⚠️ cudze numery
+    Drzewo, parser docelowy               → ✅ zero
+    Mutacja 1: dysk cofnięty do 5.16.1,
+      wszystkie nośniki SPÓJNE            → ⛔ REGRESJA DYSKOWA wykryta
+    Mutacja 2: dysk 5.16.9 > dziennik     → brak alarmu 12c (poprawnie)
+    Mutacja 3: skill bez śladu w dzienniku→ brak alarmu (poprawnie)
+
+Mutacja 1 jest testem właściwym: odtwarza dokładnie ten stan, którego stara
+wersja T12 by nie zobaczyła — cofnięcie spójne we wszystkich nośnikach.
+
+**Rejestracja:** `references/REGRESSION-TEST-PLAN.md` sekcja 12c (pełny opis,
+tabela przebiegów, kryterium wyjścia, znane ograniczenie); komentarz przy
+`scripts:` w YAML SKILL.md; docstring skryptu. Nowy plik nie powstał — kontrola
+jest rozszerzeniem istniejącego testu, nie osobnym testem, bo dotyczy tej samej
+materii (metadane wersji) i tego samego skryptu. Świadoma decyzja przeciw
+mnożeniu testów: osobny T20 wymagałby czterech rejestracji i dawałby drugi punkt
+dryfu dla tej samej domeny.
+
+**Znane ograniczenie, zapisane wprost w planie testów:** kontrola widzi regresję
+tylko wtedy, gdy dziennik zawiera jawny zapis podbicia. Sesja, która wyda skill
+bez wpisu „vX→vY", pozostaje dla niej niewidoczna. To ogranicza skuteczność do
+sesji prowadzonych zgodnie z dotychczasową konwencją dziennika.
+
+**Kryterium zamknięcia — spełnione.** Test wykrywający regresję dysk-vs-dziennik
+istnieje, jest zarejestrowany, daje wynik negatywny na bieżącym drzewie ORAZ
+wynik pozytywny na mutacji odtwarzającej udokumentowany incydent.
+
+**Wniosek.** Trzecie wystąpienie wzorca zamknięto testem, nie czwartą naprawą
+ręczną — zgodnie z doktryną z AUDYT-2026-08-20z2. Warto odnotować, że sam test
+przeszedł tę samą drogę co T12 dwa tygodnie wcześniej: dwie wersje parsera
+odrzucone na podstawie własnych przebiegów kontrolnych, zanim uznano wynik za
+wiarygodny.
+
+### T3, T11, T14 — trzy WARN-y zdjęte, jedna flaga otwarta (F-141) — 2026-08-31
+
+Wyzwalacz: polecenie użytkownika „zrób T3, T11, T14" — trzy WARN-y zgłoszone
+jako zastane przy dostawie F-140. Trzy różne klasy problemu, trzy różne naprawy.
+
+## T3 — 6 zgłoszeń, ZERO realnych. Naprawiono TEST, nie mapy.
+
+Wszystkie sześć „podejrzanych rozbieżności" zweryfikowano ręcznie przed
+jakąkolwiek zmianą map. Wszystkie okazały się błędnym parowaniem heurystyki:
+akt BYŁ poprawnie zarejestrowany centralnie, tylko przy innym wierszu, a test
+sparował go z wierszem przypadkowo podobnym. Wzorcowy przykład: lokalne
+„Referendum ogólnokrajowe" → 2025/300 sparowane z wierszem „partie polityczne
++ referendum" → 2023/1215, podczas gdy własny wiersz referendum stoi linijkę
+niżej (ROUTING-MAP:138) z numerem IDENTYCZNYM z lokalnym.
+
+Przyczyna w kodzie: test brał najlepsze dopasowanie i alarmował przy różnicy
+numerów, nie sprawdzając wcale, czy lokalny numer występuje GDZIEKOLWIEK
+w mapie głównej. Dodano filtr `main_numbers` — jedno pytanie: „czy ten numer
+jest zarejestrowany centralnie?".
+
+⚠️ Zbiór wyciszający zbudowano ze WSZYSTKICH cytatów Dz.U. w mapie głównej,
+nie z `main_pairs` (które bierze tylko pierwszy numer z wiersza, więc akt
+wymieniony jako drugi w komórce zbiorczej byłby niewidoczny). **To NIE jest
+powrót do zmiany cofniętej 2026-07-26.** Tamta zbierała wiele numerów per linia
+jako ŹRÓDŁO PAROWANIA i wywołała kolizje kombinatoryczne (2 → 14 alarmów).
+Ten zbiór służy WYŁĄCZNIE do wyciszania — operacja jednokierunkowa, może tylko
+zmniejszyć liczbę alarmów.
+
+Przebiegi: drzewo 6 → 0. Test negatywny (lokalny numer podmieniony na 2025/9999,
+nieobecny centralnie) → wykryty. Czułość zachowana.
+
+## T11 — 7 pozycji, SZEŚĆ realnych propagacji (REGUŁA 3)
+
+Klasyczny wzorzec F-89: mapy lokalne mają rozstrzygnięte numery, ROUTING-MAP
+wciąż placeholdery „⚠️ zweryfikuj t.j. na ISAP". Zsynchronizowano sześć wierszy:
+piecza zastępcza, pomoc publiczna na ratowanie, prawa konsumenta (centralna
+miała STARSZY t.j. 2023/2759 wobec 2024/1796), ustawa lombardowa (centralna
+opisywała ją jeszcze jako „projekt"), reklama wobec nieletnich, radcowie prawni.
+
+⛔ **Samokorekta w trakcie sesji.** Pierwsza wersja propagacji zamieniała
+placeholder „⚠️ zweryfikuj" na gołe twierdzenie o numerze — czyli zamieniała
+uczciwy znak niewiedzy na asercję opartą wyłącznie na drugiej mapie
+wewnętrznej. Gdy pierwsza próba weryfikacji zewnętrznej (poz. 2026/980) NIE
+potwierdziła numeru, wróciłam do wszystkich sześciu wierszy i opatrzyłam je
+jawnym statusem: pięć nosi ⚠️ NIEZWERYFIKOWANY W RZĘDZIE 1, jeden (prawa
+konsumenta, 2024/1796) ✅ potwierdzony niezależnie w tej sesji. Synchronizacja
+rejestrów nie jest weryfikacją prawa i nie wolno jej tak prezentować.
+
+## T14 — 2 ⛔ + 1 ⚠️, skrócone opisy
+
+`prompt-master` 876 → 152 znaki, `analizator-dowodow-v3` 887 → 172,
+`analizator-przepisow-v2` 181 → 146 (zapas wobec progu WARN 181-200).
+Zgodnie z procedurą MOD-DESCRIPTION zachowano triggery i zakres, usunięto
+wyczerpujące listy wyzwalaczy. ⚠️ Odnotowuję świadomie: `description` jest
+mechanizmem WYBORU skilla, więc skracanie ma realny koszt trafności routingu —
+to nie jest zabieg kosmetyczny. Próg 200 znaków jest jednak wymuszony
+wspólnym profilem Claude+ChatGPT dla jednego ZIP-a i został przyjęty świadomie
+jako kompromis; jeśli trafność wyboru tych dwóch skilli spadnie, właściwą
+reakcją jest rewizja progu, nie ciche rozdmuchanie opisu z powrotem.
+
+## F-141 OTWARTA — trzecia oś T11
+
+Pełny przebieg T11 w orkiestratorze kontroluje jeszcze jedną oś: lokalne
+i ROUTING-MAP wobec centralnej mapy Dz.U. Tam pozostaje 8 pozycji, wszystkie
+zidentyfikowane co do aktu.
+
+⛔ Świadomie NIE domknięte propagacją. Sekcja „Uzupełnienie mapy" wymaga
+wprost, by każdy tytuł, typ i status sprawdzić odrębnie w API ELI — a pierwsza
+taka próba (2026/980) numeru NIE potwierdziła. To znaczy, że część numerów
+w mapach lokalnych może być błędna, nie tylko nieprzeniesiona. Przepisanie ich
+do mapy centralnej utrwaliłoby ewentualny błąd w trzecim rejestrze i usunęło
+jedyny sygnał, że coś jest nie tak. Lista robocza w F-141.
+
+## Kontrola
+
+    T3  6 → 0 (test naprawiony, mapy nietknięte; czułość potwierdzona mutacją)
+    T11 7 → 0 na osi REGUŁA 3; oś mapy Dz.U. → F-141
+    T14 3 → 0
+    Pakiet regresyjny: T1,T2,T3,T6/T7,T8,T9,T12,T13,T14,T17,T18,T19 PASS
+
+## Wniosek
+
+Dwa z trzech WARN-ów nie były błędami systemu, tylko błędami testów: T3
+alarmował o poprawnie zarejestrowanych aktach. To ta sama lekcja co przy T12
+(AUDYT-2026-08-20z3) — raport testu weryfikuj ręcznie, zanim naprawisz system
+pod jego dyktando. Gdybym „naprawiła" sześć map pod dyktando T3, wprowadziłabym
+sześć błędów tam, gdzie nie było żadnego.
+
+### Weryfikacja numerów z T11 — sześć potwierdzeń i jedna omal-pomyłka własna — 2026-08-31
+
+Wyzwalacz: polecenie użytkownika, by zweryfikować numery oznaczone w poprzedniej
+sesji jako ⚠️ NIEZWERYFIKOWANY W RZĘDZIE 1 i naprawić skille.
+
+## Wyniki weryfikacji — wszystkie sześć potwierdzone
+
+| Akt | Numer | Źródła |
+|---|---|---|
+| Prawa konsumenta | 2024/1796 t.j. | arslege + gofin + **gov.pl** (OSR projektu implementującego dyr. 2024/825 cytuje ten numer) |
+| Konsumencka pożyczka lombardowa | 2024/1111 t.j. (obw. 17.07.2024) | eli.gov.pl/eli/DU/2024/1111/ogl + isap + knf.gov.pl |
+| UPNPR | 2023/845 t.j. (obw. 7.04.2023) | eli.gov.pl (API text) + isap + gov.pl |
+| Radiofonia i telewizja | 2022/1722 t.j. (obw. 5.08.2022) | eli.gov.pl/eli/DU/1993/34 + isap + api.sejm PDF |
+| Pomoc publiczna ratowanie/restrukturyzacja | 2026/113 t.j. (obw. 26.01.2026) | gofin + infor (tekst obwieszczenia) + eli |
+| Radcowie prawni | 2024/499 t.j. + zm. 2025/1172, 2026/370, 2026/731 | eli.gov.pl/eli/DU/2026/731/ogl + isap PDF |
+
+Przy okazji łańcuch zmian ustawy o radcach prawnych odczytany wprost z art. 1
+ustawy nowelizującej ujawnił DWIE zmiany, których nie miała żadna mapa
+(2025/1172 i 2026/370) — dopisane.
+
+## ⛔ Omal-pomyłka własna, warta zapisania
+
+Siódma pozycja — piecza zastępcza, dr-02 podawał **2026/980**. Moje dwa pierwsze
+zapytania numeru NIE potwierdziły: zwracały t.j. 2025/49 i starsze. Na tej
+podstawie uznałam numer lokalny za błędny i **przygotowałam korektę
+2026/980 → 2025/49**, czyli cofnięcie poprawnego numeru do nieaktualnego.
+
+Korekta nie weszła, bo przy nakładaniu zmian okazało się, że plik został
+w międzyczasie zmieniony równolegle: pięć wierszy niosło adnotacje VER zgodne
+z moimi ustaleniami, a wiersz pieczy — numer 2026/980 z powołaniem na
+sip.lex.pl, źródło, którego nie sprawdzałam. Potraktowałam to jako konflikt,
+nie jako regresję, i zamiast nadpisać cudzą zmianę — rozstrzygnęłam ją trzecim
+zapytaniem. Przepisy.gofin.pl pokazuje łańcuch wersji czasowych kończący się
+na **2026/980**, bezpośrednio po 2025/49. Numer lokalny był poprawny.
+Myliłam się.
+
+**Wnioski, oba niewygodne:**
+
+1. **Brak potwierdzenia w dwóch zapytaniach nie jest obaleniem.** To dokładnie
+   ten sam błąd, który dziennik opisuje w AUDYT-2026-08-18l (sygnatura
+   II CSK 170/12 uznana za nieistniejącą po zapytaniach, które trafiły obok).
+   Fałszywy negatyw z wyszukiwarki wygląda identycznie jak realny brak.
+   Przy ustawach o częstych t.j. **łańcuch wersji czasowych w gofin jest
+   wiarygodniejszy niż pierwsza strona wyników** — zapisane wprost w wierszu.
+2. **Przed korektą numeru w dół (nowszy → starszy) obowiązuje wyższy próg.**
+   Propagacja placeholdera to jedno; zastąpienie konkretnego numeru starszym
+   to twierdzenie, że ktoś się pomylił — i wymaga dowodu pozytywnego
+   (co jest aktualnym t.j.), nie samego braku trafień.
+
+Zapisuję to, bo bez równoległej edycji korekta weszłaby cicho i zepsuła
+poprawny wiersz — a testy T3/T11 nie wykryłyby niczego, bo wszystkie trzy
+rejestry byłyby zgodne. To ta sama ślepota, którą F-82 opisuje przy T3:
+zgodność rejestrów nie jest weryfikacją merytoryczną.
+
+## Naprawy
+
+- `ROUTING-MAP.md` — sześć wierszy: znaczniki ⚠️ NIEZWERYFIKOWANY zastąpione
+  ✅ VER z listą źródeł; wiersz pieczy wzmocniony drugim niezależnym źródłem
+  RZĄD 2B (K-2) i ostrzeżeniem o zawodnych zapytaniach ogólnych; wiersz radców
+  uzupełniony o dwie brakujące nowelizacje.
+- `ROUTING-MAP.md` — ujednolicony zapis „Dz.U." przed KAŻDYM numerem w wierszu
+  radców. T11 nie widział 2026/731, bo prefiks stał tylko przy pierwszym
+  numerze — znana klasa fałszywego trafienia (odnotowana 2026-08-18/19
+  i 2026-08-21). Rekomendacja rozszerzenia regexu T11 o notację skróconą
+  pozostaje niewykonana i wraca do F-141.
+- Mapy lokalne dr-02 i dr-12 — **bez zmian**, ich numery okazały się poprawne.
+
+## Kontrola
+
+    T3  OK     T11 OK (oś REGUŁA 3)     F-141 nadal otwarta (oś mapy Dz.U.)
+
+---
+
+## AUDYT-2026-08-31b — F-142: OŚ-GATE, bramka rozjazdu czasowego przesłanek
+
+**Wyzwalacz:** polecenie użytkownika po sesji kazusów 111 i 118 — „czy da się
+wstawić mechanizm, który będzie czytał i identyfikował takie sprawy jak kazus 111
+lepiej, mechanizm uniwersalny", następnie „zrób to i wstaw w warn otwarte,
+zamknij go i wstaw w audit journal".
+
+## Incydent źródłowy — diagnoza, nie opis
+
+Kazus 111: zakup auta w komisie 20.02.2011, kradzież pojazdu 15.01.2009,
+zatrzymanie 20.07.2012, wydanie właścicielowi 08.2012. Pierwsze podejście modelu
+oceniało przesłankę wady prawnej **na datę zawarcia umowy**. Prawidłowa chwila
+oceny to chwila korzystania z uprawnienia — a między tymi chwilami upłynął
+trzyletni termin z art. 169 § 2 k.c., który przesłankę wygasił.
+
+⛔ **Kluczowe ustalenie: to NIE była luka w wiedzy prawniczej.** W przebiegu
+referencyjnym model znał wszystkie cztery daty i wszystkie właściwe przepisy.
+Zabrakło kroku, który wykonuje jedno działanie arytmetyczne: *ile czasu upłynęło
+między tymi datami i czy to jest termin, który sam z siebie coś zmienia*.
+Dopisywanie kolejnych przepisów tego nie naprawia — to ta sama klasa wniosku
+co AUDYT-2026-08-20z2 („trzecie wystąpienie wzorca zamyka się testem, nie
+czwartą naprawą ręczną").
+
+**Druga przyczyna, strukturalna.** BRAMKA CHRONOLOGICZNA routera istniała
+i miała właściwy przedmiot, ale jej wyzwalacz brzmiał „≥2 dokumenty
+wieloetapowe". Kazus 111 to pięć zdań w jednej wiadomości — cztery daty i pełny
+problem temporalny, zero dokumentów. Bramka nie odpaliła, bo warunek mierzył
+niewłaściwą wielkość: **objętość materiału zamiast liczby dat**.
+
+## Wykonanie
+
+**Nowy moduł** `shared/MOD-OS-CZASU-PRZESLANEK.md` (OŚ-GATE), 336 linii —
+poniżej progu ZASADY 13. Konstrukcja:
+
+    §2  WYZWALACZ    ≥2 daty — warunek LICZBOWY, jawny zakaz warunku ocennego
+    §3  OŚ-1…OŚ-4    ekstrakcja → siatka n(n−1)/2 → punkty przełączenia → tabela
+    §4  TABLICA CHWIL OCENY        T-01…T-08, polityka wąska i rosnąca
+    §5  KONTROLA REŻIMU            R-01…R-04, cezury 2003 / 2014 / 2023 / 2018
+    §6  REGUŁA DOPISYWANIA         zakaz pozycji „na zapas"
+    §7  BLOK WYJŚCIOWY             WIDOCZNY w odpowiedzi, przed konkluzją
+    §8  GRANICE                    pięć pozycji, w tym pomiar skuteczności
+    §9  WYWOŁANIE                  4 konsumentów, 2 wpięte, 2 oznaczone ⬛
+
+**Decyzje projektowe i ich uzasadnienie:**
+
+1. **Wyzwalacz liczbowy, nie ocenny.** Warunek „gdy sprawa wydaje się temporalna"
+   wymagałby oceny — a to właśnie ocena zawiodła w incydencie. Ta sama konstrukcja
+   co wyzwalacz załącznika orzeczniczego w `shared/PRAWO-HARDGATE.md` („wyzwalaczem
+   jest SYGNATURA, nie ocena własnej potrzeby", F-111).
+2. **Pełna siatka par, bez skracania intuicją.** Przy n datach n(n−1)/2 par.
+   Fałszywe alarmy wliczone w koszt i nazwane w §8 pkt 3 — fałszywy alarm kosztuje
+   linijkę, przeoczenie kosztuje rozstrzygnięcie.
+3. **Blok wyjściowy widoczny, nie wewnętrzny.** Uzasadnienie przeniesione wprost
+   z sekcji „OBOWIĄZEK WIDOCZNEGO ZNACZNIKA" w `shared/PRAWO-HARDGATE.md` (3.23):
+   krok niewidoczny w dostarczonym tekście jest krokiem pomijalnym bez śladu.
+4. **Tablice wąskie i rosnące, nie szerokie.** Osiem pozycji T-01…T-08 i cztery
+   cezury R-01…R-04 pochodzą wyłącznie z realnych potknięć i weryfikacji tej sesji.
+   Tablica szeroka (30–40 instytucji z przeglądu kodeksów) wyglądałaby lepiej
+   w audycie, ale każdy jej wiersz byłby twierdzeniem o prawie wygenerowanym bez
+   incydentu i bez odczytu źródła — czyli dokładnie tym, czemu przeciwdziała
+   pozycja 14 listy ZASAD KRYTYCZNYCH (AUDIT-CLAIM-GATE).
+   ⚠️ **Atrybucja skorygowana:** pierwsza redakcja modułu opisywała ten wybór jako
+   „decyzję użytkownika". Nieprawda — pytanie o wariant zostało zadane, ale
+   polecenie wykonania wpłynęło przed odpowiedzią. Poprawione na „decyzja
+   wykonawcza modelu, odwracalna". Zapisuję, bo fałszywa atrybucja decyzji do
+   użytkownika jest tą samą klasą fasady co fałszywa atrybucja weryfikacji.
+5. **Tablice NIE są źródłem prawa** — zapisane dwukrotnie, w §4 i w nagłówku pliku.
+   Kolumna „chwila oceny" wskazuje, GDZIE patrzeć, nie CO tam stoi. Wiersze R-02
+   i R-04 noszą jawne ⚠️ NIEZWERYFIKOWANE i nie mogą być podstawą twierdzenia.
+
+**Wpięcia wykonane:**
+
+- `prawny-router-v3` 3.33 → **3.34**: BRAMKA CHRONOLOGICZNA rozdzielona na
+  TOR A (OŚ-GATE, ≥2 daty) i TOR B (pełna chronologia, ≥2 dokumenty). Tory
+  niezależne, mogą odpalić razem. Zaktualizowane `required_modules`, Reguła 12
+  i SELF-CHECK (nowa pozycja blokująca).
+- `chronologia-sprawy-v1` 1.7 → **1.8**: sekcja OŚ-GATE przed FAZĄ EKSTRAKCJI,
+  tabela rozgraniczająca oba narzędzia, kolejność wykonania, przekazanie
+  sprzeczności dat do `references/sprzecznosci-dat.md`. Odświeżone
+  `CHECKSUMS.sha256` (10 pozycji, `sha256sum -c` czysty).
+- `shared` 3.23 → **3.24**: rejestracja modułu w tabeli, wywołanie w sekcji
+  „Jak korzystać", pole `changelog:`, wpis w `references/CHANGELOG.md`.
+
+**Wpięcia NIEWYKONANE, oznaczone ⬛ w §9 modułu:** `analiza-sadowa-v6`
+(przebieg 1) i `analizator-przepisow-v2` (Moduł 3). Powód: oba skille wymagałyby
+osobnych pakietów wydania wg ZASADY 7, a zakres tej sesji obejmował mechanizm
+i jego dwa główne punkty wejścia. ⛔ Rozróżnienie jest jawne w pliku celowo —
+konsument deklarowany bez faktycznego wywołania to „moduł-widmo", klasa błędu
+wykrywana testem T18. Zakres pozostały przypisany do F-143.
+
+## Obserwacja uboczna — rozjazd pozorny w liczniku plików shared
+
+`shared/SKILL.md` w `limitations` deklaruje „196 plików, ~2,4 MB (stan
+2026-08-23)"; pomiar dysku daje **155 plików, 2,0 MB**. To NIE jest regresja:
+42 pliki przykładowych serwerów MCP są spakowane bezstratnie do
+`tools/mcp-servers/mcp-servers-examples.zip` (pkt 7 adaptera runtime).
+155 + 42 = 197, po odjęciu samego archiwum 196 — zgadza się. Zostawiam bez
+zmiany, ale odnotowuję, bo przy następnym audycie ten sam rozjazd zostanie
+zgłoszony ponownie jako podejrzenie utraty plików. Kandydat do doprecyzowania
+w `limitations` („196 pozycji logicznych, w tym 42 w archiwum; 155 plików na dysku").
+
+## Kontrola przed wydaniem (PRE-DELIVERY-COMPLETENESS-CHECK, ZASADA 7)
+
+    skill                    przed   po    różnica   uzasadnienie
+    shared                    155    156     +1      nowy MOD-OS-CZASU-PRZESLANEK.md
+    prawny-router-v3           42     42      0      edycje w miejscu
+    chronologia-sprawy-v1      13     13      0      edycje w miejscu
+    audyt-systemu-v4           79     79      0      edycje w miejscu
+
+Cztery osobne pakiety, po jednym na skill; zakaz pakietu zbiorczego zachowany.
+`diff -rq` archiwum po rozpakowaniu względem kopii roboczej: pusty dla każdego.
+
+## Status flag
+
+    F-142  OTWARTA i ZAMKNIĘTA w tej sesji.
+           Kryterium zamknięcia: mechanizm istnieje, jest zarejestrowany
+           w rejestrze modułów, wpięty w dwa punkty wejścia z wyzwalaczem
+           mechanicznym, a jego granice i niezmierzona skuteczność są nazwane
+           w pliku. Spełnione.
+           ⛔ Wiersz w WARN-OTWARTE.md nie pozostaje — zgodnie z ZASADĄ 10
+           flaga otwarta i zamknięta w jednej sesji nie zostawia śladu
+           w rejestrze żywym; ślad jest tutaj.
+
+    F-143  OTWARTA — następcza, kategoria „zależne od środowiska/dewelopera".
+           Pomiar skuteczności OŚ-GATE testem z grupą kontrolną + dwa
+           niewykonane wpięcia. Zależna od tych samych warunków co F-113.
+
+## Wniosek
+
+Zamknięcie F-142 dowodzi, że **mechanizm istnieje** — nie że działa. To
+rozróżnienie jest wpisane w §8 pkt 5 modułu i w kryterium F-143 celowo,
+bo bez niego dostawa nowej bramki wygląda identycznie jak rozwiązanie problemu.
+System ma już udokumentowaną historię reguł, które istniały i nie odpalały
+(F-113, trzy z czterech usterek pilotażu LEX MACHINA). Ta bramka różni się
+od nich jedną cechą — wyzwalacz jest liczbowy, więc jego pominięcie da się
+wykryć mechanicznie: wystarczy policzyć daty w wejściu i sprawdzić obecność
+bloku w wyjściu. Dopiero to czyni F-143 wykonalną.
+
+---
+
+## AUDYT-2026-08-31c — F-144: US-GATE, bramka sąsiedztwa redakcyjnego
+
+**Polecenie:** wykonać trzy poprawki uzgodnione w rozmowie (UNIT-SWEEP,
+macierz reżimu, skrypt ELI), zarejestrować w `WARN-OTWARTE.md`, zamknąć,
+opisać w dzienniku i wydać wg ZASADY 7.
+
+**Wzorzec awarii — nowy, nie podtyp F-142.** F-142 zamknęła pytanie KIEDY
+(przesłanka oceniana na niewłaściwą chwilę). Ta sesja zamyka pytanie CO LEŻY
+OBOK. Incydent źródłowy jest tej samej sprawy (kazus 111), ale innej klasy:
+art. 770 k.c. odczytano ze źródła, we właściwym brzmieniu na datę umowy
+20.02.2011, po poprawnym ustaleniu reżimu — i pominięto art. 770¹ k.c.,
+jednostkę dodaną ustawą z 27.07.2002 i uchyloną 25.12.2014, która dla
+kupującego-konsumenta odsyłała umowę komisową do przepisów o sprzedaży
+konsumenckiej. Wszystkie bramki weryfikacyjne zadziałały. Żadna nie pyta,
+co leży obok, bo żeby zapytać, trzeba już podejrzewać, że coś tam jest.
+**To jest wiedza negatywna i nie da się jej dopisać do tablicy** — tablica
+rośnie wyłącznie o pozycje raz już przeoczone. Naprawa musi więc rozszerzać
+ZAKRES ODCZYTU, nie zasób wiedzy.
+
+**Naprawa — trzy elementy.**
+(1) `shared/MOD-UNIT-SWEEP.md` 1.0, nowy moduł kanoniczny: wyzwalacz
+mechaniczny „≥1 powołany artykuł", procedura US-1…US-4, ZAKRES MINIMALNY US-2
+nie podlegający skróceniu, ⛔ REGUŁA INDEKSU GÓRNEGO (art. X¹ to osobna
+jednostka, zwykle lex specialis dodany nowelizacją — dokładnie ta klasa
+przepisu, która rozstrzyga i której punktowy odczyt nie widzi), reguła
+kierunku czasu (przepis uchylony PO dacie zdarzenia jest w stanie aktualnym
+niewidoczny), klasyfikacja sąsiada w stałym szablonie, widoczny blok US-GATE.
+Milczenie o sąsiedzie nie jest odpowiedzią negatywną.
+(2) `shared/MOD-OS-CZASU-PRZESLANEK.md` 1.0 → 1.1: §5A **macierz reżimu
+trzyosiowa** (czas × status strony × typ zbywcy/umowy) w miejsce
+jednowymiarowej tabeli epok, z zakazem wartości domyślnej na którejkolwiek osi;
+OŚ-5.4 — obowiązek odczytu przepisu przejściowego nowelizacji wyznaczającej
+cezurę; nowe wiersze R-03a, R-05 i T-09; korekta zakresu R-03.
+(3) `audyt-systemu-v4/scripts/check_unit_sweep_eli.py` — T20, deterministyczne
+budowanie zakresu US-2 poza modelem.
+
+**Powód konstrukcyjny macierzy.** Ta sama data 20.02.2011 daje trzy różne
+reżimy zależnie od tego, kto kupuje i kto zbywa. Płaska tabela epok wygląda na
+domkniętą i dlatego jest gorsza niż jej brak: kusi, by na pytanie o reżim
+odpowiedzieć samą datą. Zakaz wartości domyślnej na osi STRONA jest tu
+rdzeniem — ciche przyjęcie „konsument" to twierdzenie bez źródła, ta sama
+klasa błędu co cytat z pamięci.
+
+**Weryfikacja źródeł tej sesji (RZĄD 1/2B, odczyt 2026-08-31).** Dodanie
+art. 770¹ k.c. ustawą z 27.07.2002 — urzędowy PDF ISAP WDU20021411176 oraz
+orka.sejm.gov.pl; status „uchylony" — arslege.pl/lexlege.pl; brzmienie —
+e-prawnik.pl. Art. 43a u.p.k. i art. 4 ust. 1 ustawy z 4.11.2022 (Dz.U. poz.
+2337) — orka.sejm.gov.pl, tekst ustawy. Wyrok SN 18.10.2023, II CSKP 1771/22 —
+teza i fragment uzasadnienia z sn.pl (snippet indeksowany) oraz
+czasopismo.legeartis.org; ⚠️ bezpośrednie pobranie strony sn.pl zwróciło 404,
+pełnego uzasadnienia nie odczytano i teza jest w module opisana z tym
+zastrzeżeniem. isap.sejm.gov.pl pozostaje niedostępny dla web_fetch
+(ROBOTS_DISALLOWED) — ta sama okoliczność co ZASADA 8.
+
+**Dowód.** `scripts/check_unit_sweep_eli.py --selftest` — 5/5 PASS, w tym
+pozycja rozstrzygająca: art. 770¹ znajduje się w zakresie US-2 zbudowanym dla
+art. 770. Mutacja negatywna (usunięcie art. 770¹ z fixture) zwróciła zakres
+`['art. 769', 'art. 770', 'art. 771']` — test nie jest pusty. Gałęzie błędu
+potwierdzone: artykuł nieznaleziony → exit 3, brak dostępu do API → exit 2.
+T20 opisany w `REGRESSION-TEST-PLAN.md` sekcja 12.
+
+**Granice — nazwane wprost.**
+1. ⚠️ Gałąź sieciowa skryptu NIE została uruchomiona na żywym
+   `api.sejm.gov.pl/eli`; domena jest poza listą dozwoloną środowiska audytu.
+   Przetestowano parser i logikę zakresu, nie integrację.
+2. US-GATE nie wykrywa lex specialis leżącego w INNYM akcie — na to jest
+   kontrola reżimu §5, nie ten moduł.
+3. Bramka jest samoraportująca (klasa F-119). Obecność modułu w pliku nie
+   dowodzi zmiany zachowania; `grep` mówi, że reguła jest zapisana.
+4. Dwa wpięcia pozostają ⬛ NIEWPIĘTE w §7 modułu: `analizator-przepisow-v2`
+   (Moduł 1/1H) i `pisma-procesowe-v3` (PRE-W2). Powód ten sam co przy F-142:
+   każdy wymagałby osobnego pakietu wydania, a zakres tej sesji obejmował
+   mechanizm i jego główny punkt wejścia. Rozróżnienie jest w pliku jawne —
+   deklarowany konsument bez faktycznego wywołania to „moduł-widmo", klasa
+   błędu wykrywana testem T18.
+
+**Obserwacja uboczna — CHECKSUMS w `shared` (nowa flaga F-145).**
+`sha256sum -c shared/CHECKSUMS.sha256` na stanie wejściowym dał 12 pozycji
+FAILED, a `MOD-OS-CZASU-PRZESLANEK.md` (dodany wczoraj w 3.24) nie miał wpisu
+w ogóle. Rozjazd jest SPRZED tej sesji i NIE został rozstrzygnięty: nie
+wiadomo, czy to zmiana treści bez odświeżenia sumy, czy podmiana pliku.
+⛔ Świadomie NIE domknięto tego hurtowym przeliczeniem — regeneracja całego
+pliku skasowałaby dowód rozjazdu i wyglądałaby identycznie jak jego naprawa.
+Odświeżono wyłącznie sumy plików zmienionych w tej sesji (`SKILL.md`,
+`references/CHANGELOG.md`) i dopisano brakujące wpisy dwóch modułów
+kanonicznych; 12 pozycji pozostaje otwartych jako F-145.
+
+**Reguła 7 — zastosowanie:** TAK, pełny łańcuch, trzy osobne pakiety.
+
+## Kontrola przed wydaniem (PRE-DELIVERY-COMPLETENESS-CHECK, ZASADA 7)
+
+    skill                    przed   po    różnica   uzasadnienie
+    shared                    156    157     +1      nowy MOD-UNIT-SWEEP.md
+    prawny-router-v3           42     42      0      edycje w miejscu
+    audyt-systemu-v4           79     79       0      +1 scripts/check_unit_sweep_eli.py
+                                                     −1 scripts/__pycache__/
+                                                        test_cross_map_dzu.cpython-312.pyc
+
+⚡ Odnotowane: w źródle znajdował się skompilowany artefakt `.pyc` w
+`scripts/__pycache__/`. Nie jest treścią skilla (produkt uruchomienia testu,
+zależny od wersji interpretera) i nie został przeniesiony do pakietu. To NIE
+jest utrata pliku — ale bilans „79 → 79" bez tego zdania wyglądałby jak brak
+zmian, a zmiany są dwie. Kandydat do `.gitignore` po stronie dewelopera.
+
+Trzy osobne pakiety, po jednym na skill; zakaz pakietu zbiorczego zachowany.
+`diff -rq` archiwum po rozpakowaniu względem kopii roboczej: pusty dla każdego.
+
+## Status flag
+
+    F-144  OTWARTA. Część wykonawcza ZAMKNIĘTA w tej sesji (moduł, macierz,
+           skrypt, wpięcie w router, rejestracja, test). Część otwarta
+           POZOSTAJE wierszem w rejestrze żywym: pomiar skuteczności z grupą
+           kontrolną, uruchomienie gałęzi sieciowej na żywym ELI oraz dwa
+           wpięcia ⬛. ⛔ Do zamknięcia ZAKAZ opisywania US-GATE jako
+           mechanizmu, który „wyłapuje przepisy sąsiednie" — dowiedziona jest
+           wyłącznie jego obecność i poprawność zakresu na fixture.
+
+    F-145  OTWARTA — nowa, kategoria „wykonalne sesją audytową". 12 rozjazdów
+           CHECKSUMS w shared, do rozstrzygnięcia per plik.
+
+## Wniosek
+
+Ta sesja dokłada drugi wymiar do tego, co F-142 zaczęła: OŚ-GATE pyta KIEDY,
+US-GATE pyta CO OBOK. Obie bramki mają wyzwalacz liczbowy, więc obie da się
+sprawdzić z zewnątrz bez wchodzenia w merytorykę: policz daty w wejściu i
+artykuły w wyjściu, sprawdź obecność bloków. To jedyna cecha, która czyni
+F-143 i F-144 wykonalnymi.
+
+⛔ Systemowe ostrzeżenie do rozważenia przy następnym audycie: przyrost reguł
+jest monotoniczny — każda sesja po potknięciu dokłada bramkę, żadna nie
+usuwa. Reguły konkurują o uwagę, a dwudziesta nie dodaje się do
+dziewiętnastu. Kandydat na politykę: nowa reguła wchodzi tylko wtedy, gdy jest
+mechaniczna albo skryptowalna, albo gdy inna wychodzi. Osobno: system ma 20
+testów na strukturę plików i ZERO na treść odpowiedzi prawnej — kazus 111
+wykrył człowiek, nie test. To jest największa pojedyncza luka i żadna nowa
+bramka jej nie zamyka.
+
+---
+
+## AUDYT-2026-08-31d — F-144 przebudowa na WYJ-GATE; F-145 ZAMKNIĘTA
+
+**Polecenie:** przebudować bramkę z 3.35 na pozycję uniwersalną sprawdzającą
+wyjątki i przepisy szczególne oraz wykonać F-145.
+
+### Część 1 — dlaczego reguła NIE brzmi „sprawdź, czy istnieje wyjątek"
+
+Uwaga użytkownika była trafna: nazwa `MOD-UNIT-SWEEP` opisywała czynność
+(„zamiataj sąsiedztwo"), nie cel („nie przegap wyjątku"), przez co mechanizm
+wyglądał na wąską sztuczkę zamiast na regułę ogólną — i faktycznie pokrywał
+jedno z czterech miejsc, w których wyjątki mieszkają.
+
+Rozważono zapis wprost: „sprawdź, czy istnieje wyjątek albo przepis
+szczególny". ⛔ **Odrzucono i powód zapisano w module §2:** taki warunek jest
+ocenny. Żeby go wykonać, trzeba już podejrzewać, że wyjątek istnieje — a to
+jest dokładnie ta wiedza, której brak jest przyczyną błędu. Nie da się też
+zweryfikować jego wykonania z zewnątrz, bo nieobecności wyjątku nie sposób
+udowodnić. Warunek ocenny to udokumentowany tryb awarii tego systemu (F-113,
+F-119). Cel realizuje się więc przez **cztery policzalne zamiatania**, każde
+sprawdzalne pytaniem „czy w odpowiedzi jest lista pozycji z tego zakresu".
+
+Rozważono też wpięcie mechanizmu do OŚ-GATE. ⛔ Odrzucono: wyzwalacze są
+rozłączne (liczba dat vs liczba powołanych artykułów), więc przy zerze dat
+bramka wyjątków nie odpalałaby wcale — a to najczęstszy przypadek, w którym
+powinna. Sklejenie bramek o różnych wyzwalaczach podporządkowuje jedną drugiej.
+
+**Wykonano.** `shared/MOD-UNIT-SWEEP.md` 1.0 → `shared/MOD-WYJATEK-GATE.md`
+2.0 (WYJ-GATE), stary plik USUNIĘTY (dwie nazwy jednego mechanizmu to klasa
+błędu z `DEDUPLICATION-POLICY.md`; historia nazwy w §10 modułu). Zamiatania:
+**S1** sąsiedztwo z regułą indeksu górnego; **S2** krawędzie jednostki —
+pierwszy i ostatni artykuł działu, bo klauzule „nie stosuje się" stoją na
+krawędziach, nie przy przepisie, który wyłączają; **S3** rejestr odesłań ELI
+plus pytanie zamknięte o akt sektorowy dla danej kategorii strony; **S4**
+przepisy przejściowe przez odesłanie do OŚ-5.4, bez duplikatu procedury.
+
+⚡ **S3 jest zamiataniem, bez którego kazus 111 i tak by nie wyszedł:**
+wyłączenie rękojmi siedziało w ustawie z 27.07.2002, a nie w kodeksie.
+Wersja 1.0, chwalona w poprzednim wpisie, tego przypadku nie pokrywała.
+
+Router 3.35 → 3.36: BRAMKA WYJĄTKÓW, Reguła 12a przepisana, SELF-CHECK wymaga
+teraz wszystkich czterech zamiatań w bloku, także przy wyniku pustym.
+
+### Część 2 — F-145, rozjazd sum kontrolnych
+
+**Ustalenia.** Hipoteza „cezura czasowa" (wszystko po dacie X ma niezgodną
+sumę) została sprawdzona i **obalona**: pliki zgodne mają daty wewnętrzne aż do
+2026-08-31, a niezgodne sięgają czerwca. Rozjazd nie jest więc jednorazowym
+zaniechaniem po jakiejś sesji.
+
+**Kontrola integralności 12 plików** (rozmiar, poprawność UTF-8, obecność
+nagłówka H1, brak znaczników konfliktu scalania i obcięcia, zakończenie znakiem
+nowej linii): wszystkie 12 czyste. Kontrole celowane wobec deklaracji dziennika:
+`PRAWO-HARDGATE.md` zawiera sekcję „OBOWIĄZEK WIDOCZNEGO ZNACZNIKA" z 3.23,
+`DEF-PODMIOTY-WLASNOSC.md` zawiera art. 33 potwierdzony we wpisie 2026-08-08zo,
+`WERYFIKACJA-SLAD.md` nie zawiera wzorca `🎯 [CEL]` — zgodnie z ustaleniem
+z 2026-08-23f, że zmiany nie wymaga. **Brak śladów utraty lub podmiany.**
+
+**Przyczyna — inna niż zakładałem, otwierając flagę.** Nowy test T21 wykazał,
+że rozjazd ma trzy skille na trzy: `audyt-systemu-v4` 6 plików bez wpisu i 12
+sum niezgodnych, `prawny-router-v3` 3 niezgodne, `shared` 1 bez wpisu i 12
+niezgodnych. Razem 34. Dwa z tych skilli zmieniałem sam wczoraj i przedwczoraj.
+Odświeżanie sum nigdy nie było częścią procedury wydania — było czynnością
+pamiętaną ad hoc. To jest przyczyna, nie sam rozjazd.
+
+⚡ **Znalezisko systemowe:** `sha256sum -c` w ogóle nie widzi plików BEZ wpisu.
+Plik pominięty w rejestrze daje wynik pozornie najzdrowszy — zero błędów.
+Dokładnie ten sam wzorzec co F-130, gdzie brak pola `description:` dawał `0`
+klasyfikowane jako ✅ OK. Dlatego T21 sprawdza komplet, a nie tylko zgodność.
+
+**Naprawa.** Sumy odświeżone w trzech skillach (156 + 41 + 79 wpisów), T21
+PASS. Przyczyna domknięta testem, nie tylko objaw.
+
+⛔ **Ograniczenie zapisane wprost:** odświeżenie sum zamraża stan bieżący i nie
+odtwarza historii. Gdyby plik został uszkodzony przed tą sesją, odświeżenie
+utrwala uszkodzenie — kontrola integralności zmniejsza to ryzyko, ale go nie
+znosi. Dlatego F-145 zamykam jako „przyczyna usunięta i stan udokumentowany",
+nie jako „potwierdzono poprawność treści 12 plików".
+
+### Dowód
+
+`check_wyjatek_gate_eli.py --selftest` — **8/8 PASS**: S1 (5 pozycji, w tym
+art. 770¹ w zakresie art. 770), S2 (krawędzie art. 765 / art. 771), S3
+(spłaszczenie rejestru, rozpoznanie ustawy z 2002 r.). Mutacja negatywna dla
+S1 zachowana. Gałęzie błędu exit 3 / exit 2 potwierdzone.
+`check_checksums.py` — przed naprawą FAIL, 34 rozjazdy; po naprawie PASS, 0.
+Pakiet regresyjny na pełnym repo z nałożonymi zmianami: PASS strukturalny,
+T17 PASS, T18 PASS (brak modułu-widma po przemianowaniu).
+
+### Granice
+
+1. ⚠️ Gałąź sieciowa T20 (obie ścieżki: `text.html` i `references`) NIE
+   uruchomiona na żywym ELI — domena poza listą dozwoloną środowiska.
+2. ⛔ Pusty rejestr odesłań w S3 nie dowodzi braku lex specialis: akt, który
+   nie odsyła wprost do aktu głównego, w rejestrze się nie pojawi. Skrypt
+   wypisuje to ostrzeżenie.
+3. Bramka pozostaje samoraportująca (F-119); obecność ≠ skuteczność.
+4. Dwa wpięcia nadal ⬛ NIEWPIĘTE: `analizator-przepisow-v2`, `pisma-procesowe-v3`.
+
+**Reguła 7 — zastosowanie:** TAK, pełny łańcuch, trzy osobne pakiety.
+
+## Kontrola przed wydaniem (PRE-DELIVERY-COMPLETENESS-CHECK, ZASADA 7)
+
+    skill                    przed   po    różnica   uzasadnienie
+    shared                    156    157     +1      MOD-UNIT-SWEEP.md → MOD-WYJATEK-GATE.md
+                                                     (rename, bilans zero) + zmiany w SKILL,
+                                                     MOD-OS-CZASU, CHANGELOG, CHECKSUMS
+    prawny-router-v3           42     42      0      edycje w miejscu
+    audyt-systemu-v4           79     80      +1      nowy scripts/check_checksums.py;
+                                                     check_unit_sweep_eli.py przemianowany
+                                                     na check_wyjatek_gate_eli.py
+
+Bilans `shared` liczony względem stanu WEJŚCIOWEGO sesji (156). Wobec pakietu
+pośredniego 3.25 z tej samej sesji zmiana to rename: −1 plik, +1 plik.
+
+Trzy osobne pakiety, po jednym na skill; zakaz pakietu zbiorczego zachowany.
+`diff -rq` archiwum po rozpakowaniu względem kopii roboczej: pusty dla każdego.
+
+## Status flag
+
+    F-144  OTWARTA. Część wykonawcza ZAMKNIĘTA (moduł 2.0, cztery zamiatania,
+           wpięcie w router, T20 rozszerzony, rejestracje). Część otwarta
+           w rejestrze żywym: pomiar z grupą kontrolną, żywe ELI, dwa wpięcia ⬛.
+
+    F-145  ZAMKNIĘTA. Kryterium: każdy plik rozstrzygnięty (12 zbadanych pod
+           kątem integralności, bez śladów utraty), przyczyna usunięta testem
+           T21, sumy odświeżone w trzech skillach, T21 PASS. Wiersz zdjęty
+           z rejestru żywego zgodnie z ZASADĄ 10.
+
+## Wniosek
+
+Dwie rzeczy warte zapamiętania z tej sesji. Po pierwsze: **poprzedni wpis
+(31c) chwalił mechanizm, który pokrywał jedno z czterech miejsc** — wykrył to
+użytkownik, nie test ani self-check. Po drugie: **F-145 miała inną przyczynę,
+niż zakładałem, otwierając ją**. Otworzyłem ją jako „12 rozjazdów w shared do
+rozstrzygnięcia per plik"; okazała się brakiem kroku w procedurze wydania,
+dotyczącym wszystkich trzech skilli, w tym tych, które sam wydawałem. Wniosek
+proceduralny: gdy rozjazd dotyczy trzech obiektów na trzy, hipoteza „uszkodzenie
+obiektu" jest słabsza niż hipoteza „brak kroku w procesie" — i to proces trzeba
+badać najpierw.
+
+### Uzupełnienie do AUDYT-2026-08-31d — F-146, skala zjawiska w całym repo
+
+Po zamknięciu F-145 uruchomiono T21 na **całym repozytorium**, nie tylko na
+trzech zmienianych skillach. Wynik: **31 skilli prowadzi `CHECKSUMS.sha256`,
+czyste są 3** — te naprawione w tej sesji. W pozostałych 28: **202 pozycje** —
+93 pliki bez wpisu, 4 wpisy bez pliku, 105 sum niezgodnych. Najwięcej
+w dziedzinowych: dr-02 (32), dr-03 (21), dr-01 (15), dr-04 (15).
+
+To potwierdza wniosek proceduralny z części 2 i rozszerza go: odświeżanie sum
+nigdy nie było krokiem procedury wydania w ŻADNYM skillu. F-145 była lokalnym
+objawem zjawiska obejmującego cały system — i była widoczna tylko dlatego, że
+`shared` akurat zmieniałem.
+
+⛔ Świadomie NIE domknięto tego w tej sesji. Przy F-145 kontrola integralności
+12 plików była tania i to ona odróżniła „zmianę bez odświeżenia" od „utraty
+pliku"; przy 202 pozycjach to osobny zakres pracy, a hurtowe przeliczenie bez
+kontroli utrwaliłoby ewentualne uszkodzenie i skasowało jedyny ślad. Zakres
+przypisany do nowej flagi **F-146** (wykonalne sesją audytową, priorytet
+wysoki). Priorytet wewnętrzny: 4 wpisy BEZ PLIKU — to jedyna kategoria, która
+może oznaczać realną utratę, a nie samo zaniechanie.
+
+---
+
+## AUDYT-2026-09-01 — F-147: przebieg regresyjny, 5 napraw, nowy test T22
+
+**Polecenie użytkownika:** przeprowadzić zestaw testów regresyjnych, naprawić
+znalezione błędy, wydać naprawione skille zgodnie z Regułą 7.
+
+**Środowisko i metoda.** Pełna kopia robocza całego korpusu
+(`../..` → WORK_COPY, 33 skille, 1208 plików). Wszystkie edycje
+wyłącznie w WORK_COPY; źródło nietknięte. Stan wejściowy zapisany
+`find … | sort > before.files` dla każdego wydawanego skilla, zgodnie
+z PRE-DELIVERY-COMPLETENESS-CHECK.
+
+### 1. STATUS OGÓLNY
+
+Orkiestrator `run_regression_suite.py`: T1, T2, T3, T6/T7, T8, T9, T13, T17,
+T18, T19 — PASS. T4, T5 — RĘCZNE z założenia. T11 — WARN (16 pozycji, znana
+F-141). T12 — WARN (`shared`). T14 — ⛔ CRIT (`prompt-master`).
+
+Testy spoza orkiestratora, uruchomione osobno: T20 `--selftest` 8/8 PASS;
+T21 FAIL (202 rozjazdy, znana F-146); T15 blocker środowiskowy (HTTP 403);
+`check_rejestracja_modulow` 16/16 OK; **`test_f108_trade.py` i
+`mock_eli_server_test.py` — AWARIA, nie FAIL**.
+
+⚡ **Obserwacja O-4.** Trzy skrypty (`test_f108_trade`, `mock_eli_server_test`,
+`check_frontmatter_rejestracja` po dodaniu) istniały i były zarejestrowane,
+ale NIE były wywoływane przez pełny przebieg. Dwa z nich były zepsute od
+dni. Rejestracja w `scripts:` nie jest tym samym co wpięcie w orkiestrator —
+do tej sesji nic tej różnicy nie pilnowało.
+
+### 2. NAPRAWY WYKONANE (CRIT)
+
+**F-147/1 — sklejona linia YAML wycisza test KRYTYCZNY.** W `SKILL.md` wpis
+`scripts/check_coverage_coherence.py` (T18) był doklejony do komentarza
+pozycji poprzedniej escape'em nowej linii zapisanym dosłownie. Parser widział
+JEDEN element listy; T18 nie figurował w rejestrze mimo obecności na dysku
+i wywołania przez orkiestrator. Rozjazd żył od 2026-08-27 (dodanie T18) do
+2026-09-01, tj. pięć dni i cztery sesje. Nie wykrywalne odczytem — w renderze
+Markdown linia wygląda poprawnie; ujawnia się dopiero przy `yaml.safe_load`.
+
+**F-147/2 — trzy pliki-sieroty w `references/`:**
+`F-135-cross-check-wartosci-prawnych-2026-08-28.md`,
+`AUDYT-PRZERWANYCH-ETAPOW-2026-08-28.md`, `COWORK-HARMONOGRAM-NATYWNY.md`.
+Ten sam wzorzec co F-80 i F-124. Zarejestrowane.
+
+**F-147/3 — `test_f108_trade.py` kończył się `IndexError`.** Kotwice
+`## Rejestr postępu` i `**Następna transza:**` zniknęły przy przebudowie
+`F-108-lista-MS-egzamin-2026.md` z 2026-08-28: domknięcie flagi usunęło
+warstwę transz, a test nie został zaktualizowany. Skutek gorszy niż FAIL —
+test przerywał się awarią, więc DZIEWIĘĆ kontroli po nim nigdy się nie
+wykonało. Kotwice nazwane stałymi i sprawdzane wprost przed indeksowaniem.
+
+**F-147/4 — widmowe pokrycie w `dr-02/MAPA-POKRYCIA.md`** (kategoria T5).
+Ujawnione dopiero przez naprawę /3, w jednej z dziewięciu wyciszonych kontroli.
+Trzy wiersze deklarowały status 🟢 B+/COV, wskazując w kolumnie modułu ogólnik
+„dedykowany moduł" zamiast nazwy pliku: ubezpieczenia obowiązkowe/UFG/PBUK,
+fundacja rodzinna, opóźnienia w transakcjach handlowych. Moduły istnieją
+i są poprawnie wpisane w `MAPA-AKTOW.md` — usterką była NIEWERYFIKOWALNOŚĆ
+deklaracji pokrycia, nie brak treści. Uzupełniono nazwy plików.
+
+**F-147/5 — `mock_eli_server_test.py` nie testował niczego.** Trzy rozjazdy
+z przebudowanym `sync_dzu_eli.py` naraz: `wczytaj_numery_z_mapy()` dostawał
+`str` zamiast `Path`; `pobierz_nowe_pozycje_eli()` dostawał jeden `str`
+zamiast dwóch `date`; mock obsługiwał `/eli/acts/DU/search`, a produkcja
+odpytuje indeks roczny `/eli/acts/DU/{rok}`. `AttributeError` na pierwszym
+wywołaniu. Przepisany, dodana kontrola filtra dat (pozycja spoza przedziału);
+5/5 PASS. Skrypt jest jedynym testem F-10 — przez cały okres awarii flaga
+nie miała żadnego pokrycia.
+
+**T14 CRIT — `prompt-master`:** description 837 znaków (blok `|` z pełną listą
+wyzwalaczy) → 173 znaki. Lista wyzwalaczy przeniesiona do korpusu SKILL.md,
+sekcja „Kiedy uruchamiać ten skill" — treść zachowana, nie skasowana.
+
+**T12 WARN — `shared`:** pole `changelog:` 19 linii (próg 15) → 8, z odesłaniem
+do `references/CHANGELOG.md`. Wersja NIE podbijana świadomie: zmiana dotyczy
+wyłącznie lokalizacji historii, a `shared` ma najwyższy in-degree w systemie
+i podbicie numeru pociągnęłoby przegląd cross-referencji (FAZA 2B) bez zysku.
+
+### 3. NOWY TEST — T22
+
+`scripts/check_frontmatter_rejestracja.py`, priorytet KRYTYCZNY. Powstał
+bezpośrednio z F-147/1, zgodnie z zasadą naczelną planu testów: każdy test
+odpowiada konkretnemu, rzeczywiście znalezionemu błędowi.
+
+Luka, którą zamyka: system miał 21 testów i ZERO na rejestrację własnych
+zasobów skilla narzędziowego. `check_rejestracja_modulow.py` pilnuje wyłącznie
+modułów DR (4 rejestry dziedzinowe), `ci_check_shared.py` widzi wyłącznie
+odwołania ZERWANE — plik obecny na dysku i nieobecny w rejestrze był dla niego
+stanem najzdrowszym. To trzecie wystąpienie tego samego wzorca ślepoty:
+F-130 (brak `description:` → `0` = ✅), F-145 (plik bez wpisu w CHECKSUMS →
+`sha256sum -c` czysty), F-147 (plik bez wpisu w `scripts:` → brak zerwanych
+odwołań). **Wniosek do przeniesienia dalej: każdy nowy test należy projektować
+tak, by NIEOBECNOŚĆ nie dawała wyniku pozytywnego.**
+
+Zakres świadomie wąski: skill, który danego klucza nie deklaruje, nie jest pod
+nim sprawdzany — test pilnuje spójności zadeklarowanego rejestru, nie narzuca
+obowiązku prowadzenia rejestru. Bez PyYAML (jak reszta skryptów systemu).
+
+Mutacja negatywna wykonana: po odtworzeniu sklejenia w kopii `/tmp` T22 zwraca
+FAIL i wskazuje zarówno dosłowny escape, jak i wypadnięty wpis T18.
+
+**Orkiestrator:** wpięte T22, T19b (`test_f108_trade`) i self-test mocka ELI.
+T22 i T19b dopisane do blockerów strukturalnych.
+
+### 4. WERYFIKACJA Dz.U.
+
+**Nie wykonano — blocker środowiskowy, nie zaniechanie.** `api.sejm.gov.pl`
+zwraca HTTP 403 (domena poza listą dozwoloną środowiska). Dotyczy T15
+(`audit_tj_inventory.py`), sieciowej gałęzi T20 i weryfikacji ośmiu pozycji
+z F-141. Żadna mapa Dz.U. nie była w tej sesji zmieniana — ZASADA 3 zakazuje
+aktualizacji bez potwierdzenia online.
+
+### 5. ZAKRES ŚWIADOMIE POMINIĘTY
+
+**F-146 (T21, 202 rozjazdy sum w 28 skillach).** `WARN-OTWARTE.md` wprost
+zakazuje domykania hurtowym `sha256sum` per skill: przy F-145 kontrola
+integralności odróżniła „zmianę bez odświeżenia" od „utraty pliku", a bez niej
+odświeżenie utrwala ewentualne uszkodzenie. Cztery wpisy BEZ PLIKU zachowują
+priorytet. Flaga pozostaje otwarta w niezmienionym zakresie.
+
+Odświeżono wyłącznie `CHECKSUMS.sha256` w `audyt-systemu-v4` i `shared` — oba
+były przed tą sesją czyste w T21 (79/79 i 156/156), więc odświeżenie rozlicza
+zmiany TEJ tury i jest częścią wydania, nie domknięciem F-146.
+
+### 6. WNIOSKI I ZALECENIA
+
+1. Rejestracja pliku ≠ wpięcie w orkiestrator. Trzy skrypty żyły poza pełnym
+   przebiegiem, dwa zepsute. Przy dodawaniu testu sprawdzać OBA miejsca.
+2. Test, który przerywa się wyjątkiem, jest gorszy od testu, który zwraca FAIL:
+   wycisza wszystko, co po nim. `test_f108_trade` ukrywał tak 9 kontroli,
+   w tym jedną wskazującą realną usterkę pokrycia w DR-02.
+3. Wzorzec „nieobecność raportowana jako stan zdrowy" wystąpił po raz trzeci
+   (F-130, F-145, F-147). Kandyduje na stałą pozycję listy kontrolnej przy
+   projektowaniu każdego nowego testu.
+4. Do rozstrzygnięcia przez użytkownika: czy dodać test pilnujący, że każdy
+   zarejestrowany skrypt testowy jest wywoływany przez orkiestrator albo ma
+   jawnie odnotowany status RĘCZNY. Obserwacja O-4 nie ma dziś pokrycia.
+
+---
+
+## AUDYT-2026-09-01b — F-146 ZAMKNIĘTA; T15 wykrywa trzy błędne numery Dz.U. (F-149); nowa F-148
+
+**Polecenie użytkownika:** wykonać testy regresyjne z audytu systemu, naprawić
+niepowodzenia, wydać gotowe skille zgodnie z REGUŁĄ 7.
+
+**Sesja jest kontynuacją AUDYT-2026-09-01 (F-147)** — ta sama kopia robocza,
+stan wejściowy 1207 plików w 32 skillach.
+
+### 1. PRZEBIEG ZESTAWU
+
+`run_regression_suite.py` — **PASS strukturalny**. T1, T2, T3, T6/T7, T8, T9,
+T12, T13, T14, T17, T18, T19, T19b, T22, MOCK: PASS. T4/T5: RĘCZNE. T11: WARN,
+16 pozycji — pokrywa się co do sztuki z otwartą **F-141**, bez zmiany zakresu.
+
+Testy spoza orkiestratora (obserwacja **O-4** potwierdzona w praktyce: trzeba je
+było uruchomić ręcznie, bo orkiestrator ich nie wywołuje):
+
+    T20  check_wyjatek_gate_eli.py --selftest   →  8/8 PASS (gałąź sieciowa nadal nieuruchomiona)
+    T21  check_checksums.py                     →  ❌ FAIL, 202 rozjazdy = pełny zakres F-146
+    T15  audit_tj_inventory.py                  →  ❌ FAIL, 4 problemy (maps+operational)
+
+⚡ **Gałąź sieciowa T15 ZADZIAŁAŁA.** W tym środowisku `api.sejm.gov.pl` jest na
+liście dozwolonych domen, więc T15 przeszedł pełną weryfikację wobec ELI — nie
+tylko parsery. To pierwszy przebieg tego testu z żywym źródłem.
+
+### 2. F-146 — ZAMKNIĘTA
+
+Kolejność wymuszona przez zakaz z `WARN-OTWARTE.md` (⛔ nie domykać hurtowym
+`sha256sum`): najpierw kontrola integralności, dopiero potem odświeżenie.
+
+**Kontrola integralności 198 plików** (93 bez wpisu + 105 sum niezgodnych),
+metoda z F-145: rozmiar, poprawność UTF-8, obecność H1/frontmatteru, znaczniki
+konfliktu scalania, heurystyka obcięcia, zakończenie znakiem nowej linii.
+Wynik: **zero śladów utraty lub podmiany**. 6 trafień heurystyki obcięcia
+sprawdzonych ręcznie — wszystkie fałszywe (pliki kończą się listą źródeł/URL-i,
+bez interpunkcji końcowej). Pozostałe zastrzeżenia to brak `\n` na końcu pliku,
+co jest usterką kosmetyczną, nie utratą.
+
+**Cztery wpisy BEZ PLIKU — priorytetowa kategoria — rozstrzygnięte pojedynczo.**
+Wszystkie cztery to udokumentowane przeniesienia lub zmiany nazwy, cele istnieją
+na dysku, żaden nie jest utratą:
+
+    dr-03  mod-KK-stalking-szczegolowy.md      → shared/STALKING-NEKANIE.md (2026-07-12, NOTA-12)
+    dr-16  mod-KPC-przesluchanie-swiadkow.md   → shared/PRZESLUCHANIE-SWIADKOW-KPC.md (2026-07-12, NOTA-13)
+    dr-04  mod-KPA-postepowanie-administracyjne.md → przeniesiony do DR-05 (2026-07-19, tam obecny)
+    dr-10  mod-ustawa-zawody-medyczne-i-prawnicze.md → nazwa skorygowana na
+           mod-ustawa-zawody-prawnicze-pokrewne.md (2026-07-15)
+
+Wpisy usunięte z rejestrów sum jako martwe; treść nie zaginęła.
+
+**Kontrola pozytywna generatora.** Przed użyciem generator sum uruchomiono na
+trzech skillach, które T21 uznawał za czyste (`audyt-systemu-v4`,
+`prawny-router-v3`, `shared`) — odtworzył ich `CHECKSUMS.sha256` **bajtowo
+identycznie**. Bez tego kroku „odświeżenie" mogłoby po cichu zmienić konwencję
+pliku (kolejność, separator, zestaw wykluczeń) w 28 skillach naraz.
+
+**Wynik:** sumy odświeżone w 28 skillach, `check_checksums.py` → **PASS, 0
+rozjazdów** na całym repozytorium (31 skilli prowadzących plik sum).
+
+⛔ **Ograniczenie zapisane wprost, tak jak przy F-145:** odświeżenie zamraża stan
+bieżący i nie odtwarza historii. Kontrola integralności zmniejsza ryzyko
+utrwalenia uszkodzenia, ale go nie znosi. F-146 zamykam jako „każdy plik
+rozstrzygnięty, przyczyna usunięta testem T21 wpiętym w procedurę wydania", nie
+jako „potwierdzono poprawność treści 198 plików".
+
+### 3. F-149 (NOWA, ZAMKNIĘTA W TEJ SAMEJ SESJI) — trzy błędne numery Dz.U.
+
+T15 zwrócił cztery zgłoszenia; dwa okazały się realnymi błędami, a rozstrzygnięcie
+jednego z nich odsłoniło trzeci błąd, którego test nie widzi z konstrukcji.
+**Wszystkie trzy to ten sam wzorzec ZASADY 8: nazwa aktu poprawna, numer cudzy.**
+
+**(1) Ustawa o elektromobilności i paliwach alternatywnych.** Rejestry podawały
+`Dz.U. 2024 poz. 1634`. W ELI ten numer to rozporządzenie Ministra Finansów
+z 22.10.2024 ws. zwrotu VAT siłom zbrojnym. Prawidłowy tekst jednolity:
+**Dz.U. 2024 poz. 1289** (obwieszczenie 19.08.2024, status obowiązujący),
+potwierdzony też rejestrem t.j. aktu bazowego `DU/2018/317`. Poprawione:
+`dr-09/MAPA-AKTOW.md`, `dr-09/modules/mod-ustawa-transport-drogowy-kolejowy-lotniczy-morski.md`
+(nagłówek rozdziału 7), `prawo-polskie-v2/ROUTING-MAP.md`, mapa centralna.
+
+**(2) Ustawa rehabilitacyjna (PFRON).** Rejestry podawały `Dz.U. 2025 poz. 913`,
+który ma dziś w ELI status **wygaśnięcie aktu / NOT_IN_FORCE**. Bieżący t.j.:
+**Dz.U. 2026 poz. 884** (obwieszczenie 19.06.2026, ogł. 1.07.2026). Poprawione
+w 8 lokalizacjach: `dr-04/MAPA-AKTOW.md`, `prawo-polskie-v2/ROUTING-MAP.md`,
+`shared/AKTY-PRAWNE-MASTER.md`, `shared/ISAP-METRYKI-AKTOW.md`,
+`shared/mod-osoba-niewidoma-prawa-sad.md`,
+`shared/mod-niepelnosprawnosc-intelektualna-gluchota.md`,
+`shared/orka-bas-leksykon/czesc-03-cywilne-niepelnosprawnosc.md` (3 wystąpienia),
+mapa centralna (nowy wiersz + poprzedni na `PREV`).
+
+**(3) Ustawa z 31.07.2019 o świadczeniu uzupełniającym — znalezisko uboczne,
+poza zasięgiem T15.** ANEKS w `mod-ustawa-rehabilitacja-PFRON.md` przypisywał tej
+ustawie `Dz.U. 2026 poz. 884`, czyli numer t.j. ustawy rehabilitacyjnej — DWIE
+różne ustawy pod jednym numerem, w jednym module. Prawidłowy t.j.:
+**Dz.U. 2026 poz. 723** (obwieszczenie 27.05.2026, ogł. 2.06.2026), potwierdzony
+rejestrem t.j. aktu bazowego `DU/2019/1622`. Przy tej okazji rozstrzygnięto wiersz
+mapy centralnej „2024 | 1278 | Świadczenie uzupełniające — poprzedni t.j.":
+`2024.1278` jest w ELI rozporządzeniem MSWiA, a wiersz odsyłał do `2025.913`
+(t.j. innej ustawy). Zastąpiony parą `2026.723` (OK) / `2024.1649` (`PREV`).
+
+⚡ **Dlaczego T15 tego nie złapał i co z tego wynika.** Test grupuje deklaracje po
+tytule kanonicznym POBRANYM Z ELI, nie po nazwie użytej lokalnie. Numer, który
+istnieje, jest obwieszczeniem i jest najnowszy dla SWOJEGO aktu, przechodzi
+kontrolę — nawet jeśli lokalnie opisano nim zupełnie inną ustawę. To luka klasy
+„zgodność nazwy nie dowodzi numeru" (ZASADA 8) po stronie narzędzia. Odnotowana
+jako **F-148**.
+
+### 4. F-148 (NOWA, OTWARTA) — dwie luki czułości T15
+
+**(a) Ślepota na podmianę aktu** — opisana wyżej: test nie porównuje tytułu
+pobranego z ELI z nazwą użytą w rejestrze lokalnym. Wykryte przez człowieka przy
+czytaniu kontekstu, nie przez test.
+
+**(b) Dwa trwałe fałszywe trafienia**, świadomie NIE „naprawiane" w treści —
+modyfikacja korpusu dla uciszenia testu byłaby gorsza od szumu:
+
+    ROUTING-MAP.md:219                     parser czyta numer aktu PIERWOTNEGO
+                                           (2023.1285) z komórki, która obok podaje
+                                           poprawny t.j. 2024.1111
+    dr-03/mod-KW-art119-131:220            świadome odesłanie HISTORYCZNE do t.j.
+                                           2023.2119; wiersz wyżej cytuje bieżący
+                                           t.j. 2025.734
+
+Odpowiednik poprawki czułości T11 z F-106 (29 → 19 trafień). Do wykonania po
+stronie skryptu, nie korpusu.
+
+**Stan T15 po korektach:** maps+operational 4 → **2 problemy**, oba to (b).
+
+⛔ **Tryb `--mode all` NIE jest kryterium wydania i nie był nim nigdy.** Na 359
+plikach zwraca 92 zgłoszenia, w większości z `AUDIT-JOURNAL.md`, materiałów
+`references/` i leksykonu ORKA-BAS. Aktualizowanie numerów t.j. w dzienniku
+byłoby wprost sprzeczne z zasadą, że dziennik jest zapisem historycznym.
+Zakres egzekwowany: `maps` + `operational`.
+
+### 5. DOWÓD
+
+    check_checksums.py        przed: FAIL 202 rozjazdy  →  po: PASS 0
+    audit_tj_inventory.py     przed: 4 problemy         →  po: 2 (oba znane fałszywe)
+    test_header_snapshot.py   --snapshot/--verify na 11 edytowanych plikach: brak ubytku nagłówków
+    run_regression_suite.py   pełny przebieg po zmianach: PASS strukturalny
+    check_wyjatek_gate_eli.py --selftest: 8/8 PASS
+
+### 6. STATUS FLAG
+
+    F-146  ZAMKNIĘTA. 202 rozjazdy rozliczone: 93 wpisy uzupełnione, 4 wpisy bez
+           pliku rozstrzygnięte jako martwe po udokumentowanych przeniesieniach,
+           105 sum odświeżonych po kontroli integralności. T21 na całym repo PASS.
+           Wiersz zdjęty z rejestru żywego (ZASADA 10).
+    F-149  ZAMKNIĘTA w sesji, w której powstała — trzy numery skorygowane
+           i zweryfikowane w RZĘDZIE 1, propagacja przez 12 lokalizacji + mapa.
+           Do rejestru żywego nie wchodzi.
+    F-148  OTWARTA — dwie luki czułości T15 (podmiana aktu; dwa fałszywe trafienia).
+    F-141  OTWARTA, zakres bez zmian (T11 WARN, 16 pozycji).
+    O-4    OTWARTA — potwierdzona w praktyce: T15, T20 i T21 trzeba było uruchomić
+           ręcznie, a to właśnie one dały jedyne dwa FAIL tej sesji.
+
+### 7. WNIOSEK
+
+Orkiestrator zwrócił PASS, a system miał w tym momencie 202 rozjazdy sum i trzy
+błędne numery Dz.U. w rejestrach operacyjnych. Oba FAIL pochodzą z testów, które
+istnieją, są zarejestrowane w `scripts:` i **nie są wywoływane przez pełny
+przebieg**. To najmocniejszy dotąd argument za domknięciem O-4: dopóki „pełny
+przebieg" nie oznacza pełnego, jego PASS jest wynikiem węższym, niż sugeruje.
+
+---
+
+## AUDYT-2026-09-01c — F-150 i F-151 ZAMKNIĘTE; inwentarz portali orzeczniczych; nowa F-152
+
+**Zakres:** pełny przebieg regresyjny + pierwsze uruchomienie gałęzi sieciowej
+T20 na żywym API + badanie dostępu maszynowego do portali orzeczniczych
+i interpretacyjnych. Wywołane poleceniem użytkownika.
+
+### 1. Przebieg regresyjny (stan wejściowy)
+
+`run_regression_suite.py --repo-root ../..`: WYNIK KOŃCOWY
+**PASS STRUKTURALNY**. T1, T2, T3, T6/T7, T8, T9, T12, T13, T17, T18, T19,
+T19b, T22, MOCK — PASS. T4, T5 — RĘCZNE, niewykonane. **T11 — WARN**
+(16 pozycji, pokrywa się z zakresem otwartej F-141). **T14 — FAIL**
+(`prompt-master`, `description` 837 znaków przy progu 200).
+Poza orkiestratorem: **T21 PASS** (31 skilli, 0 rozjazdów — potwierdza
+domknięcie F-146); **T20 `--selftest` 8/8 PASS**.
+
+### 2. F-150 — gałąź sieciowa T20 czytała złą wersję aktu (ZAMKNIĘTA)
+
+Docstring `check_wyjatek_gate_eli.py` zapisywał, że ścieżka sieciowa nie
+została uruchomiona, bo `api.sejm.gov.pl` jest poza listą dozwolonych domen.
+W bieżącym środowisku domena **jest** dozwolona z kanału kodu. Uruchomienie
+ujawniło cztery usterki, wszystkie fałszywie negatywne:
+
+1. **Zły endpoint.** `/eli/acts/DU/1964/93/text.html` — wywołanie z własnego
+   przykładu użycia skryptu — serwuje tekst **OGŁOSZONY** z 1964 r. Pobrany
+   dokument (2,2 MB) zawiera ZERO jednostek z indeksem górnym: brak art. 385¹,
+   449¹ i 770¹. S1 na art. 770 k.c. zwracało `769 / 770 / 771` — fałszywy
+   negatyw **dokładnie w kazusie źródłowym F-144**, dla którego bramkę
+   zbudowano. Kontrola na drugim akcie: tekst ogłoszony KK (DU/1997/553,
+   1,1 MB) nie zawiera jednostki „Art. 190a".
+2. **Mylący komunikat.** Podstawienie poprawnego t.j. (`DU/2026/795`) dawało
+   „Nie znaleziono art. 770 w tekście" — nieodróżnialne od nieistnienia
+   jednostki. Przyczyna: obwieszczenie ma `textHTML: false`, `/text.html`
+   zwraca 0 bajtów, nie błąd.
+3. **Parser S3 niezgodny z żywym API.** `--references` zwracało **373/373**
+   pozycji jako `?/?/?`. Parser zakładał płaski JSON; ELI zwraca zagnieżdżone
+   `{"act": {...}}`. Selftest tego nie łapał, bo fixture miał stary kształt —
+   ten sam wzorzec co F-130 (test mierzy nośnik, nie rzeczywistość).
+4. **Fałszywe nagłówki z prozy** (ujawnione dopiero po naprawie 1–2, na pełnym
+   t.j.). `HEADING_RE` bez kotwicy `^` łapało frazę „…w dziale lub…" jako
+   nagłówek „DZIAŁ Lu" (L jako cyfra rzymska + opcjonalna litera). Skutek: art.
+   771–773 wypadały poza TYTUŁ XXIV, więc S2 wskazywało jako „ostatni artykuł
+   jednostki" art. 770 zamiast art. 773 — czyli miejsce, w którym klauzul
+   wyłączających NIE ma.
+
+**Naprawa** (`scripts/check_wyjatek_gate_eli.py`):
+- `resolve_tj()` / `_pick_tj()` — rozwiązanie aktu do najnowszego
+  **OBOWIĄZUJĄCEGO** t.j. z `/references`; wybór po statusie, nie po kolejności
+  na liście (rejestr bywa nieposortowany, starsze obwieszczenia mają
+  „wygaśnięcie aktu");
+- `fetch_act_text()` — t.j. HTML jeśli jest, inaczej `text.pdf` +
+  `pdftotext -layout`; zejście na tekst ogłoszony wyłącznie z JAWNĄ etykietą
+  wersji w bloku wyjściowym; nowa flaga `--ogloszony` do świadomego wymuszenia;
+- `ART_RE` — rozpoznanie indeksu górnego w formie `Art. 770[1]` (tak renderuje
+  go `pdftotext`);
+- `parse_references()` — rozpakowanie `{"act": {...}}`, odczyt `ELI`,
+  `displayAddress`, `promulgation`;
+- `HEADING_RE` — kotwica `^` + `MULTILINE`;
+- komunikat błędu rozdzielony: brak JAKIEJKOLWIEK jednostki (kod 5, awaria
+  pobrania) vs brak konkretnego artykułu (kod 3), oba z etykietą wersji.
+
+**Dowód naprawy:** `--selftest` **20/20 PASS** (osiem nowych przypadków: kształt
+żywego API, indeks `[N]` z PDF, wybór obowiązującego t.j., proza nie tworzy
+nagłówka, S2 wskazuje art. 773). Na żywym API: źródło raportowane jako
+`DU/2026/795/text.pdf [TEKST JEDNOLITY Dz.U. 2026 poz. 795]`, art. 770¹ obecny
+w zakresie S1, S2 `pierwszy 765 / ostatni 773`, S3 — 0 pozycji `?/?/?` z 373.
+
+⛔ **Czego to NIE zamyka:** F-144 pozostaje otwarta. Poprawność zakresów to nie
+to samo co skuteczność bramki; pomiar z grupą kontrolną nadal niewykonany.
+Wiersz F-144 skrócono o wykonany podzakres sieciowy (ZASADA 10 pkt 3).
+
+### 3. F-151 — „ROBOTS_DISALLOWED" opisywało narzędzie jako serwer (ZAMKNIĘTA)
+
+Tabela w `PRAWO-HARDGATE.md` (wpis z 2026-08-23) przypisywała blokadę serwerom.
+Pomiar 2026-09-01: `eli.gov.pl/robots.txt` brzmi `User-Agent: * / Disallow:`
+— zezwala na wszystko — a `curl` zwraca HTTP 200. Blokada leży po stronie
+`web_fetch`. Osobno: `isap.sejm.gov.pl` zwraca **pętlę 302 na samego siebie**,
+więc jest kanałem martwym także poza `web_fetch`, mimo pozycji nr 1 w RZĘDZIE 1.
+
+Skutek merytoryczny, nie kosmetyczny: przy hoście z kanałem kodu RZĄD 1 jest
+osiągalny w pełni, łącznie z BRZMIENIEM przepisu — więc zejście na
+`🟨 KOTWICĘ URZĘDOWĄ` bywało nieuzasadnione.
+
+**Naprawa:** `shared/PRAWO-HARDGATE.md` — kolumna retestu w tabeli kanałów,
+korekta nazewnicza, nowa sekcja „PUŁAPKA `/text.html`" z sekwencją B-T1…B-T3;
+`shared/HIERARCHIA-ZRODEL.md` v1.5 — REALIA DOSTĘPNOŚCI rozpisane per kanał,
+nowa pozycja RZĄD 2A dla orzecznictwa organów.
+
+### 4. Portale orzecznicze i interpretacyjne — inwentarz
+
+Nowy plik `references/PORTALE-ORZECZNICZE-API.md` (16 pozycji). Ustalenia:
+- **API pełne:** `api.sejm.gov.pl/eli` (akty), `saos.org.pl` (SN, NSA/WSA, sądy
+  powszechne, TK, KIO — projekt zewnętrzny, zgłaszane przerwy dostępności),
+  `api.dane.gov.pl` (katalog; ⚠️ nieznany filtr jest ignorowany i zwraca 200 z
+  całym katalogiem — literówka wygląda jak sukces), SUDOP (pomoc publiczna).
+- **API po stronie organu:** wyłącznie `orzeczenia.uodo.gov.pl/api-doc/`;
+  specyfikacja renderowana JS, treści nie odczytano — do potwierdzenia.
+- **Brak API:** CBOSA (dodatkowo aktywne blokowanie automatów i CAPTCHA;
+  deklaruje charakter „jedynie informacyjny i edukacyjny"), Portal Orzeczeń
+  sądów powszechnych, SN (publikuje wybrane orzecznictwo), IPO TK,
+  KIO/UZP (istnieje zewnętrzny konektor MCP czytający HTML), EUREKA (SPA bez
+  publicznego interfejsu), decyzje UOKiK (zapytania automatyczne odrzucane
+  przez warstwę ochronną), UKE (baza „nie ma statusu zbioru urzędowego").
+- **Dźwignia formalna:** ustawa z 11 sierpnia 2021 r. o otwartych danych i
+  ponownym wykorzystywaniu informacji sektora publicznego, Dz.U. 2021 poz. 1641,
+  t.j. Dz.U. 2023 poz. 1524 (obowiązujący; brak aktów zmieniających po dacie
+  t.j. — sprawdzono w ELI 2026-09-01).
+
+### 5. F-152 — OTWARTA (zależna od środowiska)
+
+Wszystkie domeny orzecznicze zwróciły `host_not_allowed` z proxy środowiska —
+to odpowiedź naszej konfiguracji, nie portalu. Rozstrzygnięcie należy do
+dewelopera. ⛔ Po zmianie listy domen wyniki trzeba **zmierzyć ponownie**, nie
+przepisać z tego wpisu.
+
+### 6. T14 — naprawione przy okazji
+
+`prompt-master`: `description` skrócone z 837 do 130 znaków (profil uniwersalny
+≤200). Pełna lista wyzwalaczy NIE została usunięta — przeniesiona do sekcji
+„Kiedy uruchamiać" w korpusie `SKILL.md`, z adnotacją o dacie i powodzie.
+⚠️ Nazwane wprost: przeniesienie zmienia nośnik, a routing czyta `description`
+— wpływ na trafność wyzwalania tego skilla NIE został zmierzony. To ta sama
+klasa zastrzeżenia co przy bramkach samoraportujących (F-113).
+T14 na pełnym repozytorium: PASS.
+
+### 7. Dz.U.
+
+Brak nowych t.j. wykrytych w tej sesji poza potwierdzeniem KC (Dz.U. 2026
+poz. 795, obowiązujący) — mapa bez zmian (ostatnia: `mapa_dzu_2026-08-28.md`).
+
+### 8. Wydanie
+
+Zgodnie z ZASADĄ 7 (OUTPUT-COMPLETENESS) dostarczono trzy KOMPLETNE skille
+osobnymi pakietami: `audyt-systemu-v4`, `shared`, `prompt-master`. Sumy
+`CHECKSUMS.sha256` odświeżone dla dwóch skilli, które je prowadzą; T21 i T22
+przebiegnięte ponownie po odświeżeniu.
+
+
+---
+
+## AUDYT-2026-09-01d — F-153 OTWARTA (punkt ślepy naprawy F-150); warstwa parlamentarna, rejestry i interpretacje GIP
+
+**Zakres:** rozszerzenie badania portali o SUDOP, KRS, CEIDG, ORKA/ORKA2 i PIP.
+Wywołane poleceniem użytkownika, kontynuacja AUDYT-2026-09-01c.
+
+### 1. F-153 — naprawa F-150 przesunęła punkt ślepy, nie usunęła go
+
+Wczorajsza naprawa przestawiła odczyt z `/text.html` aktu bazowego (tekst
+ogłoszony) na tekst jednolity. Badanie ustawy o PIP ujawniło, że t.j. ma własną
+lukę: **nie zawiera nowelizacji ogłoszonych po jego dacie**.
+
+Dowód zmierzony: obowiązujący t.j. ustawy o Państwowej Inspekcji Pracy
+(Dz.U. 2024 poz. 1712) NIE zawiera art. 14b — jedyne trafienie ciągu „14b" w
+całym tekście to punkt wyliczenia w innym artykule. Jednostka obowiązuje od
+2026-07-08, dodana ustawą Dz.U. 2026 poz. 473. Rejestr ELI pokazuje dla tego
+aktu **sześć** nowelizacji ogłoszonych po dacie t.j. (2024-11-30).
+
+Zamiatanie S1/S2 wykonane wyłącznie na t.j. tej jednostki by nie zobaczyło —
+czyli dokładnie ten sam tryb awarii co F-150, przesunięty o jedną wersję.
+
+**Wykonane:** `check_wyjatek_gate_eli.py` — funkcja `amendments_after()`
+porównuje daty promulgacji aktów zmieniających z datą t.j., wypisuje listę
+na stderr i dopisuje `⚠️ + N nowelizacj(e) PO t.j.` do etykiety wersji w bloku
+wyjściowym. Trzy nowe przypadki selftestu (widzi późniejszą, pomija
+wcześniejszą, brak daty t.j. nie produkuje fałszywej listy). Selftest
+17/17 → **20/20 PASS**. Przebieg na żywym API dla DU/2007/589 wypisuje
+sześć nowelizacji i ostrzeżenie.
+
+⛔ **Flaga pozostaje OTWARTA.** Skrypt nie scala treści nowelizacji do tekstu
+roboczego, więc jednostka dodana po t.j. nadal nie wchodzi do zamiatania —
+widać wyłącznie ostrzeżenie. Do rozstrzygnięcia: scalać (ryzyko fabrykowania
+tekstu, którego żadne źródło urzędowe nie publikuje w tej postaci) czy podnieść
+ostrzeżenie do twardego STOP. Sam fakt istnienia ostrzeżenia niczego nie
+zamyka — to bramka samoraportująca klasy F-119.
+
+### 2. Warstwa parlamentarna — ORKA/ORKA2 → api.sejm.gov.pl/sejm
+
+`orka.sejm.gov.pl` i `orka2.sejm.gov.pl` są w tym środowisku niedostępne
+(`host_not_allowed`), ale funkcję maszynową pełni `api.sejm.gov.pl/sejm`,
+osiągalny bez klucza: OpenAPI 3.0.3 pod `/sejm/openapi/` (133 KB), **55 ścieżek**,
+13 tagów. Zmierzone: `term10/prints` — 3219 druków; `processes/{num}` niesie
+`stages` i pole **`ELI`**; w `processes/passed` 40 z 50 pozycji miało `ELI`.
+
+To most, którego system dotąd nie miał: od numeru Dz.U. do druku sejmowego
+i uzasadnienia projektu. Bezpośrednio użyteczne dla S4 WYJ-GATE (przepisy
+przejściowe) i dla wykładni celowościowej. ⛔ Materiał do wykładni, **nie
+źródło brzmienia** — brzmienie nadal wyłącznie z ELI, sekwencja B-T1…B-T3.
+
+### 3. Rejestry podmiotowe
+
+- **KRS** — `api-krs.ms.gov.pl/api/krs/OdpisAktualny/{krs}` (i `OdpisPelny`),
+  bezpłatne, bez klucza, `rejestr=P|S`. ⚠️ Sygnał z RZĘDU 3 o maskowaniu części
+  danych osobowych względem odpisu PDF — odnotowany jako DO ZWERYFIKOWANIA,
+  nie jako ustalenie.
+- **CEIDG** — `dane.biznes.gov.pl/api/ceidg/v3/firmy`, Bearer JWT, limit ~50
+  żądań/180 s, przy czym przerwa liczy się od OSTATNIEGO żądania (ponawianie
+  przedłuża blokadę); środowisko testowe `test-dane.biznes.gov.pl`.
+- **REGON/BIR (GUS)** — `api.stat.gov.pl/Home/RegonApi`, klucz + sesja.
+- **SUDOP (UOKiK)** — devportal `api-sudop.uokik.gov.pl:9443/devportal/apis`,
+  spec JSON, 10 lat danych, do 10 tys. wierszy na stronę. ⛔ Zastrzeżenie samego
+  UOKiK: dane pochodzą z bazy SHRIMP i zawierają błędy (braki, powtórzenia,
+  błędny NIP lub nazwa, niewłaściwa podstawa prawna); wydruki nie zastępują
+  zaświadczeń.
+- **KRZ / MSiG / eKRS RDF** — brak publicznego API po stronie MS.
+
+Wszystkie te domeny są w tym środowisku niedostępne z kanału kodu — pozycje
+dopisane do zakresu **F-152**, nie zmierzone.
+
+### 4. PIP — nowa instytucja interpretacji indywidualnej (poza cutoffem modelu)
+
+Od 8 lipca 2026 r. Główny Inspektor Pracy wydaje interpretacje indywidualne
+w zakresie ustalenia, czy stosunek prawny stanowi stosunek pracy w rozumieniu
+art. 22 § 1 KP. Podstawa: art. 14b ustawy o PIP, dodany ustawą z 11 marca 2026 r.
+(Dz.U. 2026 poz. 473, wejście w życie 2026-07-08) — zweryfikowane w tekście
+nowelizacji pobranym z ELI. Opłata 40 zł od każdego odrębnego stanu faktycznego,
+termin 30 dni, braki 7 dni pod rygorem pozostawienia bez rozpoznania, forma
+decyzji, **odwołanie na zasadach KPC** (nie KPA — tor sądu pracy), publikacja
+w BIP GIP po anonimizacji.
+
+Konsekwencja systemowa: DR-04 powinien rozpoznawać ten instrument, a BIP GIP
+staje się nową bazą interpretacyjną RZĘDU 2A bez API. Odnotowane w
+`references/PORTALE-ORZECZNICZE-API.md` §2C; wpięcie do DR-04 NIE zostało
+wykonane w tej sesji i nie jest objęte żadną flagą — do decyzji użytkownika.
+
+### 5. Dz.U.
+
+Potwierdzone w ELI: Dz.U. 2026 poz. 473 (obowiązujący, wejście 2026-07-08),
+t.j. ustawy o PIP Dz.U. 2024 poz. 1712 (obowiązujący). Mapa Dz.U. bez zmian
+w tej sesji (ostatnia: `mapa_dzu_2026-08-28.md`) — pozycje kandydujące do
+wpisania pozostają w zakresie F-141.
+
+### 6. Wydanie
+
+`audyt-systemu-v4` 6.40 → 6.41, pakiet kompletny wg ZASADY 7. `shared`
+i `prompt-master` bez zmian w tej sesji — nie wydawane ponownie.
+
+---
+
+## AUDYT-2026-09-01d — rejestry, ORKA/API Sejmu, SUDOP, KRS, CEIDG; nowa F-153 (interpretacje GIP)
+
+**Zakres:** rozszerzenie inwentarza portali o rejestry publiczne, systemy
+legislacyjne i interpretacje organów niepodatkowych. Kontynuacja AUDYT-2026-09-01c
+na polecenie użytkownika (SUDOP, KRS, CEIDG, ORKA2, PIP).
+
+### 1. ORKA / ORKA2 → API Sejmu (zmierzone na żywo)
+
+`orka2.sejm.gov.pl` i `orka.sejm.gov.pl` są w tym środowisku niedostępne
+(`host_not_allowed`), ale funkcjonalnie zastąpił je `api.sejm.gov.pl/sejm/termN`,
+który jest osiągalny z kanału kodu. Zmierzone: `term10` → **3219 druków**,
+`lastChanged` w metadanych; `/interpellations` z pełnym opisem adresata,
+odpowiedzi i opóźnienia. `api.sejm.gov.pl/eli/acts/MP/{rok}` daje Monitor Polski
+tym samym interfejsem co Dz.U.
+
+⛔ **Nie budować integracji na starym adresie ORKA** — nowy adres jest nadto
+tym samym hostem, który już mamy dozwolony.
+
+### 2. Nowa pułapka: cicho ignorowany parametr (zmierzona, §2C inwentarza)
+
+`api.sejm.gov.pl/sejm/term10/prints?limit=1` zwraca **3219 pozycji z HTTP 200** —
+parametr jest ignorowany. Ten sam parametr na `/interpellations` DZIAŁA (1 pozycja).
+`api.dane.gov.pl` zachowuje się identycznie przy nieznanej nazwie filtra.
+
+To ta sama klasa błędu co F-130 i F-145: **awaria wygląda jak stan najzdrowszy**.
+Reguła operacyjna dopisana do inwentarza: po zapytaniu z parametrem zawężającym
+policz zwrócone pozycje; kod 200 nie dowodzi, że filtr zadziałał.
+
+### 3. Rejestry publiczne — odwrotny obraz niż przy orzecznictwie
+
+- **KRS:** otwarte API `api-krs.ms.gov.pl/api/krs/{typ_odpisu}/{nr_krs}` bez klucza;
+  ⛔ JSON zanonimizowany (inicjały, pierwsza cyfra PESEL), PDF nie. Pełny dostęp
+  bez anonimizacji ma być reglamentowany decyzją Ministra Sprawiedliwości
+  ⚠️📚 [RZĄD 2B: prawo.pl, 2025-10] — do sprawdzenia stan wdrożenia przed integracją.
+- **CEIDG API v3** (`dane.biznes.gov.pl`): token, DWA równoczesne limity zapytań,
+  przerwa 180 s liczona od OSTATNIEGO żądania (ponawianie przedłuża blokadę),
+  parametry case-sensitive, zalecany zakres dat ≤5 dni.
+- **REGON/BIR** (`api.stat.gov.pl`): klucz + sesja logowania.
+- **SUDOP** (`sudop.uokik.gov.pl`): publiczne, hurtowe API. ⛔ Dotyczy pomocy
+  publicznej i de minimis, **nie decyzji Prezesa UOKiK** — zakresy bywają mylone.
+- **RCL** (`legislacja.rcl.gov.pl`): brak API; materiał do wykładni celowościowej.
+
+Wniosek zapisany w inwentarzu jako 2a: przy rejestrach problemem nie jest brak
+interfejsu, tylko limity, tokeny i ciche ignorowanie parametrów.
+
+### 4. F-153 — OTWARTA: interpretacje indywidualne GIP nieznane systemowi
+
+Od **2026-07-08** Główny Inspektor Pracy wydaje interpretacje indywidualne
+w przedmiocie tego, czy stosunek prawny jest stosunkiem pracy w rozumieniu
+art. 22 § 1 KP. Podstawa: **art. 14b ustawy o PIP**, dodany art. 1 pkt 5 ustawy
+z dnia 11 marca 2026 r., **Dz.U. 2026 poz. 473**, `entryIntoForce` 2026-07-08
+✅ [VER: api.sejm.gov.pl/eli → DU/2026/473/text.pdf, 2026-09-01]. Art. 14b ust. 15
+nakłada obowiązek niezwłocznej publikacji w BIP urzędu obsługującego GIP po
+usunięciu danych identyfikujących; ust. 4 — termin 30 dni. Tekst jednolity
+ustawy o PIP: **Dz.U. 2024 poz. 1712** (obowiązujący) ✅ [VER: jw.].
+
+Żadna MAPA-AKTOW, ROUTING-MAP ani moduł DR-04 tego zbioru nie zna. Flaga
+otwarta jako **wykonalna sesją audytową**; zakres w `WARN-OTWARTE.md`.
+
+⛔ Nazwane wprost: audyt ustalił wyłącznie, że źródło **istnieje, jest
+publikowane urzędowo i ma podstawę ustawową**. Zakres i granice ochrony
+wynikającej z zastosowania się do interpretacji NIE były badane — to praca
+DR-04, nie audytu systemu. Wpis w inwentarzu portali nie jest zamknięciem F-153.
+
+### 5. ZUS — jawnie nierozstrzygnięte
+
+Źródła RZĘDU 2B/3 wzmiankują interpretacje składkowe ZUS jako trzecią — obok
+KIS i GIP — odmianę interpretacji indywidualnych. W tej sesji **nie
+zweryfikowano** bazy, adresu ani trybu dostępu. Pozycja w inwentarzu nosi status
+⬛ niesprawdzone; zakaz cytowania jako ustalone.
+
+### 6. F-152 — zakres rozszerzony
+
+Do listy domen zwracających `host_not_allowed` dopisano: `orka2.sejm.gov.pl`,
+`orka.sejm.gov.pl`, `sudop.uokik.gov.pl`, `api-krs.ms.gov.pl`,
+`dane.biznes.gov.pl`, `api.stat.gov.pl`, `legislacja.rcl.gov.pl`,
+`bip.pip.gov.pl`. Flaga pozostaje zależna od decyzji dewelopera.
+
+### 7. Dz.U.
+
+Do rozstrzygnięcia w ramach F-153: wpisanie **Dz.U. 2026 poz. 473** i **Dz.U.
+2024 poz. 1712** do bieżącej mapy Dz.U. W tej sesji mapy NIE modyfikowano —
+zgodnie z FAZĄ 7B numer, tytuł, typ i status wpisuje się po odrębnym
+sprawdzeniu każdej pozycji, nie propagacją z wpisu dziennika.
+
+### 7a. Korekta wpisu AUDYT-2026-09-01c
+
+Przy ponownym przebiegu ustalono, że `check_wyjatek_gate_eli.py` zawiera także
+funkcję `amendments_after()` realizującą **KROK 2C** HARD GATE — listę aktów
+zmieniających ogłoszonych PO dacie tekstu jednolitego, z jawnym wpisem „brak",
+gdy lista jest pusta (milczenie nie jest wynikiem negatywnym). Selftest liczy
+więc **20 przypadków, nie 17**, jak zapisano w AUDYT-2026-09-01c; liczbę
+skorygowano w dzienniku, changelogu i opisie skryptu w `SKILL.md`.
+Zweryfikowane na żywo: dla KC blok wypisuje
+`ℹ️ KROK 2C — aktów zmieniających po dacie t.j. (2026-06-17): brak`.
+
+### 8. Wydanie
+
+`audyt-systemu-v4` 6.40 → **6.41** (zmiany: `references/PORTALE-ORZECZNICZE-API.md`,
+`WARN-OTWARTE.md`, `AUDIT-JOURNAL.md`, `CHANGELOG.md`, `SKILL.md`, `CHECKSUMS.sha256`).
+`shared` 3.27 i `prompt-master` bez zmian względem wydania 2026-09-01c —
+pakiety dostarczone ponownie w postaci bajtowo identycznej, żeby instalacja
+pozostała spójna.
+
+---
+
+## AUDYT-2026-09-01e — KIO/BZP, rejestry MS, ISWS; rekomendacja listy dozwolonych domen
+
+**Zakres:** dokończenie badania portali (KIO, IS/ISWS, zamówienia publiczne,
+rejestry Ministerstwa Sprawiedliwości) i zbudowanie gotowej rekomendacji listy
+dozwolonych domen ze wszystkich pozycji zebranych w sesjach 09-01c/d/e.
+
+### 1. KIO vs BZP — dwa zbiory u jednego urzędu
+
+Rozgraniczenie, które w poprzednich wpisach było zwinięte do jednej pozycji:
+- **orzecznictwo KIO** (`orzeczenia.uzp.gov.pl`) — brak REST; treść pod
+  `Home/HtmlContent/{id}`, PDF pod `Home/PdfContent/{id}?Kind=KIO`. Ścieżki znane
+  z zewnętrznego konektora MCP w wersji POC, nie z dokumentacji UZP →
+  traktować jako HTML scraping, nie API;
+- **ogłoszenia BZP** — API w OBU generacjach PZP: SOAP
+  `websrv.bzp.uzp.gov.pl/BZP_PublicWebService.asmx` („stare" PZP, dokumentacja
+  `bzp.uzp.gov.pl/WebService.aspx`) oraz REST
+  `ezamowienia.gov.pl/mo-board/api/v1/notice` („nowe" PZP);
+- **pełna Platforma e-Zamówienia** (`api.ezamowienia.gov.pl`) — dostęp
+  produkcyjny wyłącznie po wniosku i raporcie z testów wg procedury UZP; to nie
+  jest otwarte API i wpis na listę domen sam z siebie nic nie odblokuje.
+
+### 2. „IS" → ISWS; „HIP" → NIEROZSTRZYGNIĘTE
+
+„IS" przypisano do **ISWS** (`isws.ms.gov.pl`) — bazy statystycznej wymiaru
+sprawiedliwości MS: ewidencja spraw i orzecznictwo sądów powszechnych
+i wojskowych. Wartość dla systemu to liczby o obciążeniu i czasie trwania
+postępowań, nie treść orzeczeń.
+
+⛔ **„HIP" nie zostało przypisane do żadnego znanego portalu.** Sprawdzone
+i odrzucone tropy: IPO TK, EKW/księgi wieczyste, BIP. Zamiast dopasować skrót
+„na siłę", zapisano go w §2F inwentarza jako pozycję nierozstrzygniętą.
+To świadoma decyzja: zgadnięty rozwinięty skrót wszedłby do inwentarza jako
+ustalenie i byłby cytowany dalej jak fakt.
+
+### 3. Rejestry Ministerstwa Sprawiedliwości
+
+`krz.ms.gov.pl` (KRZ) — portal publiczny, dane o postępowaniach upadłościowych,
+restrukturyzacyjnych i umorzonych egzekucjach dostępne bez logowania.
+⚠️ API oferują pośrednicy komercyjni ⚠️📚 [RZĄD 3: mgbi.pl] — to **nie dowodzi**
+istnienia API urzędowego; oznaczono jako niepotwierdzone. KRZ jest przy tym
+kluczowy dla DR-02 i dziś system nie ma do niego żadnej ścieżki.
+Nadto: `prs.ms.gov.pl` (składanie, nie odczyt masowy),
+`ekrs.ms.gov.pl/rdf/pd/search_df` (sprawozdania finansowe),
+`ekw.ms.gov.pl` (księgi wieczyste — odczyt wyłącznie po numerze KW; brak
+wyszukiwania po właścicielu jest cechą ustrojową rejestru, nie luką techniczną),
+`rps.ms.gov.pl` (rejestr o ograniczonym dostępie).
+
+### 4. Rekomendacja listy dozwolonych domen — §6 inwentarza
+
+Zbudowano pełną listę w trzech grupach priorytetowych: **A** orzecznictwo
+i interpretacje (13 domen), **B** rejestry podmiotów (8), **C** legislacja,
+zamówienia i dane publiczne (11). Wskazano też pozycje **świadomie pominięte**:
+`orka.sejm.gov.pl` i `orka2.sejm.gov.pl` (funkcję pełni już dozwolone
+`api.sejm.gov.pl` — dokładanie ich zwiększa powierzchnię bez zysku),
+`rps.ms.gov.pl` (najpierw podstawa prawna dostępu), `api.ezamowienia.gov.pl`
+(dostęp po wniosku).
+
+⛔ Trzy zastrzeżenia zapisane przy liście, żeby nie czytało się jej jak
+gotowego rozwiązania: (1) odblokowanie kanału to nie zgoda portalu — CBOSA
+i UOKiK mają własne zabezpieczenia przed automatami, a NSA zapowiada blokowanie
+nadmiernego korzystania, więc bez limitowania tempa po naszej stronie problem
+dostępu zamieni się w problem zablokowanego adresu; (2) lista jest **hipotezą
+do zmierzenia**, nie wynikiem — statusy `⬛ host` aktualizuje pomiar, nie decyzja
+konfiguracyjna; (3) część pozycji nie zadziała mimo odblokowania: CEIDG i REGON
+wymagają tokenu, EUREKA renderuje treść w JS, KIO wymaga parsowania HTML.
+
+### 5. F-152 — zakres rozszerzony, flaga NADAL OTWARTA
+
+Dopisano jedenaście nowo zmierzonych domen. Kryterium zamknięcia bez zmian:
+decyzja dewelopera + ponowny pomiar. Rekomendacja §6 **nie zamyka flagi** —
+jest materiałem do tej decyzji.
+
+### 6. Dz.U.
+
+Bez zmian — mapy nie modyfikowano. Zaległość z F-153 (Dz.U. 2026 poz. 473,
+Dz.U. 2024 poz. 1712) pozostaje otwarta.
+
+### 7. Wydanie
+
+`audyt-systemu-v4` 6.41 → **6.42**. `shared` 3.27 i `prompt-master` bez zmian
+od wydania 2026-09-01c.
+
+---
+
+## AUDYT-2026-09-01f — luki publikatorów urzędowych uzupełnione; nowa F-154
+
+**Zakres:** przegląd list źródeł w `shared` pod jednym pytaniem: czy istnieje
+publikator rządowy, którego hierarchia NIE zna. Wywołane poleceniem użytkownika.
+
+### 1. Metoda
+
+Zestawiono pozycje RZĘDU 1 i 2A z `shared/HIERARCHIA-ZRODEL.md` z inwentarzem
+`references/PORTALE-ORZECZNICZE-API.md` (§2-§2E) oraz z listą publikatorów
+zwracaną przez ELI. ⛔ Kryterium było wąskie i celowo takie: nie „czy portal
+bywa przydatny", tylko **czy jest publikatorem albo rejestrem urzędowym, do
+którego system musi umieć sięgnąć, a nie ma go w hierarchii**.
+
+### 2. Znalezione luki — RZĄD 1
+
+- **Wojewódzkie dzienniki urzędowe** (`edziennik.{województwo}.uw.gov.pl`,
+  indeks `gov.pl/web/cyfryzacja/wojewodzkie-dzienniki-urzedowe`) —
+  najpoważniejsza luka. To JEDYNY publikator **aktów prawa miejscowego**:
+  uchwał rad gmin, zarządzeń wójta, planów miejscowych. System prowadzi DR-08
+  (samorząd) i DR-09 (planowanie i budownictwo), czyli dziedziny stojące na
+  tych aktach, i nie miał wpiętego ich publikatora.
+- **Monitor Polski** — `monitorpolski.gov.pl` oraz warstwa strukturalna
+  `api.sejm.gov.pl/eli/acts/MP/{rok}/{poz}`. Wpięta była wyłącznie ścieżka Dz.U.
+- **Dziennik Ustaw RCL** — `dziennikustaw.gov.pl`; ten sam publikator, inny
+  gospodarz serwisu, przydatny gdy pozostałe kanały zawodzą.
+- **Dzienniki urzędowe ministrów i urzędów centralnych** —
+  `dziennikiurzedowe.gov.pl`.
+
+⚠️ Zmierzone 2026-09-01: `api.sejm.gov.pl/eli/acts` zwraca dokładnie dwa
+publikatory — `DU` (97 747 aktów) i `MP` (66 625). Publikatory lokalne
+i resortowe są **poza API ELI**; zapisano to wprost w POZIOMIE B
+`PRAWO-HARDGATE.md`, żeby nikt nie szukał ich tam bezskutecznie.
+
+### 3. Znalezione luki — RZĄD 2A
+
+- **Interpretacje i stanowiska organów:** EUREKA (KAS) oraz **BIP urzędu
+  obsługującego GIP** — interpretacje indywidualne wg art. 14b ustawy o PIP,
+  dodanego ustawą Dz.U. 2026 poz. 473 z mocą od 2026-07-08, z obowiązkiem
+  publikacji z ust. 15 ✅ [VER: api.sejm.gov.pl/eli → DU/2026/473/text.pdf,
+  2026-09-01]. Dopisano zastrzeżenie: interpretacja organu NIE jest źródłem
+  prawa i nie zastępuje brzmienia przepisu.
+- **Rejestry urzędowe i publikatory ogłoszeń** — KRS (`api-krs.ms.gov.pl`),
+  **KRZ** (`krz.ms.gov.pl` — upadłość i restrukturyzacja, kluczowy dla DR-02),
+  eKRS/PDF, EKW, CEIDG, REGON/BIR, SUDOP, BZP. Wpięte wyłącznie dla ustalenia
+  FAKTU wpisu, nigdy dla brzmienia przepisu.
+- **Materiały legislacyjne** — `legislacja.rcl.gov.pl` i druki sejmowe.
+  ⛔⛔ Z jawnym zakazem cytowania brzmienia: projekt nie jest aktem.
+  Dopuszczalna rola to wykładnia celowościowa i ustalenie, czy zmiana jest
+  w toku; powołanie zawsze ze słowem „projekt".
+
+### 4. F-154 — OTWARTA (to, czego ta sesja NIE zrobiła)
+
+Wpisanie publikatora do hierarchii **nie sprawia, że moduł dziedzinowy po niego
+sięgnie**. Moduły DR-08 i DR-09 oraz `MAPA-AKTOW.md` nadal nie odsyłają do
+dziennika wojewódzkiego, a `PRAWO-HARDGATE.md` nie opisuje ścieżki odczytu aktu
+prawa miejscowego — te akty nie mają ani ELI, ani jednolitego wzorca adresu, więc
+sekwencja B-T1…B-T3 do nich nie pasuje. To zakres nowej flagi.
+
+⛔ Nazwane wprost: gdyby domknąć rzecz na samym wpisie do hierarchii, byłaby to
+bramka samoraportująca klasy F-119 — dokument twierdziłby, że źródło jest wpięte,
+a żadne wywołanie by go nie użyło.
+
+### 5. Wydanie
+
+`shared` 3.27 → **3.28** (HIERARCHIA-ZRODEL v1.6, PRAWO-HARDGATE POZIOM B,
+CHANGELOG, pole `changelog:`, CHECKSUMS).
+`audyt-systemu-v4` 6.42 → **6.43** (WARN-OTWARTE + F-154, CHANGELOG, dziennik).
+`prompt-master` bez zmian od 2026-09-01c.
+
+---
+
+## AUDYT-2026-09-01g — F-153 i F-154 ZAMKNIĘTE; błąd adresu publikatora w DR-08
+
+**Zakres:** wykonanie napraw wskazanych we wpisie AUDYT-2026-09-01f.
+
+### 1. F-153 — rozstrzygnięcie: STOP, nie scalanie (ZAMKNIĘTA)
+
+Otwarty był wybór między scalaniem treści nowelizacji do tekstu roboczego
+a twardym zatrzymaniem. **Wybrano STOP.** Uzasadnienie: scalanie wytworzyłoby
+brzmienie, którego **żaden publikator nie ogłasza w tej postaci** — narzędzie
+audytowe zaczęłoby produkować tekst prawny, zamiast go czytać. To gorsze niż
+odmowa wyniku, bo błąd byłby niewidoczny w cytacie.
+
+Wdrożenie w `scripts/check_wyjatek_gate_eli.py`: gdy `amendments_after()` zwraca
+niepustą listę, skrypt wypisuje pozycje, komunikat STOP i **kończy się kodem 6**,
+wskazując dwa świadome wyjścia — `--mimo-nowelizacji` (kontynuacja z etykietą
+`⚠️ + N nowelizacj(e) PO t.j.` w polu wersji) albo `--act <ELI nowelizacji>`
+(zamiatanie wprost tekstu aktu zmieniającego).
+
+Pokrycie: trzy przypadki selftestu, w tym mutacja negatywna na warunku
+`if not allow_stale` — selftest **20/20 → 23/23**.
+Weryfikacja na żywym ELI:
+- `DU/2007/589` (ustawa o PIP) → 6 nowelizacji po dacie t.j. → **STOP**;
+- ten sam akt z `--mimo-nowelizacji` → wynik z jawną etykietą, sąsiedztwo art.
+  13/14/15 — **art. 14b nieobecny**, co potwierdza punkt ślepy empirycznie;
+- `DU/1964/93` (KC) → „brak", przebieg bez zmian (brak regresji).
+
+### 2. F-154 — publikator prawa miejscowego wpięty (ZAMKNIĘTA)
+
+- `shared/PRAWO-HARDGATE.md` — nowa **ŚCIEŻKA B-L** dla aktów prawa miejscowego:
+  portal zbiorczy → identyfikacja `Dz.Urz. Woj. {nazwa} {rok} poz. {N}` → treść
+  wyłącznie z pliku w dzienniku (BIP jest pomocniczy, nie publikatorem) →
+  kontrola uchylenia, rozstrzygnięcia nadzorczego wojewody i orzeczenia WSA.
+  ⛔ Zapisano wprost, że skonsolidowanego tekstu aktu lokalnego zwykle NIE MA,
+  a rekonstrukcji z aktu pierwotnego i uchwał zmieniających nie wolno
+  przedstawiać jako tekstu urzędowego.
+- `dr-08` — SKILL.md odsyła do B-L; `dr-09` — dopisano, że brzmienie MPZP,
+  planu ogólnego i WZ bierze się z publikatora, bo tych aktów NIE MA w ISAP
+  ani w API ELI.
+
+### 3. Znalezione przy okazji: błędny adres publikatora w DR-08
+
+Sprawdzenie stanu faktycznego przed naprawą wykazało, że DR-08 **miał** wpięty
+publikator wojewódzki — pod adresem `dzienniki.gov.pl`, w sześciu plikach
+(SKILL.md + pięć modułów, 12 wystąpień). Portalem prowadzonym przez RCL jest
+`dziennikiurzedowe.gov.pl` (dawniej `dziennikiurzedowe.rcl.gov.pl`).
+Wszystkie wystąpienia poprawione.
+
+⛔ Korekta wcześniejszego zapisu z tej samej serii sesji: AUDYT-2026-09-01f
+twierdził, że DR-08 „nie odsyła do publikatora wojewódzkiego". To było
+nieprawdziwe — odsyłał, tylko pod złym adresem. Wpis 09-01f nie był
+zweryfikowany na plikach DR-08 przed sformułowaniem; poprawione tutaj.
+
+Druga korekta: `HIERARCHIA-ZRODEL.md` v1.6 podawała szablon adresu
+`edziennik.{województwo}.uw.gov.pl`. **Szablon jest nieprawdziwy** — zmierzone
+formy różnią się między województwami (`edziennik.malopolska.uw.gov.pl`,
+`e-dziennik.szczecin.uw.gov.pl`, mazowieckie przez `gov.pl/web/uw-mazowiecki`).
+Zapis zastąpiono zakazem budowania adresu z szablonu i nakazem wejścia przez
+portal zbiorczy.
+
+### 4. Czego NIE zmieniono i dlaczego
+
+`MAPA-AKTOW.md` w DR-08 pozostaje bez zmian: mapa wiąże **akt Dz.U.** z modułem,
+a akt prawa miejscowego nie ma numeru Dz.U. Wiersze „skargi na akty prawa
+miejscowego" i „ogłaszanie aktów normatywnych" już tam są i kierują do
+właściwych modułów. Dopisywanie tam publikatora byłoby wpisem do
+niewłaściwego rejestru.
+
+### 5. Wydanie
+
+`shared` 3.28 → **3.29** · `audyt-systemu-v4` 6.43 → **6.44** ·
+`dr-08` i `dr-09` — bump wersji, sumy odświeżone. `prompt-master` bez zmian
+od 2026-09-01c i w tej turze niedostarczany.
+
+---
+
+## AUDYT-2026-09-01h — DR-08: pełna weryfikacja mapy aktów w żywym ELI; nowa F-155
+
+**Zakres:** naprawa DR-08 na polecenie użytkownika. Nie kosmetyka — pełny
+przegląd `MAPA-AKTOW.md` w źródle urzędowym, metodą, która wykryła F-149.
+
+### 1. Stan wejściowy
+
+Testy strukturalne nie wskazywały DR-08: T11 WARN dotyczy dr-02, dr-03 i dr-12;
+T1/T2/T3/T6/T13/T19/T22 — bez zgłoszeń dla tego skilla. Gdyby poprzestać na
+orkiestratorze, wniosek brzmiałby „DR-08 jest zdrowy". Dlatego sprawdzenie
+poszło do źródła.
+
+### 2. Weryfikacja 21 pozycji w `api.sejm.gov.pl/eli`
+
+| Kontrola | Wynik |
+|---|---|
+| numer istnieje, status `obowiązujący` | 21/21 |
+| tytuł aktu odpowiada zakresowi w mapie (podmiana aktu, klasa F-149) | 17/17 obwieszczeń |
+| wskazany t.j. jest NAJNOWSZYM obowiązującym dla swojego aktu | 17/17 |
+
+⛔ **Nie znaleziono błędu numeru ani podmiany aktu.** To wynik negatywny i tak
+się go zapisuje — nie „DR-08 zweryfikowany", tylko: trzy wymienione kontrole
+przeszły, każda z osobna.
+
+Metoda dojścia do aktu bazowego: `/references` obwieszczenia → sekcja
+**„Tekst jednolity dla aktu"**. Pierwsze podejście — wyszukiwanie aktu bazowego
+po tytule — dawało wyniki fałszywe (trafiało w akty zmieniające), co widać było
+po tym, że dla „kontroli w administracji" zwróciło t.j. STARSZY od tego w mapie.
+Odnotowane, bo to gotowa pułapka dla kolejnego przeglądu.
+
+### 3. Znalezione ryzyko: 11 z 17 aktów ma nowelizacje PO dacie t.j.
+
+Transport zbiorowy — 4, zabytki — 3, planowanie przestrzenne i samorząd
+powiatowy — po 2, sześć kolejnych — po 1. Mapa oznaczała wszystkie jako 🟢 bez
+żadnego sygnału. To dokładnie punkt ślepy z F-153, tyle że po stronie danych,
+nie narzędzia: t.j. tych nowelizacji nie zawiera, więc odczyt samego t.j. daje
+wynik niepełny w sposób niewidoczny dla czytającego.
+
+Naprawa: 12 wierszy oznaczonych ⚠️ z liczbą nowelizacji (w tym dwie pozycje bez
+t.j. — dochody JST i ochrona ludności — opisane jako ustawy z 3 aktami
+zmieniającymi każda). Dodano sekcję „Weryfikacja w źródle urzędowym" z datą,
+metodą i wynikiem oraz zastrzeżenie, że akt prawa miejscowego z założenia nie
+ma numeru Dz.U. i idzie ŚCIEŻKĄ B-L.
+
+### 4. F-155 — OTWARTA
+
+Przy okazji ustalono, że ELI udostępnia **gotową sekcję „Nowelizacje po tekście
+jednolitym"** w `/references` obwieszczenia. `check_wyjatek_gate_eli.py` liczy tę
+listę sam, porównując daty promulgacji — czyli rekonstruuje coś, co źródło podaje
+wprost. Do przełączenia, ale dopiero po porównaniu obu wyników na próbce ≥15
+aktów: zamiana źródła danych bez pomiaru to podmiana jednej niesprawdzonej
+heurystyki na drugą.
+
+Drugi zakres flagi: przegląd tą metodą przeszedł **wyłącznie DR-08**.
+Pozostałych 15 map dziedzinowych nikt tak nie sprawdzał — i nic w wynikach
+testów strukturalnych o tym nie powie, dokładnie jak tutaj.
+
+### 5. Wydanie
+
+`dr-08` 3.8 → **3.9** (MAPA-AKTOW, CHANGELOG, SKILL.md, CHECKSUMS).
+`audyt-systemu-v4` 6.44 → **6.45** (WARN-OTWARTE + F-155, dziennik, CHANGELOG).
+
+---
+
+## AUDYT-2026-09-01i — F-155 ZAMKNIĘTA (oba zakresy); trzy mapy poprawione; nowa F-156
+
+### 1. Zakres pierwszy — sekcja API vs metoda datowa
+
+Pomiar powtórzyłem **niezależnie**, nie przyjmując liczby z docstringu skryptu:
+19 aktów (17 obwieszczeń DR-08 + KC `DU/2026/795` + ustawa o PIP `DU/2024/1712`),
+porównanie zbioru ELI z sekcji „Nowelizacje po tekście jednolitym" ze zbiorem
+liczonym po datach promulgacji.
+
+| Wynik | Liczba |
+|---|---|
+| zgodność co do joty | **16/19** |
+| sekcja API jest WŁAŚCIWYM PODZBIOREM metody datowej | **3/19** |
+| rozbieżność odwrotna (w sekcji, brak w metodzie datowej) | **0/19** |
+
+Brakujące pozycje: `DU/2026/864`, `DU/2024/1907`, `DU/2026/875`, `DU/2026/982` —
+wszystkie ze statusem `obowiązujący`, sprawdzone pojedynczo; `DU/2024/1907`
+obowiązuje od 2025-01-01, czyli od ośmiu miesięcy.
+
+⛔ **Wniosek odwrotny do pierwotnej hipotezy F-155.** Flaga zakładała, że skoro
+ELI podaje sekcję wprost, to rekonstrukcja z dat jest zbędna. Pomiar pokazał,
+że jest odwrotnie: oparcie bramki na samej sekcji przywróciłoby fałszywy negatyw
+tej samej klasy, dla której bramka F-153 powstała. Implementacja bierze **unię**
+obu źródeł i oznacza proweniencję każdej pozycji (`DATA+API` / `DATA` / `API`).
+Selftest 23/23 → **27/27**, z mutacją negatywną: gdyby kod przeszedł na samą
+sekcję API, przypadek „unia zachowuje pozycje spoza sekcji API" zgłosiłby FAIL.
+
+### 2. Zakres drugi — przegląd wszystkich 16 map w żywym ELI
+
+251 numerów. Istnienie i status `obowiązujący`: **248/251**. Aktualność tekstu
+jednolitego dla każdej pozycji obwieszczeniowej: **zero nieaktualnych t.j.
+w 16 mapach**.
+
+Trzy pozostałe pozycje miały status `akt posiada tekst jednolity`, czyli mapa
+cytowała akt pierwotny mimo istniejącego t.j. — **poprawione**:
+
+| Skill | Było | Jest |
+|---|---|---|
+| dr-04 | Dz.U. 2023 poz. 1429 (świadczenie wspierające) | Dz.U. 2026 poz. 873 t.j. |
+| dr-04 | Dz.U. 2024 poz. 858 („Aktywny Rodzic") | Dz.U. 2026 poz. 532 t.j. |
+| dr-10 | Dz.U. 2022 poz. 974 (wyroby medyczne) | Dz.U. 2024 poz. 1620 t.j. |
+
+Numer pierwotny zachowano w nawiasie — jest potrzebny do odczytania rejestru
+zmian, ale nie jest podstawą cytowania brzmienia.
+
+Pełny wynik per skill: `references/PRZEGLAD-MAP-ELI-2026-09-01i.md`.
+
+### 3. F-156 — OTWARTA
+
+**139 pozycji w 16 mapach ma nowelizacje ogłoszone po dacie t.j.**, a oznaczone
+są dotąd tylko w DR-08. Pozostałe 15 map pokazuje te akty jako 🟢 bez sygnału.
+
+⛔ Do rozstrzygnięcia w ramach flagi: czy oznaczać ręcznie w 15 mapach, czy
+dodać test liczący te pozycje przy każdym przebiegu. Za testem przemawia to,
+że liczba rośnie z każdą publikacją Dz.U. — ręczne oznaczenie zestarzeje się
+w tygodniach i wtedy mapa będzie kłamać z większą pewnością siebie niż dziś,
+gdy nie twierdzi nic.
+
+### 4. Wydanie
+
+`audyt-systemu-v4` 6.45 → **6.46** (nowy `references/PRZEGLAD-MAP-ELI-2026-09-01i.md`,
+WARN-OTWARTE, dziennik, CHANGELOG, CHECKSUMS).
+`dr-04` i `dr-10` — poprawione mapy, bump wersji, sumy odświeżone.
+`check_wyjatek_gate_eli.py` bez zmian w tej sesji: unia była już zaimplementowana,
+a moim wkładem jest jej **niezależna weryfikacja pomiarem**, nie przepisanie
+deklaracji z docstringu.
+
+---
+
+## AUDYT-2026-09-01j — F-156 ZAMKNIĘTA: nowy test T24 zamiast adnotacji w mapach
+
+### 1. Rozstrzygnięcie oparte na pomiarze, nie na przewidywaniu
+
+F-156 zostawiała otwarty wybór: oznaczać liczbę nowelizacji po t.j. ręcznie
+w 15 mapach, czy dodać test liczący je przy każdym przebiegu. Argumentem
+rozstrzygającym miało być przewidywanie, że liczby się zestarzeją. **Nie
+trzeba było czekać** — porównanie oznaczeń wpisanych do DR-08 w wydaniu 3.9
+(2026-09-01h) z przebiegiem T24 dzień później pokazało trzy rozjazdy:
+
+| Pozycja | Wpisano w mapie | T24 (2026-09-01j) |
+|---|---|---|
+| planowanie przestrzenne (DU/2026/538) | 2 | **3** |
+| ochrona zabytków (DU/2024/1292) | 3 | **5** |
+| drogi publiczne (DU/2025/889) | 1 | **2** |
+
+Przyczyna nie jest błędem wpisu: pierwsze oznaczenia powstały przed
+wprowadzeniem unii dwóch źródeł (F-155), a liczba i tak rośnie z każdą
+publikacją Dz.U. Wniosek: mapa z nieaktualną liczbą kłamie z większą pewnością
+siebie niż mapa, która nic nie twierdzi. Ten sam wzorzec co F-82.
+
+### 2. Wykonanie
+
+Nowy `scripts/check_nowelizacje_po_tj.py` (**T24**): dla każdego numeru
+w `MAPA-AKTOW.md` sprawdza, czy wskazany t.j. nie ma już ogłoszonych
+nowelizacji; liczy **unię** sekcji ELI „Nowelizacje po tekście jednolitym"
+i metody datowej. ⛔ Logikę **importuje** z `check_wyjatek_gate_eli.py`, nie
+kopiuje — dwie rozjeżdżające się implementacje tej samej reguły byłyby gorsze
+niż brak testu; osobny przypadek selftestu tego pilnuje.
+
+Selftest **7/7** offline, w tym mutacja negatywna: gdyby test przeszedł na samą
+sekcję API, przypadek „unia liczy 2, nie 1" zgłosiłby FAIL. Przebieg sieciowy
+na DR-08: 10 pozycji z 21, exit WARN.
+
+⚡ Usterka złapana we własnym teście: pierwszy wariant przypadku „T24 importuje
+logikę, nie kopiuje jej" miał literał `def amendments_after` wpisany wprost,
+więc trafiał do własnego źródła i zawsze dawał FAIL. Wzorzec sklejany, komentarz
+w kodzie.
+
+### 3. Mapa DR-08 — adnotacje liczbowe usunięte
+
+Dziesięć znaczników `⚠️ +N nowelizacj(e) po t.j.` zastąpiono bezliczbowym
+`⚠️ nowelizacje po t.j. → T24`; sekcja weryfikacji tłumaczy, dlaczego liczby
+tam nie ma i podaje trzy zmierzone rozjazdy jako uzasadnienie. Pozostałych
+15 map nie oznaczano wcale — po to jest test.
+
+### 4. Czego to NIE rozwiązuje
+
+⛔ T24 nie ocenia, czy nowelizacja dotyka jednostki, którą zamierzasz cytować —
+mówi tylko „sam t.j. nie wystarczy". Ocena wpływu pozostaje ręczna, jak w
+WYJ-GATE. Test nie widzi też aktów spoza publikatorów objętych API ELI
+(`DU`, `MP`), więc akty prawa miejscowego są poza jego zasięgiem z definicji
+(ŚCIEŻKA B-L).
+
+### 5. Wydanie
+
+`audyt-systemu-v4` 6.46 → **6.47** (nowy skrypt, SKILL.md, REGRESSION-TEST-PLAN,
+WARN-OTWARTE, dziennik, CHANGELOG, CHECKSUMS).
+`dr-08` 3.9 → **3.10** (MAPA-AKTOW bez liczb, CHANGELOG, CHECKSUMS).
+
+---
+
+## AUDYT-2026-09-01j — F-156 ZAMKNIĘTA: T24 zamiast ręcznego oznaczania
+
+### 1. Rozstrzygnięcie: test, nie oznaczanie w 15 mapach
+
+Przegląd 09-01i pokazał 139 pozycji, których t.j. nie zawiera już ogłoszonych
+nowelizacji. Do wyboru były dwie drogi:
+
+- **(a) oznaczyć ręcznie w 15 mapach — ODRZUCONE.** Liczba nowelizacji po t.j.
+  rośnie z każdą publikacją Dz.U. Wpisana liczba zestarzeje się w tygodniach,
+  a wtedy mapa kłamie **z większą pewnością siebie** niż dziś, gdy po prostu nic
+  nie twierdzi. To ta sama klasa błędu co F-82: rejestr zgodny sam ze sobą
+  i rozjechany z rzeczywistością.
+- **(b) test liczący przy każdym przebiegu — WYBRANE.** Wynik powstaje w momencie
+  uruchomienia, więc nie ma czego zestarzeć.
+
+⛔ Konsekwencja przyjęta świadomie: DR-08 pozostaje jedyną mapą z oznaczeniami
+ręcznymi (wydanie 3.9). Nie usuwam ich, ale też nie powielam — służą jako
+przykład, nie jako wzorzec do rozpropagowania.
+
+### 2. T24 — `scripts/check_nowelizacje_po_tj.py`
+
+Liczy pozycje z nowelizacjami po dacie t.j. dla wszystkich MAPA-AKTOW. Źródłem
+jest **unia** sekcji ELI „Nowelizacje po tekście jednolitym" i metody datowej
+(ustalenie F-155: sekcja bywa właściwym podzbiorem). Logika jest **importowana**
+z `check_wyjatek_gate_eli.py`, nie kopiowana — rozjazd dwóch implementacji tej
+samej reguły byłby gorszy niż brak testu; selftest tego pilnuje osobnym
+przypadkiem.
+
+Test stoi POZA orkiestratorem, bo wymaga sieci — tak samo jak T15 i sieciowe
+warianty T20/T21. Kody: 0 brak pozycji, 1 WARN, 2 błąd wykonania. WARN, nie FAIL,
+bo to stan świata, a nie usterka repozytorium.
+
+Przebieg 2026-09-01j: **251 numerów, 139 pozycji WARN, 0 problemów statusu.**
+Selftest offline **9/9**.
+
+### 3. Usterka złapana na własnej naprawie
+
+Pierwszy pełny przebieg T24 dał **trzy fałszywe alarmy** `STATUS:akt posiada
+tekst jednolity` — na numerach z adnotacji „(akt pierwotny: Dz.U. …)", którą
+sam wprowadziłem dzień wcześniej przy naprawie F-155. Test czytał ślad
+historyczny jako podstawę cytowania.
+
+Poprawione: `PIERWOTNY_RE` wycina adnotację przed ekstrakcją numerów; dwa nowe
+przypadki selftestu (z dwukropkiem i bez). Po poprawce: 251 numerów zamiast 254,
+zero problemów statusu.
+
+⛔ Warto zapamiętać wzorzec: naprawa jednej flagi utworzyła wejście, na którym
+potknęła się następna. Adnotacja była dobrą decyzją redakcyjną i złym wejściem
+dla parsera — obie rzeczy naraz.
+
+### 4. Wydanie
+
+`audyt-systemu-v4` 6.46 → **6.47**.
+
+---
+
+## AUDYT-2026-09-01k — cofnięte oznaczanie nowelizacji w mapie; wskazanie źródeł zamiast znaczników
+
+**Zakres:** korekta rozstrzygnięcia F-156 na uwagę użytkownika, zgłoszoną po
+wydaniu 6.47.
+
+### 1. Uwaga i dlaczego jest trafna
+
+Rozstrzygnięcie z 09-01j usunęło z mapy DR-08 liczby nowelizacji, ale zostawiło
+znacznik ⚠️ przy 12 pozycjach. Użytkownik wskazał, że lepiej je cofnąć i zamiast
+tego wskazać, gdzie szukać informacji o nowelizacjach.
+
+Argument, który to przesądza, jest mocniejszy od pierwotnego:
+**oznaczenie przy jednych pozycjach twierdzi coś o pozostałych.** Wiersz bez ⚠️
+czyta się jako „tu sam t.j. wystarczy" — a to jest zdanie o stanie rejestru na
+dzień oznaczania, nie na dzień użycia mapy. Usunięcie liczby ograniczyło
+starzenie się treści, ale nie usunęło jego źródła: sam podział na oznaczone
+i nieoznaczone jest datowaną tezą. Milczenie mapy jest uczciwsze niż jej
+nieaktualne zapewnienie.
+
+⛔ Odnotowuję to jako korektę własnego rozstrzygnięcia z poprzedniej sesji, nie
+jako uzupełnienie. Wersja 09-01j była półśrodkiem i tak ją tu zapisuję.
+
+### 2. Co zrobiono
+
+- `dr-08/MAPA-AKTOW.md` — usunięto wszystkie 12 znaczników z kolumny podstawy.
+  Nowa sekcja **„Gdzie sprawdzić nowelizacje po tekście jednolitym"**: adresy
+  źródeł, kontrola uzupełniająca, KROK 2C, bramka F-153, test T24. Zachowana
+  sekcja „Weryfikacja w źródle urzędowym — 2026-09-01h" (21/21, 17/17, 17/17):
+  to datowany POMIAR, a nie bieżące zapewnienie, i jako taki się nie starzeje.
+- `shared/PRAWO-HARDGATE.md` — KROK 2C dostał kanoniczną tabelę „GDZIE SZUKAĆ
+  NOWELIZACJI PO t.j." wraz z zapisem, że sekcja API bywa właściwym podzbiorem
+  (pomiar F-155) i że dojście od t.j. do aktu bazowego prowadzi przez „Tekst
+  jednolity dla aktu", nie przez wyszukiwanie po tytule. Dopisany ⛔⛔ **zakaz
+  przenoszenia wyniku do map i modułów — także w formie samego znacznika**.
+
+Dzięki temu wiedza stoi w JEDNYM miejscu (HARD GATE), a mapy wskazują tylko akt.
+
+### 3. Czego to nie zmienia
+
+T24 zostaje bez zmian — test liczy w momencie uruchomienia, więc nie ma czego
+zestarzeć; to była trafna część rozstrzygnięcia F-156. Zmienia się wyłącznie to,
+czego NIE wolno przenieść z jego wyniku do dokumentów.
+
+### 4. Wydanie
+
+`dr-08` 3.9 → **3.10** · `shared` 3.30 → **3.31** · `audyt-systemu-v4` 6.47 → **6.48**.
+
+---
+
+# AUDYT-2026-09-04 — pomiar osiągalności domen po zmianie listy dozwolonych (F-152 ZAMKNIĘTA)
+
+**Zakres zlecenia użytkownika:** sprawdzić, czy po dopisaniu domen wszystko
+działa; czy dodano instrukcje tam, gdzie wymagany jest dodatkowy krok (wzorzec:
+dokumentacja API SAOS); wydać poprawione skille zgodnie z ZASADĄ 7.
+
+## 1. Punkt wyjścia
+
+Poprzednia sesja (2026-09-01c/d/e) zostawiła F-152 otwartą: warstwa
+orzecznicza, rejestrowa i zamówieniowa była poza listą dozwolonych domen
+hosta, a `references/PORTALE-ORZECZNICZE-API.md` §6 zawierał rekomendację
+w trzech grupach priorytetowych. Deweloper rekomendację **wdrożył**.
+
+⛔ Plik §5 i §6 pkt 2 nakazywał: „po zmianie konfiguracji pozycje `⬛ host`
+trzeba przetestować ponownie i wpisać wynik faktyczny — status aktualizuje się
+pomiarem, nie decyzją". Narzędzia do wykonania tego nakazu **nie było**.
+Status `⬛ host` przetrwał w tabeli po tym, jak domeny faktycznie dopisano —
+dokładnie ta sama klasa problemu co F-156 (wartość wpisana ręcznie starzeje
+się w milczeniu).
+
+## 2. DWA BŁĘDY WŁASNE — odnotowane wprost
+
+W pierwszym przebiegu tej sesji zgłoszono jako awarie serwisów dwie pozycje,
+które działały. Obie pomyłki szły w tę samą stronę: fałszywy negatyw.
+
+**(a) `orzeczenia.ms.gov.pl` — przyczyną był nasz User-Agent.**
+Pomiar deterministyczny, 5/5 powtórzeń każdy wariant:
+
+| User-Agent | Wynik |
+|---|---|
+| `curl/8.5.0` | HTTP 200, 197 kB |
+| brak UA | HTTP 200 |
+| pełny łańcuch Chrome/120 | HTTP 502 |
+| `python-requests/2.31` | HTTP 502 |
+
+To samo na SAOS: pod UA przeglądarkowym `/api/search` oddaje **HTTP 200 ze
+stroną „Przerwa techniczna"**, pod neutralnym — poprawny JSON. Drugi przypadek
+jest groźniejszy, bo przechodzi każdą kontrolę opartą na samym kodzie.
+
+**(b) `decyzje.uokik.gov.pl` — zła diagnoza roota.** Root robi 302 na
+`uokik.gov.pl`, którego nie ma na liście; proxy zwraca `host_not_allowed`
+i wygląda to jak awaria portalu. Ścieżka `/bp/dec_prez.nsf` = HTTP 200.
+Zaklasyfikowano jako „trwale niedostępne" na podstawie kodu z roota — czyli
+popełniono błąd, przed którym ostrzega §5 tego samego inwentarza.
+
+**(c) Fałszywy pozytyw we własnym narzędziu.** Pierwsza wersja klasyfikatora
+T25 raportowała `isap.sejm.gov.pl` jako **OK**. Imperva odbija tam żądanie
+pętlą 302 na ten sam adres; urllib wyczerpuje limit przekierowań i oddaje kod
+302, a reguła „mniej niż 400 = OK" przepuszczała go jako sukces. Naprawione
+gałęzią 3xx + dwa przypadki selftestu (jeden pozytywny, jeden jako mutacja
+negatywna). To ta sama klasa błędu co F-150: bramka obecna, ale mierząca nie to.
+
+## 3. Wykonane
+
+**Nowy test T25 — `scripts/check_domeny_allowlist.py`.** Wybrano test zamiast
+ręcznej aktualizacji tabeli z tego samego powodu, dla którego rozstrzygnięto
+F-156 na rzecz testu. Manifest trzyma **ścieżki robocze, nie domeny**.
+Klasyfikator sprawdza treść (`must_contain`), rozpoznaje przekierowanie poza
+listę osobnym statusem `POZA_LISTA` i ponawia raz przy 5xx.
+
+**Wynik pomiaru:** 40 sond, **32 ✅ · 4 ⛔ · 3 ✖ · 1 ⚠️**, 40/40 zgodnych ze
+stanem odniesienia, **0 regresji**, exit 0. Selftest offline **15/15**
+z mutacjami negatywnymi. Surowy wynik:
+`references/F-152-pomiar-domen-2026-09-04.md`.
+
+**Ustalenia sieciowe warte zapisania:**
+- SAOS bez nagłówka `Accept` → **HTTP 406**. `curl` wysyła `*/*` domyślnie,
+  `urllib` nie — stąd objaw „działa w curlu, nie działa w skrypcie".
+- `bzp.uzp.gov.pl/` zwraca 404 w **2 na 8 prób** przy stabilnym 8/8 na
+  `Default.aspx` — farma, w której część węzłów nie mapuje dokumentu
+  domyślnego. Pojedynczy błąd nie dowodzi awarii.
+- Trwale ✖ (503, 3/3, także pod neutralnym UA): `trybunal.gov.pl`,
+  `legislacja.rcl.gov.pl`, `websrv.bzp.uzp.gov.pl`.
+- Trwale ⛔ WAF, niezależnie od konfiguracji sieci: `isap.sejm.gov.pl`,
+  `krz.ms.gov.pl`, `wyszukiwarka-krs.ms.gov.pl`.
+
+**Instrukcje dostępu — nowa §7 inwentarza.** Odpowiedź na drugą część
+zlecenia. Inwentarz odpowiadał na pytanie „czy da się dotrzeć" i milczał
+o „co trzeba zrobić, żeby dotrzeć". Wpisano: ustawienia domyślne kanału kodu,
+dokumentację SAOS (trzy API + **`lawJournalEntryCode=RRRR/PPP`**, czyli
+maszynowy most „przepis → orzecznictwo go stosujące" — naturalne wejście dla
+`orzeczenia-sadowe-v2` i kroku orzeczniczego `analiza-sadowa-v6`), token
+CEIDG, pułapkę anonimizacji JSON-a KRS, tabelę „używaj ścieżki, nie roota"
+oraz §7.5 — czego NIE ustalono, nazwane wprost.
+
+**Nowa §2G** — cztery warianty pułapki kształtu żądania, z tabelami pomiaru.
+
+## 4. Flagi
+
+- **F-152 — ZAMKNIĘTA.** Rekomendacja wdrożona i zweryfikowana pomiarem.
+- **F-157 — NOWA** (zależna od dewelopera). Kształt żądania (§2G) + braki
+  resztkowe listy: do dopisania `api.dane.gov.pl`, **`wl-api.mf.gov.pl`
+  (biała lista VAT — dziś nieosiągalna w ogóle)**, `rdf-przegladarka.ms.gov.pl`,
+  `op.europa.eu`, `www.gov.pl`, `www.pip.gov.pl`, `api.stat.gov.pl`,
+  `www.unoosa.org`, `www.podatki.gov.pl`, portale orzeczeń sądów; do usunięcia
+  `websrv.bzp.uzp.gov.pl` i cztery martwe duplikaty npm/crates; do zostawienia
+  mimo ✖ — `legislacja.rcl.gov.pl` (brak zamiennika).
+- **F-158 — NOWA** (wykonalna sesją audytową po F-157). Trzy źródła
+  niepotwierdzone: `orzeczenia.uodo.gov.pl/api-doc/` (spec w JS), backend
+  EUREKA (dwie ścieżki sprawdzone i odrzucone, dalszego zgadywania świadomie
+  zaniechano), `api.stat.gov.pl` (host poza listą).
+
+## 5. Weryfikacja liczby plików (ZASADA 7)
+
+`audyt-systemu-v4`: **PRZED = 84, PO = 86.** Różnica +2, obie zamierzone:
+- `scripts/check_domeny_allowlist.py` (T25),
+- `references/F-152-pomiar-domen-2026-09-04.md` (surowy wynik).
+
+Oba zarejestrowane we frontmatterze (`scripts:` / `references:`) — wymóg T22.
+⚡ Drzewo STRUKTURA KATALOGU podawało **82 przy 84 faktycznych** — trzeci
+z rzędu rozjazd tego licznika (F-147: 71 przy 81). Poprawione na 86.
+
+**Pliki zmienione:** `SKILL.md` (rejestracja T25 i nowego reference, version
+6.48→6.49, stopka, drzewo), `references/PORTALE-ORZECZNICZE-API.md` (§2, §2B,
+§2E statusy zmierzone; nowe §2G i §7; przepisane §4 pkt 3, §5, §6),
+`references/WARN-OTWARTE.md` (F-152 → zamknięta, F-157 i F-158 otwarte,
+tablica sterująca 14 → 15), `references/CHANGELOG.md`,
+`references/REGRESSION-TEST-PLAN.md` (blok T25).
+
+## 6. Granice tej sesji — nazwane wprost
+
+- Pomiar dotyczy **tego** środowiska i **tego** kształtu żądania. Ta sama
+  pozycja daje 200 albo 502 zależnie od nagłówka — status bez daty i bez
+  ustawień kanału jest nieważny.
+- Nie zmieniano `shared/HIERARCHIA-ZRODEL.md` ani `shared/PRAWO-HARDGATE.md`.
+  Pomiar dotyczy OSIĄGALNOŚCI, nie MOCY źródła; hierarchia cytowania stoi
+  niezmieniona. ISAP pozostaje pozycją nr 1 w RZĘDZIE 1 jako adres dla
+  człowieka, mimo że kanał maszynowy jest martwy — to rozróżnienie było już
+  zapisane przy F-151 i pomiar je potwierdza, nie podważa.
+- Nie zweryfikowano zakresu API UODO ani backendu EUREKA (F-158).
+
+---
+
+# AUDYT-2026-09-04b — realizacja F-157 i F-158
+
+**Zlecenie użytkownika:** „zrób 157 i 158".
+
+## 1. F-157 — co dało się wykonać, a co nie
+
+**Stan wejściowy sprawdzony, nie założony.** Wszystkie 11 hostów
+kandydackich przetestowano na starcie: **8/8 nadal poza listą dozwolonych**
+(`api.dane.gov.pl`, `wl-api.mf.gov.pl`, `rdf-przegladarka.ms.gov.pl`,
+`op.europa.eu`, `www.gov.pl`, `www.pip.gov.pl`, `api.stat.gov.pl`,
+`www.unoosa.org`, `www.podatki.gov.pl`, portale orzeczeń sądów). Część (b)
+flagi jest zmianą ustawień egress hosta — **poza zakresem audytu**, nie da się
+jej „zrobić" z tej strony.
+
+**Wykonano część (a) — propagację reguły.** Reguła kanału kodu żyła wyłącznie
+w `audyt-systemu-v4`, czyli w skillu, który jej nie używa w pracy prawniczej.
+Przeniesiona do lokalizacji kanonicznych:
+- `shared/PRAWO-HARDGATE.md` — blok „KANAŁ KODU MA WŁASNE WYMOGI" z tabelą
+  trzech wymogów i pomiarem przy każdym;
+- `shared/HIERARCHIA-ZRODEL.md` **v1.6** — REALIA DOSTĘPNOŚCI RZĘDU 1
+  uzupełnione o zastrzeżenie, że wiersz „HTTP 200" obowiązuje tylko dla
+  żądania o właściwym kształcie, wraz z zakazem orzekania o niedostępności
+  RZĘDU 1 przed sprawdzeniem kształtu żądania.
+
+⛔ Powód propagacji: dopóki reguła siedziała w audycie, każdy inny skill mógł
+powtórzyć dokładnie ten sam błąd — uznać źródło za martwe, bo dostał 502 pod
+UA przeglądarkowym.
+
+**Zautomatyzowano weryfikację.** T25 dostał grupę `kandydaci`: 8 sond ze
+stanem odniesienia `POZA_LISTA` i sekcję raportu ODBLOKOWANE. Po zmianie
+konfiguracji jedno polecenie pokaże, co faktycznie się otworzyło — bez
+odtwarzania listy z pamięci.
+
+## 2. F-158 — dwa źródła rozstrzygnięte metodą, nie zgadywaniem
+
+**(a) UODO — ZAMKNIĘTE.** Poprzednia sesja odbiła się od tego, że
+specyfikacja jest renderowana w JS. Rozwiązanie nie wymagało renderowania:
+w `/api-doc/` stoi jawny blok `SwaggerUIBundle({urls:[{url:"schemas/openapi.yml"}]})`.
+Specyfikacja: OpenAPI **3.1.0**, 17 kB, `servers: - url: /api`, bez klucza.
+
+Łańcuch zmierzony end-to-end: wyszukiwanie (35 dokumentów w oknie `1Y`,
+sygnatury w `refname`, identyfikatory zewnętrzne `urn:ndoc:gov:pl:uodo:…`) →
+metadane (9,4 kB) → **pełna treść jako 118 kB XML**.
+
+⭐ Znaczenie systemowe: to **jedyny polski organ z udokumentowanym publicznym
+API do własnych rozstrzygnięć**. Dopisany do RZĘDU 2A w
+`shared/HIERARCHIA-ZRODEL.md` z jawną granicą — decyzja organu nie jest
+źródłem prawa.
+
+⚠️ Pułapka zapisana: okno `1M` zwraca `[]` przy HTTP 200. Poprawna odpowiedź,
+ale przy cichym przetworzeniu wygląda jak zerowy wynik wyszukiwania.
+
+**(b) EUREKA — CZĘŚCIOWO.** Zamiast trzeciego domysłu ścieżki odczytano
+bundle `main.535d199cee3ec94fe527.js` (2,6 MB). Konfiguracja środowiska
+zawiera `api:"/api/public/v1"`, a rejestr usług CRUD wymienia 13 zasobów.
+
+Działa: `GET /informacje/{id}` (26 kB JSON) i `GET /parametry-wyszukiwarki`
+(40 metadanych, m.in. „Sygnatura orzeczenia sądu/trybunału", „Przepisy",
+„Zagadnienia", „Tytuł (teza)").
+
+Nierozstrzygnięte i **świadomie zostawione**: schemat ciała POST dla
+`wyszukiwarka/informacje`. `GET` oddaje 405, więc zasób istnieje; trzy
+domyślone ciała dały 500. Dalszego zgadywania zaniechano.
+
+⚠️ **Rozróżnienie warte zapisania:** 404 z komunikatem dziedzinowym („Nie
+znaleziono informacji o ID: 1") dowodzi, że endpoint żyje; 404 techniczny ze
+`"path"` — że go nie ma. Poprzednia sesja miała tylko ten drugi i wyciągnęła
+z niego wniosek o całym API.
+
+**(c) `api.stat.gov.pl` — NIEZWERYFIKOWANE.** Host poza listą; zależne od
+F-157(b). Nie udawano pomiaru.
+
+## 3. DWIE KOREKTY WŁASNE
+
+**(a) „Stabilne 8/8" było artefaktem małej próby.** Wpis z 2026-09-04 podawał,
+że `bzp.uzp.gov.pl/Default.aspx` jest stabilny 8/8 wobec 2/8 błędów na roocie.
+Przy 10 próbach `Default.aspx` dał **2×404**. Niedeterministyczny jest cały
+host (~20%), nie sama ścieżka. Ośmiu udanych prób nie wolno nazywać
+„stabilnym". Skutek narzędziowy: pole `flaky` + przypadek selftestu wymagający,
+by flaga miała udokumentowany pomiar rozrzutu — inaczej stałaby się sposobem
+na uciszanie niewygodnych wyników.
+
+**(b) Test sam wywołał awarię, którą zaraportował.** Przy pełnym przebiegu
+CBOSA (`orzeczenia.nsa.gov.pl`) zwróciła **503 ×3** i została zgłoszona jako
+regresja. Po 60 s pauzy: **200/200/200**. Zapowiedź NSA o blokowaniu
+„nadmiernego korzystania", cytowana w inwentarzu od 2026-09-01c, przestała
+być cytatem ze strony i stała się pomiarem. Skutek: pole `pauza` (CBOSA 15 s),
+2 ponowienia zamiast 1, przypadek selftestu wymagający uzasadnienia każdej
+pauzy limitem tempa, oraz **ograniczenie wpisane wprost do docstringu**:
+pojedynczy przebieg jest bezpieczny, pętla po manifeście — nie.
+
+⛔ Klasa (b) jest istotniejsza niż sam CBOSA: **narzędzie pomiarowe, które
+zmienia mierzony stan, musi to o sobie mówić.** Bez tego zapisu następna sesja
+przeczytałaby 503 jako awarię portalu.
+
+## 4. Wynik pomiaru
+
+**52 sondy, 52/52 zgodnych, 0 regresji, exit 0.** Selftest offline **17/17**.
+Rozkład: OK 35 · POZA_LISTA 8 · BLOKADA 5 · NIEOSIAGALNE 3 · TRESC_NIEZGODNA 1.
+Surowy wynik: `references/F-152-pomiar-domen-2026-09-04.md`.
+
+## 5. Weryfikacja liczby plików (ZASADA 7) — DWA skille
+
+`audyt-systemu-v4`: **PRZED = 86, PO = 86.** Bez zmiany liczby — same edycje.
+`shared`: **PRZED = 157, PO = 157.** Bez zmiany liczby — same edycje.
+
+⛔ Dwa skille = **dwa osobne ZIP-y**, zakaz pakietu zbiorczego.
+
+`shared/CHECKSUMS.sha256` zaktualizowany dla dwóch zmienionych plików;
+`sha256sum -c` na całym katalogu: **0 niezgodnych**.
+
+**Pliki zmienione w `audyt-systemu-v4`:** `SKILL.md` (6.49→6.50, stopka, opis
+T25), `scripts/check_domeny_allowlist.py` (grupa `kandydaci`, pola `flaky`
+i `pauza`, sekcja ODBLOKOWANE, 2 ponowienia, 4 nowe sondy),
+`references/PORTALE-ORZECZNICZE-API.md` (§2 wiersze UODO i EUREKA, §2G-4
+korekta własna, nowa §2G-5, nowe §7.6 i §7.7, §7.5 przepisana),
+`references/WARN-OTWARTE.md`, `references/CHANGELOG.md`,
+`references/F-152-pomiar-domen-2026-09-04.md` (regeneracja, 52 sondy).
+
+**Pliki zmienione w `shared`:** `PRAWO-HARDGATE.md`, `HIERARCHIA-ZRODEL.md`
+(v1.5→v1.6), `CHECKSUMS.sha256`.
+
+## 6. Granice — nazwane wprost
+
+- F-157(b) **nie została wykonana i nie mogła być** — to zmiana konfiguracji
+  sieci, nie zadanie audytowe. Zweryfikowano jedynie, że stan się nie zmienił.
+- Schemat POST wyszukiwarki EUREKA pozostaje nieznany. Pobieranie po ID
+  wystarcza do weryfikacji interpretacji o znanym numerze; **nie wystarcza do
+  wyszukiwania po treści**.
+- Nie zmieniano hierarchii cytowania. UODO dopisano do RZĘDU 2A jako kanał
+  osiągalności rozstrzygnięć organu, nie jako źródło brzmienia przepisu.
+- Pomiar dotyczy tego środowiska i tego kształtu żądania; przy innych
+  nagłówkach wyniki będą inne.
+
+---
+
+# AUDYT-2026-09-04c — naprawa YAML w prawny-router-v3 i luka zasobowa (F-159, F-160)
+
+**Zlecenie:** naprawić błąd YAML w przesłanym `prawny-router-v3.zip` oraz
+odpowiedzieć, skąd system ma wiedzieć, jakich instrukcji użyć przy API, skoro
+nie ma na ten temat żadnej informacji.
+
+## 1. Błąd YAML — objaw i przyczyna
+
+**Objaw.** `yaml.safe_load` na frontmatterze `SKILL.md`:
+`ScannerError: mapping values are not allowed here`, linia 50, kolumna 32.
+Winna linia to kontynuacja elementu listy `escalation`:
+
+    - sprawa transgraniczna / prawo obce → pomiń prawo-polskie-v2 i ISAP,
+      ale NIE pomijaj weryfikacji: view shared/MIEDZYNARODOWE-GATES.md +
+
+YAML czyta `": "` jako początek mapy. Skutek nie jest lokalny — **cały
+frontmatter jest nieparsowalny**, czyli skill nie ładuje się na hoście.
+
+**Naprawa.** Element ujęty w cudzysłów, dwukropek zamieniony na myślnik.
+Przy okazji trzy pozycje `inputs`/`outputs` (`- opcjonalnie: …`,
+`- finalnie: …`) — parsowały się BEZ BŁĘDU, ale jako **mapy**, nie łańcuchy.
+Konsument czytający listę stringów dostawał słownik.
+
+⛔ **Przyczyna nie leży w tej linii.** Wpis 3.37 w changelogu routera opisuje
+tę samą klasę usterki (F-146: niesparowany cudzysłów w polu `changelog`
+„czynił CAŁY frontmatter nieparsowalnym, przez co 3.36 nie ładowała się na
+hoście"). **Dwa razy pod rząd, ta sama awaria, dwie naprawy objawowe.**
+
+Sprawdzone: `grep -rl "yaml.safe_load" scripts/` w tym pakiecie zwracał
+**pustą listę**. T22 jawnie deklaruje w docstringu „Bez PyYAML" i sprawdza,
+czy frontmatter da się WYODRĘBNIĆ (są dwa `---`), nie czy da się PRZECZYTAĆ.
+Plik z rozbitą składnią przechodził T22 bezbłędnie. To ta sama klasa ślepoty
+co F-130, F-145 i F-147.
+
+**Bramka: T26** (`check_frontmatter_yaml.py`). Selftest 10/10 z mutacjami
+negatywnymi, w tym odtworzeniem obu historycznych usterek (F-146 i F-159)
+jako przypadków testowych. Przebieg na 32 zainstalowanych skillach:
+**31 czystych**, jedyna usterka to naprawiany router.
+
+⚠️ **Korekta własna jeszcze przed wydaniem.** Pierwsza wersja T26 wymagała, by
+`changelog` był listą, i zgłosiła `shared` jako usterkę. Fałszywy alarm:
+`shared/SKILL.md` używa bloku `changelog: |`, który jest poprawny i wręcz
+ODPORNIEJSZY na F-146/F-159, bo w bloku `|` dwukropek i cudzysłów nie mają
+znaczenia składniowego. Reguła zawężona. Powód korekty jest praktyczny:
+bramka produkująca fałszywe alarmy zostaje wyłączona po drugim przebiegu
+i przestaje chronić cokolwiek. Selftest dostał przypadek bloku ORAZ mutację
+negatywną — `inputs` jako blok `|` **nadal jest usterką**, bo to pole się
+iteruje.
+
+## 2. Odpowiedź na pytanie o instrukcje API (F-160)
+
+**Pytanie użytkownika było trafne i wskazało lukę architektoniczną, nie brak
+dokumentacji.** Instrukcje istniały — napisałem je w turze 2026-09-04
+w `references/PORTALE-ORZECZNICZE-API.md` §7. Problem w tym, GDZIE stały.
+
+Sprawdzone, nie założone: `audyt-systemu-v4` **nie występuje
+w `dependencies.requires` żadnego skilla produkcyjnego** — ani
+`prawny-router-v3`, ani `analiza-sadowa-v6`, `prawo-polskie-v2`,
+`pisma-procesowe-v3`, `orzeczenia-sadowe-v2`. Wszystkie wzmianki o tym skillu
+w plikach produkcyjnych to **narracyjne cytaty flag** („flaga F-123
+w audyt-systemu-v4", „opis w AUDIT-JOURNAL.md"), nie wczytanie zasobu.
+
+⛔ Wniosek: instrukcje operacyjne były zamknięte w skillu narzędziowym,
+którego ścieżka produkcyjna nigdy nie otwiera. Z punktu widzenia routera
+odpowiedź na pytanie „jakich nagłówków użyć" brzmiała: **nikąd**.
+
+**Rozwiązanie.** Utworzony `shared/DOSTEP-MASZYNOWY-API.md` — wyciąg
+operacyjny w katalogu, który wczytuje każdy skill:
+- §1 ustawienia domyślne (neutralny UA, `Accept`, timeout, ponowienia) wraz
+  z trzema pomiarami uzasadniającymi każdy wymóg i trzema rozróżnieniami
+  (404 dziedzinowy vs techniczny, pusta lista vs błąd, jedna próba nie orzeka);
+- §2 akty — ELI działa, ISAP martwy maszynowo, ze skutkiem dla reguły
+  „ISAP każdy przepis": weryfikuj przez ELI, powołuj ISAP-em;
+- §3 orzecznictwo — SAOS z `lawJournalEntryCode`, UODO, HUDOC;
+- §4 rejestry — KRS bez klucza z pułapką anonimizacji, CEIDG z tokenem,
+  biała lista VAT jako **nieosiągalna**, z nakazem jawnego oznaczenia;
+- §6 kolejność działań przy niepowodzeniu kanału.
+
+⛔ Bez duplikacji: pomiar i jego dowód zostają w `audyt-systemu-v4` (T25,
+`PORTALE-ORZECZNICZE-API.md`); w `shared` stoi wyłącznie wyciąg operacyjny,
+z jawnym zapisem, że przy rozbieżności rozstrzyga pomiar.
+
+**Podpięcie do routera 3.38:** moduł w `required_modules`; `escalation`
+rozszerzone o bramkę „⛔ ZANIM orzekniesz o niedostępności JAKIEGOKOLWIEK
+źródła → sprawdź kształt żądania", o status ISAP jako **stanu normalnego**
+(nie awarii) i o białą listę VAT.
+
+## 3. Korekta poprzedniej tury
+
+Przy tej okazji wykryto błąd z 2026-09-04b: nadałem
+`shared/HIERARCHIA-ZRODEL.md` numer **1.6**, podczas gdy 1.6 była już zajęta
+przez wpis z 2026-09-01f — czytałem tylko pierwsze dopasowanie „Wersja: 1.5".
+Powstałaby kolizja numeracji z dwoma różnymi 1.6. Skorygowane na **1.7**
+i przeniesione na górę listy. ⛔ Paczka z 2026-09-04b nie została jeszcze
+zainstalowana (`grep F-157` na źródle = 0 trafień), więc korekta wyprzedza
+skutek.
+
+## 4. Weryfikacja liczby plików (ZASADA 7) — TRZY skille
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `prawny-router-v3` | 42 | 42 | same edycje |
+| `shared` | 157 | 158 | +`DOSTEP-MASZYNOWY-API.md` |
+| `audyt-systemu-v4` | 86 | 87 | +`scripts/check_frontmatter_yaml.py` |
+
+⛔ Trzy skille = **trzy osobne ZIP-y**, zakaz pakietu zbiorczego.
+`CHECKSUMS.sha256` przeliczone w `shared` (4 wpisy) i w `prawny-router-v3`.
+
+⚠️ Uwaga do przesłanej paczki: `CHECKSUMS.sha256` routera **już na wejściu
+nie zgadzał się z `SKILL.md`** (1 niezgodność, przed moimi zmianami). Ktoś
+edytował `SKILL.md` bez przeliczenia sum — prawdopodobnie ta sama edycja,
+która wprowadziła błąd YAML.
+
+## 5. Granice
+
+- Nie sprawdzono, czy inne zasoby `audyt-systemu-v4/references/` zawierają
+  treści operacyjne uwięzione poza ścieżką produkcyjną — to otwarta część
+  F-160.
+- `shared/DOSTEP-MASZYNOWY-API.md` zawiera statusy z pomiaru 2026-09-04b;
+  starzeją się i mają być odtwarzane T25, nie przepisywane.
+- Nie zmieniono treści proceduralnej routera poza `escalation`
+  i `required_modules`; routing [1]–[11] i bramki nietknięte.
+
+
+---
+
+## AUDYT-2026-09-05 — Dwie nowe bramki (CN-GATE, REM-GATE) + odtworzenie zasobów wymaganych fail-closed przez UP-5
+
+**Wyzwalacz:** analiza porównawcza 14 kazusów (partia P4) ujawniła, że skille
+NIE podnoszą średniej trafności na Opusie, lecz zwiększają rozrzut: sd 2,0 → 2,8
+przy identycznej sumie 662 pkt. Dwa kierunki strat rozpoznane jako odrębne
+tryby awarii.
+
+### 1. Co naprawiono
+
+**F-163 — CN-GATE (`shared/MOD-CN-GATE.md`, nowy).** Bramka zakresu zastosowania,
+wykonywana PRZED OŚ-GATE i WYJ-GATE. Istniejące bramki zamykały trzy pytania
+(treść / czas / otoczenie) i żadna nie zamykała czwartego: czy norma obejmuje
+TEN podmiot i TEN stan. Wyzwalacz mechaniczny, jedna jednostka redakcyjna per oś
+sporu, CN-1 czasowy / CN-2 podmiotowy / CN-3 przedmiotowy. Wynik „NIE" blokujący;
+override wymaga normy wyższego rzędu zweryfikowanej w tej turze i jest zakazany
+w prawie karnym (art. 1 k.k., Statut Rzymski art. 22 ust. 2).
+Przypadki referencyjne: K-04 (art. 8 ust. 2 lit. b Statutu Rzymskiego odczytany
+poprawnie, ale cały katalog dotyczy wyłącznie konfliktu międzynarodowego —
+zarzut bezpodstawny mimo działających bramek weryfikacyjnych), K-06 (art. II
+vs III Konwencji o odpowiedzialności — Sonnet ze skillami stracił 20 pkt),
+K-01 (Aarhus art. 2 ust. 2 wyłącza ciała ustawodawcze).
+
+**F-161 — REM-GATE (`shared/MOD-REM-GATE.md`, nowy).** Bramka środka naprawczego,
+przed HYBRID-VALIDATION. Cały aparat optymalizował pod „nie powołaj złego
+przepisu" i milczał o „nie zaniż środka naprawczego". REM-1 zakaz sierocego
+oddalenia, REM-2 zakaz non liquet, REM-3 rozdzielenie znacznika źródła od siły
+argumentu, REM-4 budżet pokrycia.
+
+**F-162 — dwa zasoby wymagane fail-closed NIE ISTNIAŁY.** UP-5 i DR-14
+nakazywały odczyt `shared/MIEDZYNARODOWE-GATES.md` i
+`shared/HIERARCHIA-ZRODEL-MIEDZYNARODOWE.md`; żadnego nie było na dysku.
+Skutkiem był tryb zdegradowany z substytucją funkcjonalną. Oba pliki utworzone
+na podstawie tekstów odczytanych ze źródeł RZĘDU 1.
+
+**F-162 (część druga) — korekta fałszywej reguły narzędziowej.** UP-5 i DR-14
+twierdziły, że `bash_tool`/`curl` „NIE sięga domen międzynarodowych". Zmierzone:
+`eur-lex.europa.eu` i `legal.un.org` zwracają HTTP 200 z pełnym tekstem; blokada
+dotyczy `unoosa.org` (przekierowanie na `www.`), `cites.org`, `icsid.worldbank.org`
+i `uncitral.un.org`. Reguła spychała całą pracę międzynarodową na snippety
+zamiast na publikator. **Klasa błędu identyczna z F-151** — orzeczenie
+o niedostępności kanału bez pomiaru.
+
+### 2. Test kontrolny (K-02, K-06, K-07)
+
+| Kazus | Przed | Po | Δ |
+|---|---:|---:|---|
+| K-02 | 91 | 97 | +6 |
+| K-06 (kontrola regresji) | 98 | 99 | +1 |
+| K-07 | 91 | 98 | +7 |
+
+Średnia K-01…K-07: 94,6 → 96,6. Odchylenie standardowe: **2,8 → 1,9**.
+Oba kryteria sukcesu spełnione; sd spadło przy wzroście średniej, nie jej kosztem.
+
+⛔ **Znalezisko podważające uzasadnienie REM-3.** Regułę zbudowano na tezie, że
+instrumenty miękkie z natury nie dają się zweryfikować u źródła. Test pokazał,
+że przesłanka była błędna: Konwencja MOP nr 169 i UNDRIP były dostępne w pełnym
+tekście przez cały czas (`ohchr.org`, `un.org`, jedno `web_fetch`). Cztery z sześciu
+punktów odzyskanych w K-02 pochodzą nie z mocniejszego argumentowania, lecz
+z odczytu, którego nikt nie spróbował. Właściwa reguła brzmi „spróbuj pobrać,
+zanim oznaczysz" — patrz WARN F-164.
+
+### 3. Weryfikacja liczby plików (ZASADA 7) — CZTERY skille
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `shared` | 158 | 162 | +4 nowe moduły |
+| `prawny-router-v3` | 42 | 42 | same edycje SKILL.md |
+| `dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka` | — | — | same edycje SKILL.md |
+| `audyt-systemu-v4` | — | — | edycje AUDIT-JOURNAL.md i WARN-OTWARTE.md |
+
+⛔ Cztery skille = **cztery osobne ZIP-y**, zakaz pakietu zbiorczego.
+`CHECKSUMS.sha256` przeliczone w każdym zmienionym skillu.
+Frontmatter wszystkich zmienionych `SKILL.md` sprawdzony PyYAML (T26) — 4/4 czyste.
+
+### 4. Kolizje numeracji flag — wykryte i naprawione przed wydaniem
+
+Pierwsze przypisanie użyło F-158/F-159/F-160, wszystkie zajęte (F-158 i F-159
+w changelogu routera 3.38, F-160 otwarta w WARN-OTWARTE). Przenumerowano na
+F-163/F-161/F-162 po sprawdzeniu wolnych numerów w `references/`.
+
+### 5. Granice
+
+- **Mechanizm B (usztywnienie błędu) pozostaje niesprawdzony.** Najgroźniejszy
+  tryb awarii — Sonnet K-06, −20 pkt — wymaga uruchomienia innego modelu
+  z nowymi bramkami. Niewykonalne w sesji, w której bramki powstały.
+- **Test objął 3 z 7 kazusów, a ujawnił defekt w dwóch nietestowanych.** K-01
+  (obszar arbitrażowy, non liquet → REM-2) i K-03 (MPPOiP oznaczony jako
+  niezweryfikowany, choć `ohchr.org` jest osiągalny). Wartości 95 i 93 przeniesione
+  bez zmian są prawdopodobnie zaniżone; liczby z pkt 2 to dolne oszacowanie.
+- **Konflikt roli.** Bramki zaprojektował, uruchomił i ocenił ten sam wariant.
+  Wyniki 99 (K-06) i 98 (K-07) wymagają kontroli zewnętrznej.
+- Nie zmierzono kosztu narzutu bramek (dodatkowe wywołania i objętość).
+
+
+---
+
+## AUDYT-2026-09-05b — F-164: REM-0 „spróbuj pobrać, zanim oznaczysz"
+
+**Wyzwalacz:** test kontrolny z AUDYT-2026-09-05 ujawnił, że REM-3 w brzmieniu
+z wersji 1.0 leczy objaw. Regułę zbudowano na tezie, że instrumenty miękkie
+z natury nie dają się zweryfikować u źródła — teza okazała się fałszywa
+w przesłance.
+
+### 1. Sonda — pomiar, nie założenie
+
+Pięć powołań oznaczonych ⚠️ [NIEWERYFIKOWANE] w partii P4, sprawdzonych
+w OBU kanałach:
+
+| Powołanie | curl | web_fetch | Znacznik był |
+|---|---|---|---|
+| MPPOiP (`ohchr.org/sites/default/files/ccpr.pdf`) | 403 | ✅ RZĄD 1 | zbędny |
+| Konwencja MOP nr 169 (`ohchr.org`) | 403 | ✅ RZĄD 1 | zbędny |
+| UNDRIP (`un.org` DESA) | — | ✅ RZĄD 1 | zbędny |
+| CITES (`cites.org/eng/disc/text.php`) | 403 | 403 detekcja bota | uzasadniony |
+| ICC-ASP/18/Res.5 (`asp.icc-cpi.int`) | 403 | 403 detekcja bota | uzasadniony |
+
+Kontrolnie: `treaties.un.org` — curl 200, 478 kB.
+
+**3 z 5 znaczników było zbędnych.** Cztery z sześciu punktów odzyskanych
+w K-02 podczas testu 3.39 pochodziły z odczytu, nie z mocniejszego
+argumentowania — czego wtedy nie rozpoznano jako osobnej przyczyny.
+
+### 2. Ustalenie ważniejsze od samego wdrożenia
+
+⛔ **Kanał kodu i kanał pobierania mają różne listy dozwolonych domen.**
+Wiersz `ohchr.org` jest dowodem: pod curl wygląda jak domena zablokowana,
+a przez `web_fetch` wydaje pełne teksty trzech instrumentów. Dlatego REM-0
+wymaga próby **dwukanałowej**, nie „próby" — reguła jednokanałowa
+odtworzyłaby ten sam błąd.
+
+### 3. Co wdrożono
+
+- `shared/MOD-REM-GATE.md` 1.0 → **1.1**: REM-0 jako pierwszy krok blokujący;
+  wymóg próby dwukanałowej; zapis porażki z kanałem i kodem HTTP („brak
+  dostępu" bez kodu nie jest zapisem porażki); REM-3 jawnie podporządkowany
+  REM-0; blok wyjściowy rozszerzony o licznik prób; wzorzec (C) w sekcji 1
+  przeformułowany z objawu na przyczynę.
+- `shared/HIERARCHIA-ZRODEL-MIEDZYNARODOWE.md`: zmierzona tabela dwukanałowa
+  dla 10 domen w §2, z jawnym ostrzeżeniem o wierszu `ohchr.org`.
+- `prawny-router-v3` 3.39 → **3.40**: nowa **Reguła 12d**, wpis changelog.
+- `shared/SKILL.md`: opis modułu REM-GATE zaktualizowany o REM-0.
+
+### 4. Trzecie wystąpienie tej samej klasy błędu
+
+F-151 (kanał ISAP uznany za martwy bez pomiaru kształtu żądania), F-162
+(twierdzenie „curl nie sięga domen międzynarodowych", fałszywe dla EUR-Lex
+i legal.un.org), F-164 (znacznik ⚠️ bez próby pobrania). Wzorzec wspólny:
+**orzeczenie o niedostępności bez pomiaru.**
+
+⚠️ **Rekomendacja na przyszłość:** jeżeli wystąpi czwarte, problemem nie jest
+pojedyncza reguła, tylko brak TESTU mierzącego kanał przed oznaczeniem —
+odpowiednik T25 dla domen międzynarodowych, uruchamiany automatycznie zamiast
+polegać na dyscyplinie wykonawcy. Nie wdrażam teraz, bo REM-0 nie był jeszcze
+używany produkcyjnie i nie wiadomo, czy dyscyplina wystarczy.
+
+### 5. Efekt uboczny na F-165
+
+MPPOiP przeszedł na RZĄD 1, więc obszar „Prywatność i podstawa prawna" w K-03
+rośnie 18 → 20, a kazus 93 → 95. Zakres F-165 zawężony do K-01 i domknięcia
+K-03. **Statystyk nie przeliczam** — pełny przebieg bramek na K-01 nie został
+wykonany, a częściowe przeliczenie dałoby liczbę wyglądającą na pomiar.
+
+### 6. Weryfikacja liczby plików (ZASADA 7) — CZTERY skille
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `shared` | 162 | 162 | edycje `MOD-REM-GATE.md`, `HIERARCHIA-ZRODEL-MIEDZYNARODOWE.md`, `SKILL.md` |
+| `prawny-router-v3` | 42 | 42 | edycja `SKILL.md` (3.40) |
+| `dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka` | 20 | 20 | bez zmian w tej turze — wydany dla spójności wersji |
+| `audyt-systemu-v4` | 87 | 87 | edycje `AUDIT-JOURNAL.md`, `WARN-OTWARTE.md` |
+
+⛔ Cztery osobne ZIP-y. `CHECKSUMS.sha256` przeliczone. T26: 4/4 czyste.
+
+### 7. Granice
+
+- REM-0 **nie był używany produkcyjnie** — wdrożono go na podstawie sondy
+  retrospektywnej, nie przebiegu operacyjnego.
+- Sonda objęła 5 powołań z jednej partii. Nie wiadomo, jaki odsetek znaczników
+  ⚠️ w kazusach polskich jest zbędny; kanał ISAP/ELI ma inną charakterystykę.
+- Nie zmierzono kosztu: REM-0 dokłada co najmniej jedno wywołanie na każde
+  powołanie kierowane do oznaczenia.
+- F-166 pozostaje otwarta. Dopóki jest, nie wolno twierdzić, że którakolwiek
+  z bramek działa poza wariantem, który je zaprojektował.
+
+
+---
+
+## AUDYT-2026-09-05c — F-165: bramki na K-01 i K-03, przeliczenie statystyk
+
+### 1. K-01 — non liquet zamknięty właściwym orzeczeniem
+
+REM-2 wymusił zastąpienie deklaracji „nie badałem w tej turze" rozstrzygnięciem
+warunkowym. REM-0 wskazał drogę: **Opinia 1/17 (CETA)** była pobieralna przez
+EUR-Lex, tylko pod CELEX `62017CV0001(02)` — trzy wcześniejsze próby
+(`62017CV0001`, `61017CV0001`, wariant `_R(01)`) zwróciły 404, co bez REM-0
+zostałoby zapisane jako „źródło niedostępne".
+
+Ustalenia odczytane:
+- **pkt 126–127:** rozdział ósmy sekcja F CETA różni się od umowy z Achmea,
+  bo tam trybunał mógł orzekać o wykładni lub stosowaniu prawa UE; nadto
+  Achmea dotyczył umowy MIĘDZY PAŃSTWAMI CZŁONKOWSKIMI, a kwestię
+  utworzenia trybunału umową między Unią a państwem trzecim należy odróżnić —
+  i odróżnia je sam wyrok Achmea w pkt 57–58.
+- **pkt 113–115:** mechanizm ISDS stoi poza systemem sądowym UE, ale sam ten
+  fakt nie narusza autonomii porządku prawnego Unii.
+- **sentencja (pkt 245):** sekcja F rozdziału ósmego CETA jest zgodna
+  z prawem pierwotnym UE.
+
+Skutek dla kazusu: teza Komisji o rozciągnięciu linii Achmea na umowę mieszaną
+z państwem trzecim jest **błędna co do prawa**, nie tylko niepewna.
+Rozstrzygnięcie warunkowe: jeżeli rozdział ISDS jest zbudowany jak sekcja F
+(trybunał stosuje traktat, prawo UE wyłącznie jako okoliczność faktyczną, brak
+wiążącej wykładni prawa UE) → wyrok wiąże, wykonanie idzie art. 53–54 ICSID,
+a spór dotyczy koordynacji z decyzją o pomocy, nie jurysdykcji arbitrażowej;
+jeżeli rozdział daje trybunałowi kompetencję do wykładni lub stosowania prawa
+UE → argument Komisji odżywa.
+
+| Obszar K-01 | Przed | Po |
+|---|---:|---:|
+| Reżimy i kompetencje (20) | 19 | 20 |
+| Arbitraż i egzekucja (20) | 17 | 19 |
+| pozostałe cztery obszary | 59 | 59 |
+| **Razem** | **95** | **98** |
+
+Arbitraż zostaje na 19, nie 20: treść umowy z kazusu pozostaje ⬛, więc
+rozstrzygnięcie jest i musi pozostać warunkowe.
+
+### 2. K-03 — częściowo, z jawnie niedomkniętym zakresem
+
+MPPOiP odczytany u źródła przy F-164 (`ohchr.org/sites/default/files/ccpr.pdf`,
+art. 17 i 19 dosłownie). Obszar „Prywatność i podstawa prawna" 18 → 20,
+kazus 93 → 95.
+
+⚠️ **EKPC — REM-0 wykonany częściowo i tak oznaczony.** Kanał 1: `rm.coe.int`
+403. Kanał 2: `echr.coe.int` odpowiada przez `web_fetch`, zlokalizowano plik
+`/documents/d/echr/convention_eng` — ale **tekstu nie odczytano**. Powołania
+EKPC pozostają ⚠️ z zapisanym kanałem i ścieżką; punktów zależnych od EKPC
+nie przyznano. To jest wykonanie REM-0 w części, nie jego obejście — różnica
+polega na tym, że status jest zmierzony, a nie założony.
+
+### 3. Statystyki po pełnym przebiegu
+
+| Kazus | Wyjściowo | Po naprawach |
+|---|---:|---:|
+| K-01 | 95 | 98 |
+| K-02 | 91 | 97 |
+| K-03 | 93 | 95 |
+| K-04 | 96 | 96 |
+| K-05 | 98 | 98 |
+| K-06 | 98 | 99 |
+| K-07 | 91 | 98 |
+| **Suma** | **662** | **681** |
+| **Średnia** | 94,6 | **97,3** |
+| **Odchylenie standardowe** | 2,8 | **1,3** |
+
+### 4. ⛔ Dlaczego tej liczby nie wolno używać jako dowodu skuteczności
+
+Wszystkie siedem wyników mieści się teraz w przedziale 95–99. Odchylenie
+standardowe 1,3 przy średniej 97,3 **nie jest dowodem, że bramki działają** —
+jest oczekiwaną sygnaturą pętli zamkniętej: ten sam wariant zaprojektował
+bramki, napisał odpowiedzi, uruchomił bramki na własnych odpowiedziach
+i sam je ocenił, siedem razy tym samym schematem. Zbieżność w wąskim paśmie
+jest tu przewidywalna niezależnie od tego, czy narzędzie cokolwiek poprawia.
+
+⚠️ **Rekomendacja: wycofać tę metrykę z użycia decyzyjnego.** Sekwencja
+94,6 (sd 2,8) → 96,6 (sd 1,9) → 97,3 (sd 1,3) jest monotoniczna, co przy
+samoocenie jest sygnałem ostrzegawczym, a nie potwierdzeniem. Wartość
+diagnostyczną zachowują wyłącznie **ustalenia jednostkowe** — art. 121 ust. 5
+Statutu Rzymskiego, art. II vs III Konwencji o odpowiedzialności, Aarhus art. 2
+ust. 2, Opinia 1/17 pkt 126–127, definicja państwa pochodzenia w KRB — bo każde
+z nich da się sprawdzić niezależnie od punktacji. Kolejny pomiar ma sens
+dopiero po zamknięciu F-166, na wariancie, który bramek nie projektował.
+
+### 5. Weryfikacja liczby plików (ZASADA 7)
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `audyt-systemu-v4` | 87 | 87 | edycje `AUDIT-JOURNAL.md`, `WARN-OTWARTE.md` |
+| `shared` | 162 | 162 | bez zmian — wydany dla spójności |
+| `prawny-router-v3` | 42 | 42 | bez zmian — wydany dla spójności |
+| `dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka` | 20 | 20 | bez zmian — wydany dla spójności |
+
+### 6. Granice
+
+- EKPC niedoczytana (pkt 2). Zakres oznaczony, nie pominięty.
+- Nie przeliczano kazusów polskich; bramki nie były na nich uruchamiane.
+- F-166 otwarta. Wszystkie liczby z pkt 3 pochodzą z samooceny.
+
+
+---
+
+## AUDYT-2026-09-05d — F-166: przebieg na Sonnecie, wynik częściowy (→ F-167)
+
+**Wyzwalacz:** zmiana modelu w sesji na Sonnet 5. Pierwsza okazja do przebiegu
+CN-GATE/REM-GATE (router 3.40) na wariancie, który ich nie projektował —
+warunek, który sam F-166 stawiał jako wymóg zamknięcia.
+
+### 1. Wykonano
+
+K-02, K-06, K-07 — memoranda testowe (873 słów łącznie, format skrócony wobec
+docelowych 2500 słów/kazus), CN-GATE i REM-GATE zastosowane jawnie z blokami
+wyjściowymi.
+
+### 2. Skażenie K-06 — wykryte podczas wykonania, nie po fakcie
+
+`shared/MOD-CN-GATE.md` §CN-3 cytuje wprost: *„Konwencja o odpowiedzialności:
+art. II = powierzchnia Ziemi, absolutna; art. III = poza nią, na winie"* — czyli
+rozwiązanie K-06. Sonnet dostał tę informację przy wczytaniu bramki, przed
+napisaniem odpowiedzi. K-06 przestaje być materiałem dowodowym dla F-166;
+zostaje jako kontrola, że mechanizm w ogóle się uruchamia (uruchomił się —
+CN-3 zwrócił NIE i wskazał normę zastępczą poprawnie, ale to nie jest dowód
+niezależnego wykrycia).
+
+### 3. K-02 — wynik pozytywny, udokumentowany wewnątrz tej samej sesji
+
+Porównanie nie wymagało zewnętrznego archiwum: transkrypt starego Sonneta
+(`Arkusz_odpowiedzi_sonnet_bez_skili.docx`, wczytany wcześniej w tej sesji)
+zawiera dosłowny cytat: *„Zachowanie NEXCA należy przypisać Alekostrii ze
+względu na pełną kontrolę korporacyjną i polityczną"*. Raport
+AUDYT-2026-09-05 potwierdza niezależnie: *„Oba warianty Sonneta zbyt łatwo
+przypisują czyn NEXCA Alekostrii; skille nie usuwają tego błędu"* — czyli błąd
+przetrwał przez wariant bez skilli ORAZ przez stare skille sprzed CN-GATE.
+
+W tej turze Sonnet, po wywołaniu CN-GATE, przeprowadził test trzystopniowy
+(ARSIWA art. 4 status organu, art. 5 wykonywanie władzy publicznej, art. 8
+kierowanie KONKRETNYM zachowaniem) i odrzucił atrybucję, wskazując że zgoda
+polityczna na projekt nie jest kierowaniem trasą pojazdu — to dokładnie
+rozróżnienie, którego brakowało w obu poprzednich wariantach.
+
+**To jest jeden udokumentowany przypadek zamknięcia mechanizmu B na tym samym
+modelu i tej samej sprawie, bez skażenia treścią bramki** (CN-2 dla K-02 nie
+zawiera gotowego rozwiązania NEXCA — moduł podaje ogólną regułę testu, nie
+wynik dla tego kazusu).
+
+### 4. K-07 — wynik mieszany; nowa obserwacja o REM-4
+
+Progi definicyjne Nagoi zastosowane poprawnie (funkcjonalne jednostki
+dziedziczności, państwo pochodzenia in situ). Samoocena dała **niższy wynik
+niż Opus nie z powodu błędnej normy, lecz cienkiego pokrycia**: obszar DSI
+skrócony do jednego zdania, oś czasu ledwie zasygnalizowana. Memorandum
+testowe (compact, 873 słów na trzy kazusy) nie odpowiada formatowi docelowemu.
+
+⚠️ To jest w istocie samopotwierdzenie REM-4: budżet pokrycia wykrył dokładnie
+ten wzorzec, który ma wykrywać, na materiale wytworzonym w tej samej sesji.
+Nie liczę tego jako niezależne potwierdzenie REM-4 — zbyt blisko okoliczności,
+w których REM-4 powstał.
+
+### 5. Dlaczego F-166 NIE jest w pełni zamknięta
+
+1. Jeden udokumentowany przypadek (K-02) to nie dowód systemowy.
+2. Memoranda testowe skrócone — porównanie punktowe z pełnymi odpowiedziami
+   Opusa (2500 słów/kazus) jest nieuprawnione i celowo go nie wykonano.
+3. Samoocena — Sonnet ocenił własną pracę. Ten sam tryb ograniczenia co przy
+   F-163/F-164/F-165.
+4. K-06 wyeliminowany z materiału dowodowego z powodu skażenia treścią bramki.
+
+### 6. Przekształcono w F-167 (wykonalne sesją audytową, nie „zależne od dewelopera")
+
+Zakres zawężony: pełny przebieg (format docelowy) na K-02 i K-07 jako jedynych
+nieskażonych kazusach; dobór i przebieg na kazusie kontrolnym NIEOBECNYM
+w treści żadnej bramki (K-01, K-03, K-04, K-05 — żaden nie jest cytowany
+w `MOD-CN-GATE.md` ani `MOD-REM-GATE.md` jako przykład wzorcowy, więc
+którykolwiek z nich kwalifikuje się jako czysty test mechanizmu B).
+Przeniesiono z „zależne od dewelopera" — ta praca nie wymaga uruchomienia
+innego modelu, wymaga tylko pełnego, nieskróconego przebiegu.
+
+### 7. Weryfikacja liczby plików (ZASADA 7)
+
+Zmieniono wyłącznie `audyt-systemu-v4/references/WARN-OTWARTE.md` i
+`AUDIT-JOURNAL.md`. Pozostałe trzy skille wydane bez zmian, dla spójności
+wersji z poprzednią dostawą.
+
+| Skill | PRZED | PO |
+|---|---:|---:|
+| `audyt-systemu-v4` | 87 | 87 |
+| `shared` | 162 | 162 |
+| `prawny-router-v3` | 42 | 42 |
+| `dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka` | 20 | 20 |
+
+### 8. Granice
+
+- Test wykonany przez tego samego wykonawcę (Sonnet), który go ocenia —
+  ograniczenie nazwane w pkt 5.3, nie ukryte.
+- K-06 wyłączony z materiału dowodowego, nie z paczki — nadal służy jako
+  kontrola uruchomienia.
+- F-167 pozostaje otwarta. Do czasu jej zamknięcia F-166 traktować jako
+  częściowo, nie w pełni, potwierdzoną.
+
+
+---
+
+## AUDYT-2026-09-05e — F-168: przykłady wzorcowe → reguły uniwersalne
+
+**Wyzwalacz:** żądanie użytkownika wprost, bezpośrednio po tym, jak test
+F-166/F-167 wykazał, że `shared/MOD-CN-GATE.md` cytował K-06 (i pośrednio
+K-04) jako przykład wzorcowy — model wykonujący bramkę na tym samym kazusie
+dostawał gotowe rozwiązanie wpisane w treść narzędzia, zamiast je wypracować.
+
+### 1. Zakres skażenia — szerszy niż etykiety „K-0X"
+
+Wyszukiwanie samych etykiet kazusów dało złudne poczucie bezpieczeństwa:
+`grep -c "K-0[0-9]"` zwracał 0 dla `MIEDZYNARODOWE-GATES.md` mimo że plik
+zawierał dokładnie ten sam rodzaj przecieku bez numeru kazusu — konkretne
+pary akt+artykuł+rozstrzygnięcie (Aarhus art. 2 ust. 2, Statut Rzymski
+art. 8 ust. 2 lit. b i art. 121 ust. 5, CISG art. 79 ust. 5, OST art. VIII,
+definicje KRB, reguła temporalna ICSID/SIAC) identyczne z fabułą siedmiu
+kazusów testowych. Sam brak etykiety nie chronił przed przeciekiem — chroni
+wyłącznie brak konkretnego aktu SPRZĘŻONEGO z konkretnym rozstrzygnięciem.
+
+### 2. Pliki przepisane
+
+| Plik | Wersja przed | Wersja po |
+|---|---|---|
+| `shared/MOD-CN-GATE.md` | 1.0 | **2.0** |
+| `shared/MOD-REM-GATE.md` | 1.1 | **1.2** |
+| `shared/MIEDZYNARODOWE-GATES.md` | 1.0 | **1.1** |
+| `shared/SKILL.md` (indeks) | — | poprawione 3 wpisy tabeli |
+| `prawny-router-v3/SKILL.md` | 3.40 | **3.41** — poprawiony też własny
+  changelog wersji 3.39, który osobno cytował to samo rozwiązanie K-04 |
+
+### 3. Metoda rozróżnienia: co zostaje nazwane, co się abstrahuje
+
+Kryterium zastosowane konsekwentnie: **doktryna ogólna** (metoda, którą
+stosuje się do dowolnej sprawy niezależnie od faktów) zostaje nazwana wprost;
+**wynik zastosowania tej metody do jednego, konkretnego stanu faktycznego**
+zostaje zastąpiony opisem klasy wzorca. Przykład reguły:
+
+```
+ZOSTAJE (metoda ogólna):
+  KWPT art. 31–33 jako reguła wykładni traktatów
+  trzystopniowy test atrybucji zachowania podmiotu powiązanego z państwem
+  zasada względnej skuteczności traktatów wobec państw trzecich
+
+ZNIKA (rozwiązanie konkretnego kazusu):
+  „Aarhus art. 2 ust. 2 wyłącza organy ustawodawcze" (K-01)
+  „Statut Rzymski art. 8 ust. 2 lit. b = wyłącznie konflikt międzynarodowy" (K-04)
+  „Konwencja o odpowiedzialności art. II = wyłącznie powierzchnia Ziemi" (K-06)
+
+W MIEJSCE DRUGIEGO (wzorzec strukturalny, bez nazwanego aktu):
+  „katalog przepisów z warunkiem wstępnym w nagłówku grupy, nie w punkcie"
+  „przepisy-bliźniaki o różnym reżimie dla różnego miejsca/przedmiotu"
+  „definicja wyłączająca umieszczona in fine, nie w osobnym przepisie"
+```
+
+### 4. Konsekwencja dla poprzednich zamknięć w tej serii
+
+F-163, F-161, F-162, F-164, F-165 pozostają zamknięte — ich USTALENIA
+merytoryczne (np. że dany katalog ma warunek wstępny w nagłówku) są nadal
+prawdziwe i nadal odnotowane w `AUDIT-JOURNAL.md` jako fakty historyczne.
+Zmieniło się wyłącznie to, CZY treść narzędzia produkcyjnego ujawnia je
+wprost modelowi wykonującemu bramkę na tym samym kazusie. Dziennik audytu
+(ten plik) jest zapisem historii, nie narzędziem wykonawczym — pozostaje
+nienaruszony i nadal zawiera pełne, nazwane ustalenia dla celów śledzenia.
+
+### 5. Czego NIE sprawdzono w tej turze
+
+⚠️ **Test regresji nieprzeprowadzony.** Nie zweryfikowano, czy wersje 2.0 /
+1.2 / 1.1 nadal skutecznie wymuszają wykrycie tych samych klas błędów przy
+braku nazwanego przykładu. Możliwe, że opis czysto strukturalny („sprawdź,
+czy nie istnieje przepis-bliźniak") jest mniej skuteczny operacyjnie niż
+przykład z nazwanym aktem — abstrakcja chroni przed przeciekiem, ale nie ma
+gwarancji, że nie osłabia siły instruktażowej modułu. To jest właściwy,
+czysty test na przyszłość: uruchomić F-167 (K-02 i K-07 w pełnym formacie,
+plus kazus kontrolny nieobecny w treści żadnej bramki) i sprawdzić, czy
+wersje przepisane nadal łapią te same wzorce błędów co wersje nazwane.
+
+### 6. Weryfikacja liczby plików (ZASADA 7)
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `shared` | 162 | 162 | edycje 3 plików bramek + `SKILL.md` |
+| `prawny-router-v3` | 42 | 42 | edycja `SKILL.md` (3.41) |
+| `audyt-systemu-v4` | 87 | 87 | edycje `AUDIT-JOURNAL.md`, `WARN-OTWARTE.md` |
+| `dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka` | 20 | 20 | bez zmian — wydany dla spójności |
+
+### 7. Granice
+
+- Test regresji odłożony do F-167 (pkt 5).
+- Nie sprawdzono innych plików w paczce (poza czterema objętymi tą serią)
+  pod kątem tej samej klasy przecieku — `analiza-sadowa-v6`,
+  `pisma-procesowe-v3` i inne skille zawierające przykłady mogą mieć
+  analogiczny problem, jeśli kiedykolwiek posłużą do oceny modeli na
+  własnych bazach kazusów. Nie badano w tej turze.
+
+
+---
+
+## AUDYT-2026-09-05f — F-168 (uzupełnienie): sześć przecieków resztkowych we WŁASNYM przepisaniu
+
+**Wyzwalacz:** żądanie ponownej oceny K-01…K-07 na regułach uniwersalnych.
+Zanim ocena — audyt reguł. Wynik: przepisanie z 2026-09-05e **samo zawierało
+sześć przecieków**, mimo że deklarowało ich usunięcie.
+
+### 1. Znalezione i naprawione
+
+| Miejsce | Fraza przeciekająca | Rekonstruowało |
+|---|---|---|
+| `MOD-CN-GATE.md` CN-3 | „(np. »funkcjonalności«, nie samego istnienia śladu materiału)" | definicję materiału genetycznego z K-07 |
+| `MOD-CN-GATE.md` CN-3 | „gdy przedmiot regulacji przestał istnieć" | gatunek wymarły z K-07 |
+| `MIEDZYNARODOWE-GATES.md` S1 | „(np. funkcjonalności)" | jw. |
+| `MIEDZYNARODOWE-GATES.md` S2 | „»nic w niniejszym artykule nie pozbawia strony innych uprawnień«" | klauzulę zachowawczą z K-05, brzmienie niemal dosłowne |
+| `MIEDZYNARODOWE-GATES.md` S2 | „tytuł prawny do rzeczy… niezmieniony przez… przemieszczenie" | regułę własnościową z K-06 |
+| `MIEDZYNARODOWE-GATES.md` S3 | „jedna reguluje odpowiedzialność, inna rejestrację, inna ratownictwo" + „wielostronnego podziału korzyści ustanowionego decyzją organu" | klaster instrumentów z K-06 i mechanizm z K-07 |
+
+Wszystkie zastąpione sformułowaniami opisującymi wyłącznie STRUKTURĘ wzorca
+(„klauzula stabilizująca stan prawny wbrew zmianie okoliczności faktycznych",
+„cecha jakościowa: stan czynny, zdatność, zachowana właściwość").
+
+### 2. Wniosek metodyczny — istotniejszy niż sama poprawka
+
+⛔ **Abstrahowanie przykładu nie jest czynnością jednorazową i nie da się go
+zweryfikować przez `grep`.** Etykieta kazusu („K-06") jest wykrywalna
+mechanicznie. Parafraza zachowująca dość szczegółów, by zrekonstruować
+rozstrzygnięcie — nie jest. Autor przepisujący własny tekst odruchowo
+zostawia „pomocny przykład", bo brzmi on ogólnie w jego własnych uszach,
+podczas gdy dla czytelnika mającego przed sobą ten sam kazus jest wskazówką.
+
+**Test operacyjny dla przyszłych przepisań:** czy dana ilustracja pasuje do
+co najmniej trzech niepowiązanych dziedzin prawa? Jeśli pasuje tylko do
+jednej, jest przykładem, nie regułą — niezależnie od tego, czy pada nazwa
+aktu.
+
+### 3. Czego odmówiono w tej turze
+
+Ponownej oceny punktowej K-01…K-07. Uzasadnienie w treści odpowiedzi dla
+użytkownika: kontekst sesji zawiera pełne, zweryfikowane analizy wszystkich
+siedmiu kazusów wraz z rozstrzygnięciami. Usunięcie przykładów z modułów nie
+usuwa ich z kontekstu wykonawcy. Ponowny przebieg dałby liczby wyglądające
+na pomiar skuteczności reguł uniwersalnych, a mierzące wyłącznie pamięć
+wykonawcy. Skażenie kontekstem jest **szersze** niż skażenie modułem, które
+tę serię napraw uruchomiło (7 kazusów wobec 3).
+
+⚠️ To odmowa pomiaru, nie odmowa pracy — wykonano audyt pokrycia reguł
+(czy każda uniwersalna reguła prowadzi do znanego ustalenia bez jego
+nazwania), który jest testowalną właściwością TEKSTU, nie pamięci.
+
+### 4. Weryfikacja liczby plików (ZASADA 7)
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `shared` | 162 | 162 | edycje `MOD-CN-GATE.md`, `MIEDZYNARODOWE-GATES.md` |
+| pozostałe trzy | bez zmian | | wydane dla spójności |
+
+---
+
+## AUDYT-2026-09-10 — profil LEKKI, rejestr konektorów POZIOM A, warstwa wykonawcza F-113
+
+**Wywołanie:** polecenie użytkownika po zewnętrznej ocenie systemu.
+**Kanał:** rozwojowy. **Skille zmienione:** `prawny-router-v3` (3.42→3.43),
+`shared`, `audyt-systemu-v4` (6.53→6.54), `raport-klienta-v1` (1.4→1.5).
+
+### 0. ⛔ Sprostowanie własnego ustalenia z poprzedniej tury
+
+Ocena zewnętrzna prowadzona była na **kopii zamontowanej w sesji hosta**, nie na
+repozytorium. Kopia niosła router **3.41**. Zgłoszona wtedy „luka historii
+3.39–3.41 i regresja `dysk < dziennik`" **nie istnieje w repozytorium** — repo
+ma 3.42 z 2026-09-09, wpis w lokalizacji kanonicznej i T12 zielony dla routera.
+
+⛔ To jest ta sama klasa błędu, którą system ściga u siebie od F-151: **wniosek
+wyprowadzony z jednego nośnika bez sprawdzenia drugiego.** Odnotowane jawnie,
+bo poprzednia tura zapisała to jako otwartą usterkę systemu, a usterką był stan
+kopii sesyjnej. Wersje wdrożone w tej turze liczone są od stanu repozytorium.
+
+Ustalenie uboczne o wartości trwałej: **stan hosta może być starszy niż repo
+o kilka wydań, bez żadnego sygnału.** Kandydat na kontrolę wejściową — porównanie
+`version:` routera wczytanego przez hosta z wersją w repozytorium przed
+przyjęciem jakiegokolwiek wniosku o „luce w systemie". Zgłoszone jako O-6.
+
+### 1. F-175 — profil LEKKI [ZAMKNIĘTA]
+
+Pomiar ścieżki obowiązkowej routera 3.42 na dysku repozytorium, 2026-09-10:
+
+| Warstwa | Rozmiar | ≈ tokenów |
+|---|---:|---:|
+| rdzeń R-1…R-5 (SKILL, KROK 0A, KROK 1, PRAWO-HARDGATE, SELF-CHECK) | ≈106 kB | ≈26 tys. |
+| warstwa odroczona (HIERARCHIA, CN, REM, WYJ, OŚ, ST, DISCLAIMER) | ≈113 kB | ≈28 tys. |
+| **razem, przed PRIMARY** | **≈219 kB** | **≈54 tys.** |
+
+⚡ **Zbieżność z benchmarkiem 2026-09-08 — to nie jest kwestia wygody.**
+Pomiar 2×2 wykazał, że skille mają znak zależny od poziomu rozumowania: przy
+wysokim +3,6 pkt, przy średnim **−7,5 pkt**. Ujemny znak przy średnim poziomie
+jest dokładnie tą sygnaturą, jakiej należy oczekiwać, gdy koszt kontekstu wypiera
+uwagę z merytoryki. Profil LEKKI adresuje ten mechanizm.
+
+Wdrożone: `prawny-router-v3/references/PROFIL-LEKKI.md`, pozycja
+`[PROFIL-ODROCZENIA]` w `SELF-CHECK.md`, dwie linie w bloku KROKU 3A.
+⛔ Bramek nie ubyło: UP-6 bez zmian, cztery przypadki zakazu profilu LEKKIEGO
+(karne materialne, generowanie pisma, kategoria [11], błąd odczytu rdzenia).
+
+### 2. F-175 część druga — konektory MCP POZIOM A [ZAMKNIĘTA]
+
+`PRAWO-HARDGATE.md` definiuje POZIOM A jako najsilniejszy kanał weryfikacji
+i wymieniał wyłącznie „wzorce" — bez ani jednego działającego serwera. POZIOM A
+był deklaracją, weryfikacja szła faktycznie POZIOMEM B/C.
+`shared/KONEKTORY-REKOMENDOWANE.md` uzupełniony o rejestr dziesięciu publicznych
+serwerów MCP (ISAP/ELI, SAOS, CBOSA, KRS, EUR-Lex i pochodne) z mapowaniem na
+bramki systemu. Wpisy: RZĄD 3; treść dziedziczy RZĄD źródła, nie konektora.
+
+### 3. F-176 — warstwa wykonawcza F-113 [ZAMKNIĘTA; F-113 NADAL OTWARTA]
+
+`scripts/build_ramie_kontrolne_f113.py` + `references/PROTOKOL-WYKONAWCZY-F113.md`.
+⛔ Ustalenie z pierwszego uruchomienia generatora, istotne poza F-113:
+**skasowanie trzech plików kanonicznych bramek zostawia 43 zerwane odwołania
+w 57 plikach.** Skill z zerwanym odwołaniem wchodzi fail-closed w TRYB
+ZDEGRADOWANY — przebieg mierzyłby wtedy reakcję na awarię zasobu, nie brak
+bramki, czyli powtórzyłby wadę TEST1–3. Sprzątanie odwołań jest częścią pomiaru.
+Po sprzątaniu (36 plików, 55 linii): `ci_check_shared` na ramieniu A = OK.
+
+⛔ **Pomiaru nie wykonano.** F-113 zmienia status z „brak narzędzia" na
+„narzędzie gotowe, pomiar do wykonania" (20 przebiegów, ~2 sesje robocze).
+
+### 4. F-177 — `raport-klienta-v1` [ZAMKNIĘTA]
+
+T12 na repozytorium wykrył ODWROTNY rozjazd: changelog ma 1.5, `version:`
+pozostał 1.4. Kierunek odwrotny do F-101, przyczyna ta sama — metadane wersji
+edytowane w dwóch nośnikach osobno. Podbito do 1.5.
+
+### 5. README [POPRAWIONY]
+
+| Miejsce | Było | Jest |
+|---|---|---|
+| katalog skilli | router „klasyfikacja [1]–[10]" | `[1]–[11]`, z opisem kategorii [11] |
+| Krok 2 instalacji | „kolejność ma znaczenie" + tabela etapów 1️⃣–5️⃣ | „kolejność nie ma znaczenia — liczy się **kompletność**"; tabela zestawów zamiast etapów |
+| ścieżka Grok | „zaczynając od `shared/`, kolejność jak w Kroku 2" | kolejność dowolna, kompletność przed pierwszym użyciem |
+| mechanizmy | — | nowa sekcja PROFIL LEKKI |
+| konektory | tylko implementacje przykładowe | + wiersz rejestru publicznego z zastrzeżeniem RZĘDU 3 |
+
+Uzasadnienie korekty kolejności: skille rozwiązują się po nazwie, system nie ma
+stanu zależnego od kolejności instalacji, a brak zasobu z `dependencies.requires`
+uruchamia fail-closed, nie cichy błąd. Warunkiem jest komplet w chwili pierwszego
+użycia, nie sekwencja wgrywania.
+
+⛔ Struktura czterech katalogów kanałowych **pozostaje bez zmian** — na wyraźne
+polecenie użytkownika. Poprzednia tura rekomendowała konsolidację do `skills/`
+z tagami; rekomendacja wycofana z realizacji, odnotowana wyłącznie jako opcja.
+
+### 6. Weryfikacja liczby plików (ZASADA 7)
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `prawny-router-v3` | 42 | 43 | +`references/PROFIL-LEKKI.md`; edycje `SKILL.md`, `SELF-CHECK.md`, `CHANGELOG.md` |
+| `audyt-systemu-v4` | 89 | 91 | +`PROTOKOL-WYKONAWCZY-F113.md`, +`build_ramie_kontrolne_f113.py`; edycje `SKILL.md`, `CHANGELOG.md`, `WARN-OTWARTE.md`, ten plik |
+| `shared` | 162 | 162 | edycja `KONEKTORY-REKOMENDOWANE.md` |
+| `raport-klienta-v1` | 5 | 5 | edycja `SKILL.md` (wersja) |
+
+### 6a. F-178 — router 3.42 wydany z T17 na FAIL [ZAMKNIĘTA]
+
+Wykryte przy pierwszym przebiegu zestawu na repozytorium, **przed** własnymi
+zmianami: `test_router_contract.py` (T17, kontrakt statyczny routera) zwracał
+`⛔ stałe identyfikatory i kolejność reguł`. Przyczyna: wydanie 3.42 (F-169)
+wprowadziło do korpusu **Regułę 14a** (rygor formy znacznika ✅ [VER], AF-7),
+a lista `expected_rules` w teście nie została uzupełniona.
+
+⛔ Kwalifikacja: **test zadziałał poprawnie — nikt nie odczytał jego wyniku przed
+wydaniem.** To nie jest luka w narzędziu, tylko luka w procedurze wydania. Ta sama
+klasa co F-101 i F-177 (metadane w dwóch nośnikach edytowane osobno), tyle że
+drugim nośnikiem jest tu skrypt testowy, nie plik metadanych.
+
+Naprawa: `"14a"` dopisane do `expected_rules` z komentarzem wskazującym pochodzenie
+i datę wpisu. T17: PASS.
+
+⚠️ Wniosek proceduralny: `run_regression_suite.py` istnieje, przechodzi i nie jest
+uruchamiany jako warunek wydania. Kandydat na GitHub Actions — 20 linii YAML nad
+gotowym orkiestratorem. Odnotowane jako O-7.
+
+### 7. Zestaw regresyjny po zmianach
+
+```
+T1 ✅  T2 ✅  T3 ✅  T6/T7 ✅  T8 ✅  T9 ✅  T11 ✅  T12 ✅  T13 ✅  T14 ✅
+T17 ✅  T18 ✅  T19 ✅  T19b ✅  T21 ✅  T22 ✅  MOCK ✅   T4/T5 ⏸ RĘCZNE
+WYNIK KOŃCOWY: ✅ PASS STRUKTURALNY, zero WARN
+```
+
+Przebieg pierwszy (przed naprawami) dał dwa WARN: T12 — pole `changelog:` routera
+rozrosło się do 19 linii po dopisaniu wpisu 3.43, czyli ponad próg ZASADY 15;
+T17 — F-178 powyżej. Oba zamknięte: pole `changelog:` sprowadzone do skrótu
+dwóch wydań plus odesłanie do lokalizacji kanonicznej, `expected_rules`
+uzupełnione. `CHECKSUMS.sha256` przeliczone dla czterech zmienionych skilli,
+T21 zero rozjazdów.
+
+⛔ Archiwa `.zip` kanału rozwojowego przepakowane przez
+`scripts/repack_development_archives.py` i zweryfikowane przez
+`scripts/verify_development_archives.py` — inaczej katalog `WERSJA ROZWOJOWA/`
+niósłby stan sprzed tej sesji, co jest dokładnie klasą rozjazdu `dysk < dziennik`,
+tylko między kanałami dystrybucji.
+
+---
+
+## AUDYT-2026-09-10b — F-179: profil LEKKI stał na fałszywej przesłance
+
+**Wywołanie:** użytkownik wskazał, że ocena kosztu kontekstu pominęła leniwe
+ładowanie. Wskazanie trafne; poniżej pomiar i skutki.
+
+### 1. Co było twierdzone, a co jest prawdą
+
+Wydanie 3.43 / 6.54 uzasadniało profil LEKKI pomiarem: **„≈219 kB ≈ 54 tys.
+tokenów ścieżki obowiązkowej przed wczytaniem PRIMARY"**. Liczba powstała
+z sumowania dwunastu plików, w tym `MOD-CN-GATE`, `MOD-REM-GATE`,
+`MOD-WYJATEK-GATE`, `MOD-OS-CZASU-PRZESLANEK`, `HIERARCHIA-ZRODEL`,
+`MOD-STEP-TRACKER` i `DISCLAIMER`.
+
+⛔ Wszystkie siedem ma **wyzwalacze warunkowe zapisane we własnej treści**
+i podlega leniwemu ładowaniu — host wczytuje zasób przy `view`, nie z góry.
+Warstwa warunkowa była leniwa, zanim profil powstał. Twierdzenie sumowało
+koszt hipotetyczny jako koszt ponoszony.
+
+Pomiar poprawny, 2026-09-10:
+
+| Warstwa | Kiedy w kontekście | Rozmiar |
+|---|---|---:|
+| `name` + `description` 32 skilli | zawsze, niezależnie od sprawy | ≈5,9 kB ≈ 1,5 tys. tokenów |
+| rdzeń R-1…R-5 | po wyzwoleniu routera, bezwarunkowo | ≈100 kB ≈ 25 tys. tokenów |
+| zasoby warunkowe | po padnięciu wyzwalacza | 0–113 kB |
+
+### 2. Klasa błędu i dlaczego aparat go nie złapał
+
+⛔ **Czwarte wystąpienie klasy F-164** — reguła zbudowana na tezie o świecie,
+której nikt nie zmierzył (F-151, F-162, F-164, F-179). Trzy poprzednie dotyczyły
+niedostępności źródeł; to dotyczy kosztu kontekstu. Mechanizm identyczny.
+
+Istotniejsze: **wydanie 6.54 przeszło pełny zestaw regresyjny bez jednego WARN.**
+T1–T22 pilnują rejestrów, wersji, map, sum i kontraktu routera. Żaden nie
+sprawdza — i z natury nie może sprawdzić — **przesłanek faktycznych, na których
+zbudowano regułę**. Twierdzenia o świecie leżą poza zasięgiem tego aparatu.
+
+To jest ograniczenie strukturalne, nie luka do zamknięcia kolejnym testem.
+Konsekwencja praktyczna: **zielony zestaw regresyjny nie jest dowodem, że wydanie
+jest sensowne — jest dowodem, że jest spójne.** Odnotowane jako O-8, bez
+przypisanego działania naprawczego, świadomie.
+
+### 3. Co profil LEKKI naprawdę robi
+
+Skoro nie zmniejsza rdzenia ani o bajt, uzasadnieniem pozostaje wyłącznie
+warstwa audytowa — i ona się broni bez tamtej liczby:
+
+Przed profilem odpowiedź na pytanie „czy model wczytał WYJ-GATE, skoro powołał
+artykuł?" była **nieweryfikowalna z zewnątrz**. Wyzwalacze siedziały w treści
+modułów, których nikt nie czytał, dopóki model sam nie uznał, że powinien —
+a ocena własnej potrzeby jest trybem awarii mierzonym przez F-113
+i udokumentowanym w benchmarku 2026-09-08 (przebieg 02: „reżim prawa kosmicznego
+nie wymaga weryfikacji, bo nie uległ zmianie od czasu treningu" → jedyny w całym
+benchmarku błąd reżimu odpowiedzialności).
+
+Leniwe ładowanie tworzy jeden konkretny tryb awarii: **odroczenie, które cicho
+staje się pominięciem.** Profil zamyka go deklaracją w KROKU 3A, kontrolą
+`[PROFIL-ODROCZENIA]` na wyjściu i zamkniętą listą wyzwalaczy w jednym miejscu.
+
+⚠️ Realna redukcja kosztu wymagałaby skrócenia rdzenia: `PRAWO-HARDGATE.md` to
+41 kB, czyli **41% rdzenia**, wczytywane bezwarunkowo w każdej turze. Osobna
+decyzja projektowa o innym profilu ryzyka — nieobjęta tym wydaniem, odnotowana
+jako kandydat.
+
+### 4. O-7 ZAMKNIĘTA — zestaw regresyjny jako bramka wydania
+
+`.github/workflows/regresja.yml`: T1–T22 + T21 + kontrola spójności archiwów,
+na `push` i `pull_request` dla kanałów rozpakowanych. F-178 (3.42 wydana z T17
+na FAIL) nie powstałaby przy aktywnej bramce.
+
+### 5. README — twardy próg minimalnego modelu
+
+Sekcja przed Krokiem 1 instalacji: tabela efektu per model, zakaz dla Haiku 4.5,
+drugi wymiar (poziom rozumowania: +3,6 vs −7,5 pkt), trzeci wymiar (wersja
+routera waży więcej niż jego obecność). Powód: Mechanizm 3 z `WPLYW-SKILLI.md`
+jest udokumentowaną szkodą, a nie było o nim słowa tam, gdzie użytkownik czyta
+przed instalacją.
+
+### 6. Weryfikacja liczby plików (ZASADA 7)
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `prawny-router-v3` | 43 | 43 | edycje `SKILL.md` (3.44), `references/PROFIL-LEKKI.md` (1.1), `references/CHANGELOG.md` |
+| `audyt-systemu-v4` | 91 | 91 | edycje `SKILL.md` (6.55), `references/CHANGELOG.md`, `WARN-OTWARTE.md`, ten plik |
+| poza skillami | — | +1 | `.github/workflows/regresja.yml`, `README.md` |
+
+---
+
+## AUDYT-2026-09-10c — F-180, O-5, O-6: rdzeń, preflight, zakaz orzekania z jednego nośnika
+
+**Wywołanie:** kontynuacja działań naprawczych wskazanych w poprzednich turach.
+
+### 1. F-180 — `PRAWO-HARDGATE.md` skrócony o 30% [ZAMKNIĘTA]
+
+Po korekcie F-179 stało się jasne, gdzie jest jedyny realny koszt: rdzeń R-1…R-5,
+≈100 kB, wczytywany bezwarunkowo w każdej turze prawnej. **41 kB z tego, czyli
+41%, to jeden plik** — `shared/PRAWO-HARDGATE.md`.
+
+Pomiar 2026-09-10c: z 704 linii **236 opisuje gałęzie, które w typowej sprawie
+nie padają ani razu**:
+
+| Wydzielone do | Treść | Linii | Wyzwalacz |
+|---|---|---:|---|
+| `shared/PRAWO-HARDGATE-BLOKADA.md` | BRAMKA ANTY-FASADOWA + KOTWICA URZĘDOWA | 201 | B-1/B-2 zwrócił blokadę **i** kanał kodu też zawiódł |
+| `shared/PRAWO-HARDGATE-AKT-MIEJSCOWY.md` | ŚCIEŻKA B-L | 35 | przedmiotem sprawy jest akt prawa miejscowego |
+| `shared/references/CHANGELOG.md` | HISTORIA WERSJI | 11 | ZASADA 15 |
+
+Wynik: **40,9 → 28,7 kB (−30%)**, rdzeń ≈100 → ≈88 kB. Zero zmian merytorycznych —
+treść przeniesiona dosłownie.
+
+⛔ **Ryzyko tej operacji trzeba nazwać wprost.** Wydzielono bramkę, której jedynym
+zadaniem jest niedopuszczenie do obejścia procedury. Jeśli model pominie odczyt,
+zyska dokładnie to, przed czym bramka broni — wygodne wyjście awaryjne. Dlatego
+w korpusie zostały **twarde zaślepki, nie odesłania**: rozgałęzienie TAK/NIE
+z `⛔ STOP` i jawnym `view`, zakaz nadania 🟨 oraz ⚠️ przed jego wykonaniem
+(znacznik nadany wcześniej jest nieważny), przypomnienie o Regule 12d (REM-0)
+i powiązanie z kontrolą `[PROFIL-ODROCZENIA]`.
+
+⚠️ **Czego to nie rozstrzyga.** Czy model w sytuacji blokady faktycznie wykona
+`view`, zamiast go zadeklarować — to jest pytanie z protokołu F-113 i pozostaje
+niezmierzone. Wydzielenie **przenosi** ryzyko fasady z „nie wykonał bramki, którą
+miał w kontekście" na „nie wczytał bramki, którą miał wczytać". Drugie jest
+łatwiejsze do wykrycia z zewnątrz (brak `view` w śladzie), pierwsze nie — i to
+jest cały argument za tą zmianą. Nie za oszczędnością 12 kB.
+
+### 2. O-5 — preflight kompletności korzenia [ZAMKNIĘTA]
+
+`run_regression_suite.py` dostał preflight przed pierwszym testem. Na rozdzielonym
+drzewie T3 i T11 kończyły się `KeyError: 'prawo-polskie-v2'` — komunikatem
+nieodróżnialnym od realnego braku skilla; ten sam FAIL raz oznaczał usterkę
+systemu, a raz usterkę środowiska.
+
+Preflight zlicza skille w korzeniu, a przy brakach **szuka ich w katalogach
+sąsiednich** i rozstrzyga jawnie: „skille są, ale poza tym katalogiem" (rozdzielone
+drzewo, z gotowym poleceniem scalenia) kontra „skilli nie ma nigdzie w pobliżu"
+(realny brak). Przy niekompletnym korzeniu przebieg zatrzymuje się z kodem 2,
+zanim wyniki zaczną wprowadzać w błąd.
+
+Zweryfikowane na realnym przypadku z 2026-09-09 — preflight uruchomiony na
+`/mnt/skills/plugins` poprawnie wskazał `prawo-polskie-v2` w `../../`.
+
+⛔ Preflight niczego nie naprawia i nie zastępuje testu. Zamienia mylący FAIL na
+diagnozę.
+
+### 3. O-6 — `[STAN-ZAŁADOWANY]` [ZAMKNIĘTA]
+
+Nowa pozycja w `prawny-router-v3/references/SELF-CHECK.md`, router 3.45: zakaz
+orzekania o luce w SYSTEMIE bez zestawienia wersji załadowanej przez hosta
+z wersją w repozytorium. Alternatywa dopuszczalna: wniosek ⚠️ WARUNKOWY z jawnym
+podaniem wersji roboczej.
+
+Podstawa faktyczna: ocena z 2026-09-09/10 prowadzona na kopii sesyjnej z routerem
+3.41 zgłosiła jako usterkę systemu lukę historii, której w repozytorium (3.42)
+nie było. ⛔ Klasa F-151 — wniosek z jednego nośnika bez sprawdzenia drugiego —
+tym razem popełniony po stronie oceniającego, nie przez sam system.
+
+### 4. Weryfikacja liczby plików (ZASADA 7)
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `shared` | 162 | 164 | +`PRAWO-HARDGATE-BLOKADA.md`, +`PRAWO-HARDGATE-AKT-MIEJSCOWY.md`; edycje `PRAWO-HARDGATE.md`, `SKILL.md` (3.32), `references/CHANGELOG.md` |
+| `prawny-router-v3` | 43 | 43 | edycje `SKILL.md` (3.45), `references/SELF-CHECK.md`, `references/PROFIL-LEKKI.md` (1.2), `references/CHANGELOG.md` |
+| `audyt-systemu-v4` | 91 | 91 | edycje `SKILL.md` (6.56), `scripts/run_regression_suite.py`, `references/CHANGELOG.md`, `WARN-OTWARTE.md`, ten plik |
+
+### 5. Co pozostaje niewykonane
+
+⛔ **F-113 — pomiar.** Narzędzie gotowe od 2026-09-10, przebiegów nie wykonano.
+Po F-180 pytanie stało się ostrzejsze: wydzielenie gałęzi blokady zmieniło profil
+ryzyka fasady i **właśnie tego dotyczy bramka B1** z protokołu. Pomiar wykonany
+teraz odpowiedziałby na pytanie postawione przez tę samą sesję, która je stworzyła.
+
+⛔ **`HIERARCHIA-ZRODEL.md` (31,6 kB)** — nie należy do rdzenia, ale jest czytana
+przy pierwszym URL, czyli praktycznie zawsze. Kandydat na tę samą operację co
+F-180; nieanalizowany, bo wymaga osobnego pomiaru, które sekcje są warunkowe.
+
+---
+
+## AUDYT-2026-09-10d — sześć flag „wykonalnych sesją" i dwa błędy podmiany aktu
+
+**Wywołanie:** polecenie użytkownika, kontynuacja po AUDYT-2026-09-10c.
+**Warunek środowiskowy:** API ELI osiągalne (HTTP 200) — bez tego F-141, F-135
+i F-148 byłyby niewykonalne w tej sesji.
+
+### 0. ⛔ Ustalenie najważniejsze — nie o testach, o treści
+
+Rozszerzenie czułości T15 (F-148a) wykryło **dwa wiersze, w których numer Dz.U.
+opisywał inny akt niż deklarowany**:
+
+| Miejsce | Deklarowano | Czym jest naprawdę | Skorygowano na |
+|---|---|---|---|
+| `prawo-polskie-v2/ROUTING-MAP.md:770` | ustawa o działaniach antyterrorystycznych, `Dz.U. 2024 poz. 1474` | obwieszczenie **Ministra Sprawiedliwości** o t.j. **rozporządzenia** MS | **Dz.U. 2025 poz. 194** |
+| `dr-08/.../mod-ustawa-zarzadzanie-kryzysowe.md` | ustawa o zarządzaniu kryzysowym, `Dz.U. 2024 poz. 1194` | t.j. ustawy o **dozorze technicznym** | **Dz.U. 2026 poz. 574** |
+
+⛔ Oba miały status `✅ OK`. Oba przechodziły KAŻDĄ dotychczasową kontrolę, bo
+numer istnieje, jest obwieszczeniem i ma status obowiązujący. Pierwszy wiersz
+prowadził do modułu o służbach specjalnych, drugi był podstawą całego modułu
+o zarządzaniu kryzysowym. Klasa F-149(3).
+
+Propagacja (ZASADA 8): błędny numer antyterrorystyczny występował w trzech
+miejscach (ROUTING-MAP, moduł DR-13, `dr-13/SKILL.md`), błędny kryzysowy
+w trzech w obrębie modułu. Wszystkie poprawione. Do obu dopisano ostrzeżenie
+KROK 2C: ustawa z 29.05.2026 (Dz.U. 2026 poz. 815) nowelizuje oba akty PO ich
+tekstach jednolitych.
+
+### 1. F-148 [ZAMKNIĘTA]
+
+**(a) Ślepota na podmianę aktu.** Przyczyna zlokalizowana w
+`expected_act_title`: lista `formal_prefixes` obejmowała wyłącznie „Kodeks…"
+i „Prawo…", więc dla każdej nazwy „Ustawa o…" funkcja zwracała pusty łańcuch
+i porównanie tytułów **w ogóle się nie odbywało**. Lista rozszerzona o
+„ustawa o / z / -". Mutacja negatywna na przypadku F-149(3)
+(`Dz.U. 2026 poz. 884` przypisane ustawie o świadczeniu uzupełniającym):
+PROBLEMS 0 → 1, TITLE_MISMATCH na wstrzykniętym wierszu. Czułość potwierdzona.
+
+**(b) Dwa trwałe fałszywe trafienia.** Usunięte **bez tknięcia korpusu**,
+zgodnie z zapisem flagi:
+- okno sąsiedztwa 6 wierszy zamiast samego wiersza — zamyka
+  `mod-KW-art119-131:220` (odesłanie historyczne, bieżący t.j. wiersz wyżej),
+- rozpoznanie etykiety „akt pierwotny/bazowy/macierzysty" **w koniunkcji**
+  z obecnością `t.j.` w tym samym wierszu — zamyka `ROUTING-MAP:219`.
+
+**Triaż 17 nowych zgłoszeń.** Wszystkie sprawdzone w RZĘDZIE 1: 15 to skróty
+nazw roboczych, 2 to opisane wyżej podmiany. Skróty zapisane w nowym
+`references/ALIASY-NAZW-AKTOW.md`. ⛔ Rejestr NIE jest listą wyciszeń — wpis
+bez wypełnionej kolumny „Sprawdzone" jest przez parser ignorowany, a zmiana
+nazwy w rejestrze operacyjnym unieważnia alias i przywraca sygnał.
+
+⚠️ Jeden alias z zastrzeżeniem: `Dz.U. 2025 poz. 1295` figuruje jako „ustawa
+o diagnostyce laboratoryjnej", a akt nazywa się dziś **ustawą o medycynie
+laboratoryjnej**. Numer poprawny, nazwa nieaktualna — do przemianowania przy
+najbliższej pracy nad dr-10, po czym alias należy usunąć.
+
+**Wynik:** T15 `maps` PROBLEMS=0, `operational` PROBLEMS=0.
+
+### 2. F-141 [ZAMKNIĘTA]
+
+Osiem pozycji zweryfikowanych niezależnie w RZĘDZIE 1 (odczyt po adresie
+`/eli/acts/DU/{rok}/{poz}`): tytuł, typ, status; dla trzech obwieszczeń
+dodatkowo lista `Inf. o tekście jednolitym` aktu bazowego. Wszystkie
+potwierdzone. Siedem stoi w tabeli głównej mapy 2026-09-09, ósma
+(`2026/1123`, `entryIntoForce` 2028-01-01) w MONITORING — zgodnie z projektem
+mapy. `2026/1123` faktycznie zmienia ustawę o SN (`DU/2018/5`) jako jeden
+z 26 aktów zmienianych, więc opis w ROUTING-MAP był poprawny.
+
+⚠️ **Praca została wykonana przy F-172 dziewiątego września i flagi nikt nie
+zamknął.** Ten sam rozjazd „dysk wyprzedza rejestr" co przy F-169. Kandydat na
+kontrolę: po zamknięciu flagi sprawdzić, czy inne flagi nie zostały zaspokojone
+przy okazji.
+
+⛔ Odnotowane osobno: fałszywy negatyw z 2026-08-31 dla `2026/980` wynikał
+z użycia **wyszukiwarki** ELI, która dla tej ustawy zwraca głównie starsze t.j.
+Rozstrzyga odczyt po adresie plus lista t.j. aktu bazowego. Uwaga metodyczna
+wpisana do ROUTING-MAP w miejscu, gdzie wcześniej stała mylna wskazówka.
+
+### 3. F-135 [CZĘŚCIOWO — postęp, nie zamknięcie]
+
+Osiem znaczników „NIEWERYFIKOWANE RZĄD 1" w `ROUTING-MAP.md` rozstrzygniętych:
+PrRestr `2026/533`, KSH `2024/18`, KKW `2025/911`, PZP `2026/793`, konwencje
+wiedeńskie `1965/232` i `1982/98`, konwencja genewska `1991/515`. Ustalony
+brakujący numer Protokołu nowojorskiego 1967: **Dz.U. 1991 nr 119 poz. 517**
+(oświadczenia rządowe o przystąpieniu: poz. 516 i 518).
+
+Wszystkie cztery t.j. są najnowsze dla swoich aktów. KSH i KKW mają po jednej
+nowelizacji po t.j. — wyrok TK z 18.01.2024 (K 29/23, Dz.U. 2024 poz. 96) oraz
+ustawa z 26.09.2025 (Dz.U. 2025 poz. 1423) — dopisane jako ostrzeżenia KROK 2C.
+
+⛔ **Flaga zostaje otwarta.** Zweryfikowano NUMERY, nie treść merytoryczną —
+a F-135 wymaga cross-checku wartości prawnych w modułach. To osobna, znacznie
+większa praca.
+
+### 4. O-4 [ZAMKNIĘTA]
+
+`scripts/test_pokrycie_orkiestratora.py` (T23) + `references/SKRYPTY-RECZNE.md`.
+Każdy z 22 zarejestrowanych skryptów testowych ma teraz status: 15 wywoływanych
+przez orkiestrator, 7 zadeklarowanych jako ręczne z powodem i wskazaniem, kto je
+uruchamia. Mutacja negatywna (skrypt-widmo w rejestrze) → FAIL, jak trzeba.
+T23 wpięty do orkiestratora i zarejestrowany we frontmatterze.
+
+⚠️ Test wykrył przy okazji, że 15 skryptów wywoływanych przez orkiestrator
+**nie figuruje** w polu `scripts:` — T22 tego nie widzi, bo pilnuje kierunku
+rejestr → dysk. Raportowane jako ostrzeżenie, nie FAIL; do rozstrzygnięcia,
+czy rejestr ma być kompletny w obie strony.
+
+### 5. F-160 [ZAMKNIĘTA]
+
+Przegląd `audyt-systemu-v4/references/` wykonany. Wzorzec „zasoby operacyjne
+uwięzione poza ścieżką produkcyjną" **nie powtarza się** — `F-152-pomiar-domen`
+(100 linii adresów i kodów HTTP) sam deklaruje się jako materiał dowodowy,
+a wyciąg operacyjny stoi w `shared/DOSTEP-MASZYNOWY-API.md`.
+
+Znaleziono natomiast **trzy odesłania z produkcji do pliku audytu**:
+`PRAWO-HARDGATE.md` i `HIERARCHIA-ZRODEL.md` wskazywały
+`PORTALE-ORZECZNICZE-API.md` jako źródło INSTRUKCJI. Ponieważ
+`audyt-systemu-v4` nie występuje w `dependencies.requires` żadnego skilla
+produkcyjnego, były to wskazania nieosiągalne. Rozdzielone: instrukcja →
+`shared/DOSTEP-MASZYNOWY-API.md` (w `required_modules` routera), plik audytu →
+materiał dowodowy, z adnotacją o niedostępności z produkcji.
+
+### 6. ⚠️ Efekt uboczny warty zapamiętania
+
+Własny wpis tej sesji — „nowelizacja po t.j. — Dz.U. 2026 poz. 815" — został
+przez T15 odczytany jako **deklaracja tekstu jednolitego** i wygenerował NOT_TJ.
+Parser reaguje na sąsiedztwo `t.j.` z numerem, niezależnie od sensu zdania.
+Przy opisywaniu aktów ZMIENIAJĄCYCH należy pisać „po tekście jednolitym", nigdy
+„po t.j. — Dz.U. …". Obie wstawki poprawione.
+
+### 7. Weryfikacja liczby plików (ZASADA 7)
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `audyt-systemu-v4` | 91 | **95** | +`SKRYPTY-RECZNE.md`, +`ALIASY-NAZW-AKTOW.md`, +`test_pokrycie_orkiestratora.py`, +`mapa_dzu_2026-09-10.md`; edycje `SKILL.md` (6.57), `audit_tj_inventory.py`, `run_regression_suite.py`, `CHANGELOG.md`, `WARN-OTWARTE.md`, ten plik |
+| `prawo-polskie-v2` | — | bez zmian | edycje `SKILL.md` (6.9), `ROUTING-MAP.md`, `references/CHANGELOG.md` |
+| `dr-08-samorzad-terytorialny-prawo-lokalne` | — | bez zmian | edycje `SKILL.md` (3.11), `modules/mod-ustawa-zarzadzanie-kryzysowe.md` |
+| `dr-13-sluzby-bezpieczenstwo-informacje-niejawne` | — | bez zmian | edycje `SKILL.md` (3.10), `modules/mod-ustawa-ABW-AW-CBA-sluzby-specjalne.md` |
+| `shared` | 164 | 164 | 3.32 → 3.33; edycje `PRAWO-HARDGATE.md`, `HIERARCHIA-ZRODEL.md` (F-160), `SKILL.md`, `references/CHANGELOG.md` |
+
+⚠️ **Nowa generacja mapy Dz.U. — `references/mapa_dzu_2026-09-10.md`.** Konieczna,
+bo korekty dwóch podmian aktu wprowadziły do `ROUTING-MAP.md` numery nieobecne
+w mapie centralnej i T11 zapalił WARN. Dopisane pięć pozycji, każda sprawdzona
+w RZĘDZIE 1: 2025/194 (t.j. antyterrorystyczny), 2016/904 (jego akt bazowy),
+2026/574 (t.j. zarządzania kryzysowego), 2026/815 (nowelizacja obu po t.j.),
+2024/96 (wyrok TK K 29/23 — jedyna zmiana KSH po t.j.). T11 zielony.
+
+⛔ Sekwencja warta odnotowania: korekta treści → T11 WARN → nowa generacja mapy
+→ T22 FAIL (mapa na dysku, brak w rejestrze `references:`) → rejestracja.
+Trzy testy złapały kolejno skutki jednej poprawki merytorycznej. To jest ten
+łańcuch, dla którego cały aparat powstał — zadziałał bez ręcznego prowadzenia.
+
+### 8. Co pozostaje
+
+⛔ **F-113** — narzędzie gotowe, pomiar niewykonany. Bez zmian.
+⛔ **F-167** — wymaga przebiegów modelu, jak F-113. Nietknięta.
+⛔ **F-135** — otwarta: numery rozstrzygnięte, treść merytoryczna nie.
+⚠️ Nazwa „ustawa o diagnostyce laboratoryjnej" w dr-10 do przemianowania.
+
+---
+
+## AUDYT-2026-09-10e — użytkowanie wieczyste i kolejność aktualizacji rejestrów
+
+**Wywołanie:** polecenie użytkownika: wstawić „rozporządzenie 2024/900" do map
+DR i mapy w `prawo-polskie-v2`, oraz propozycja kolejności prac.
+
+### 1. ⛔ Korekta przesłanki wniosku
+
+`Dz.U. 2024 poz. 900` **nie jest rozporządzeniem.** Odczyt RZĄD 1
+(`api.sejm.gov.pl/eli/acts/DU/2024/900`, 2026-09-10e):
+
+```
+typ    : Obwieszczenie
+tytuł  : Obwieszczenie Marszałka Sejmu RP z dnia 11 czerwca 2024 r. w sprawie
+         ogłoszenia jednolitego tekstu ustawy o przekształceniu prawa
+         użytkowania wieczystego w prawo własności nieruchomości
+bazowy : Dz.U. 2005 nr 175 poz. 1459 (ustawa z 29.07.2005)
+status : obowiązujący | najnowszy z 3 t.j. | 0 nowelizacji po t.j.
+```
+
+Wpisane zgodnie ze stanem faktycznym, nie z opisem we wniosku. ⚠️ Gdyby wniosek
+dotyczył innego numeru — to jedna pozycja do wycofania, nie kaskada.
+
+⛔ Odnotowane jako wzorzec: gdyby wpis powstał zgodnie z brzmieniem polecenia
+(„rozporządzenie"), byłby **błędem typu aktu** wpisanym zgodnie we wszystkich
+trzech rejestrach naraz — czyli dokładnie tą klasą, na którą T11 jest ślepy
+z definicji (F-82), a T15 wykryłby ją dopiero przy porównaniu tytułów.
+
+### 2. Ujawniona luka merytoryczna
+
+Wyszukanie w całym korpusie: **0 trafień** dla obu ustaw o przekształceniu
+użytkowania wieczystego. Ani ustawa z 29.07.2005 (tryb wnioskowy), ani ustawa
+z 20.07.2018 o przekształceniu gruntów zabudowanych na cele mieszkaniowe
+(z mocy prawa od 1.01.2019) nie były w systemie w żadnej postaci.
+
+Dopisane obie, wraz z aktami bazowymi, do trzech warstw rejestru:
+
+| Akt | t.j. | Akt bazowy | Tryb |
+|---|---|---|---|
+| ustawa z 29.07.2005 | **2024/900** | 2005/1459 | na wniosek |
+| ustawa z 20.07.2018 | **2025/6** | 2018/1716 | z mocy prawa od 1.01.2019 |
+
+⛔ Do obu dopisane ostrzeżenie przed myleniem: powołanie niewłaściwej z nich
+jest błędem podstawy prawnej, nie nieścisłością nazewniczą. Obie oznaczone
+🔴 KATALOGOWANY — brak dedykowanego modułu, obsługa przez
+`mod-UGN-gospodarka-nieruchomosciami`.
+
+### 3. Kolejność aktualizacji rejestrów [PRZYJĘTA]
+
+Propozycja użytkownika — najpierw domknąć pozycje oznaczone do weryfikacji
+i mapy w `prawo-polskie-v2`, dopiero potem moduły DR — **przyjęta i zapisana**
+jako sekcja nagłówkowa `ROUTING-MAP.md`.
+
+Uzasadnienie: kierunek *autorytetu* biegnie w dół (moduł jest miejscem, gdzie
+akt pracuje), ale kierunek *pracy* odwrotnie. Szesnaście map dziedzinowych
+aktualizowanych niezależnie rozjeżdża się szybciej, niż testy to wychwytują,
+a T11 widzi rozbieżność **między** rejestrami, nie błąd wpisany zgodnie wszędzie.
+Jeden zweryfikowany punkt odniesienia zamyka tę klasę u źródła.
+
+⛔ Zastrzeżenie wpisane wprost do reguły: **ROUTING-MAP nigdy nie staje się
+źródłem weryfikacji.** Zapis F-141 („NIE domykać propagacją z map lokalnych")
+obowiązuje w obie strony — wpisanie do modułu numeru przepisanego z mapy
+zbiorczej bez odczytu u źródła jest tym samym błędem, co przepisanie
+w przeciwnym kierunku. Propagacja przenosi rozstrzygnięcie, nie zastępuje go.
+
+⚠️ Wyjątek zapisany: gdy błąd wykryto w module (jak przy F-148a), rozstrzygnięcie
+zaczyna się tam, gdzie je znaleziono, a wyrównanie idzie w obie strony w tej
+samej sesji.
+
+### 4. Weryfikacja (ZASADA 7)
+
+| Skill | PRZED | PO | Różnica |
+|---|---:|---:|---|
+| `dr-09-budownictwo-srodowisko-energia-transport` | bez zmian | bez zmian | 3.26 → 3.27; `MAPA-AKTOW.md` +2 wiersze + ostrzeżenie |
+| `prawo-polskie-v2` | 7 | 7 | 6.9 → 6.10; `ROUTING-MAP.md` +2 wiersze + sekcja kolejności |
+| `audyt-systemu-v4` | 95 | 95 | 6.57 → 6.58; mapa centralna +4 pozycje |
+
+T11: OK — wszystkie trzy warstwy zsynchronizowane.
+
+---
+
+## AUDYT-2026-09-10f — pozycje oznaczone do weryfikacji w mapie zbiorczej
+
+**Wywołanie:** polecenie użytkownika, ze wskazaniem priorytetu na pozycje
+oznaczone do weryfikacji. Wykonane zgodnie z kolejnością przyjętą 2026-09-10e:
+najpierw mapa zbiorcza, potem moduły.
+
+### 1. Zakres i metoda
+
+Zinwentaryzowano **50 wierszy** `prawo-polskie-v2/ROUTING-MAP.md` niosących
+znacznik weryfikacyjny (`weryfikuj`, `niepotwierdzone`, `NIEZWERYFIKOWANY`,
+`NIEWERYFIKOWANE`, `⚠️ brak`). Z każdego wiersza wyekstrahowano numery Dz.U.
+i odczytano w RZĘDZIE 1: istnienie, typ, status, akt bazowy, najnowszy tekst
+jednolity aktu bazowego oraz nowelizacje po tekście jednolitym.
+
+⛔ Metoda odczytu: **po adresie** (`/eli/acts/DU/{rok}/{poz}` + `/references`),
+nie wyszukiwarką — powód zapisany przy F-141.
+
+### 2. ⛔ TRZECI błąd podmiany aktu w tej serii
+
+| Wiersz | Deklarowano | Czym jest naprawdę | Poprawnie |
+|---|---|---|---|
+| „Parabanki/chwilówki/lombardy/lichwa" | ustawa antylichwiarska, `Dz.U. 2023 poz. 1028` | **wygasły tekst jednolity ustawy o KREDYCIE KONSUMENCKIM** (obwieszczenie 12.04.2023, akt bazowy 2011/715) | **Dz.U. 2022 poz. 2339** — ustawa z 6.10.2022 o zmianie ustaw w celu przeciwdziałania lichwie |
+
+Trzeci przypadek klasy F-149(3) w ciągu dwóch sesji, po ustawie
+antyterrorystycznej i ustawie o zarządzaniu kryzysowym. ⛔ Wspólny mianownik
+wszystkich trzech: **numer prawidłowy dla JAKIEGOŚ aktu, przypisany innemu**.
+Żadna kontrola strukturalna tego nie widzi; wykrywalne wyłącznie przez
+porównanie tytułu z ELI (F-148a) albo przez sprawdzenie statusu.
+
+Propagacja: `analizator-umow-v1/references/mod-J4-finansowanie.md` cytował
+`2023/1028` jako ustawę o kredycie konsumenckim — akt właściwy, numer
+przeterminowany. Zaktualizowany na `2025/1362`.
+
+### 3. Zamknięty sygnał `❌ NUMER BŁĘDNY` (KPK)
+
+Wiersz „KPK — zmiana 2025.1390" nosił jawny znacznik błędu z adnotacją
+„wymaga ustalenia właściwego aktu". Ustalenie: `Dz.U. 2025 poz. 1390` to
+rozporządzenie Ministra Finansów i Gospodarki z 12.10.2025 o poborze
+zryczałtowanego podatku — potwierdzone w RZĘDZIE 1, że **nie ma związku z KPK**.
+
+⛔ Kluczowe rozstrzygnięcie: nie było czego korygować. Pod tym numerem nie
+zaewidencjonowano żadnego aktu zmieniającego KPK — była to **pusta referencja**,
+nie zagubiony akt. Wiersz przepisany na aktualny tekst jednolity KPK
+(`2026/490`) z listą pięciu nowelizacji po nim.
+
+### 4. Podniesienie rzędu źródła
+
+`2026/1046` (ustawa antymobbingowa) była rozstrzygnięta 2026-08-14 na podstawie
+trzech zgodnych źródeł RZĘDU 2B. Przy zgodności to wystarczało warunkowo, ale
+nie zastępowało źródła urzędowego. Potwierdzone dziś w API ELI: ustawa
+z 19.06.2026 o zmianie KP oraz KPC, status obowiązujący, zero nowelizacji.
+Znacznik podniesiony do ✅ [VER] RZĄD 1.
+
+### 5. Nowelizacje po tekstach jednolitych (KROK 2C)
+
+Osiem wierszy niosło wyłącznie ogólne „weryfikuj", choć ich akty mają
+nowelizacje **po** tekście jednolitym — czyli sytuację, w której tekst jednolity
+nie oddaje stanu bieżącego:
+
+| Akt | t.j. | Nowelizacji po t.j. |
+|---|---|---:|
+| KK | 2025/383 | 4 |
+| KPK | 2026/490 | 5 |
+| ustawa VAT | 2025/775 | 5 |
+| antykorupcyjna | 2025/499 | 2 |
+| wychowanie w trzeźwości | 2024/1162 | 2 |
+| UDIP | 2022/902 | 1 |
+| Prawo łowieckie | 2025/539 | 1 |
+| zarządzanie kryzysowe | 2026/574 | 1 |
+
+Listy dopisane do wierszy. Dla KK i KPK propagowane do `dr-03/MAPA-AKTOW.md` —
+zgodnie z przyjętą kolejnością, jako wyrównanie modułu do zweryfikowanej mapy,
+nie jako przepisanie bez odczytu (numery odczytane w tej samej sesji).
+
+### 6. Zdjęte zastrzeżenie
+
+`2023/1790` (przeciwdziałanie nadmiernym opóźnieniom w transakcjach handlowych)
+nosiło „pełna historia zmian niepotwierdzona". Odczyt `/references`: **zero
+nowelizacji po tekście jednolitym**. Historia domknięta po stronie ELI,
+zastrzeżenie zdjęte.
+
+### 7. ⚠️ Czego NIE domknięto i dlaczego
+
+- **KSR 1-15 (flaga F-20)** — liczba standardów sporna (14 vs 15), a akty leżą
+  **poza Dz.U.**, w Dzienniku Urzędowym Ministra Finansów. ELI nic tu nie
+  rozstrzyga. Wymaga innego kanału, nie kolejnego odczytu.
+- **„POŚ Szczegóły"** — brak konkretnego aktu do zweryfikowania; wiersz wymaga
+  decyzji o zakresie modułu, nie odczytu numeru.
+- **Pozostałe znaczniki „weryfikuj"** to w większości **stałe instrukcje
+  fresh gate** („re-zweryfikuj przy każdym użyciu"), nie zaległości. Świadomie
+  nietknięte — ich usunięcie osłabiłoby bramkę, a nie domknęło dług.
+
+⛔ Rozróżnienie warte zapamiętania: znacznik „weryfikuj" pełni w tej mapie dwie
+różne role — **zaległości** i **stałej bramki**. Bez ich rozdzielenia każdy
+przegląd będzie liczył te same 30 wierszy jako otwarte w nieskończoność.
+Kandydat: osobny znacznik dla stałego fresh gate.
+
+### 8. Weryfikacja (ZASADA 7)
+
+| Skill | Wersja | Zmiana |
+|---|---|---|
+| `prawo-polskie-v2` | 6.10 → 6.11 | ROUTING-MAP: 13 pozycji domkniętych, 1 podmiana skorygowana |
+| `dr-03-prawo-karne-wykroczenia-egzekucja` | 3.34 → 3.35 | MAPA-AKTOW: listy nowelizacji KK i KPK |
+| `analizator-umow-v1` | 1.31 → 1.32 | mod-J4: wygasły t.j. zastąpiony aktualnym |
+| `audyt-systemu-v4` | 6.58 → 6.59 | mapa centralna +2, dziennik, changelog |
+
+T11 zielony po uzupełnieniu mapy centralnej o `2022/2339` i `2025/427`.
+
+---
+
+## AUDYT-2026-09-10g — zakres modułu POŚ i wyrównanie modułów DR
+
+**Wywołanie:** polecenie użytkownika — kontynuacja przeglądu pozycji oznaczonych
+do weryfikacji oraz ustalenie zakresu modułu POŚ.
+
+### 1. Zakres `mod-POS-prawo-ochrony-srodowiska-szczegoly` [USTALONY]
+
+Wiersz mapy zbiorczej nosił od poprzedniego audytu adnotację „brak konkretnego
+aktu do zweryfikowania, wymaga doprecyzowania zakresu". ⛔ Adnotacja była
+myląca: moduł **ma** zadeklarowany zakres i pięć nazwanych aktów. Problemem nie
+był brak aktów, tylko **brak rozgraniczenia wobec modułu bazowego**.
+
+Ustalone rozgraniczenie:
+
+| Pytanie sprawy | Moduł |
+|---|---|
+| Jaka podstawa prawna, który organ, jaka ścieżka odwoławcza, jaka kwalifikacja karna | `mod-POS-prawo-ochrony-srodowiska.md` — warstwa **materialna i ustrojowa** |
+| Co zrobić i w jakiej kolejności; terminy, screening, wymiar kary, prognoza | `...-szczegoly.md` — warstwa **proceduralna i decyzyjna** |
+
+⛔ Trzy zagadnienia występowały w obu modułach: **intake, Natura 2000
+i odpowiedzialność za szkodę w środowisku**. Do każdego dopisano regułę
+rozstrzygającą (moduł bazowy ustala CZY i KTO, szczegółowy prowadzi JAK).
+Dodano jawną listę wyłączeń: odpady, Prawo wodne, planowanie przestrzenne
+i proces budowlany, ETS.
+
+⚠️ Bez tego rozgraniczenia dublowanie treści między dwoma modułami było kwestią
+przypadku, a nie projektu — a routing nie miał kryterium wyboru między nimi.
+
+### 2. Wyrównanie modułów DR do zweryfikowanej mapy
+
+Zgodnie z kolejnością przyjętą 2026-09-10e. Odczyt RZĄD 1 dla ośmiu aktów:
+
+| Akt | t.j. | Moduł deklarował | Stan faktyczny |
+|---|---|---:|---:|
+| POŚ | 2025/647 | 1 nowelizacja | **9** |
+| ustawa o odpadach | 2023/1587 | 2 nowelizacje | **10** |
+| ochrona przyrody | 2026/13 | — | 3 |
+| KK (art. 181–188a) | 2025/383 | — | 4 |
+| UOOŚiS | 2026/670 | — | 1 |
+| ustawa VAT (dr-06) | 2025/775 | „ze zm." | **5** |
+| KPA | 2025/1691 | — | 0 |
+| szkody w środowisku | 2020/2187 | — | 0 |
+
+⛔ **Wzorzec wart nazwania.** Te wiersze nie były błędne — były **niedomknięte**.
+Wymieniały jedną albo dwie nowelizacje i przez to sprawiały wrażenie
+kompletnych. Adnotacja „ze zm." bez listy jest pod tym względem **gorsza niż
+brak adnotacji**: wygląda na rozstrzygniętą, a nie niesie żadnej informacji
+o tym, ilu zmian dotyczy i czy są istotne.
+
+To inna klasa niż trzy podmiany aktu z tej serii. Tamte były fałszem; te są
+prawdą niepełną, która wygląda na pełną — i dlatego nie zapala żadnego testu.
+
+Skorygowano też błędną datę obwieszczenia UOOŚiS w module bazowym: zapis
+podawał 14.06.2024, w ELI jest 15.05.2026.
+
+### 3. Weryfikacja (ZASADA 7)
+
+| Skill | Wersja | Zmiana |
+|---|---|---|
+| `dr-09-budownictwo-srodowisko-energia-transport` | 3.27 → 3.28 | zakres modułu POŚ-szczegóły + 7 wierszy aktów w module bazowym |
+| `dr-06-podatki-finanse-publiczne-aml` | 3.76 → 3.77 | MAPA-AKTOW: VAT + lista 5 nowelizacji |
+| `prawo-polskie-v2` | 6.11 → 6.12 | ROUTING-MAP: wiersz „POŚ Szczegóły" rozstrzygnięty |
+| `audyt-systemu-v4` | 6.59 → 6.60 | dziennik, changelog |
+
+T11 zielony.
+
+### 4. Co pozostaje w tej linii
+
+⚠️ Wyrównane zostały **mapy i nagłówki modułów**, nie treść artykuł po artykule.
+Dla POŚ (9 nowelizacji) i ustawy o odpadach (10) oznacza to, że moduł wie
+o istnieniu zmian, ale nie wie, **co** zmieniły. To osobna praca — i właściwy
+zakres flagi F-135 w części merytorycznej.
+
+---
+
+## AUDYT-2026-09-10h — źródło wykazu leków refundowanych
+
+**Wywołanie:** polecenie użytkownika: ustalić, czy istnieje oficjalna strona
+wymieniająca leki refundowane, poziom refundacji i grupę uprawnioną, i wpiąć ją
+w prawie medycznym.
+
+### 1. Ustalenie
+
+Źródłem rozstrzygającym jest **obwieszczenie Ministra Zdrowia** wydawane na
+podstawie art. 37 ust. 1 ustawy o refundacji. Wykaz stanowi **załącznik** do
+obwieszczenia — nie jest stroną internetową ani wyszukiwarką.
+
+⛔ **Wykaz nie jest aktem Dz.U.** Ogłaszany jest w Dzienniku Urzędowym Ministra
+Zdrowia, więc nie wchodzi do mapy centralnej i nie da się go tam znaleźć.
+Rozróżnienie wpisane wprost do `ROUTING-MAP.md` i `dr-10/MAPA-AKTOW.md` — bez
+niego kolejna sesja szukałaby wykazu w ELI.
+
+### 2. Pomiar kanałów (Reguła 12d / REM-0)
+
+| Kanał | Rola | Rząd | HTTP | Uwaga |
+|---|---|---|---:|---|
+| `dziennikmz.mz.gov.pl` | ogłoszenie urzędowe | **1** | 200 | ⛔ aplikacja jednostronicowa — treść wymaga przeglądarki |
+| `gov.pl/web/zdrowie/obwieszczenia-ministra-zdrowia-lista-lekow-refundowanych` | załączniki XLSX/PDF | 2A | 200 | **XLSX ≈1 MB — jedyny przetwarzalny wariant**; PDF ≈97 MB |
+| `ezdrowie.gov.pl` | dane dla systemów, korekty wskazań | 2A | 200 | komunikaty między obwieszczeniami |
+| `nfz.gov.pl`, `pacjent.gov.pl` | poziomy odpłatności, uprawnienia | 2A | 200 | wyjaśnienia, nie wykaz |
+| `api.nfz.gov.pl/app-stat-api-ra/` | statystyka refundacji | 2A | 200 | ⚠️ **nie wykaz** |
+
+⛔ Sytuacja godna odnotowania: **źródło RZĘDU 1 jest dostępne, ale nieczytelne
+maszynowo**, a czytelny maszynowo załącznik leży w RZĘDZIE 2A. To odwrotność
+typowego układu i wymaga zapisania, żeby nie było odczytywane jako awaria.
+
+### 3. Dwie pułapki wpisane do modułu
+
+- `api.nfz.gov.pl` zwraca dane o **zrealizowanych receptach** — co refundowano,
+  a nie co podlega refundacji. Użycie go jako podstawy odpowiedzi jest błędem
+  kategorii źródła, nie nieścisłością.
+- **Poziom odpłatności bez limitu finansowania nie wystarcza do podania kwoty.**
+  Przy cenie detalicznej powyżej limitu grupy limitowej pacjent dopłaca nadwyżkę
+  ponad limit. Odpowiedź „lek jest na 50%, więc zapłaci połowę" jest fałszywa
+  w typowym przypadku — a jest to najbardziej naturalna odpowiedź do udzielenia.
+
+### 4. ⛔ CZWARTY błąd w serii — nowy mechanizm
+
+`mod-PrFarm-refundacja-nadzor-sankcje.md` podawał **w nagłówku** ustawę
+refundacyjną jako `Dz.U. 2025 poz. 907` (status *wygaśnięcie aktu*), a **we
+własnej treści**, dziesięć linii niżej, jako `2026/253` (poprawnie).
+
+Moduł przeczył sam sobie. Żaden test tego nie widział: oba numery istnieją, oba
+są obwieszczeniami, oba dotyczą tej samej ustawy, a mapy cytowały wersję
+poprawną. To **rozjazd wewnątrz jednego pliku** — trzecia odrębna klasa obok
+podmiany aktu (10d, 10f) i niedomknięcia (10g).
+
+⚠️ Wniosek metodyczny: nagłówki modułów („aktualne t.j.: …") są cytowane rzadziej
+niż treść, więc starzeją się niezauważone, mimo że to one pierwsze wpadają
+w oko czytającemu. Kandydat na kontrolę: porównanie numerów z nagłówka modułu
+z numerami w jego treści.
+
+Propagacja naprawiona w trzech dalszych miejscach dr-10 (ZASADA 8).
+
+### 5. Weryfikacja
+
+| Skill | Wersja | Zmiana |
+|---|---|---|
+| `dr-10-zdrowie-farmacja-zywnosc-rolnictwo` | 3.39 → 3.40 | sekcja ŹRÓDŁO WYKAZU, korekta nagłówka + propagacja, MAPA-AKTOW |
+| `prawo-polskie-v2` | 6.12 → 6.13 | ROUTING-MAP: wiersz refundacyjny |
+| `audyt-systemu-v4` | 6.60 → 6.61 | mapa centralna +`2026/791`, dziennik, changelog |
+
+T11 zielony.
+
+---
+
+## AUDYT-2026-09-10i — kontrola adnotacji „brak t.j." i kandydat na nowy test
+
+**Wywołanie:** pytanie użytkownika, czy trzy wiersze przestawione na `PREV` przy
+F-172 są faktycznie naprawione, oraz polecenie zapisania nowego testu jako
+kandydata.
+
+### 1. Trzy wiersze PREV — POTWIERDZONE niezależnie
+
+Odczyt RZĄD 1 z 2026-09-10i, wykonany od zera, bez opierania się na wpisie F-172:
+
+| Akt bazowy | Status w ELI | Bieżący t.j. | Wiersz w mapie |
+|---|---|---|---|
+| `2022/974` wyroby medyczne | akt posiada tekst jednolity | **2024/1620** (10.10.2024) | ORG / **PREV** ✅ |
+| `2023/1429` świadczenie wspierające | akt posiada tekst jednolity | **2026/873** (30.06.2026) | ORG / **PREV** ✅ |
+| `2020/1298` pomoc na ratowanie | akt posiada tekst jednolity | **2026/113** (30.01.2026) | ORG / **PREV** ✅ |
+
+Wszystkie trzy nowe teksty jednolite mają własne wiersze ze statusem `OK`
+i wskazaniem aktu bazowego. **Naprawa F-172 jest kompletna** — potwierdzone
+pomiarem, nie odczytem dziennika.
+
+### 2. ⛔ Ta sama klasa błędu żyje dalej — dwa nowe przypadki
+
+Wykonany jednorazowo skan całego korpusu za twierdzeniami „brak t.j." /
+„brak tekstu jednolitego". Dziesięć wystąpień, z tego **dwa nieprawdziwe**:
+
+| Miejsce | Twierdziło | Stan faktyczny |
+|---|---|---|
+| `ROUTING-MAP.md:646` — delegowanie kierowców | „ze zm. 2024.1544 i **2025.797 (brak t.j.)**" | `2023/1523` ma status „akt posiada tekst jednolity", a **2025/797 JEST tym tekstem jednolitym**, nie nowelizacją |
+| `dr-12/SKILL.md:304` + `mod-ustawa-notariat.md:179` — Prawo o notariacie | „⚠️ brak t.j. — weryfikuj każdą nowelizację" | t.j. **Dz.U. 2026 poz. 614** (obwieszczenie 30.04.2026), zero nowelizacji po nim |
+
+⛔ Przypadek notariatu jest szczególnie wymowny: **mapa centralna miała już wiersz
+`2026/614` ze statusem OK i przypisaniem do dr-12**, podczas gdy sam dr-12
+twierdził, że tekstu jednolitego nie ma. Rejestry były zgodne między sobą,
+obecność była pełna, a proza w skillu mówiła coś przeciwnego.
+
+Przypadek delegowania kierowców to **podwójny błąd**: nieprawdziwe „brak t.j."
+plus zła kwalifikacja typu aktu (tekst jednolity opisany jako nowelizacja).
+Wiersz w mapie centralnej przestawiony na ORG/PREV, dopisany `2025/797` jako TJ.
+
+Pozostałe osiem wystąpień sprawdzone i **prawdziwe**: `2024/1572` (dochody JST),
+`2024/1907` (ochrona ludności) — faktycznie bez tekstu jednolitego;
+`2022/2162` (medycyna laboratoryjna) — uchylona, więc bezprzedmiotowe;
+reszta to definicje legendy i adnotacje historyczne.
+
+### 3. ⛔ KANDYDAT NA NOWY TEST — „czy adnotacja o stanie nadal mówi prawdę"
+
+**Luka jest realna i żaden istniejący test jej nie pokrywa:**
+
+| Test | Pyta o | Czy złapie „brak t.j." nieaktualne? |
+|---|---|---|
+| T3 | zgodność numerów między mapami | ⛔ nie — numer się nie zmienił |
+| T11 | obecność numeru w mapie centralnej | ⛔ nie — numer jest obecny |
+| T15 | tożsamość aktu i nowszy t.j. dla ZADEKLAROWANYCH t.j. | ⛔ nie — wiersz nie deklaruje t.j., tylko jego BRAK |
+| T24 | nowelizacje po tekście jednolitym | ⛔ nie — bez t.j. nie ma czego liczyć |
+
+⛔ To jest **ZASADA 8 w wariancie czasowym**: numer i nazwa były poprawne
+w chwili zapisu, a **przeterminowała się adnotacja o stanie**. Cała grupa
+testowa pilnuje wartości, nikt nie pilnuje twierdzeń o wartościach.
+
+Zarys testu do napisania w osobnej sesji:
+
+```
+Dla każdego wiersza rejestru zawierającego twierdzenie o stanie
+(„brak t.j.", „nowa ustawa", „bez tekstu jednolitego", „nieopublikowany"):
+  1. wyekstrahuj numer Dz.U. z tego samego wiersza
+  2. odczytaj `status` i `Inf. o tekście jednolitym` w RZĘDZIE 1
+  3. jeśli lista t.j. jest NIEPUSTA → ⛔ FAIL: adnotacja przeterminowana
+  4. jeśli status = „uchylony" → ⚠️ WARN: wiersz bezprzedmiotowy
+```
+
+⚠️ **Nie napisany w tej turze — świadomie.** To osobna robota z własnym
+projektem czułości (jak rozpoznać twierdzenie o stanie, nie każde wystąpienie
+słowa „brak"), a nie łatka do bieżącej naprawy. Dopisany do rejestru żywego.
+
+⚠️ Odnotowane przy okazji: rodzina twierdzeń jest szersza niż „brak t.j." —
+„nowa ustawa", „projekt", „w vacatio legis", „nieopublikowany" starzeją się
+identycznie. Projekt testu powinien objąć rodzinę, nie jedną frazę.
+
+### 4. Sygnał T15 przy `Dz.U. 2023 poz. 1285` — status na dziś
+
+Wpis F-172 odnotował ten sygnał jako fałszywy alarm parsera i **świadomie go nie
+załatał**: rejestr był poprawny (numer jawnie opisany jako akt pierwotny obok
+t.j. 2024/1111), a naprawa należała do skryptu, nie do treści.
+
+⛔ **Zamknięte 2026-09-10f (F-148b), zgodnie z tym zapisem — poprawką w skrypcie,
+nie w rejestrze.** `audit_tj_inventory.py` rozpoznaje teraz etykietę „akt
+pierwotny / bazowy / macierzysty" **w koniunkcji** z obecnością `t.j.` w tym samym
+wierszu i nie zgłasza takiego numeru jako deklaracji tekstu jednolitego.
+Licznik `AKT_PIERWOTNY_OPISANY` raportuje ile razy reguła zadziałała, więc
+tłumienie jest widoczne, nie ciche. T15 `maps` i `operational`: PROBLEMS=0.
+
+Rejestr **nie został przepisany** — treść `ROUTING-MAP.md:219` jest ta sama co
+przed naprawą.
+
+### 5. Weryfikacja
+
+| Skill | Wersja | Zmiana |
+|---|---|---|
+| `prawo-polskie-v2` | 6.13 → 6.14 | ROUTING-MAP:646 — podwójny błąd skorygowany |
+| `dr-12-sadownictwo-prokuratura-zawody-prawnicze` | ↑ | SKILL.md + mod-ustawa-notariat: t.j. 2026/614 |
+| `audyt-systemu-v4` | 6.61 → 6.62 | mapa centralna: 2023/1523 → ORG/PREV, +2025/797; dziennik |
+
+T11 zielony.
+
+---
+
+## AUDYT-2026-09-10j — łańcuch laboratoryjny: dwie podmiany aktu pod jedną „nieaktualną nazwą"
+
+**Wywołanie:** domknięcie kandydata z F-148a — przemianowanie wiersza
+„ustawa o diagnostyce laboratoryjnej" i usunięcie aliasu tymczasowego.
+
+### 1. Co miało być kosmetyką, a nie było
+
+Kandydat brzmiał: nazwa robocza jest nieaktualna, akt nazywa się dziś *ustawą
+o medycynie laboratoryjnej*, przemianować i usunąć alias. Odczyt RZĄD 1 pokazał,
+że pod nieaktualną nazwą stały **dwie podmiany aktu**:
+
+| Wiersz mapy centralnej | Opisywał | Czym jest naprawdę |
+|---|---|---|
+| `2022/2162` | „Ustawa o medycynie laboratoryjnej (**nowa**) … nowa ustawa 2022 — **brak t.j.**" | **obwieszczenie** o tekście jednolitym **STAREJ** ustawy z 27.07.2001 o diagnostyce laboratoryjnej, akt bazowy `2001/1083`, status **uchylony** |
+| `2023/1517` | „**Stara ustawa** o diagnostyce laboratoryjnej", typ UCH | **rozporządzenie Ministra Spraw Wewnętrznych i Administracji** z 1.08.2023, „uznany za uchylony", **bez związku** z diagnostyką laboratoryjną |
+
+⛔ Nowa ustawa o medycynie laboratoryjnej (`2022/2280`) **nie miała własnego
+wiersza w ogóle** — jej numer bazowy nie występował w mapie. Jej t.j.
+`2025/1295` stał w ROUTING-MAP pod nazwą starej ustawy, z adnotacją opisującą
+łańcuch jako `2022.2162[błąd]→2022.2280→2023.2125`.
+
+⛔ Błąd `2023/1517` był powielony w **ośmiu generacjach mapy** (06-14, 07-02,
+07-04, 07-15, 08-26, 08-28, 09-09, 09-10). Każda generacja przepisywała go
+z poprzedniej — dokładnie mechanizm, przed którym ostrzega zapis F-141
+(„NIE domykać propagacją").
+
+### 2. Wniosek metodyczny — silniejszy niż sama naprawa
+
+⚠️ **Adnotacja „nazwa nieaktualna" jest sygnałem, nie rozstrzygnięciem.**
+Nieaktualna nazwa zwykle znaczy, że ktoś kiedyś dopasował **numer do nazwy**,
+a nie nazwę do numeru — i wtedy pod spodem bywa podmiana. Wpisany do
+`ALIASY-NAZW-AKTOW.md` jako reguła przeglądu: takie pozycje sprawdzać
+w pierwszej kolejności.
+
+⚠️ Drugi wniosek: to **piąta i szósta podmiana aktu** w tej serii, obie
+w rejestrach, które przechodziły wszystkie testy. Wspólna cecha z poprzednimi
+czterema — numer prawidłowy dla jakiegoś aktu, przypisany innemu. Różnica: tu
+podmiana była **wewnątrz jednej rodziny aktów** (stara i nowa ustawa o tym
+samym przedmiocie), więc nawet pobieżne czytanie nie budziło podejrzeń.
+
+### 3. Wykonane
+
+- mapa centralna: `2022/2162` → TJ/UCH z właściwym opisem; `2023/1517` → ROZP/UCH;
+  dopisane `2022/2280` (UST/PREV) i `2025/1295` (TJ/OK),
+- `ROUTING-MAP.md:685`: nazwa i łańcuch przepisane, ✅ ROZSTRZYGNIĘTE,
+- `dr-10/modules/mod-ustawa-diagnostyka-laboratoryjna.md`: podstawa zmieniona na
+  ustawę o medycynie laboratoryjnej, z ostrzeżeniem, że powołanie ustawy z 2001 r.
+  jest **błędem podstawy prawnej**, nie nieścisłością nazewniczą,
+- alias `2025/1295` **wycofany** z rejestru aliasów, zgodnie z zapisem F-148a.
+
+⚠️ Nazwa pliku modułu (`mod-ustawa-diagnostyka-laboratoryjna.md`) **pozostaje
+bez zmian** — przemianowanie pliku dotknęłoby rejestrów `modules:` w kilku
+miejscach i jest osobną operacją. Odnotowane jako kandydat.
+
+### 4. Pomiar dostępu — odnotowane zgodnie z Regułą 12d
+
+W trakcie pracy dwa odczyty `/references` zwróciły **pustą odpowiedź** przy
+poprawnym HTTP. Ponowienie po ~25 s przez kanał kodu dało pełną treść.
+⛔ Gdyby poprzestać na pierwszej próbie, wniosek brzmiałby „akt nie ma
+referencji" — czyli fałszywy negatyw nieodróżnialny od stanu faktycznego.
+Zapis F-164 (pomiar zamiast założenia) obowiązuje także wtedy, gdy kanał
+odpowiada, ale odpowiada pusto.
+
+T11 zielony. T15 `maps`: PROBLEMS=0, `ALIASY_NAZW` 17 → 13 po wycofaniu aliasu
+i przemianowaniu wierszy.
+
+---
+
+## AUDYT-2026-09-10k — F-181: 10% podstaw prawnych w nagłówkach modułów jest martwych
+
+**Wywołanie:** wykonanie kandydata z AUDYT-2026-09-10h — sprawdzenie, czy nagłówki
+modułów („aktualne t.j.: …") nadal mówią prawdę.
+
+### 1. Metoda i wynik
+
+Z pierwszych 25 linii każdego pliku `.md` w korpusie wyekstrahowano numery Dz.U.
+stojące w sąsiedztwie frazy o tekście jednolitym. **290 unikalnych numerów
+w 656 miejscach.** Każdy odczytany w RZĘDZIE 1 — pole `status`.
+
+| Status w ELI | Numerów |
+|---|---:|
+| obowiązujący | 249 |
+| **wygaśnięcie aktu** | **28** |
+| akt posiada tekst jednolity | 10 |
+| **uchylony** | **1** |
+| akt objęty tekstem jednolitym | 1 |
+| akt jednorazowy | 1 |
+
+⛔ **29 przeterminowanych w 35 miejscach, w 11 skillach.** To **10%** numerów,
+które moduł podaje czytającemu jako pierwsze, zanim dojdzie do treści.
+
+Dotknięte: `analizator-umow-v1`, `dr-01`, `dr-05`, `dr-06`, `dr-07`, `dr-09`,
+`dr-10`, `dr-11`, `prawny-router-v3`, `prawo-polskie-v2`, `shared`. Najstarszy
+wpis: `2016/283` (aktualny t.j. z 2026 r.). Trzy numery powtarzają się w 2–3
+plikach, co zwykle znaczy propagację — a więc i propagację błędu.
+
+### 2. Dlaczego to jest twardsze niż O-9
+
+W O-9 starzała się **adnotacja o stanie** („brak t.j."). Tutaj starzeje się
+**sam numer podstawy prawnej**. Powołanie wygasłego tekstu jednolitego jest
+błędem podstawy, nie nieścisłością redakcyjną — i trafia do odpowiedzi jako
+pierwsze, bo nagłówek czyta się przed treścią.
+
+Żaden test tego nie widzi:
+
+| Test | Dlaczego milczy |
+|---|---|
+| T3 | nagłówek modułu nie jest wierszem mapy |
+| T11 | numery są obecne w mapie — tylko martwe |
+| T15 | działa na `maps` i `operational`, nie na nagłówkach |
+| T24 | pyta o zmiany PO t.j., nie o to, czy t.j. jeszcze żyje |
+
+### 3. ⛔ Czego NIE zrobiłem i dlaczego
+
+Nic nie naprawione. 29 pozycji × 11 skilli to 11 podbić wersji, 11 wpisów do
+changelogów i 35 korekt z propagacją — osobna sesja, nie łatka do bieżącej.
+Przedwczesna naprawa hurtem byłaby tu wręcz szkodliwa: **trzy przypadki z tej
+serii** (antyterrorystyczna, zarządzanie kryzysowe, laboratoryjna) pokazały, że
+pod przeterminowanym numerem bywa **podmiana aktu**, a nie zwykłe starzenie —
+i wtedy „aktualny t.j." dotyczy niewłaściwej ustawy.
+
+Dostarczone zamiast naprawy: `references/PRZETERMINOWANE-TJ-2026-09-10.md` —
+lista robocza z ustalonym aktualnym tekstem jednolitym dla **każdej** z 29
+pozycji, wskazaniem wszystkich 35 miejsc i kolejnością naprawy zgodną z regułą
+z 2026-09-10e. Fix jest dzięki temu mechaniczny, ale nadal wymaga ponownego
+odczytu RZĄD 1 przed każdym wpisem — lista wskazuje CO poprawić, nie zastępuje
+weryfikacji.
+
+### 4. Obserwacja o wartości metodycznej
+
+⚠️ Cztery ostatnie sesje pokazały ten sam wzorzec: **każde miejsce, w którym
+system mówi coś o akcie zamiast tylko go cytować, jest poza zasięgiem testów.**
+Numer w wierszu mapy jest pilnowany przez cztery testy. Ten sam numer w zdaniu
+„aktualne t.j.: …" — przez żaden. Podobnie adnotacja „brak t.j." (O-9), nagłówek
+sprzeczny z treścią (10h), „ze zm." bez listy (10g).
+
+To nie są cztery osobne luki, tylko jedna: **aparat pilnuje rejestrów, a proza
+żyje obok niego.** Warto rozważyć, czy kolejnym krokiem nie jest jeden test
+o szerokim zasięgu (każdy numer Dz.U. w korpusie → status w RZĘDZIE 1) zamiast
+czterech wąskich.
+
+### 5. Weryfikacja
+
+| Skill | Wersja | Zmiana |
+|---|---|---|
+| `audyt-systemu-v4` | 6.63 → 6.64 | +`PRZETERMINOWANE-TJ-2026-09-10.md`, rejestracja, dziennik, changelog, WARN |
+
+Zestaw regresyjny: PASS STRUKTURALNY. Rejestr otwartych flag: 17 → 18.
+
+---
+
+## AUDYT-2026-09-10l — F-181 skorygowana: moja własna klasa F-164
+
+**Wywołanie:** rozpoczęcie naprawy F-181. Pierwsza pozycja z listy ujawniła, że
+lista jest zawyżona.
+
+### 1. ⛔ Liczby z 10k były zbudowane na nieweryfikowanej przesłance
+
+Wpis 10k ogłosił „**29 przeterminowanych podstaw w 35 miejscach, 10% wszystkich**".
+Heurystyka traktowała każdy numer Dz.U. w sąsiedztwie frazy o tekście jednolitym
+jako **deklarację aktualnej podstawy**. Czytanie kontekstu linia po linii dało
+co innego:
+
+| | Miejsc |
+|---|---:|
+| trafień heurystyki | 35 |
+| jawnie oznaczone jako poprzednie/historyczne („Poprzedni t.j.: …") | **16** |
+| moje własne adnotacje korygujące z tej serii sesji | 4 |
+| numer aktualny w linii, wygasły obok jako historyczny | 2 |
+| ⛔ **realnie przeterminowane, podane jako aktualna podstawa** | **13** |
+
+⛔ **To jest klasa F-164 popełniona przeze mnie** — w sesji, która tę samą klasę
+katalogowała u innych. Alarm zbudowany na tezie o świecie („numer obok frazy
+o t.j. = deklaracja podstawy"), której nie zmierzyłem. Wersja 1.0 listy trafiła
+do wydania i do rejestru flag; korekta wpisana do pliku jako sekcja 1.1, bez
+usuwania pierwotnych liczb.
+
+⚠️ **Wniosek dla przyszłego testu z O-9/F-181, ważniejszy niż sama korekta:**
+sam fakt, że numer jest wygasły, **nie czyni z niego błędu**. Rejestr wolno —
+i powinien — wymieniać numery historyczne. Test musi rozstrzygać, czy numer jest
+podany **jako aktualna podstawa**, a to wymaga czytania kontekstu, nie
+sąsiedztwa frazy. To właśnie czyni projekt czułości trudniejszym niż sam odczyt
+statusu i potwierdza, dlaczego O-9 była odkładana jako osobna robota.
+
+### 2. Naprawione — 13 miejsc, 6 skilli
+
+| Było | Jest | Skill / kontekst |
+|---|---|---|
+| `2016/283` | **2026/300** | `analizator-umow-v1` — Zasady techniki prawodawczej |
+| `2020/344` | **2024/1513** | `dr-11` — świadczenie usług drogą elektroniczną |
+| `2024/1034` | **2026/60** | `dr-06` — fundusze inwestycyjne (2 nowelizacje po t.j.) |
+| `2023/646` | **2024/722** | `dr-06` — obrót instrumentami ⛔ **11 nowelizacji po t.j.** |
+| `2024/1112` | **2026/670** | `dr-09` — UOOŚiS |
+| `2024/37` | **2026/490** | `prawny-router-v3` — KPK (5 nowelizacji po t.j.) |
+| `2024/44` | **2026/884** | `shared` — ustawa rehabilitacyjna |
+| `2024/695` ×2 | **2026/880** | `analizator-umow-v1` — UUDE |
+| `2024/799` | **2026/156** | `shared/orka-bas` — działalność lecznicza |
+| `2024/1530` | **2025/1483** | `shared/orka-bas` — UFP (5 nowelizacji po t.j.) |
+| `2025/111` ×3 | **2026/622** | `shared/orka-bas` ×2, `dr-06` — Ordynacja podatkowa |
+
+⛔ Każda para sprawdzona przez **porównanie tytułów** starego i nowego
+obwieszczenia — żadna nie okazała się podmianą aktu. Przy sześciu podmianach
+w tej serii ten krok przestał być formalnością.
+
+⚠️ Ustalenie uboczne: `dr-09` podawał UOOŚiS jako `2024/1112` w module ocen
+środowiskowych, a jako `2026/670` w module POŚ — **rozjazd wewnątrz jednego
+skilla**, wariant klasy z 10h, tym razem między dwoma plikami, nie w jednym.
+
+`2024/722` (obrót instrumentami) dopisany do mapy centralnej z adnotacją
+o jedenastu nowelizacjach — drugi najdłuższy nieudokumentowany łańcuch
+w systemie, po ustawie o odpadach.
+
+### 3. Stan F-181
+
+Flaga **pozostaje otwarta**, ale z innym zakresem: 13 naprawionych, 0 zaległych
+z tej listy. Otwarta, bo pomiar objął **tylko pierwsze 25 linii** każdego pliku —
+numery przeterminowane w treści modułów nie były badane. To jest naturalne
+rozszerzenie i zarazem argument za jednym testem o szerokim zasięgu zamiast
+kolejnych wąskich pomiarów.
+
+### 4. Weryfikacja
+
+| Skill | Wersja |
+|---|---|
+| `analizator-umow-v1` | 1.32 → 1.33 |
+| `dr-06-podatki-finanse-publiczne-aml` | 3.77 → 3.78 |
+| `dr-09-budownictwo-srodowisko-energia-transport` | 3.28 → 3.29 |
+| `dr-11-cyfrowe-cyber-ai-dane-ip` | 3.12 → 3.13 |
+| `prawny-router-v3` | 3.45 → 3.46 |
+| `shared` | 3.33 → 3.34 |
+| `audyt-systemu-v4` | 6.64 → 6.65 |
+
+T11 zielony.
+
+---
+
+## AUDYT-2026-09-10m — F-181 na całym korpusie
+
+**Wywołanie:** domknięcie zakresu F-181, który po 10l pozostawał otwarty, bo
+pomiar objął tylko pierwsze 25 linii plików.
+
+### 1. Pomiar
+
+Cały korpus, z wyłączeniem dziennika, changelogów, rejestrów flag i generacji
+map: **424 unikalne numery Dz.U. w 1903 miejscach.** Każdy odczytany w RZĘDZIE 1.
+
+| | |
+|---|---:|
+| numerów o statusie wygasły/uchylony | 47 |
+| miejsc z nimi | 75 |
+| odsiane: kontekst historyczny, raporty audytowe, nowszy numer w tej samej linii | 15 |
+| ⛔ **podane jako aktualna podstawa** | **36 numerów / 61 miejsc** |
+
+⚠️ Liczba podana z ostrzeżeniem wpisanym do listy: dwa poprzednie liczniki tego
+badania skurczyły się po sprawdzeniu kontekstu. Ta jest ostrożniejsza — odsiewa
+trzy rodzaje fałszywych trafień — ale nadal wynika z heurystyki, nie z czytania
+każdej linii przez człowieka.
+
+### 2. ⛔ Ustalenie, które tłumaczy, dlaczego to przetrwało
+
+**41 z 61 miejsc leży w `shared/orka-bas-leksykon`.**
+
+Leksykon cytuje podstawy prawne **w treści definicji** — w zdaniach
+„Weryfikacja: ustawa o … (Dz.U. … t.j.)" — a nie w nagłówku pliku. Wszystkie
+dotychczasowe przeglądy, łącznie z 10k i 10l, patrzyły na nagłówki i mapy.
+Leksykon był poza ich zasięgiem, mimo że jest zasobem `shared`, czyli czytanym
+przez wszystkie skille.
+
+Najgorsza pozycja: **UFP `2024/1530` w 14 miejscach**; aktualny tekst jednolity
+`2025/1483` ma do tego **pięć nowelizacji po sobie**. Drugi w kolejności:
+dochody JST `2022/2267` w 5 miejscach.
+
+⚠️ Wzorzec do zapamiętania: **zasób cytujący prawo w prozie starzeje się
+niewidocznie dla każdego przeglądu zorientowanego na rejestry.** To ta sama
+obserwacja co w 10k („aparat pilnuje rejestrów, proza żyje obok"), tyle że
+tutaj z konkretną lokalizacją i skalą.
+
+### 3. Czego nie zrobiłem
+
+Nie naprawiałem. 36 pozycji w 13 skillach, każda wymagająca ponownego odczytu,
+porównania tytułów i przeczytania linii w kontekście — to osobna sesja.
+Dostarczona lista 1.2 podaje dla każdej pozycji akt, aktualny tekst jednolity,
+liczbę nowelizacji po nim i wszystkie miejsca wystąpienia.
+
+⚠️ Zalecenie kolejności: zacząć od `shared` — dwie trzecie zaległości leży
+w jednym skillu, a `shared` jest czytany przez wszystkie pozostałe.
+
+⚠️ `2024/356` (dochody JST) ma status **uchylony**, nie „wygaśnięcie aktu".
+To inna sytuacja niż zastąpienie tekstu jednolitego i wymaga osobnego
+rozstrzygnięcia, czy akt ma dziś jakikolwiek następnik.
+
+### 4. Weryfikacja
+
+`audyt-systemu-v4` 6.65 → 6.66. Lista `PRZETERMINOWANE-TJ-2026-09-10.md` 1.1 → 1.2.
+Zestaw regresyjny: PASS STRUKTURALNY.
+
+---
+
+## AUDYT-2026-09-10n — F-181: naprawa `shared` (41 z 61 miejsc)
+
+**Wywołanie:** rozpoczęcie naprawy wg listy 1.2, w zalecanej kolejności — od
+`shared`, bo dwie trzecie zaległości leżało w jednym skillu czytanym przez
+wszystkie pozostałe.
+
+### 1. Wykonane
+
+41 miejsc, 20 aktów. Każda para sprawdzona przez **porównanie tytułów** starego
+i nowego obwieszczenia — po sześciu podmianach aktu w tej serii to element
+procedury, nie formalność. Żadna nie okazała się podmianą.
+
+| Akt | Było | Jest | Miejsc | KROK 2C |
+|---|---|---|---:|---|
+| ustawa o finansach publicznych | 2024/1530 | **2025/1483** | 13 | ⛔ 5 |
+| ustawa o dochodach JST | 2022/2267 | **2024/1572** (nowa ustawa) | 5 | zm. 2025/1659 |
+| gospodarka nieruchomościami | 2023/344 | **2026/399** | 2 | ⛔ 1 |
+| Karta Nauczyciela | 2023/984 | **2026/515** | 2 | 0 |
+| ustawa o VAT | 2024/361 | **2025/775** | 2 | ⛔ 5 |
+| KPK | 2024/37 | **2026/490** | 2 | ⛔ 5 |
+| ustawa rehabilitacyjna | 2024/44 | **2026/884** | 2 | 0 |
+| PZP | 2022/1710 i 2024/1320 | **2026/793** | 2 | 0 |
+| 12 pozostałych aktów | — | — | po 1 | — |
+
+### 2. ⛔ Jeden przypadek nie był starzeniem — i to jest ustalenie sesji
+
+`2022/2267` (dochody JST). Pomiar wskazał jako „aktualny" tekst jednolity
+`2024/356`. **Ten numer sam ma status uchylony.** Stara ustawa z 2003 r. została
+zastąpiona **nową ustawą** z 1.10.2024 (`Dz.U. 2024 poz. 1572`, zm. `2025/1659`),
+a nie doczekała się kolejnego tekstu jednolitego.
+
+⛔ Automatyczne podstawienie z listy przesunęłoby błąd **o jedno ogniwo dalej**:
+z jednego martwego numeru na drugi martwy numer. Pięć miejsc, wszystkie
+w `orka-bas-leksykon`.
+
+⚠️ To bezpośrednio potwierdza ostrzeżenie wpisane do listy 1.2 przy jej
+tworzeniu: **kolumna „aktualny t.j." jest wskazówką, nie rozstrzygnięciem.**
+Algorytm „weź najnowszy t.j. aktu bazowego" zawodzi dokładnie tam, gdzie akt
+bazowy przestał obowiązywać. Wpisane do rejestru jako reguła dla pozostałych
+20 miejsc.
+
+### 3. Stan F-181
+
+| | |
+|---|---:|
+| miejsc w liście 1.2 | 61 |
+| naprawionych w `shared` | **41** |
+| pozostaje | **20 w 12 skillach** |
+
+Flaga otwarta. Mapa centralna uzupełniona o `2025/1718` i `2026/677`.
+
+### 4. Weryfikacja
+
+`shared` 3.34 → 3.35, `audyt-systemu-v4` 6.66 → 6.67. T11 zielony.
+
+---
+
+## AUDYT-2026-09-10o — F-181: lista 1.2 wyczerpana (61/61)
+
+**Wywołanie:** dokończenie naprawy rozpoczętej w 10n.
+
+### 1. Wykonane
+
+Pozostałe **20 miejsc w 12 skillach**. Razem z 41 miejscami w `shared` (10n):
+**61/61 pozycji listy 1.2**. Każda para sprawdzona przez porównanie tytułów.
+
+### 2. Trzy ustalenia wykraczające poza starzenie
+
+⛔ **SIÓDMA PODMIANA AKTU w tej serii.**
+`dr-10/modules/mod-ustawa-pielegniarka-polozna.md` kierował weryfikację do
+`Dz.U. 2025 poz. 450`. To tekst jednolity **ustawy o działalności leczniczej** —
+nie ustawy o zawodach pielęgniarki i położnej. Właściwy numer: **`2026/15`**,
+⛔ KROK 2C: trzy nowelizacje po nim.
+
+⚠️ Ta podmiana miała ślad: `mod-ustawa-prawa-pacjenta-framework` nosił adnotację
+„poprzedni: Dz.U. 2025 poz. 450 → ustawa o pielęgniarkach", czyli ktoś już
+zauważył, że numer wędruje między dwoma aktami — i zostawił to jako notatkę.
+
+⛔ **Nieprawdziwa adnotacja o stanie (klasa O-9).**
+`dr-05/modules/mod-ustawa-kontrola-administracji.md`: „Nowszy t.j. NIE został
+ogłoszony — Dz.U. 2020 poz. 224 jest aktualnym t.j.". Nowszy **został
+ogłoszony** — `2026/158`. Adnotacja była kategoryczna i fałszywa, czyli gorsza
+niż jej brak.
+
+⚠️ **Akt przemianowany.** `2021/1249` → `2024/1673`: ustawa o przeciwdziałaniu
+przemocy **w rodzinie** nazywa się dziś ustawą o przeciwdziałaniu przemocy
+**domowej**. Sama podmiana numeru zostawiłaby nieaktualną nazwę — a nieaktualna
+nazwa w tej serii dwukrotnie okazała się wierzchołkiem podmiany aktu (F-148a,
+AUDYT-2026-09-10j). Nazwa poprawiona w obu bliźniaczych modułach
+(`prawny-router-v3` i `dr-03`).
+
+⛔ **Dochody JST — drugie wystąpienie tej samej pułapki.** `dr-08` kierował do
+`2024/356`, który sam ma status uchylony. Podstawą jest **nowa ustawa**
+`2024/1572` (zm. `2025/1659`), bez tekstu jednolitego. Identyczny przypadek jak
+w `shared` (10n) — gdyby naprawę prowadzić automatem z listy, błąd powieliłby się
+w obu miejscach.
+
+### 3. ⚠️ Dlaczego F-181 zostaje otwarta mimo 61/61
+
+Lista 1.2 jest wyczerpana, ale sama była **wynikiem heurystyki** — numer Dz.U.
+w sąsiedztwie frazy o tekście jednolitym, minus konteksty rozpoznane jako
+historyczne. Nie jest audytem każdej linii korpusu.
+
+⛔ Dwa poprzednie liczniki tego badania okazały się zawyżone (29→13 przy
+nagłówkach). Nie ma podstaw, by twierdzić, że trzeci był **kompletny** —
+zawyżenie i niedoszacowanie to dwa różne błędy tej samej heurystyki.
+
+Zamknąć tę flagę może dopiero **test z O-9 uruchamiany przy każdym wydaniu**.
+Jednorazowy przegląd, choćby wyczerpujący, nie daje gwarancji na następny tydzień.
+
+### 4. Weryfikacja
+
+Wersje: `dr-01` 3.10, `dr-02` 3.45, `dr-03` 3.36, `dr-05` 3.24, `dr-06` 3.79,
+`dr-08` 3.12, `dr-09` 3.30, `dr-10` 3.42, `dr-12` 4.14, `analizator-umow-v1` 1.34,
+`prawo-polskie-v2` 6.16, `prawny-router-v3` 3.47, `audyt-systemu-v4` 6.68.
+
+Mapa centralna: +`2024/1673`, +`2025/1584`, +`2024/68`, +`2026/12`.
+T11 zielony. Zestaw regresyjny: PASS STRUKTURALNY.

@@ -70,17 +70,78 @@ POZIOM A — konektor MCP (gdy skonfigurowany w środowisku):
   narzędzia SAOS / KIO / EUR-Lex  (prawo-pl-saos, kio-orzeczenia-mcp, prawo-eu-eurlex)
 
 POZIOM B — bezpośredni web_fetch na strukturalne API (działa bez MCP):
-  Akty PL (ELI Sejm):  https://api.sejm.gov.pl/eli/acts/DU/{rok}/{poz}            → metadane (status, wejście w życie)
+  Akty PL (ELI Sejm):  https://api.sejm.gov.pl/eli/acts/DU/{rok}/{poz}            → metadane (status, wejście w życie, pola textHTML/textPDF)
                        https://api.sejm.gov.pl/eli/acts/DU/{rok}/{poz}/references → nowelizacje, TEKST JEDNOLITY
-                       https://api.sejm.gov.pl/eli/acts/DU/{rok}/{poz}/text.html  → pełny tekst aktu
-  Orzeczenia (SAOS):   https://www.saos.org.pl/api/search/judgments?caseNumber={sygnatura}
-  Prawo UE (CELLAR):   https://eur-lex.europa.eu/legal-content/PL/TXT/?uri=CELEX:{celex}
-                       (wersje skonsolidowane: CELEX 0{...}-{YYYYMMDD})
+                       https://api.sejm.gov.pl/eli/acts/DU/{rok}/{poz}/text.pdf   → TREŚĆ tekstu jednolitego (patrz ⛔ niżej)
+                       https://api.sejm.gov.pl/eli/acts/DU/{rok}/{poz}/text.html  → ⛔ tekst OGŁOSZONY aktu bazowego, NIE ujednolicony
+  Monitor Polski:      https://api.sejm.gov.pl/eli/acts/MP/{rok}/{poz}            → ten sam interfejs, publikator M.P. (dodane 2026-09-01f)
+  ⛔ POZA API ELI:     akty prawa miejscowego (uchwały rad gmin, plany miejscowe) i dzienniki
+                       urzędowe ministrów NIE są w tym API — zmierzone 2026-09-01:
+                       `api.sejm.gov.pl/eli/acts` zwraca wyłącznie `DU` i `MP`. Publikatory:
+                       `dziennikiurzedowe.gov.pl` — portal zbiorczy RCL
+                       (RZĄD 1, `shared/HIERARCHIA-ZRODEL.md` poz. 10-11)
 
-POZIOM C — web_search / web_fetch na strony (dotychczasowe ŹRÓDŁO-1..3 poniżej):
-  stosuj TYLKO gdy POZIOM A i B niedostępne lub nie znasz identyfikatora aktu
-  (wtedy web_search służy do USTALENIA identyfikatora, a cytat i tak pobierz z POZIOMU A/B).
+### ŚCIEŻKA B-L — AKT PRAWA MIEJSCOWEGO
+
+> Treść wydzielona 2026-09-10b (F-180) do `shared/PRAWO-HARDGATE-AKT-MIEJSCOWY.md`.
+> Bez zmian merytorycznych.
+
 ```
+Przedmiotem sprawy jest uchwała rady gminy/powiatu/sejmiku, zarządzenie
+wójta/burmistrza/prezydenta albo akt wojewody?
+        │
+        ├── NIE  → ścieżka nie dotyczy, idź dalej
+        │
+        └── TAK  → ⛔ view shared/PRAWO-HARDGATE-AKT-MIEJSCOWY.md
+                     PRZED pierwszą próbą weryfikacji tego aktu
+```
+
+⛔ Aktów prawa miejscowego **nie ma w ELI Kancelarii Sejmu.** Próba weryfikacji ich
+tam zwraca fałszywy negatyw wyglądający jak „akt nie istnieje” — i na tym fałszywym
+negatywie da się zbudować całe rozstrzygnięcie. Wydzielony plik podaje właściwe
+kanały (wojewódzkie dzienniki urzędowe, BIP jednostki).
+
+### ⛔⛔ PUŁAPKA `/text.html` — TEKST OGŁOSZONY UDAJE AKTUALNY (F-150, 2026-09-01c)
+
+> Zmierzone na żywym API 2026-09-01. Nie hipoteza — trzy odczyty, wyniki niżej.
+
+`/eli/acts/DU/{rok}/{poz}/text.html` wywołany na **akcie bazowym** zwraca tekst
+**OGŁOSZONY**, czyli brzmienie z dnia publikacji, bez żadnej późniejszej
+nowelizacji. Dokument jest kompletny, sformatowany i wygląda jak akt bieżący —
+nie niesie żadnego ostrzeżenia.
+
+| Akt | Co zwraca `/text.html` | Czego BRAKUJE |
+|---|---|---|
+| KC — DU/1964/93 (2,2 MB) | tekst z 1964 r. | ZERO jednostek z indeksem górnym: brak art. 385¹, 449¹, 770¹ |
+| KK — DU/1997/553 (1,1 MB) | tekst z 1997 r. | brak art. 190a |
+
+⛔ **Cytat brzmienia z `/text.html` aktu bazowego jest naruszeniem REGUŁY
+AKTUALNOŚCI z tego samego pliku** — i to naruszeniem niewidocznym, bo źródło
+jest RZĘDU 1 i odczyt faktycznie nastąpił.
+
+**POPRAWNA SEKWENCJA — trzy kroki, nie jeden:**
+
+```
+B-T1: GET /eli/acts/DU/{rok}/{poz}/references
+      → sekcja „Inf. o tekście jednolitym" → wybierz pozycję ze statusem
+        „obowiązujący" (⛔ NIE ostatnią na liście — rejestr bywa
+        nieposortowany, a starsze obwieszczenia mają „wygaśnięcie aktu")
+B-T2: GET /eli/acts/{ELI t.j.} → sprawdź pola textHTML / textPDF
+      Obwieszczenia (t.j.) mają zwykle textHTML: false — `/text.html`
+      zwraca wtedy 0 bajtów, a nie błąd.
+B-T3: treść z /text.pdf → ekstrakcja (`pdftotext -layout` lub równoważna).
+      Indeks górny wychodzi w postaci `Art. 770[1]` — to TA SAMA jednostka
+      co art. 770¹, nie część art. 770.
+```
+
+Przykład zmierzony: KC → t.j. Dz.U. 2026 poz. 795 → `text.pdf` (119 s.) →
+art. 770¹ obecny ze statusem „(uchylony)". Ta sama jednostka jest w
+`/text.html` aktu bazowego **nieobecna w ogóle**.
+
+⛔ Narzędziowo tę sekwencję realizuje
+`audyt-systemu-v4/scripts/check_wyjatek_gate_eli.py`; skrypt wypisuje etykietę
+wersji przy źródle, więc brak etykiety `TEKST JEDNOLITY` w bloku wyjściowym
+oznacza, że czytano tekst ogłoszony.
 
 ### ⛔⛔ OGRANICZENIE ŚRODOWISKA (dodano 2026-08-23, v2.5) — CZYTAJ PRZED POZIOMEM B
 
@@ -91,11 +152,46 @@ POZIOM C — web_search / web_fetch na strony (dotychczasowe ŹRÓDŁO-1..3 poni
 > przewidzianą ścieżkę zastępczą. Analiza przyczyn wykazała, że sama procedura
 > POZIOMU B była w tym środowisku **niewykonalna od pierwszej linijki**.
 
-| Kanał | Wynik testu 2026-08-23 |
-|---|---|
-| `web_fetch` na `isap.sejm.gov.pl` | `ROBOTS_DISALLOWED` — trwałe, nie chwilowe |
-| `web_fetch` na `eli.gov.pl` | `ROBOTS_DISALLOWED` — trwałe |
-| `web_fetch` na SKONSTRUOWANY `api.sejm.gov.pl/eli/...` | `PERMISSIONS_ERROR` — **odrzucone, zanim nastąpi połączenie** |
+| Kanał | Wynik testu 2026-08-23 | Retest 2026-09-01c (F-151) |
+|---|---|---|
+| `web_fetch` na `isap.sejm.gov.pl` | `ROBOTS_DISALLOWED` | bez zmian; nadto `curl` dostaje **pętlę 302 na samego siebie** — kanał martwy także poza `web_fetch` |
+| `web_fetch` na `eli.gov.pl` | `ROBOTS_DISALLOWED` | bez zmian **po stronie narzędzia**, ale `eli.gov.pl/robots.txt` = `User-Agent: * / Disallow:` (pusty) i `curl` zwraca HTTP 200 |
+| `web_fetch` na SKONSTRUOWANY `api.sejm.gov.pl/eli/...` | `PERMISSIONS_ERROR` — **odrzucone, zanim nastąpi połączenie** | bez zmian; ta sama ścieżka z `curl`/skryptu działa normalnie |
+
+⛔ **Korekta nazewnicza (F-151).** Etykieta `ROBOTS_DISALLOWED` opisuje decyzję
+NARZĘDZIA `web_fetch`, nie zakaz serwera. Dla `eli.gov.pl` serwer niczego nie
+zakazuje. Skutek praktyczny: gdy host udostępnia wykonanie kodu z dostępem
+sieciowym, RZĄD 1 jest osiągalny w pełni — łącznie z BRZMIENIEM przepisu — i
+zejście na `🟨 KOTWICĘ URZĘDOWĄ` NIE jest wtedy uzasadnione. Sprawdź kanał
+kodu, zanim uznasz RZĄD 1 za niedostępny.
+
+⛔⛔ **KANAŁ KODU MA WŁASNE WYMOGI — dodane 2026-09-04 (F-157).** Ustalenie,
+że „`curl` zwraca HTTP 200", jest prawdziwe **tylko dla żądania o właściwym
+kształcie**. Trzy wymogi, każdy zmierzony, każdy dający objaw wyglądający jak
+awaria serwisu:
+
+| Wymóg | Objaw pominięcia | Pomiar |
+|---|---|---|
+| **Neutralny `User-Agent`** (`curl/8.5.0` lub brak) | HTTP 502 albo HTTP 200 ze stroną zastępczą | `orzeczenia.ms.gov.pl`: 200 pod `curl`, **502** pod pełnym łańcuchem Chrome — 5/5 każdy wariant. `python-requests` zachowuje się jak przeglądarka |
+| **Nagłówek `Accept`** | HTTP 406 | SAOS bez `Accept` → **406**; `*/*` i `application/json` → 200. `curl` wysyła `*/*` sam, `urllib` **nie** |
+| **Ścieżka robocza, nie root** | 302/301 na host spoza listy → `host_not_allowed` | `decyzje.uokik.gov.pl/` → 302 na `uokik.gov.pl`; `/bp/dec_prez.nsf` → 200 |
+
+⛔ **Pełne instrukcje wywołań — `shared/DOSTEP-MASZYNOWY-API.md`** (endpointy,
+tokeny, limity, ścieżki robocze). Tu stoi sama reguła; tam — jak jej użyć.
+
+⛔ **Reguła:** podszywanie się pod przeglądarkę z adresu centrum danych jest
+dla WAF-ów kilku polskich serwisów **silniejszym** sygnałem bota niż uczciwe
+`curl/8.5.0`. Nie „naprawiaj" HTTP 502 łańcuchem przeglądarkowym — to go
+powoduje.
+
+⚠️ **Najgroźniejszy wariant: HTTP 200 ze stroną zastępczą.** SAOS pod UA
+przeglądarkowym oddaje kod 200 i stronę „Przerwa techniczna" — awaria
+przechodzi każdą kontrolę opartą na samym kodzie odpowiedzi. **Sprawdzaj
+treść, nie kod.** Instrukcja operacyjna: `shared/DOSTEP-MASZYNOWY-API.md`
+(osiągalna z produkcji). ⚠️ Pełne tabele pomiaru:
+`audyt-systemu-v4/references/PORTALE-ORZECZNICZE-API.md` §2G — materiał
+dowodowy poza ścieżką produkcyjną (F-160), przywoływany jako dowód, nie jako
+instrukcja. Test odtwarzający pomiar: T25 (`check_domeny_allowlist.py`).
 
 ⛔ **Narzędzie `web_fetch` odmawia pobrania URL-a, który nie pojawił się wcześniej
 w wyniku `web_search` lub `web_fetch` w tej rozmowie.** URL zbudowany ze wzorca
@@ -119,185 +215,33 @@ B-2: web_fetch WYŁĄCZNIE na URL zwrócony w wyniku B-1 (kopiuj dosłownie,
      → ROBOTS_DISALLOWED → NIE improwizuj. Przejdź do KOTWICY URZĘDOWEJ niżej.
 ```
 
-### ⛔⛔⛔ BRAMKA ANTY-FASADOWA (dodano 2026-08-23, v2.6) — CZYTAJ PRZED KOTWICĄ
+### ⛔⛔⛔ GAŁĄŹ BLOKADY — BRAMKA ANTY-FASADOWA + KOTWICA URZĘDOWA
 
-> Wdrożona po analizie **surowego transkryptu** testu 3 pilotażu LEX MACHINA
-> (plik `TEST-3-SUROWY-OUTPUT-CLAUDE-2026-08-22.txt`). Transkrypt obalił
-> wcześniejszą hipotezę, na której oparto v2.5: model **nie trafił na blokadę
-> robots — nie podjął próby**. W odpowiedzi padło wprost „bez otwarcia aktu",
-> a mimo to wcześniej: nagłówek „Zweryfikowałem w oficjalnym źródle", URL
-> ISAP i pole „Data weryfikacji". Element, który zawiódł, nie jest brakiem
-> nazwy dla stanu (to naprawiła v2.5) — jest **fasadą weryfikacji zbudowaną
-> z prawdziwych elementów**.
->
-> Poszlaka potwierdzająca brak wyszukiwania: podany identyfikator to
-> `WDU19640090059`, czyli akt bazowy Dz.U. 1964 nr 9 poz. 59 — NIE tekst
-> jednolity. Faktyczne wyszukanie zwraca Dz.U. 2026 poz. 236 pierwszym
-> zapytaniem. Adres z 1964 r. powstaje z zapamiętanego WZORCA adresów ISAP,
-> nie z odczytu.
->
-> Skutek merytoryczny w tamtym przebiegu (dowód, że to nie jest kosmetyka):
-> art. 113³ i 113⁴ KRO zostały sklejone w jeden zakres „dalsze ograniczenie /
-> zakazanie kontaktów". 113⁴ nie dotyczy ograniczeń — to zobowiązanie
-> rodziców do określonego postępowania (poradnictwo, terapia), czyli
-> w tamtym kazusie NAJLEPSZE wyjście pośrednie. Fasada nie tylko ukryła brak
-> weryfikacji; zamknęła klientowi realnie dostępną opcję.
-
-**ZASADA:** trzy elementy — słowo „zweryfikowano/zweryfikowałem", pole
-„data weryfikacji" i URL — razem tworzą w oczach czytelnika zamknięty
-znacznik ✅ [VER], niezależnie od tego, co napisano niżej. Dlatego wolno ich
-użyć **wyłącznie**, gdy w TEJ odpowiedzi faktycznie wywołano narzędzie
-dla TEGO przepisu.
+> Treść wydzielona 2026-09-10b (F-180) do `shared/PRAWO-HARDGATE-BLOKADA.md`.
+> Bez zmian merytorycznych. Powód wydzielenia: 201 linii czytanych w każdej turze,
+> a stosowanych wyłącznie po nieudanym dostępie do RZĘDU 1.
 
 ```
-WYZWALACZ (⛔ NIE „sesja bez narzędzi" — to za wąsko):
-  Bramka odpala się przy KAŻDYM twierdzeniu wymagającym źródła, dla którego
-  w TEJ ODPOWIEDZI nie doszło do wywołania web_search / web_fetch / konektora.
-  Nie ma znaczenia, czy narzędzia są w sesji dostępne. W testowanym przebiegu
-  BYŁY dostępne i nie zostały użyte — bramka pytająca o warunki sesji byłaby
-  w tym przypadku ślepa. To ta sama klasa błędu co bramka dziedzinowa
-  kluczowana wejściem zamiast wyjściem (patrz shared/DOMAIN-LOCK.md).
-
-AF-1  ⛔ ZAKAZANE, gdy nie wywołano narzędzia dla tego przepisu:
-        • „zweryfikowałem" / „zweryfikowano" / „potwierdzone w ISAP"
-        • pole „Data weryfikacji: ..." przy tym przepisie
-        • nagłówek zbiorczy typu „Weryfikacja przepisów (ISAP)"
-        • URL podany bez etykiety stanu
-
-AF-2  URL wolno podać — ale WYŁĄCZNIE w jednej formie, z PEŁNYM zestawem
-      pól identyfikatora (dodano 2026-08-23f, F-118 — sam URL bez metryki
-      aktu nie tworzy śladu audytowego, mimo formalnie poprawnego statusu):
-        🎯 [CEL — RZĄD 1, NIEOTWARTE: <akt>, Dz.U. <rok> poz. <numer>
-        [t.j. jeśli dotyczy], <jednostka redakcyjna>, https://...]
-      Przykład: 🎯 [CEL — RZĄD 1, NIEOTWARTE: u.p.k., Dz.U. 2024 poz. 1796,
-      art. 27 ust. 2, https://isap.sejm.gov.pl/...]
-      z jawnym zdaniem: „adres źródła docelowego; NIE został otwarty
-      w tej odpowiedzi". Podanie adresu NIGDY nie podnosi statusu.
-      Uzasadnienie zachowania linku: czytelnik ma prawo sprawdzić sam
-      (KROK 5B). Znika status, nie link.
-      ⛔ ZAKAZ identyfikatora roboczego bez metryki aktu — pseudoidentyfikatory
-      typu `ISAP-KC`, `ISAP-UPK`, `ISAP-KPC` (nazwa kodeksu bez pozycji
-      Dz.U./ELI i jednostki redakcyjnej) NIE SPEŁNIAJĄ formy AF-2, nawet
-      jeśli towarzyszy im poprawny nagłówek 🎯 [CEL — RZĄD 1, NIEOTWARTE].
-      Minimalny zestaw pól: (1) akt, (2) pozycja Dz.U./ELI, (3) jednostka
-      redakcyjna (artykuł/ustęp/punkt), (4) rząd źródła, (5) stan otwarcia
-      (NIEOTWARTE / OTWARTE). Brak któregokolwiek z pięciu pól = znacznik
-      NIEWAŻNY, traktuj jak jego brak.
-
-AF-3  ⛔ ZAKAZ zbiorczej deklaracji weryfikacji przykrywającej wiele
-      przepisów naraz. Jedna deklaracja NIE „przykrywa" wywodu —
-      znacznik należy do POJEDYNCZEGO przepisu (PERMANENT GATE).
-
-AF-4  ⛔ ZAKAZ oznaczania pamięci modelu jakąkolwiek własną etykietą.
-      Dotyczy w szczególności skrótu `MEM` i wszelkich określeń typu
-      „pamięć normatywna", „wiedza modelu", „stan znany". Pamięć nie jest
-      szczeblem źródła i nie ma znacznika — twierdzenie z pamięci to
-      ⚠️ [NIEWERYFIKOWANE], albo nie ma go w odpowiedzi wcale.
-      ⭐ Rozstrzygnięcie wobec propozycji zewnętrznej LM-K2-01 (CODEX,
-      2026-08-23), która dopuszczała `MEM` „przy pojedynczym twierdzeniu,
-      gdy odpowiedź wyraźnie przyznaje użycie pamięci": propozycja
-      ODRZUCONA w tym punkcie. Dokładnie taką konstrukcją — jawnym
-      przyznaniem do pamięci obok aparatu weryfikacyjnego — był przebieg
-      testu 3. Etykieta dla pamięci czyni ją tańszą alternatywą dla
-      wyszukiwania, a nie uczciwszą. Pozostałe elementy LM-K2-01
-      (jeden status, rola i identyfikator źródła docelowego, adres jako
-      nieotwarty, osobne nazwanie źródła wtórnego) — PRZYJĘTE, patrz AF-2
-      i KROK 5-RZĄD.
-
-AF-5  SELEKTYWNA UCZCIWOŚĆ = naruszenie. Zastrzeżenie przy jednej
-      kategorii (np. „nie podaję sygnatur, bo ich nie zweryfikowałem")
-      przy jednoczesnym podawaniu przepisów bez znacznika jest gorsze
-      niż brak zastrzeżeń — buduje wrażenie, że reszta jest sprawdzona.
-      Zastrzeżenie obejmuje wszystko albo nic.
-
-AF-6  ZAKRES (dodano 2026-08-23f, F-117 — TEST3 CX-02 wykazał wygenerowany
-      blok pytań do świadka oznaczony etykietą statusu źródła i własnym
-      identyfikatorem w formacie identyfikatora źródła; znacznik przestaje
-      wtedy cokolwiek znaczyć). Znacznik statusu (✅/🟨/⚠️/⬛ oraz identyfikator
-      🎯 [CEL]) należy WYŁĄCZNIE do twierdzenia o przepisie, źródle prawnym
-      lub orzeczeniu. ⛔ ZAKAZ nadawania znacznika treści WYTWORZONEJ w tej
-      odpowiedzi: pytaniom do świadków, checklistom, tezom roboczym,
-      nagłówkom, wariantom strategii, planom pism. Treść własna NIE MA
-      statusu weryfikacji — jeśli opiera się na przepisie, status niesie
-      PRZYWOŁANY PRZEPIS, nie wygenerowana wokół niego treść.
+B-1 lub B-2 zwrócił blokadę (ROBOTS_DISALLOWED, PERMISSIONS_ERROR,
+pętla 302, HTTP 4xx/5xx) I kanał kodu też zawiódł?
+        │
+        ├── NIE  → gałąź nie dotyczy, kontynuuj procedurę niżej
+        │
+        └── TAK  → ⛔ STOP. NATYCHMIAST:
+                       view shared/PRAWO-HARDGATE-BLOKADA.md
 ```
 
-**SELF-CHECK WYKONAWCZY — treść w module kanonicznym, nie tutaj:**
+⛔ **Do czasu wykonania tego `view` NIE WOLNO:**
+- nadać znacznika 🟨 (kotwica urzędowa) ani ⚠️ (niezweryfikowane),
+- napisać, że źródło jest niedostępne — Reguła 12d (REM-0) wymaga pomiaru
+  dwukanałowego, którego procedura leży w wydzielonym pliku,
+- wymyślić statusu pośredniego („pamięć normatywna”, „znane brzmienie”,
+  „stan powszechnie znany”). To jest udokumentowany tryb awarii, nie hipoteza.
 
-```
-view shared/SELF-CHECK-ANTY-FASADA.md
-```
-
-⛔ **Deklaracja „propagowana do wszystkich skilli" była NIEPRAWDZIWA** od
-2026-08-23 do 2026-08-23i: pomiar `grep -rl ANTY-FASADA` dawał 7 plików wobec
-~25 skilli cytujących prawo, a po dodaniu AF-6 (F-117) źródło miało 2 pozycje
-listy, a wszystkie 7 kopii — 1. Naprawione podłączeniem modułu (F-115); aktualny
-rejestr skilli, które go wołają, znajduje się W TYM MODULE, nie tutaj — jedno
-miejsce prawdy zamiast deklaracji, której nikt nie weryfikował.
-
-⚠️ Zmieniasz brzmienie AF-1…AF-6 wyżej? Sprawdź, czy lista wykonawcza w module
-nadal się z nimi zgadza. Rozjazd między nimi znaczy, że zaktualizowano jedno z
-dwóch miejsc.
-
-### 🟨 KOTWICA URZĘDOWA — trzeci status, obowiązkowy gdy B-2 zwraca blokadę
-
-> Dodano 2026-08-23 (v2.5). Powód: dotąd HARDGATE znał wyłącznie dwa stany
-> końcowe (✅ / ⚠️), a stan faktycznie osiągalny w tym środowisku jest trzeci
-> i nie miał nazwy. **Brak nazwy dla realnego stanu jest przyczyną, dla której
-> model wymyśla własną etykietę.** Ten status tę lukę zamyka.
-
-Stan opisywany: **tożsamość i metryka aktu potwierdzone urzędowo (indeks ISAP/ELI),
-brzmienie przepisu odczytane z RZĘDU 2 i skrzyżowane.** To NIE jest ✅ i NIE jest
-pamięć modelu.
-
-```
-WARUNKI ŁĄCZNE — wszystkie cztery muszą być spełnione:
-  K-1: snippet z isap.sejm.gov.pl LUB eli.gov.pl potwierdza tożsamość aktu
-       i numer aktualnego tekstu jednolitego (Dz.U. RRRR poz. NNN)
-  K-2: brzmienie przepisu odczytane z co najmniej DWÓCH niezależnych
-       źródeł RZĘDU 2B, wzajemnie zgodnych
-  K-3: na stronie RZĘDU 2B widoczny znacznik t.j. ZGODNY z K-1
-       (⛔ portale serwują wersje archiwalne pod tym samym numerem artykułu —
-        zweryfikowane 2026-08-23: przepisy.gofin.pl zwrócił obok siebie
-        aktualne art. 113 KRO i brzmienie sprzed nowelizacji z 2008 r.
-        spod URL-a z parametrem daty. Sam cross-check dwóch portali NIE
-        chroni, jeśli oba trafią w ten sam odcinek czasu — rozstrzyga
-        znacznik t.j. na stronie)
-  K-4: jawne wskazanie, że RZĄD 1 był niedostępny i dlaczego
-
-ZNACZNIK (oba człony obowiązkowe, nigdy sam pierwszy):
-  🟨 [KOTWICA-URZĘDOWA: eli.gov.pl/ISAP indeks — Dz.U. RRRR poz. NNN t.j., data]
-  📚 [TREŚĆ: RZĄD 2B — portal-1 + portal-2, znacznik t.j. sprawdzony, data]
-
-⛔ K-1 NIESPEŁNIONY → nie wolno użyć tego statusu → ⚠️ [NIEWERYFIKOWANE]
-⛔ K-2 lub K-3 NIESPEŁNIONY → ⚠️ [NIEWERYFIKOWANE]
-⛔ Status 🟨 NIE jest równoważny ✅. W piśmie procesowym (.docx) przechodzi
-   przez HYBRID-VALIDATION jako WYMAGAJĄCY DOMKNIĘCIA, nie jako zweryfikowany.
-⛔ ZAKAZ tworzenia jakiegokolwiek INNEGO statusu pośredniego. Hierarchia jest
-   zamknięta i liczy dokładnie cztery pozycje:
-     ✅ [VER]  >  🟨 [KOTWICA-URZĘDOWA]  >  ⚠️ [NIEWERYFIKOWANE]  >  ⬛ [DO UZUPEŁNIENIA]
-   Jeżeli sytuacja nie mieści się w żadnej z nich — to jest ⚠️, nie nowa etykieta.
-   Nazwanie pamięci modelu jakimkolwiek „szczeblem źródła" (w tym określeniami
-   typu „pamięć normatywna", „wiedza modelu", „MEM") jest naruszeniem tego
-   hard gate tej samej wagi co halucynacja przepisu.
-```
-
-**Reguły warstwy strukturalnej:**
-
-1. Wynik z POZIOMU A/B oznaczaj: `✅ [VER: api.sejm.gov.pl ELI DU/RRRR/NNN, data]`
-   lub `✅ [VER: saos.org.pl API, data]` — to znacznik silniejszy niż web-fallback.
-2. Weryfikację t.j. wykonuj przez endpoint `/references` (typ „Tekst jednolity") —
-   NIE przez web_search. Endpoint zwraca pełny łańcuch t.j.; najnowszy = obowiązujący.
-   Narzędzie/endpoint ostrzega też o nowelizacjach PO tekście jednolitym — nałóż je
-   i sprawdź vacatio legis względem daty zdarzenia.
-3. Akt OGŁOSZONY ≠ OBOWIĄZUJĄCY: z metadanych ELI odczytaj datę wejścia w życie
-   i status; przy nowelizacji sprawdź artykuł „wchodzi w życie" (różne daty dla
-   różnych jednostek redakcyjnych).
-4. Brak aktu/orzeczenia w odpowiedzi API ≠ dowód nieistnienia, jeżeli API nie
-   pokrywa danego zakresu (np. SAOS nie indeksuje NSA/WSA; indeksacja ELI bywa
-   opóźniona). Wtedy przejdź na POZIOM C i zaznacz ograniczenie pokrycia.
-5. Do dosłownego cytatu w piśmie/umowie preferuj urzędowy PDF t.j. (ELI `text.pdf`),
-   bo konwersja HTML bywa zlepiona.
+⛔ Pominięcie tego odczytu po padnięciu wyzwalacza jest **naruszeniem HARD GATE**,
+a nie skróceniem procedury. Kontrola `[PROFIL-ODROCZENIA]` w
+`prawny-router-v3/references/SELF-CHECK.md` traktuje „blokada padła, `view` nie ma”
+jako bramkę niewykonaną.
 
 ## PROCEDURA OBOWIĄZKOWA PRZED KAŻDYM PRZEPISEM
 
@@ -426,6 +370,32 @@ KROK 2C-3: Przy blokadzie źródła na KROK 2C-1 → status 🟨 [KOTWICA-URZĘD
 
 Pełna procedura i uzasadnienie: `shared/TEMPORAL-LAW-CHECK.md`.
 
+### GDZIE SZUKAĆ NOWELIZACJI PO t.j. — adresy (dodano 2026-09-01k, F-156)
+
+| Co | Gdzie |
+|---|---|
+| lista dla konkretnego t.j. | `api.sejm.gov.pl/eli/acts/DU/{rok}/{poz}/references` → sekcja **„Nowelizacje po tekście jednolitym"** |
+| kontrola uzupełniająca — ta sekcja bywa NIEPEŁNA | akty zmieniające AKTU BAZOWEGO (`…/references` → „Akty zmieniające") z datą promulgacji późniejszą niż data t.j. |
+| dojście od t.j. do aktu bazowego | `…/references` obwieszczenia → sekcja „Tekst jednolity dla aktu" (⛔ NIE przez wyszukiwanie po tytule — trafia w akty zmieniające) |
+| bramka zatrzymująca zamiatanie | `audyt-systemu-v4/scripts/check_wyjatek_gate_eli.py` (F-153) |
+| lista takich pozycji w całym repozytorium | `audyt-systemu-v4/scripts/check_nowelizacje_po_tj.py` (T24) |
+
+⛔ **Unia, nie wybór.** Pomiar F-155 na 19 aktach: sekcja API zgadza się
+z metodą datową w 16 przypadkach, a w 3 jest jej WŁAŚCIWYM PODZBIOREM —
+brakowało czterech ustaw zmieniających, wszystkich obowiązujących, w tym jednej
+od ośmiu miesięcy. Rozbieżności odwrotnej nie zaobserwowano ani razu. Oparcie
+kontroli na samej sekcji daje fałszywy negatyw.
+
+⛔⛔ **Zakaz przepisywania wyniku do map i modułów** (F-156, rozstrzygnięcie
+rozszerzone 2026-09-01k). Liczba nowelizacji po t.j. rośnie z każdą publikacją
+Dz.U., więc wpisana do mapy zestarzeje się w tygodniach. Nie pomaga też sam
+znacznik bez liczby: **oznaczenie przy jednych pozycjach twierdzi coś
+o pozostałych** — wiersz bez znacznika czyta się jako „tu t.j. wystarczy",
+a to zdanie o stanie rejestru na dzień oznaczania, nie na dzień użycia.
+Mapa wskazuje AKT; czy sam t.j. wystarczy, rozstrzyga się tutaj, w momencie
+użycia.
+
+
 ⛔ ZAKAZ: oznaczania ✅ [VER: ISAP, data] na podstawie samego potwierdzenia,
 że numer Dz.U. istnieje. Znacznik ✅ [VER] wymaga potwierdzenia ISTNIENIA
 ORAZ PRZEDMIOTU (tytułu) aktu zgodnego z tezą.
@@ -538,11 +508,5 @@ Zasada: **brak sygnatury jest lepszy niż sygnatura nieweryfikowana lub fałszyw
 
 ## HISTORIA WERSJI
 
-⛔ Historia zmian tego pliku NIE mieszka tutaj (ZASADA 15 w
-`audyt-systemu-v4/SKILL.md`). Do 2026-08-23h **88 linii changelogu stało POWYŻEJ
-pierwszej normy** — każdy z 114 plików odsyłających do tej bramki czytał opisy
-wersji 2.0–2.6, zanim dotarł do zakazu. Przeniesione do:
-
-```
-view shared/references/CHANGELOG.md
-```
+Przeniesiona 2026-09-10b (F-180, ZASADA 15) do `shared/references/CHANGELOG.md`,
+sekcja *PRAWO-HARDGATE*.

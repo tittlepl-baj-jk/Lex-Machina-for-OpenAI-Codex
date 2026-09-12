@@ -1,5 +1,8 @@
 # CHANGELOG — dr-02-prawo-cywilne-rodzinne-gospodarcze
 
+- 3.44 (2026-08-26): F-86 — dodano `modules/mod-PrUpad-likwidacja-miedzynarodowe-szczegolne.md` obejmujący mapę art. 316–334, 378–417 i 418–425s Prawa upadłościowego; zaktualizowano MAPA-AKTOW, MAPA-POKRYCIA i routing centralny. Granica od art. 426 jawnie oznaczona jako nieopracowana. Liczba plików skilla 78 → 79.
+  *(Wpis WTÓRNY, odtworzony 2026-08-31 z `audyt-systemu-v4/references/AUDIT-JOURNAL.md`, sesja AUDYT-2026-08-26c, sekcja „Zamknięte flagi” → F-86, oraz AUDYT-2026-08-27 pkt 1 i 4. Przy rozbieżności rozstrzyga dziennik. Powód odtworzenia: flaga F-140, wykryta testem T12.)*
+
 - 3.43 (2026-08-27): dodano trzy moduły zamykające luki zerowe KSH, KPC oraz PrUp/PrRestr; zsynchronizowano MAPA-AKTOW, MAPA-POKRYCIA i centralny routing.
 
 - 3.42 — F-108 P3/13 i P3/34: wydzielono Prawo spółdzielcze i ustawę o spółdzielniach mieszkaniowych do odrębnych modułów opartych na RZĄD 1 ELI. (2026-08-27)

@@ -1,5 +1,149 @@
 # CHANGELOG — Biblioteka shared
 
+- 3.34 (2026-09-10l, F-181): trzy przeterminowane podstawy: ustawa rehabilitacyjna 2024/44 → 2026/884; w orka-bas działalność lecznicza 2024/799 → 2026/156, UFP 2024/1530 → 2025/1483, Ordynacja 2025/111 → 2026/622 (2 miejsca)
+- 3.31 — **KROK 2C: gdzie szukać nowelizacji po t.j. + zakaz przepisywania wyniku**
+  (2026-09-01k, flaga F-156). Nowa tabela adresów: sekcja „Nowelizacje po tekście
+  jednolitym" w `/references` obwieszczenia, kontrola uzupełniająca aktami
+  zmieniającymi aktu bazowego (sekcja bywa właściwym podzbiorem — pomiar F-155:
+  16/19 zgodnych, 3/19 niepełnych, 0 rozbieżności odwrotnych), dojście od t.j. do
+  aktu bazowego przez „Tekst jednolity dla aktu" (⛔ nie przez wyszukiwanie po
+  tytule), bramka F-153 i test T24. ⛔⛔ Dopisany zakaz przenoszenia wyniku do map
+  i modułów — również w formie samego znacznika bez liczby, bo **oznaczenie przy
+  jednych pozycjach twierdzi coś o pozostałych**: wiersz bez znacznika czyta się
+  jako „tu t.j. wystarczy", czyli jako zdanie o stanie rejestru na dzień oznaczania.
+- 3.30 — aktualizacja podstawy w `mod-niepelnosprawnosc-intelektualna-gluchota.md`
+  (2026-09-01i, flaga F-155): ustawa o świadczeniu wspierającym cytowana była przez
+  akt pierwotny Dz.U. 2023 poz. 1429; obowiązuje t.j. **Dz.U. 2026 poz. 873**
+  ✅ [VER: api.sejm.gov.pl/eli, 2026-09-01]. Poprawione w dwóch miejscach (podstawa
+  i wskazanie źródła do fresh gate); numer pierwotny zachowany w nawiasie.
+- 3.29 — **ŚCIEŻKA B-L: odczyt aktu prawa miejscowego** (2026-09-01g, flaga F-154).
+  Sekwencja B-T1…B-T3 do aktów lokalnych nie pasuje — nie mają ELI, nie mają tekstu
+  jednolitego i nie mają jednolitego wzorca adresu serwisu wojewódzkiego. Nowa
+  ścieżka: portal zbiorczy → identyfikacja `Dz.Urz. Woj. {nazwa} {rok} poz. {N}` →
+  treść wyłącznie z pliku w dzienniku (BIP pomocniczy, nie publikator) → kontrola
+  uchylenia, rozstrzygnięcia nadzorczego wojewody i orzeczenia WSA. ⛔ Zapisano, że
+  skonsolidowanego tekstu aktu lokalnego zwykle NIE MA, a rekonstrukcji z aktu
+  pierwotnego i uchwał zmieniających nie wolno przedstawiać jako tekstu urzędowego.
+  **Korekta v1.6:** podany tam szablon `edziennik.{województwo}.uw.gov.pl` jest
+  NIEPRAWDZIWY — zmierzone formy różnią się (`edziennik.malopolska.uw.gov.pl`,
+  `e-dziennik.szczecin.uw.gov.pl`, mazowieckie przez `gov.pl/web/uw-mazowiecki`).
+  Zastąpiono zakazem budowania adresu z szablonu i nakazem wejścia przez
+  `dziennikiurzedowe.gov.pl`.
+- 3.28 — **uzupełnienie luk publikatorów urzędowych** (2026-09-01f, flaga F-153).
+  Rewizja list źródeł pod kątem pytania „czy istnieje publikator rządowy, którego
+  hierarchia nie zna" wykazała cztery luki w RZĘDZIE 1 i trzy w 2A.
+  `HIERARCHIA-ZRODEL.md` → **v1.6**. RZĄD 1: **Monitor Polski**
+  (`monitorpolski.gov.pl` + `api.sejm.gov.pl/eli/acts/MP/...`) — publikator uchwał,
+  obwieszczeń i zarządzeń, dotąd nieobecny mimo wpiętej ścieżki Dz.U.;
+  `dziennikustaw.gov.pl` (RCL); `dziennikiurzedowe.gov.pl` (dzienniki ministrów
+  i urzędów centralnych); **wojewódzkie dzienniki urzędowe**
+  (`edziennik.{województwo}.uw.gov.pl`) — JEDYNY publikator aktów prawa
+  miejscowego, bez którego DR-08 i DR-09 nie miały skąd wziąć brzmienia uchwały
+  rady gminy ani planu miejscowego. ⚠️ Zmierzone 2026-09-01: `api.sejm.gov.pl/eli/acts`
+  zwraca wyłącznie `DU` i `MP`, więc publikatory lokalne są POZA tym API.
+  RZĄD 2A: interpretacje organów (EUREKA — KAS; **BIP GIP** — interpretacje
+  indywidualne wg art. 14b ustawy o PIP, Dz.U. 2026 poz. 473, w życie 2026-07-08),
+  rejestry urzędowe i publikatory ogłoszeń (KRS, KRZ, eKRS/PDF, EKW, CEIDG,
+  REGON, SUDOP, BZP) — wyłącznie dla ustalenia FAKTU wpisu, oraz materiały
+  legislacyjne (`legislacja.rcl.gov.pl`, druki sejmowe) z ⛔⛔ zakazem cytowania
+  z nich brzmienia: projekt nie jest aktem.
+  `PRAWO-HARDGATE.md` — POZIOM B rozszerzony o wzorzec M.P. i o jawną granicę
+  zasięgu API ELI.
+- 3.27 — **korekta dwóch zapisów o dostępności źródeł RZĘDU 1** (2026-09-01c,
+  flagi F-150 / F-151). `PRAWO-HARDGATE.md`: POZIOM B wskazywał
+  `/eli/acts/DU/{rok}/{poz}/text.html` jako „pełny tekst aktu" — endpoint zwraca
+  tekst OGŁOSZONY aktu bazowego, bez jednostek dodanych nowelizacją (zmierzone:
+  KC bez art. 385¹/449¹/770¹, KK bez art. 190a). Instrukcja wykonana dosłownie
+  łamała REGUŁĘ AKTUALNOŚCI z tego samego pliku. Dodano sekcję „PUŁAPKA
+  /text.html" z sekwencją B-T1…B-T3 (references → obwieszczenie ze statusem
+  `obowiązujący` → `text.pdf` + ekstrakcja) i oznaczono `/text.html` jako ⛔.
+  Tabela kanałów uzupełniona o kolumnę retestu: `eli.gov.pl/robots.txt` zezwala
+  na wszystko, więc `ROBOTS_DISALLOWED` opisuje decyzję narzędzia `web_fetch`,
+  nie zakaz serwera; `isap.sejm.gov.pl` zapętla 302 i jest martwy w obu trybach.
+  `HIERARCHIA-ZRODEL.md` → **v1.5**: sekcja REALIA DOSTĘPNOŚCI rozpisana per
+  kanał hosta (przy kanale kodu BRZMIENIE przepisu jest osiągalne, więc
+  🟨 KOTWICA URZĘDOWA bywała nieuzasadniona), nowa pozycja RZĄD 2A dla
+  orzecznictwa i decyzji organów (UODO, KIO, UKE, UOKiK, EUREKA) z odesłaniem
+  do `audyt-systemu-v4/references/PORTALE-ORZECZNICZE-API.md`.
+- 3.26 — `MOD-UNIT-SWEEP.md` 1.0 **przemianowany i rozszerzony** na
+  `MOD-WYJATEK-GATE.md` 2.0 (WYJ-GATE), 2026-08-31d, flaga F-144, na uwagę
+  użytkownika w tej samej sesji, przed pierwszym użyciem produkcyjnym.
+  Powód zmiany: nazwa 1.0 opisywała CZYNNOŚĆ („zamiataj sąsiedztwo"), a nie CEL
+  („nie przegap wyjątku") — przez co mechanizm wyglądał na wąską sztuczkę
+  i faktycznie pokrywał tylko jedno z czterech miejsc, w których mieszkają
+  wyjątki. Rozstrzygnięcie sporne rozstrzygnięte świadomie: reguła NIE brzmi
+  „sprawdź, czy istnieje przepis szczególny", bo taki warunek jest ocenny
+  (żeby go wykonać, trzeba już podejrzewać, że wyjątek istnieje) i niesprawdzalny
+  z zewnątrz (nieobecności wyjątku nie da się udowodnić). Zamiast tego cztery
+  POLICZALNE zamiatania: **S1** sąsiedztwo redakcyjne z regułą indeksu górnego,
+  **S2** krawędzie jednostki (pierwszy i ostatni artykuł działu — tam stoją
+  klauzule zakresowe i wyłączenia), **S3** akty powiązane z rejestru ELI plus
+  pytanie zamknięte o akt sektorowy dla danej kategorii strony (lex specialis
+  POZA aktem — w kazusie 111 wyłączenie rękojmi siedziało w innej ustawie,
+  więc samo S1 by nie wystarczyło), **S4** przepisy przejściowe przez odesłanie
+  do `MOD-OS-CZASU-PRZESLANEK` OŚ-5.4, bez duplikowania procedury.
+  Blok wyjściowy WYJ-GATE wymaga wszystkich czterech pozycji także wtedy, gdy
+  wynik zamiatania jest pusty. Plik `MOD-UNIT-SWEEP.md` USUNIĘTY — dwie nazwy
+  jednego mechanizmu to klasa błędu z `DEDUPLICATION-POLICY.md`; historia nazwy
+  zachowana w §10 modułu. ⛔ Skuteczność NIEZMIERZONA (klasa F-119), pomiar
+  z grupą kontrolną przypisany do F-144.
+
+- 3.25 — NOWY MODUŁ `MOD-UNIT-SWEEP.md` (US-GATE) + `MOD-OS-CZASU-PRZESLANEK.md`
+  1.0 → 1.1 (2026-08-31b, flaga F-144, na polecenie użytkownika po audycie
+  cudzego materiału do kazusu 111). Wzorzec awarii, który zamyka: **weryfikacja
+  punktowa artykułu nie wykrywa przepisu, o którego istnieniu model nie wie** —
+  sprawdza dokładnie to, o co sam siebie zapytał. Incydent źródłowy: art. 770 k.c.
+  odczytany ze źródła, we właściwej wersji na datę umowy (20.02.2011), przy
+  pominiętym art. 770¹ k.c. — jednostce dodanej ustawą z 27.07.2002, uchylonej
+  25.12.2014, która dla kupującego-konsumenta odsyłała umowę komisową do przepisów
+  o sprzedaży konsumenckiej. Wszystkie bramki weryfikacyjne zadziałały; żadna nie
+  pyta, co leży obok. To jest wiedza NEGATYWNA i nie da się jej dopisać do tablicy
+  — tablica rośnie wyłącznie o pozycje, które ktoś już raz przeoczył.
+  Konstrukcja: wyzwalacz mechaniczny (każde powołanie jednostki), zakres minimalny
+  US-2 nie podlegający skróceniu, ⛔ REGUŁA INDEKSU GÓRNEGO (art. X¹ to osobna
+  jednostka, zwykle lex specialis albo odesłanie), reguła kierunku czasu (przepis
+  uchylony po dacie zdarzenia jest w stanie aktualnym niewidoczny), klasyfikacja
+  sąsiada w stałym szablonie i widoczny blok US-GATE. Milczenie NIE jest
+  odpowiedzią negatywną. Wsparcie narzędziowe: `check_unit_sweep_eli.py` (T20
+  w audyt-systemu-v4) buduje zakres US-2 deterministycznie, ale NIE ocenia wpływu.
+  W MOD-OS-CZASU-PRZESLANEK: §5A **macierz reżimu trzyosiowa** (czas × status
+  strony × typ zbywcy/umowy) w miejsce jednowymiarowej tabeli epok wraz z zakazem
+  wartości domyślnej na którejkolwiek osi; OŚ-5.4 — obowiązek odczytu przepisu
+  przejściowego nowelizacji wyznaczającej cezurę („cezura bez przepisu
+  przejściowego jest datą, nie regułą stosowania"); nowe wiersze R-03a (przepis
+  przejściowy do reformy z 1.01.2023), R-05 (komis + konsument, art. 770¹,
+  1.01.2003–24.12.2014) i T-09 (chwila oceny wady prawnej — wyrok SN 18.10.2023,
+  II CSKP 1771/22); korekta zakresu R-03 (wyłączenie obejmuje dział o rękojmi,
+  nie „k.c. w ogóle"). ⛔ Skuteczność US-GATE NIEZMIERZONA — obecność modułu
+  w pliku nie dowodzi zmiany zachowania (klasa F-119); pomiar z grupą kontrolną
+  przypisany do flagi F-144, część otwarta.
+
+- 3.24 — NOWY MODUŁ `MOD-OS-CZASU-PRZESLANEK.md` (OŚ-GATE), 336 linii
+  (2026-08-31, flaga F-142, na polecenie użytkownika po sesji kazusów
+  111/118). Wzorzec awarii, który zamyka: przesłanka roszczenia oceniana na
+  datę zdarzenia sprawczego zamiast na chwilę, którą wskazuje prawo — podczas
+  gdy między tymi chwilami upływa termin, który przesłankę wygasza albo
+  dopiero powołuje. Incydent źródłowy (kazus 111): trzyletni termin z
+  art. 169 § 2 k.c. upłynął pół roku przed zatrzymaniem pojazdu; analiza
+  „na datę zakupu" daje wynik spójny wewnętrznie i merytorycznie błędny.
+  Kluczowa cecha konstrukcyjna: **wyzwalacz mechaniczny (≥2 daty), nie
+  ocenny** — warunek ocenny to ten sam tryb awarii, który mierzy F-113.
+  Procedura OŚ-1…OŚ-4: ekstrakcja dat → pełna siatka n(n−1)/2 interwałów →
+  punkty przełączenia (4 kierunki: rzecz/roszczenie/strona/reżim) → tablica
+  CHWIL OCENY z bramką „zakaz konkluzji przed wypełnieniem". Osobna §5:
+  kontrola reżimu (cezury 2003 / 2014 / 2023 dla odpowiedzialności wobec
+  konsumenta). Tablice §4/§5 wypełnione polityką WĄSKĄ I ROSNĄCĄ — 8 pozycji
+  T-01…T-08 i 4 cezury R-01…R-04, wyłącznie z realnych potknięć systemu,
+  z regułą dopisywania §6 i jawnym ZAKAZEM pozycji „na zapas". ⛔ Tablice
+  NIE są źródłem prawa — kolumna „chwila oceny" wskazuje, GDZIE patrzeć,
+  a nie CO tam stoi; każde użycie przechodzi normalny PRAWO-HARDGATE.
+  Wiersze R-02 i R-04 noszą jawne ⚠️ NIEZWERYFIKOWANE. Blok wyjściowy
+  OŚ-GATE jest WIDOCZNY w odpowiedzi (uzasadnienie identyczne jak dla
+  znaczników weryfikacji: krok niewidoczny to krok pomijalny bez śladu).
+  ⚠️ SKUTECZNOŚĆ NIEZMIERZONA — obecność modułu dowodzi obecności reguły,
+  nie zmiany zachowania; pomiar w gestii flagi F-143. Pełny opis:
+  `audyt-systemu-v4/references/AUDIT-JOURNAL.md`, wpis AUDYT-2026-08-31b.
+
 - 3.23 — PRAWO-HARDGATE.md: nowa sekcja "OBOWIĄZEK WIDOCZNEGO ZNACZNIKA
   W DOSTARCZONEJ ODPOWIEDZI — BEZWARUNKOWY" (2026-08-27, na żądanie
   użytkownika). Luka źródłowa: przepisy zweryfikowane faktycznym
@@ -725,3 +869,106 @@ ZRODEL.md` (oznaczone 📚) oraz DODANO przykładowe wzorce nazw domen
 typowych dla danej branży jako PUNKTY STARTOWE (oznaczone ⚠️ NIE
 testowane) — UCZCIWIE nierozróżniane od faktycznie zweryfikowanych,
 zgodnie z zasadą braku fabrykowania pewności.
+
+---
+
+## PRAWO-HARDGATE — historia wersji
+
+Przeniesiona z korpusu `shared/PRAWO-HARDGATE.md` 2026-09-10b (F-180, ZASADA 15).
+
+⛔ Historia zmian tego pliku NIE mieszka tutaj (ZASADA 15 w
+`audyt-systemu-v4/SKILL.md`). Do 2026-08-23h **88 linii changelogu stało POWYŻEJ
+pierwszej normy** — każdy z 114 plików odsyłających do tej bramki czytał opisy
+wersji 2.0–2.6, zanim dotarł do zakazu. Przeniesione do:
+
+```
+view shared/references/CHANGELOG.md
+```
+
+---
+
+## 3.32 (2026-09-10b, F-180) — PRAWO-HARDGATE: wydzielenie gałęzi warunkowych
+
+`PRAWO-HARDGATE.md` jest jedynym zasobem czytanym **bezwarunkowo w każdej turze
+prawnej** i stanowił 41 kB z ok. 100 kB rdzenia R-1…R-5. Pomiar 2026-09-10b:
+z 704 linii **236 opisywało gałęzie, które w typowej sprawie nie padają ani razu.**
+
+Wydzielone bez zmian merytorycznych:
+
+| Nowy plik | Treść | Wyzwalacz |
+|---|---|---|
+| `PRAWO-HARDGATE-BLOKADA.md` | BRAMKA ANTY-FASADOWA + KOTWICA URZĘDOWA (201 l.) | B-1/B-2 zwrócił blokadę i kanał kodu też zawiódł |
+| `PRAWO-HARDGATE-AKT-MIEJSCOWY.md` | ŚCIEŻKA B-L (35 l.) | przedmiotem sprawy jest akt prawa miejscowego |
+
+Historia wersji przeniesiona do tego pliku (ZASADA 15).
+Wynik: **40,9 kB → 28,7 kB (−30%)**, rdzeń ok. 100 kB → ok. 88 kB.
+
+⛔ **Ryzyko wydzielenia i jak zamknięte.** Wydzielenie bramki, która pilnuje
+przed obejściem procedury, tworzy oczywistą pokusę: pominąć odczyt i od razu
+oznaczyć 🟨. Dlatego w korpusie zostały **twarde zaślepki**, nie odesłania:
+- rozgałęzienie TAK/NIE z jawnym `⛔ STOP` i wywołaniem `view`,
+- zakaz nadania 🟨 oraz ⚠️ przed wykonaniem tego `view` — znacznik nadany
+  wcześniej jest nieważny,
+- przypomnienie, że Reguła 12d (REM-0) wymaga pomiaru dwukanałowego, którego
+  procedura leży w wydzielonym pliku,
+- powiązanie z kontrolą `[PROFIL-ODROCZENIA]`, która traktuje „blokada padła,
+  `view` nie ma" jako bramkę niewykonaną.
+
+⛔ Kolejność wewnątrz `PRAWO-HARDGATE-BLOKADA.md` pozostaje wiążąca: najpierw
+bramka antyfasadowa, potem kotwica. Bramka istnieje po to, żeby kotwica nie
+stała się wygodnym wyjściem awaryjnym.
+
+⚠️ Czego to wydzielenie **nie** rozstrzyga: czy w sytuacji blokady model
+faktycznie wykona `view`, zamiast go zadeklarować. To jest dokładnie pytanie
+z protokołu F-113 i pozostaje niezmierzone.
+
+---
+
+## 3.33 (2026-09-10d, F-160) — odesłania operacyjne rozdzielone od dowodowych
+
+`PRAWO-HARDGATE.md` i `HIERARCHIA-ZRODEL.md` wskazywały
+`audyt-systemu-v4/references/PORTALE-ORZECZNICZE-API.md` jako źródło
+**instrukcji** dostępu maszynowego. ⛔ `audyt-systemu-v4` nie występuje
+w `dependencies.requires` żadnego skilla produkcyjnego, więc były to wskazania
+**nieosiągalne ze ścieżki produkcyjnej** — dokładnie wzorzec, dla którego
+powstała flaga F-160.
+
+Rozdzielone: instrukcja → `shared/DOSTEP-MASZYNOWY-API.md` (w `required_modules`
+routera), plik audytu → materiał dowodowy pomiaru, przywoływany jako dowód
+i opatrzony adnotacją o niedostępności z produkcji.
+
+---
+
+## 3.35 (2026-09-10n, F-181) — 41 wygasłych podstaw prawnych zastąpionych aktualnymi
+
+`shared` niósł **dwie trzecie całej zaległości F-181**: 41 z 61 miejsc, 20 aktów.
+Koncentracja w `orka-bas-leksykon`, który cytuje podstawy **w treści definicji**,
+a nie w nagłówku — przez co omijały go wszystkie dotychczasowe przeglądy.
+
+| Akt | Było | Jest | Miejsc | KROK 2C |
+|---|---|---|---:|---|
+| ustawa o finansach publicznych | 2024/1530 | **2025/1483** | 13 | ⛔ 5 nowelizacji |
+| ustawa o dochodach JST | 2022/2267 | **2024/1572** ⛔ nowa ustawa | 5 | zm. 2025/1659 |
+| ustawa o gospodarce nieruchomościami | 2023/344 | **2026/399** | 2 | ⛔ 1 |
+| Karta Nauczyciela | 2023/984 | **2026/515** | 2 | 0 |
+| ustawa o VAT | 2024/361 | **2025/775** | 2 | ⛔ 5 |
+| KPK | 2024/37 | **2026/490** | 2 | ⛔ 5 |
+| ustawa rehabilitacyjna | 2024/44 | **2026/884** | 2 | 0 |
+| PZP | 2022/1710, 2024/1320 | **2026/793** | 2 | 0 |
+| pozostałe 12 aktów | — | — | po 1 | — |
+
+Pozostałe: podatek rolny `2025/1344`, rozporządzenie MRPiPS `2026/677`,
+zatrudnienie socjalne `2025/1718`, obrona Ojczyzny `2025/825` (⛔ 5),
+prawo autorskie `2025/24`, AML `2025/644` (⛔ 1), KWiH `2026/1066`,
+Prawo energetyczne `2026/43` (⛔ 3), PPSA `2026/143` (⛔ 1),
+pomoc społeczna `2026/639` (⛔ 2), Prawo upadłościowe `2026/913`.
+
+⛔ **Dochody JST — jedyny przypadek, który nie był zwykłym starzeniem.**
+Wskazany przez pomiar „aktualny" tekst jednolity `2024/356` **też ma status
+uchylony**: stara ustawa z 2003 r. została zastąpiona **nową ustawą** z 1.10.2024
+(`Dz.U. 2024 poz. 1572`). Automatyczne podstawienie przesunęłoby błąd o jedno
+ogniwo dalej, zamiast go usunąć.
+
+⛔ Każda z 20 par sprawdzona przez **porównanie tytułów** starego i nowego
+obwieszczenia — po sześciu podmianach aktu w tej serii to element procedury,
+nie formalność.

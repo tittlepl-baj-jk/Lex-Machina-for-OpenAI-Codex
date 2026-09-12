@@ -49,9 +49,9 @@ Mapa pokazuje wyłącznie bieżący stan pokrycia używany przez system. Histori
 | Prawo czekowe — Dz.U. 2016 poz. 462 | 🟢 B+ / COV | `mod-prawo-wekslowe-czekowe.md` |
 | fundacje | 🟢 B+ / COV | `mod-ustawa-fundacje-stowarzyszenia.md` |
 | stowarzyszenia | 🟢 B+ / COV | `mod-ustawa-fundacje-stowarzyszenia.md` |
-| ubezpieczenia obowiązkowe, UFG i PBUK | 🟢 B+ / COV | dedykowany moduł |
-| fundacja rodzinna | 🟢 B+ / COV | dedykowany moduł |
-| opóźnienia w transakcjach handlowych | 🟢 B+ / COV | dedykowany moduł |
+| ubezpieczenia obowiązkowe, UFG i PBUK | 🟢 B+ / COV | `mod-ustawa-ubezpieczenia-obowiazkowe-UFG-PBUK.md` |
+| fundacja rodzinna | 🟢 B+ / COV | `mod-ustawa-fundacja-rodzinna.md` |
+| opóźnienia w transakcjach handlowych | 🟢 B+ / COV | `mod-transakcje-handlowe-opoznienia.md` |
 | Prawo przedsiębiorców — Dz.U. 2025 poz. 1480 | 🟢 B+ / COV | `mod-Prawo-przedsiebiorcow-current-state-COV.md` |
 
 ## Aktywne luki

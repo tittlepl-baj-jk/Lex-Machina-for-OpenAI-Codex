@@ -3,7 +3,7 @@ name: "audyt-systemu-v4"
 description: "Audyt jakości, spójności i bezpieczeństwa systemu prawnych skilli: zależności, wersje, mapy Dz.U., treść merytoryczna, propagacja zmian, deduplikacja i bramki jakości."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "audyt-systemu-v4"
 ---
 
@@ -1050,7 +1050,12 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
 > to ten sam wzorzec luki, który wykrywa `check_rejestracja_modulow.py`).
 
 ```
-audyt-systemu-v4/                               ← 71 plików (stan 2026-08-26)
+audyt-systemu-v4/                               ← 89 plików (stan 2026-09-09b; licznik sprawdzony
+│                                                  `find . -type f`, bez __pycache__. ⚡ Drzewo podawało
+│                                                  82 przy 84 faktycznych PRZED tą turą — trzeci z rzędu
+│                                                  rozjazd tego licznika (F-147: 71 przy 81). Ta tura
+│                                                  dokłada 2 pliki: check_domeny_allowlist.py i
+│                                                  F-152-pomiar-domen-2026-09-04.md)
 ├── SKILL.md                                    ← orchestrator (ten plik)
 ├── README.md                                   ← opis skilla dla czytelnika ludzkiego (NIE wczytywany
 │                                                  przez żadną fazę; dopisany do drzewa 2026-08-23g)
@@ -1062,17 +1067,20 @@ audyt-systemu-v4/                               ← 71 plików (stan 2026-08-26)
 │   └── MOD-PROPAGACJA-NOWELIZACJI.md           ← propagacja nowelizacji przez CAŁY system
 ├── widgets/
 │   └── WIDGET-MENU.md                          ← menu interaktywne (FAZA 0B)
-├── scripts/                                    ← 24 pliki: testy T1-T4, T8, T9, T11-T19,
+├── scripts/                                    ← 31 plików: testy T1-T4, T8, T9, T11-T22, T24-T26,
 │   │                                             orkiestrator, ci_check_shared (T6/T7),
 │   │                                             check_rejestracja_modulow, sync ELI (3 pliki),
 │   │                                             2 skrypty .sh, README.md — pełna lista w YAML
 │   └── …                                         `scripts:`
-└── references/                                 ← 38 plików
+└── references/                                 ← 44 pliki (31 w katalogu głównym + 13 w podfolderze)
     ├── AUDIT-JOURNAL.md                        ← dziennik audytów, ~44 tys. linii, 2,6 MB
     ├── WARN-OTWARTE.md                         ← rejestr żywy otwartych flag (ZASADA 10)
     ├── CHANGELOG.md                            ← historia wersji orkiestratora (F-78)
     ├── CHECKLIST-DEDUP.md                      ← mapa pojęć → lokalizacje kanoniczne
     ├── REGRESSION-TEST-PLAN.md                 ← testy T1-T17
+    ├── PORTALE-ORZECZNICZE-API.md              ← dostęp maszynowy do orzecznictwa/interpretacji
+    ├── F-171-pomiar-domen-2026-09-09.md        ← surowy wynik T25 (52 sondy), 4 regresje — F-171
+    ├── F-152-pomiar-domen-2026-09-04.md        ← surowy wynik T25 (40 sond), dowód zamknięcia F-152
     ├── F-136-zakres-DzU-2022-2600.md           ← 116/116 dyspozycji nowelizacji KK i pomiar korpusu
     ├── SYNC-DZU-AUTOMATYCZNY.md                ← + HARMONOGRAM-CRON.md, FORMAT-RAPORTU-ROZNIC.md
     ├── SCHEDULED-TASK-COWORK.md                ← POZYCJA 11 menu (FAZA 0C)
@@ -1082,7 +1090,9 @@ audyt-systemu-v4/                               ← 71 plików (stan 2026-08-26)
     ├── F-108-verification-2026-08-28.md         ← raport źródłowy re-audytu F-108
     ├── F-104-lista-robocza-mapa-dzu.md         ← lista robocza F-104, rocznik 2026
     ├── F-104-lista-robocza-roczniki-starsze.md ← lista robocza F-104, roczniki 2013-2025 (F-124)
-    ├── mapa_dzu_2026-08-28.md                  ← mapa Dz.U. AKTUALNA
+    ├── mapa_dzu_2026-09-10.md                  ← mapa Dz.U. AKTUALNA (F-148a)
+    ├── mapa_dzu_2026-09-09.md                  ← generacja poprzednia (F-172)
+    ├── mapa_dzu_2026-08-28.md                  ← POPRZEDNIA generacja
     ├── mapa_dzu_2026-08-26.md                  ← POPRZEDNIA generacja
     ├── mapa_dzu_2026-07-15 / 07-04 / 07-02 / 06-14.md  ← POPRZEDNIE generacje, cytowane w dzienniku
     └── raporty-pokrycia-2026-08-13/            ← 12 raportów + indeks = 13 plików
@@ -1090,7 +1100,8 @@ audyt-systemu-v4/                               ← 71 plików (stan 2026-08-26)
 
 ---
 
-*Wersja: 6.30 | Ostatnia aktualizacja: 2026-08-28 (F-108 domknięte 52/52 B+/COV, 0 FULL; current-state indeksy KW/SUS/zasiłkowej/zwolnień grupowych + moduł KW art. 65–69; prawny-router-v3 3.31).*
+*Wersja: 6.68 | Ostatnia aktualizacja: 2026-09-10o (F-181 DOMKNIĘTA na liście 1.2 — pozostałe 20 miejsc w 12 skillach naprawione; razem 61/61. ⛔ SIÓDMA PODMIANA AKTU: `mod-ustawa-pielegniarka-polozna` kierował do `2025/450`, czyli do t.j. ustawy o DZIAŁALNOŚCI LECZNICZEJ. ⛔ `mod-ustawa-kontrola-administracji` niósł nieprawdziwą adnotację „nowszy t.j. NIE został ogłoszony". ⚠️ Flaga nadal otwarta: lista 1.2 to wynik heurystyki, nie audytu każdej linii. Poprzednio: 2026-09-10n)*
+
 *(Stopka podawała „5.0 | 2026-07-04" przy `version: 6.8` w YAML — rozjazd
 9 wersji, naprawiony 2026-08-20y. **Stopkę aktualizuj razem z polem `version`**;
 jeśli znów zacznie się rozjeżdżać, kandyduje do usunięcia jako pole martwe —

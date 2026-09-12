@@ -76,4 +76,4 @@ Protokoły sesji:
 
 **Powiązania:** `mod-JST-ustroj-samorzad-gminny-powiatowy-wojewodztwa` | `mod-dzienniki-urzedowe-BIP-publikacja` | `dr-05` → `mod-UDIP-dostep-informacji-publicznej` | `pisma-procesowe-v3`
 
-**Źródła:** USG: https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001153 | https://dzienniki.gov.pl
+**Źródła:** USG: https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20250001153 | https://dziennikiurzedowe.gov.pl

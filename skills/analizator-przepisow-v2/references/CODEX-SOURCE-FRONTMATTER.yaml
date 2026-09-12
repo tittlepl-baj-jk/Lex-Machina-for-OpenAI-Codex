@@ -3,4 +3,4 @@ version: "2.6"
 type: executive-analiza
 status: production
 compatibility: "live_web_lookup, file_read, optional_interactive_ui"
-description: "Analiza przepisów prawa polskiego: aktualne i historyczne brzmienie, przesłanki, wykładnia, orzecznictwo, zbieg norm, nowelizacje, vacatio legis i zastosowanie do stanu faktycznego."
+description: "Analiza przepisów prawa polskiego: brzmienie aktualne i historyczne, przesłanki, wykładnia, orzecznictwo, zbieg norm, nowelizacje i vacatio legis."

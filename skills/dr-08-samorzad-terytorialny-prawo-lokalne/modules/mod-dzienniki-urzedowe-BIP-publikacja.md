@@ -9,7 +9,7 @@
 ## 1. CORE
 
 ### Zakres
-Publikacja aktów prawa miejscowego w dziennikach urzędowych województw (dzienniki.gov.pl), BIP jako kanał publikacji wewnętrznych uchwał JST, termin wejścia w życie, vacatio legis, prostowanie błędów, błędy publikacyjne a ważność aktu.
+Publikacja aktów prawa miejscowego w dziennikach urzędowych województw (dziennikiurzedowe.gov.pl), BIP jako kanał publikacji wewnętrznych uchwał JST, termin wejścia w życie, vacatio legis, prostowanie błędów, błędy publikacyjne a ważność aktu.
 
 ### Akty
 Ustawa z 20.07.2000 r. o ogłaszaniu aktów normatywnych i niektórych innych aktów prawnych — weryfikuj aktualny t.j. w ISAP.
@@ -31,7 +31,15 @@ WYŁĄCZNIE w BIP (akty wewnętrzne, nieobowiązujące powszechnie):
   □ Uchwały niepowszechnego zastosowania
   □ Protokoły sesji, sprawozdania, informacje
 
-Portal: https://dzienniki.gov.pl — portal wszystkich dzienników urzędowych woj.
+Portal: https://dziennikiurzedowe.gov.pl — portal wszystkich dzienników urzędowych woj.
+⚡ KOREKTA 2026-09-01g (F-154): do 2026-09-01 moduł podawał adres
+`dzienniki.gov.pl`. Portalem prowadzonym przez RCL jest
+`dziennikiurzedowe.gov.pl` (dawniej `dziennikiurzedowe.rcl.gov.pl`).
+⛔ Serwisy poszczególnych województw NIE mają jednolitego wzorca adresu —
+zmierzone przykłady: `edziennik.malopolska.uw.gov.pl`,
+`e-dziennik.szczecin.uw.gov.pl` (inna forma!), a mazowieckie prowadzi wejście
+przez `gov.pl/web/uw-mazowiecki`. Adresu województwa NIE buduj z szablonu —
+wejdź przez portal zbiorczy i weź link stamtąd.
 ```
 
 ### ⭐⭐ ŹRÓDŁA — PEŁNA LISTA 16 WOJEWÓDZTW (dodane 2026-07-21)
@@ -45,7 +53,7 @@ Portal: https://dzienniki.gov.pl — portal wszystkich dzienników urzędowych w
   1) DZIENNIK URZĘDOWY WOJEWÓDZTWA (oficjalna, PRAWNIE WIĄŻĄCA
      publikacja aktów prawa miejscowego, w tym uchwał sejmiku) —
      WSZYSTKIE 16 dostępne CENTRALNIE przez jeden portal:
-     https://dzienniki.gov.pl (wybierz województwo z listy) — TO
+     https://dziennikiurzedowe.gov.pl (wybierz województwo z listy) — TO
      JEST podstawowe, MIARODAJNE źródło dla ustalenia treści i daty
      wejścia w życie uchwały
   2) BIP URZĘDU MARSZAŁKOWSKIEGO / strona sejmiku danego województwa —
@@ -90,7 +98,7 @@ urzędowym, czy wystarczy sama strona BIP jako źródło.
 | Zachodniopomorskie | bip.wzp.pl |
 
 ⭐ PRAKTYCZNA REKOMENDACJA: przy poszukiwaniu KONKRETNEJ uchwały
-sejmiku — ZACZNIJ od dzienniki.gov.pl (wybór województwa + rok +
+sejmiku — ZACZNIJ od dziennikiurzedowe.gov.pl (wybór województwa + rok +
 numer pozycji, jeśli znany) jako źródła MIARODAJNEGO; BIP marszałkowskie
 z tabeli wyżej sprawdź DODATKOWO, gdy potrzebujesz projektu uchwały
 SPRZED sesji, uzasadnienia, protokołu głosowania lub gdy dziennik
@@ -114,10 +122,10 @@ Błąd: akt podjęty ale niepublikowany → NIE wchodzi w życie!
 
 ## 3. QUALITY GATE / OUTPUT
 
-**Quality gate:** Akt potwierdzony w dzienniki.gov.pl? Data ogłoszenia i data wejścia w życie obliczona? BIP aktualny?
+**Quality gate:** Akt potwierdzony w dziennikiurzedowe.gov.pl? Data ogłoszenia i data wejścia w życie obliczona? BIP aktualny?
 
 **Output:** Weryfikacja publikacji → data wejścia w życie → vacatio legis → ważność aktu.
 
 **Powiązania:** `mod-JST-ustroj-samorzad-gminny-powiatowy-wojewodztwa` | `dr-05` → `mod-UDIP-dostep-informacji-publicznej`
 
-**Źródła:** https://dzienniki.gov.pl | https://isap.sejm.gov.pl
+**Źródła:** https://dziennikiurzedowe.gov.pl | https://isap.sejm.gov.pl

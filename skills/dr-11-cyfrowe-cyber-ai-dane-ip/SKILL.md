@@ -3,7 +3,7 @@ name: "dr-11-cyfrowe-cyber-ai-dane-ip"
 description: "Prawo cyfrowe, cyber, AI, dane i IP: RODO, KSC/NIS2, AI Act, usługi cyfrowe, prywatność, cyberbezpieczeństwo, prawo autorskie i własność intelektualna."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "dr-11-cyfrowe-cyber-ai-dane-ip"
 ---
 

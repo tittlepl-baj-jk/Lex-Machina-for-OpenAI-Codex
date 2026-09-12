@@ -3,7 +3,7 @@ name: "orzeczenia-sadowe-v2"
 description: "Research orzecznictwa: wyszukiwanie, weryfikacja sygnatur i tez, hierarchia źródeł, porównanie orzeczeń oraz dobór judykatury do argumentacji prawnej."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-01"
+  source-tree: "development-2026-09-11"
   source-directory: "orzeczenia-sadowe-v2"
 ---
 
