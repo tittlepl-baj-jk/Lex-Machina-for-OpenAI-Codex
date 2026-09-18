@@ -3,13 +3,12 @@ name: "prawny-router-v3"
 description: "UŻYWAJ ZAWSZE i AUTOMATYCZNIE przy każdej sprawie prawnej, w każdej jurysdykcji. Wczytaj przed analizą, oceną cudzego materiału lub pismem; uruchamia HARD GATE i routing."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-11"
+  source-tree: "development-2026-09-18"
   source-directory: "prawny-router-v3"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
-
+> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
 ## ŁADOWANE ZAWSZE — BEZWZGLĘDNIE
 
 W każdej sprawie prawnej, przed analizą:

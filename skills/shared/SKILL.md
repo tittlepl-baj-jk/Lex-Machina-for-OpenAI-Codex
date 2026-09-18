@@ -3,13 +3,12 @@ name: "shared"
 description: "Kanoniczna biblioteka Lex Machina: hardgate, walidacja, definicje, terminy i moduły wspólne. Nie odpowiada użytkownikowi samodzielnie; zasoby wczytują inne skille."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-11"
+  source-tree: "development-2026-09-18"
   source-directory: "shared"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj `CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
-
+> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -17,7 +16,7 @@ metadata:
 
 `shared` pozostaje JEDYNYM kanonicznym SSOT. Adapter nie zmienia treści modułów prawnych, tylko sposób rozumienia operacji technicznych.
 
-1. `view shared/<plik>` oznacza świeży odczyt `<plik>` z rootu zainstalowanego skilla `shared`. Literalna ścieżka `..` nie jest wymagana. Obowiązkowego odczytu nie zastępuj pamięcią modelu.
+1. `view shared/<plik>` oznacza świeży odczyt `<plik>` z rootu zainstalowanego skilla `shared`. Literalna ścieżka `.` nie jest wymagana. Obowiązkowego odczytu nie zastępuj pamięcią modelu.
 2. Udokumentowane pliki-mosty mogą wskazywać inny osobny skill. `view <skill>/<plik>` oznacza świeży odczyt zasobu z tego skilla przez mechanizm hosta. Brak obowiązkowego zasobu = fail-closed; NIE kopiuj go do `shared`.
 3. `web_search` / `web_fetch` oznaczają świeże wyszukanie lub odczyt źródła. Jeśli host ma inną nazwę narzędzia, użyj równoważnej funkcji. PRAWO-HARDGATE, hierarchia źródeł i statusy pozostają bez zmian.
 4. `/mnt/user-data/...` oznacza rzeczywiste pliki użytkownika dostępne w hoście; wymagany ponowny odczyt jest faktycznym odczytem źródła.
@@ -37,6 +36,14 @@ Nie jest samodzielnym skillem — pełni rolę biblioteki referencji.
 | Plik | Rola |
 |------|------|
 | `UNIVERSAL-RUNTIME-ADAPTER.md` | Wspólny kontrakt runtime ChatGPT/Claude/Codex: zasoby, narzędzia, prywatność, fallbacki |
+| `TABELE-OPLAT.md` | ⛔ **RDZEŃ NAWIGACYJNY od 2.0 (2026-09-12q) — nie zawiera tabel.** Trzyma REGUŁĘ KOLEJNOŚCI (tabela ustanawiająca → baza katalogująca → RZĄD 2A/2B), **MAPĘ WŁASNOŚCI SEKCJI** i rejestry (sekcja 7 — tabele satelickie w innych skillach; sekcja 8 — zakres nieobjęty). Materia w 7 satelitach `oplaty/`. **Wczytać JAKO PIERWSZY**, przed jakąkolwiek kwotą — mapa wskaże właściwy satelita. Integralności podziału pilnuje T29 (`check_oplaty_mapa.py`). |
+| `oplaty/01-KSCU-cywilne-rodzinne-pracownicze.md` | Sekcje 1, 1a, 1b, 1c. Progi WPS (art. 13), opłaty ogólne KSCU (art. 14–25b, 68–78), **rozwód 600 zł** (art. 26) i sprawy rodzinne (art. 27, 37, 38), prawo pracy i ubezpieczenia (art. 35, 36). ⛔ Pułapka dwóch brzmień art. 13 ust. 2: cap **100 000 zł** od 23.09.2025, nie 200 000 zł. |
+| `oplaty/02-zwolnienia-zwrot-alimenty.md` | Sekcje 2, 2a, 2b, 2c, 2d, 2e. ⛔ **KROK 0 — czy strona w ogóle płaci**: art. 95, 96, 100–107. Alimenty. **Zwrot opłaty — art. 79** (m.in. połowa przy rozwodzie bez orzekania o winie). ⛔⛔ **art. 104a: w EPU i S24 NIE MA zwolnienia na wniosek.** Ryzyko kosztowe z KPC (art. 98–103, 520) — art. 102 KPC ≠ art. 102 KSCU. |
+| `oplaty/03-koszty-zastepstwa-taksy.md` | Sekcje 3, 3a. Taksy adwokacka (`Dz.U. 2026 poz. 215`) i radcowska (`Dz.U. 2026 poz. 118`) — § 2, 3, 4, 9, 10, 11, 17; brzmienie porównane między aktami. |
+| `oplaty/04-wartosci-powtarzalne-kotwice.md` | Sekcja 4 z 4a–4g. ⛔ **DOKTRYNA „formuła zamiast procentu"** — wartości zakotwiczonych w stopach NBP NIE WOLNO utrwalać jako procentu. Odsetki cywilne, handlowe, podatkowe i ZUS; stopy składek; skala PIT; **trzy kotwice** (stopy NBP, minimalne wynagrodzenie, przeciętne wynagrodzenie w sektorze przedsiębiorstw). |
+| `oplaty/05-sprawy-karne.md` | Sekcje 5, 6e. Ustawa z 23.06.1973 (`Dz.U. 2023 poz. 123`) — ⛔ pułapka dwóch brzmień art. 2 ust. 1 pkt 6 (od 14.03.2023). Koszty procesu z KPK. ⛔ Zryczałtowana równowartość wydatków: **1000 zł od 1.07.2025** (kwota sprzed tej daty jest NIEAKTUALNA). |
+| `oplaty/06-administracyjne-wieczystoksiegowe-KIO.md` | Sekcje 6, 6a. Wpis do WSA (`Dz.U. 2021 poz. 535`) — procent z podłogą, nie ryczałt. Postępowanie wieczystoksięgowe (art. 42–48 KSCU). Skarga na KIO (art. 34 — trzykrotność wpisu z PZP). |
+| `oplaty/07-komornicze-skarbowe-notarialne.md` | Sekcje 6b, 6c, 6d. Koszty komornicze (`Dz.U. 2024 poz. 377`) — ⛔ art. 47: zwolnienie NIE zwalnia z opłaty egzekucyjnej. Opłata skarbowa (`Dz.U. 2025 poz. 1154`) — 17 zł od KAŻDEGO stosunku pełnomocnictwa. Taksa notarialna (`Dz.U. 2024 poz. 1566`) — stawki MAKSYMALNE, nie minimalne. |
 | `PRAWO-HARDGATE.md` | ⛔ Globalny zakaz cytowania prawa/orzeczeń z pamięci — RDZEŃ, wczytaj przed każdym przepisem (zasada absolutna, PERMANENT GATE, hierarchia statusów, ŹRÓDŁO-0, KROK 2B/2C). Podzielony 2026-08-23h (F-111: 967 → 501 l.) i 2026-09-10b (F-180: 704 → 510 l., gałęzie warunkowe wydzielone niżej). |
 | `PRAWO-HARDGATE-BLOKADA.md` | ⛔ Gałąź niedostępnego źródła RZĘDU 1 — BRAMKA ANTY-FASADOWA + KOTWICA URZĘDOWA. **Wyzwalacz:** B-1/B-2 zwrócił blokadę i kanał kodu też zawiódł. Bez tego odczytu znacznik 🟨 i ⚠️ jest nieważny. |
 | `PRAWO-HARDGATE-AKT-MIEJSCOWY.md` | Ścieżka B-L. **Wyzwalacz:** przedmiotem sprawy jest akt prawa miejscowego. Aktów tych NIE MA w ELI Kancelarii Sejmu — weryfikacja tam zwraca fałszywy negatyw. |

@@ -3,13 +3,12 @@ name: "dr-13-sluzby-bezpieczenstwo-informacje-niejawne"
 description: "Służby, bezpieczeństwo i informacje niejawne: Policja, ABW/AW i inne służby, obrona, ochrona informacji niejawnych oraz publicznoprawne ramy bezpieczeństwa."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-11"
+  source-tree: "development-2026-09-18"
   source-directory: "dr-13-sluzby-bezpieczenstwo-informacje-niejawne"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
-
+> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -17,7 +16,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
 
-1. `view dr-13-sluzby-bezpieczenstwo-informacje-niejawne/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
+1. `view dr-13-sluzby-bezpieczenstwo-informacje-niejawne/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
 4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
@@ -38,7 +37,7 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 
 **Prawo służb mundurowych było wielokrotnie nowelizowane w 2024–2025.**
 Dz.U. 2025 poz. 1366 zmienia równocześnie: Policję, SG, PSP, ABW, AW, SKW, SWW, SOP.
-Ustawa o obronie Ojczyzny (Dz.U. 2022 poz. 655) nie ma nowego t.j. — weryfikuj każdą nowelizację.
+Ustawa o obronie Ojczyzny — t.j. Dz.U. 2025 poz. 825 (✅ [VER] RZĄD 1 2026-09-16e; ⛔ poprzedni zapis „nie ma nowego t.j." był nieprawdziwy; akt pierwotny 2022 poz. 655) — weryfikuj nowelizacje po t.j.
 
 
 > ⛔ **SELF-CHECK ANTY-FASADA — obowiązkowy przed wysłaniem odpowiedzi/pisma**
@@ -133,7 +132,7 @@ INFORMACJE NIEJAWNE:
 
 OBRONA I BEZPIECZEŃSTWO PAŃSTWA:
   [✓] OK    mod-ustawa-obrona-ojczyzny-mobilizacja
-              (Dz.U. 2022 poz. 655 ze zm.: Dz.U. 2025 poz. 825, 1014;
+              (t.j. Dz.U. 2025 poz. 825, ze zm.: Dz.U. 2025 poz. 1014;
                obowiązek obrony, kwalifikacja wojskowa WKU/WKL,
                WCR, mobilizacja, świadczenia na rzecz obrony, rekwizycja)
   [✓] OK    mod-ustawa-zarzadzanie-kryzysowe-obrona-cywilna

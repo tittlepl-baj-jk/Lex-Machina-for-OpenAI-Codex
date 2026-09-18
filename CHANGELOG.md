@@ -9,6 +9,22 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 Brak zmian.
 
+## [0.6.0] - 2026-09-18
+
+### Upstream
+
+- wykonano pełną synchronizację z rozwojowym drzewem Lex Machina, commit
+  `60faf9695604f438540a2674ec545d5b2250d8b9` projektu Michała Wiatraka;
+- przejęto aktualizacje metodologii, routerów, modułów dziedzinowych,
+  materiałów audytowych i proweniencji źródeł z tego commitu.
+
+### Codex port
+
+- zbudowano 1292 pliki dla 32 aktywnych skilli; zachowano adapter Codex,
+  przenośne ścieżki i zanonimizowane dane kontaktowe;
+- walidacja statyczna pakietu zakończyła się wynikiem `PASS` (32/32), a test
+  rejestracji modułów i lokalny self-test mock-ELI zakończyły się powodzeniem.
+
 ## [0.5.0] - 2026-09-12
 
 ### Upstream

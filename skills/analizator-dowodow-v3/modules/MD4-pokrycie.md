@@ -1,7 +1,7 @@
 # MD4 — MAPA POKRYCIA PRZESŁANEK
 
 > **CLAIM-VALIDATION:** Przed wypełnieniem mapy wykonaj weryfikację twierdzeń strony
-> zgodnie z `view ../../shared/CLAIM-VALIDATION.md`.
+> zgodnie z `view ./shared/CLAIM-VALIDATION.md`.
 > Twierdzenie `[⛔ SPRZECZNE]` z materiałem → zastąp; nie wpisuj do mapy jako przesłanki.
 > Twierdzenie `[⛔ NIEUDOWODNIONE]` → wpisz jako BRAK ✗ z adnotacją „twierdzenie bez oparcia".
 

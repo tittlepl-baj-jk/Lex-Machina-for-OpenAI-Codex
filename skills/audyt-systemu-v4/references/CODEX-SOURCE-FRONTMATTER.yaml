@@ -1,6 +1,6 @@
 name: audyt-systemu-v4
 description: "Audyt jakości, spójności i bezpieczeństwa systemu prawnych skilli: zależności, wersje, mapy Dz.U., treść merytoryczna, propagacja zmian, deduplikacja i bramki jakości."
-version: "6.68"   # ⛔ CUDZYSŁOWY OBOWIĄZKOWE od 6.10: niecytowane `6.10` YAML
+version: "6.119"   # ⛔ CUDZYSŁOWY OBOWIĄZKOWE od 6.10: niecytowane `6.10` YAML
                   # parsuje jako float 6.1 — czyli numer NIŻSZY niż 6.9, co cicho
                   # odwraca porządek wersji. Wykryte przy walidacji 2026-08-20z.
                   # Każda kolejna wersja z dwucyfrowym minor — też w cudzysłowie.
@@ -98,7 +98,37 @@ references:
                                           # zawiera opis pułapki parsowania (mapa trzyma numer w DWÓCH formatach:
                                           # prozą `poz. N` i w kolumnach tabeli) — dodane 2026-08-21
   - references/raporty-pokrycia-2026-08-13/   # 12 raportów + indeks = 13 plików; licznik potwierdzony ze stanem dysku 2026-08-26
+  - references/F-187-dostep-maszynowy-pomiar-2026-09-13d.md   # pomiar kanałów maszynowych F-187…F-192
+                                          # (sesja 2026-09-13d; adnotacja 2026-09-14: pomiar
+                                          # historyczny) — REJESTROWANE 2026-09-16 (T22, plik-sierota)
 scripts:
+  - scripts/check_wartosci_prawne.py      # T28 — wartości i cytaty (W1 rejestr znanych błędnych cytatów,
+                                          # W2 procent przy odsetkach, W3 kwota bez podstawy). Offline.
+                                          # W orkiestratorze od 2026-09-16 (F-189) — wcześniej SKRYPTY-RECZNE
+                                          # deklarował „wchodzi do orkiestratora", a orkiestrator go nie wołał
+  - scripts/check_oplaty_mapa.py          # T29 — integralność podziału TABELE-OPLAT (rdzeń + satelity).
+                                          # Offline; w orkiestratorze od 2026-09-16 (F-189)
+  - scripts/check_utrata_tresci.py        # T30 — utrata treści BEZ cofnięcia numeru (F-189): tabele
+                                          # „było → jest" z AUDIT-JOURNAL vs dysk + kolizje numerów wersji
+                                          # (deklaracja „LUKA JAWNA"/„KOLIZJA" w CHANGELOG honorowana).
+                                          # Offline, selftest 5/5; w orkiestratorze jako BLOKER od 2026-09-16c
+  - scripts/check_wydanie.py              # T33 — zgodność wydanych paczek (.zip) z drzewem: liczba plików,
+                                          # bajtowa identyczność, sumy WEWNĄTRZ paczki. Realizacja zalecenia
+                                          # z AUDYT-2026-09-17p (zmiana kopii roboczej PO wydaniu).
+                                          # Offline, selftest 4/4; brak katalogu wydań = PASS (pomija)
+  - scripts/check_tabele_satelickie.py    # T32 — rejestr tabel satelickich (shared/TABELE-OPLAT.md §7):
+                                          # plik musi istnieć (FAIL), kwota bez podstawy w wierszu, kolumnie
+                                          # albo nagłówku/zdaniu wprowadzającym = WARN. Offline, selftest 9/9;
+                                          # w orkiestratorze od 2026-09-16e (O-11(b))
+  - scripts/check_podmiana_aktu.py        # T31 — podmiana aktu w ROUTING-MAP i MAPA-AKTOW niezależnie od
+                                          # oznaczenia „t.j." (T15 porównuje tytuły tylko przy t.j.).
+                                          # WYMAGA SIECI (ELI), selftest 3/3; ręczny. Dodany 2026-09-16d
+  - scripts/check_widmowe_pokrycie.py     # T5 — widmowe pokrycie: KANDYDACI do przeglądu ręcznego (wiersz
+                                          # ROUTING-MAP → moduł bez numeru i bez nazwy aktu). Offline, selftest 4/4.
+                                          # Ręczny (wynik wymaga osądu) — SKRYPTY-RECZNE. Dodany 2026-09-16b
+  - scripts/weryfikator_sygnatur.py       # V-SYG-0 — kontrola istnienia sygnatury w kanale maszynowym
+                                          # (shared/SYGNATURY.md, DOSTEP-MASZYNOWY-API.md). WYMAGA SIECI —
+                                          # narzędzie wykonawcze, nie test; poza orkiestratorem (SKRYPTY-RECZNE)
   - scripts/test_pokrycie_orkiestratora.py # T23 — każdy zarejestrowany skrypt testowy MUSI być albo
                                           # wywoływany przez orkiestrator, albo jawnie zadeklarowany
                                           # jako ręczny w references/SKRYPTY-RECZNE.md z powodem (O-4)
@@ -148,6 +178,11 @@ scripts:
   - scripts/sync_dzu_eli.py               # pobiera z Sejm ELI API nowe pozycje Dz.U./M.P., produkuje raport różnic — patrz SYNC-DZU-AUTOMATYCZNY.md — REJESTROWANE 2026-08-15
   - scripts/audit_tj_inventory.py         # T15 — sprawdza wszystkie operacyjne deklaracje t.j. względem rocznych indeksów Sejm ELI; tryby maps/operational/all; błąd API = exit 2, dodane 2026-08-26
   - scripts/audit_amendment_scope.py      # T16 — pełny inwentarz dyspozycji nowelizacji i propagacja każdej zmienionej jednostki przez cały korpus; bez ścieżek hosta
+  - scripts/check_status_podstaw.py       # T27 — czy numer Dz.U. podany W PROZIE jako aktualna
+                                          # podstawa prawna opisuje akt obowiązujący (O-9, F-181).
+                                          # ⛔ WYMAGA SIECI. ⛔ Raportuje „DO PRZEGLĄDU", nie FAIL:
+                                          # heurystyka tego badania dwukrotnie zawyżyła wynik,
+                                          # a wygasły numer w kontekście historycznym NIE jest błędem
   - scripts/check_wyjatek_gate_eli.py     # T20 — trzy z czterech zamiatań bramki WYJ-GATE (F-144):
                                           # S1 sąsiedztwo (art. X¹ to osobna jednostka), S2 krawędzie
                                           # jednostki (klauzule zakresowe), S3 rejestr odesłań ELI

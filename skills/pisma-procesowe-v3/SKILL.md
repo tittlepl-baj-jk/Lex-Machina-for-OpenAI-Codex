@@ -3,13 +3,12 @@ name: "pisma-procesowe-v3"
 description: "Zaawansowane pisma procesowe: pozwy, odpowiedzi, apelacje, zażalenia i inne pisma wymagające strategii, faktów, dowodów, weryfikacji prawa i finalnej walidacji dokumentu."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-11"
+  source-tree: "development-2026-09-18"
   source-directory: "pisma-procesowe-v3"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
-
+> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -17,7 +16,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie sposób wykonania operacji technicznych. Metodologia merytoryczna, routing, hard gate’y, checklisty, schematy danych i kryteria finalizacji tego skilla pozostają bez zmian.
 
-1. `view pisma-procesowe-v3/<plik>` oraz względne `view modules/...`, `view references/...`, `view assets/...` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalny katalog `..` nie jest wymagany.
+1. `view pisma-procesowe-v3/<plik>` oraz względne `view modules/...`, `view references/...`, `view assets/...` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalny katalog `.` nie jest wymagany.
 2. `view shared/<plik>` oznacza odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu = fail-closed.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt osobnego skilla. Nie vendoryzuj innych skilli.
 4. `web_search` / `web_fetch` oznaczają świeże wyszukanie i odczyt źródła przez równoważną funkcję hosta; zachowaj istniejące wymogi źródeł oficjalnych i statusów weryfikacji.
@@ -334,10 +333,10 @@ nie uruchamiaj W1 (Test C) — to są ścieżki dla pism PISANYCH OD ZERA.
 Pismo proste = spełnia WSZYSTKIE trzy warunki:
 1. Jedno żądanie procesowe
 2. Jedna podstawa prawna (nie wymaga analizy wielowątkowej)
-3. Należy do katalogu: sprzeciw od nakazu (art. 503 KPC), zarzuty od nakazu
-   (art. 493 KPC), wniosek o klauzulę (art. 781 KPC), wniosek o wszczęcie
+3. Należy do katalogu: sprzeciw od nakazu (art. 505 § 1 KPC — ⛔ art. 503 uchylony),
+   zarzuty od nakazu (art. 493 § 1 KPC; termin obu — art. 480² § 2 KPC), wniosek o klauzulę (art. 781 KPC), wniosek o wszczęcie
    egzekucji (art. 797 KPC), zabezpieczenie (art. 730 KPC), zwolnienie od kosztów
-   (art. 102 KSCU), uzasadnienie wyroku (art. 328¹ KPC), przywrócenie terminu
+   (art. 102 KSCU), uzasadnienie wyroku (art. 328 § 1 KPC), przywrócenie terminu
    (art. 168 KPC), wezwanie przedsądowe (art. 455 KC), wgląd do akt (art. 9 KPC),
    doręczenie przez komornika (art. 139¹ KPC), sprzeciw od orzeczenia referendarza
    (art. 398²² KPC).

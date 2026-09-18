@@ -180,7 +180,7 @@
 ## v3.5 — AUDIT-2026-06-18 (post-audit patch)
 
 - **CRIT-1 naprawiony**: pseudo-ścieżka `.../references/WITNESS-INTELLIGENCE.md`
-  → `view ../przesluchanie-swiadkow-v2-min90/references/WITNESS-INTELLIGENCE.md`
+  → `view ./przesluchanie-swiadkow-v2-min90/references/WITNESS-INTELLIGENCE.md`
 - **CRIT-2 naprawiony**: pseudo-ścieżka `.../references/QUESTION-ADMISSIBILITY-GATE.md`
   → pełna ścieżka kanoniczna
 - **MANIFEST.md**: wildcard `references/*` zastąpiony explicit listą 7 plików

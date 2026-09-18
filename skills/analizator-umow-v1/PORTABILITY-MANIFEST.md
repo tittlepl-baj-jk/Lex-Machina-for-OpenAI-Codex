@@ -12,7 +12,7 @@
 
 ## Zmiany wyłącznie runtime portability
 
-1. Usunięte z metadanych twarde wskazanie `../shared/`.
+1. Usunięte z metadanych twarde wskazanie `./shared/`.
 2. Skrócony tylko frontmatter `description`; szczegółowe triggery pozostają w treści.
 3. Dodany adapter dla legacy nazw narzędzi, ścieżek `/mnt/...` i dostarczania dokumentów.
 4. Routing umów, moduły references/workflows, hard gate’y, step tracker, redakcja i walidacja dokumentów nie zostały przepisane.
@@ -29,6 +29,6 @@ Po pełnym skanie aktywne odwołania do nieistniejących lub historycznych lokal
 ## Universal V4
 
 - zastosowano wspólny `shared/UNIVERSAL-RUNTIME-ADAPTER.md`;
-- aktywne ścieżki `../...` normalizowane są do kanonicznego `skill/path`;
+- aktywne ścieżki `./...` normalizowane są do kanonicznego `skill/path`;
 - bezpośrednie endpointy dostawców AI w statycznych artefaktach są wyłączone;
 - wydanie podlega skanowi prywatności/secrets oraz manifestowi integralności całego release.

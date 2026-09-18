@@ -3,13 +3,12 @@ name: "dr-11-cyfrowe-cyber-ai-dane-ip"
 description: "Prawo cyfrowe, cyber, AI, dane i IP: RODO, KSC/NIS2, AI Act, usługi cyfrowe, prywatność, cyberbezpieczeństwo, prawo autorskie i własność intelektualna."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-11"
+  source-tree: "development-2026-09-18"
   source-directory: "dr-11-cyfrowe-cyber-ai-dane-ip"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
-
+> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -17,7 +16,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
 
-1. `view dr-11-cyfrowe-cyber-ai-dane-ip/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
+1. `view dr-11-cyfrowe-cyber-ai-dane-ip/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
 4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
@@ -110,7 +109,7 @@ DANE OSOBOWE:
                [zastąpiony 25.05.2018, nie tylko zmiana nazwy]. Nowy
                wzór SPK w pisma-proste-v2. Odpowiedź na pytanie
                użytkownika o kompletność tematu GIODO/UODO)
-              (postępowanie przed UODO: skarga, decyzja, odwołanie WSA,
+              (postępowanie przed UODO: skarga, decyzja, SKARGA do sądu administracyjnego — postępowanie jednoinstancyjne, art. 7 ust. 2 u.o.d.o.,
                kary administracyjne; Dz.U. 2019 poz. 1781 t.j.)
 
 DANE OSOBOWE — WARSTWA OPERACYJNA (dodano 2026-07-05, AUDYT-2026-07-05a;
@@ -170,7 +169,7 @@ WŁASNOŚĆ INTELEKTUALNA I IP:
 
 USŁUGI CYFROWE I ELEKTRONICZNE:
   [✓] OK    mod-ustawa-uslugi-elektroniczne
-              (usługi drogą elektroniczną Dz.U. 2020 poz. 344 — częściowo deaktywowana przez DSA)
+              (usługi drogą elektroniczną Dz.U. 2024 poz. 1513 — częściowo deaktywowana przez DSA)
   [✓] OK    mod-ustawa-informatyzacja-podmiotow-publicznych
               (informatyzacja: Dz.U. 2025 poz. 1703 t.j.; e-Doręczenia; KSeF)
   [✓] OK    mod-ustawa-podpis-elektroniczny

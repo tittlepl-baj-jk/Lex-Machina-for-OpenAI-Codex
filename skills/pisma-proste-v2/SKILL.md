@@ -3,13 +3,12 @@ name: "pisma-proste-v2"
 description: "Proste pisma prawne i urzędowe: wezwania, wnioski, odpowiedzi i krótsze dokumenty; kompletność danych, aktualna weryfikacja prawa i walidacja przed wygenerowaniem pliku."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-11"
+  source-tree: "development-2026-09-18"
   source-directory: "pisma-proste-v2"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
-
+> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -17,7 +16,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie sposób wykonania operacji technicznych. Metodologia merytoryczna, routing, hard gate’y, checklisty, schematy danych i kryteria finalizacji tego skilla pozostają bez zmian.
 
-1. `view pisma-proste-v2/<plik>` oraz względne `view modules/...`, `view references/...`, `view assets/...` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalny katalog `..` nie jest wymagany.
+1. `view pisma-proste-v2/<plik>` oraz względne `view modules/...`, `view references/...`, `view assets/...` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalny katalog `.` nie jest wymagany.
 2. `view shared/<plik>` oznacza odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu = fail-closed.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt osobnego skilla. Nie vendoryzuj innych skilli.
 4. `web_search` / `web_fetch` oznaczają świeże wyszukanie i odczyt źródła przez równoważną funkcję hosta; zachowaj istniejące wymogi źródeł oficjalnych i statusów weryfikacji.
@@ -63,8 +62,16 @@ Każdy przywołany artykuł weryfikuj na `isap.sejm.gov.pl` lub `prawo.sejm.gov.
 Podaj pełne oznaczenie przy pierwszym użyciu.
 
 **Zasada 3 — Opłata sądowa zawsze:**
-Przy każdym piśmie wszczynającym postępowanie lub wymagającym opłaty —
-podaj wysokość opłaty i podstawę jej obliczenia.
+⛔ **KROK 0 — najpierw: CZY STRONA W OGÓLE PŁACI.** Zwolnienia mają trzy warstwy:
+podmiotowe z mocy ustawy (art. 96 ust. 1 KSCU — 18 kategorii, m.in. alimenty,
+ustalenie ojcostwa, **pracownik**, **osoba doznająca przemocy domowej**),
+przedmiotowe (art. 95 — m.in. zażalenia dotyczące **samych kosztów**) i na
+wniosek (art. 100–103). Podanie kwoty stronie zwolnionej z mocy ustawy
+zniechęca do wniesienia pisma, które nic nie kosztuje.
+
+Dopiero potem: podaj wysokość opłaty i podstawę jej obliczenia.
+⛔ Kwotę bierz z `shared/TABELE-OPLAT.md` (tabela ustanawiająca), nigdy z pamięci
+ani z bazy katalogującej.
 
 **Zasada 4 — Termin zawity najpierw:**
 Jeśli pismo dotyczy czynności z terminem zawitym (sprzeciw, zarzuty,
@@ -96,7 +103,7 @@ Nie cytuj przepisów ani orzeczeń z pamięci bez weryfikacji online.
 
 | Schemat | Plik | Typ pisma |
 |---------|------|-----------|
-| **SPA — Sprzeciw** | `references/SPA-sprzeciw.md` | Sprzeciw od nakazu zapłaty (art. 503 KPC) |
+| **SPA — Sprzeciw** | `references/SPA-sprzeciw.md` | Sprzeciw od nakazu zapłaty (art. 505 § 1 KPC; termin — art. 480² § 2 KPC) |
 | **SPB — Zarzuty** | `references/SPB-zarzuty.md` | Zarzuty od nakazu zapłaty (art. 493 KPC) |
 | **SPC — Klauzula** | `references/SPC-SPD-SPE.md` → sekcja SPC | Wniosek o nadanie klauzuli wykonalności |
 | **SPD — Egzekucja** | `references/SPC-SPD-SPE.md` → sekcja SPD | Wniosek o wszczęcie egzekucji |
@@ -204,13 +211,13 @@ Jeśli użytkownik nie podał wszystkich danych — zapytaj o brakujące
 | Typ pisma | Termin zawity | Opłata | Schemat |
 |-----------|---------------|--------|---------|
 | Sprzeciw od nakazu zapłaty (EPU/zwykły) | **14 dni** od doręczenia | brak | SPA |
-| Zarzuty od nakazu (postęp. nakazowe) | **7 dni** od doręczenia | 3/4 wpisu (art. 19 §3 KSCU) | SPB |
-| Wniosek o nadanie klauzuli | brak | 6 zł / 50 zł (art. 71 KSCU) | SPC |
+| Zarzuty od nakazu (postęp. nakazowe) | **miesiąc** od doręczenia w UE, w tym w Polsce (art. 480² § 2 pkt 3 KPC) | 3/4 opłaty; od konsumenta max 750 zł (art. 19 ust. 4 KSCU) | SPB |
+| Wniosek o nadanie klauzuli | brak | 50 zł (art. 71 pkt 1–6 KSCU) | SPC |
 | Wniosek o wszczęcie egzekucji | brak | brak | SPD |
 | Wezwanie przedsądowe do zapłaty | brak | brak | SPE |
 | Ostateczne przedsądowe wezwanie do zapłaty | 3–5 dni roboczych wg danych sprawy | brak | SPE-O |
 | Wniosek o uzasadnienie wyroku | **7 dni** od ogłoszenia | 100 zł (art. 25b KSCU) | SPF |
-| Wniosek o zabezpieczenie | brak | 100 zł (art. 69 §1 KSCU) | SPG |
+| Wniosek o zabezpieczenie | brak | 100 zł (art. 68 pkt 1 KSCU); przed wniesieniem pozwu o roszczenie pieniężne — 1/4 opłaty od pozwu (art. 69 ust. 1 KSCU) | SPG |
 | Zwolnienie od kosztów / przywrócenie terminu / inne | patrz M5 | patrz M6 | SPH |
 | Odpowiedź na zawezwanie do próby ugodowej | **tydzień przed posiedzeniem** | brak | SPI |
 
@@ -244,26 +251,51 @@ Jeśli użytkownik nie podał wszystkich danych — zapytaj o brakujące
 
 ## OPŁATY SĄDOWE — SKRÓCONA (szczegóły w references/M6-oplaty.md)
 
+⛔ **KROK 0 przed jakąkolwiek kwotą: `view shared/TABELE-OPLAT.md`** — tabela
+ustanawiająca i pełny katalog zwolnień (art. 94–103 KSCU). Poniższa tabela jest
+wyciągiem roboczym; w razie rozbieżności wiąże plik kanoniczny, a nad nim treść
+przepisu.
+
+✅ [VER] RZĄD 1 2026-09-12 — odczyt treści KSCU `Dz.U. 2025 poz. 1228`.
+
 | Czynność | Opłata | Podstawa |
 |----------|--------|----------|
-| Sprzeciw od nakazu (w terminie) | brak | art. 503 KPC |
-| Zarzuty od nakazu | 3/4 wpisu | art. 19 §3 KSCU |
+| Pozew — WPS do 500 zł | 30 zł | art. 13 ust. 1 pkt 1 KSCU |
+| Pozew — WPS ponad 500 do 1 500 zł | 100 zł | art. 13 ust. 1 pkt 2 KSCU |
+| Pozew — WPS ponad 1 500 do 4 000 zł | 200 zł | art. 13 ust. 1 pkt 3 KSCU |
+| Pozew — WPS ponad 4 000 do 7 500 zł | 400 zł | art. 13 ust. 1 pkt 4 KSCU |
+| Pozew — WPS ponad 7 500 do 10 000 zł | 500 zł | art. 13 ust. 1 pkt 5 KSCU |
+| Pozew — WPS ponad 10 000 do 15 000 zł | 750 zł | art. 13 ust. 1 pkt 6 KSCU |
+| Pozew — WPS ponad 15 000 do 20 000 zł | 1 000 zł | art. 13 ust. 1 pkt 7 KSCU |
+| Pozew — WPS ponad 20 000 zł | 5 % WPS, max **100 000 zł** | art. 13 ust. 2 KSCU |
+| Apelacja i inne środki z katalogu | wg tabeli od pozwu, od wartości przedmiotu **zaskarżenia** | art. 18 ust. 2 KSCU |
+| Sprzeciw od nakazu (w terminie) | brak | art. 19 KSCU *a contrario* (⛔ art. 503 KPC uchylony) |
+| Zarzuty od nakazu nakazowego | 3/4 opłaty; konsument — max 750 zł | art. 19 ust. 4 KSCU |
+| Pozew w EPU | 1/4 opłaty, nie mniej niż 30 zł | art. 19 ust. 2 pkt 2 i art. 20 ust. 1 KSCU |
+| Zażalenie | 1/5 opłaty, o ile przepis szczególny nie stanowi inaczej | art. 19 ust. 3 pkt 2 KSCU |
 | Wniosek o wszczęcie egzekucji | brak | art. 797 KPC |
-| Wniosek o zabezpieczenie | 100 zł | art. 69 §1 KSCU |
-| Wniosek o uzasadnienie wyroku | 100 zł | art. 25b KSCU |
-| Wniosek o doręczenie przez komornika | 60 zł | Rozporządzenie MS |\n| Pozew / apelacja do 500 zł | 30 zł | art. 27 pkt 1 KSCU |
-| Pozew / apelacja do 1 500 zł | 100 zł | art. 27 pkt 2 KSCU |
-| Pozew / apelacja do 4 000 zł | 200 zł | art. 27 pkt 3 KSCU |
-| Pozew / apelacja do 7 500 zł | 400 zł | art. 27 pkt 4 KSCU |
-| Pozew / apelacja do 15 000 zł | 500 zł | art. 27 pkt 5 KSCU |
-| Pozew / apelacja do 20 000 zł | 750 zł | art. 27 pkt 6 KSCU |
-| Pozew / apelacja powyżej 20 000 zł | 5% WP, max 100 000 zł (⚠️ POPRAWKA 2026-07-27: było błędnie "200 000 zł", obniżone reformą z 25.07.2025) | art. 13 §2 KSCU |
-| EPU — nakaz zapłaty | 1,25% WP (min. 30 zł) | art. 19 §2b KSCU |
+| Wniosek o zabezpieczenie roszczenia | 100 zł | **art. 68 pkt 1 KSCU** |
+| Wniosek o uzasadnienie wyroku / postanowienia co do istoty | 100 zł | art. 25b ust. 1 KSCU |
+| Wniosek o uzasadnienie innego postanowienia lub zarządzenia | 30 zł | art. 25b ust. 2 KSCU |
+| Skarga na czynności komornika | **50 zł** | art. 25 ust. 1 KSCU |
+| Wniosek o klauzulę wykonalności (tytuł pozasądowy, małżonek, następca, wspólnik) | 50 zł | art. 71 pkt 1–6 KSCU |
+| Odpis / wypis / zaświadczenie z akt | 20 zł za każde rozpoczęte 10 stron | art. 77 ust. 1 KSCU |
+| Opłata podstawowa (brak stałej, stosunkowej, tymczasowej) | 30 zł | art. 14 ust. 1 i 3 KSCU |
+| **Pozew o rozwód** | 600 zł | art. 26 ust. 1 pkt 1 KSCU |
+| Separacja na zgodne żądanie / zniesienie separacji | 100 zł | art. 37 pkt 3 i 4 KSCU |
+| Podział majątku wspólnego (zgodny projekt) | 1000 zł (300 zł) | art. 38 ust. 1 i 2 KSCU |
+| Pozew pracownika | brak — zwolnienie ustawowe | art. 96 ust. 1 pkt 4 KSCU |
+| Apelacja w sprawie pracowniczej, WPS ponad 50 000 zł | wg art. 13 od **nadwyżki** ponad 50 000 zł | art. 35 ust. 1 zd. 2 KSCU |
+| Pozew alimentacyjny | brak — zwolnienie ustawowe | art. 96 ust. 1 pkt 2 KSCU |
 | Odpowiedź na zawezwanie | brak | — |
 
-*Aktualizuj stawki przez weryfikację na isap.sejm.gov.pl — mogą ulec zmianie.*
-
----
+⛔ **Naprawione 2026-09-12 (cztery pozycje):** progi WPS opisane były jako
+„art. 27 pkt 1–6 KSCU" — art. 27 ustanawia opłatę stałą 200 zł od enumerowanych <!-- T28-OK: cytat opisowy — dokumentacja naprawy -->
+pozwów i nie zna progów; dwa progi były przesunięte o wiersz; wniosek
+o zabezpieczenie miał podstawę art. 69 zamiast art. 68 pkt 1; wiersz
+„doręczenie przez komornika 60 zł | Rozporządzenie MS" nie miał podstawy
+i sklejał się z następnym wierszem przez dosłownie zapisany escape nowej linii
+(`\n` w treści), przez co tabela rozpadała się przy renderowaniu.
 
 ## ORZECZNICTWO I ESKALACJA (szczegóły w references/M7-eskalacja.md)
 

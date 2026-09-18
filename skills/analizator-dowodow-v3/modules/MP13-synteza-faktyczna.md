@@ -19,7 +19,7 @@ interpretacją tych samych lub innych faktów, z własną logiką faz.
 
 **Reguła walidacji twierdzeń (CLAIM-VALIDATION):** przed zbudowaniem łańcuchów
 przyczynowych i narracji wykonaj weryfikację twierdzeń strony zgodnie z
-`view ../../shared/CLAIM-VALIDATION.md`.
+`view ./shared/CLAIM-VALIDATION.md`.
 Twierdzenie strony sprzeczne z faktami z M1 → oznacz `[⛔ SPRZECZNE]` i zastąp
 tym co wynika z materiału; nie buduj na nim łańcucha.
 Twierdzenie bez oparcia w M1 → oznacz `[⛔ NIEUDOWODNIONE]`; oznaczaj w narracji

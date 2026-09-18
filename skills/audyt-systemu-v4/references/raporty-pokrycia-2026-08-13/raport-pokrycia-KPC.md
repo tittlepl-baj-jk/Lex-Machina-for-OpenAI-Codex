@@ -1,6 +1,6 @@
 # Audyt pokrycia KPC w systemie skilli — mapa jednostek redakcyjnych
 **Data audytu:** 13.08.2026
-**Zakres:** wszystkie skille w `../../..`
+**Zakres:** wszystkie skille w `.`
 **Akt odniesienia:** ustawa z 17.11.1964 — Kodeks postępowania cywilnego, **Dz.U. 2026 poz. 468 t.j.** (stan prawny na 13.08.2026)
 **Metoda:** identyczna jak w audycie KPK — ekstrakcja wszystkich odwołań `art. N […] KPC / k.p.c.`, mapowanie na jednostki redakcyjne wg struktury zweryfikowanej online, następnie ocena jakościowa modułu źródłowego. Granulacja: dział albo rozdział/oddział tam, gdzie dział jest zbyt pojemny (Dowody, Orzeczenia, Środki odwoławcze).
 ## Legenda

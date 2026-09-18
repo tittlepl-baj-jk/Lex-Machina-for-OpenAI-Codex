@@ -3,13 +3,12 @@ name: "dr-10-zdrowie-farmacja-zywnosc-rolnictwo"
 description: "Zdrowie, farmacja, żywność i rolnictwo: działalność lecznicza, prawa pacjenta, produkty lecznicze, żywność, weterynaria i regulacje sektora rolnego."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-11"
+  source-tree: "development-2026-09-18"
   source-directory: "dr-10-zdrowie-farmacja-zywnosc-rolnictwo"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
-
+> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -17,7 +16,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
 
-1. `view dr-10-zdrowie-farmacja-zywnosc-rolnictwo/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
+1. `view dr-10-zdrowie-farmacja-zywnosc-rolnictwo/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
 4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
@@ -128,7 +127,7 @@ FARMACJA:
                refundacja leków Dz.U. 2026 poz. 253 t.j. (VER RZĄD 1 2026-09-10h), nadzór GIF/WIF i tryb
                odwoławczy, sankcje karne i kary pieniężne art. 124-129/127 PF)
   [✓] OK    mod-wyroby-medyczne
-              (ustawa o wyrobach medycznych Dz.U. 2022 poz. 974, MDR 2017/745,
+              (ustawa o wyrobach medycznych t.j. Dz.U. 2024 poz. 1620 — akt pierwotny 2022/974, MDR 2017/745,
                IVDR 2017/746, EUDAMED — odrębna regulacja od Prawa farmaceutycznego;
                wydzielony 2026-06-12 z mod-PrFarm CZĘŚĆ IX; scalony 2026-06-14
                z mod-ustawa-wyroby-medyczne — NOTA-7, duplikat usunięty)

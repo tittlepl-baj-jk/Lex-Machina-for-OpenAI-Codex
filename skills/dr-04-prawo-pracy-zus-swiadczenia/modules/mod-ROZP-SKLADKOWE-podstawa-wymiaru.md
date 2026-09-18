@@ -2,7 +2,7 @@
 
 **Wersja:** 1.0.0 · utworzony 2026-08-13
 **Powód utworzenia:** LUKA SYSTEMOWA wykryta podczas analizy oferty
-„obniżymy ZUS o 25%". Audyt `grep` całego drzewa `../..`
+„obniżymy ZUS o 25%". Audyt `grep` całego drzewa `.`
 wykazał **ZERO trafień** dla: `1106`, `rozporządzenie składkowe`,
 `18 grudnia 1998`, `§ 2 ust. 1 pkt`. Jedyne trafienie na „1106"
 (`analizator-umow-v1/references/b2b-podwykonawcze.md`) to fałszywy

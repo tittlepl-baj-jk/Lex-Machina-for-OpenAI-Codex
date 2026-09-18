@@ -25,12 +25,12 @@ projekcie Codex; nie instaluje się go w Claude.ai.
 ## Status
 
 - 32 aktywne skille dla Codex;
-- bazowy upstream: commit `05833172bfdef972a8542ca41987c347068fdaaf`
+- bazowy upstream: commit `60faf9695604f438540a2674ec545d5b2250d8b9`
   z uniwersalnej wersji rozwojowej Michała Wiatraka;
 - statyczna walidacja portu: 32/32 `PASS`;
 - pełna regresja strukturalna, w tym T1, T2, T3, T6/T7, T11, T17–T19,
   T22–T23 i lokalny mock-ELI: `PASS`;
-- wydanie portu: `v0.5.0-codex`;
+- wydanie portu: `v0.6.0-codex`;
 - router prawny: `3.47`, z fallbackiem LEX/Legalis/ArsLege przy
   niedostępności ISAP i obowiązkiem jawnego oznaczenia statusu weryfikacji;
 - analiza przepisu obejmuje wyjątki, przepisy szczególne i przejściowe,

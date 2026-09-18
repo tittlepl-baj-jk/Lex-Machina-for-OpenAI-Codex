@@ -30,8 +30,8 @@ PO CO TEN TEST ISTNIEJE (F-156, rozstrzygnięcie 2026-09-01j)
 
 UŻYCIE
   python3 check_nowelizacje_po_tj.py --selftest          # offline, bez sieci
-  python3 check_nowelizacje_po_tj.py ../..    # pełny przebieg
-  python3 check_nowelizacje_po_tj.py ../.. --skill dr-08-samorzad-terytorialny-prawo-lokalne
+  python3 check_nowelizacje_po_tj.py .    # pełny przebieg
+  python3 check_nowelizacje_po_tj.py . --skill dr-08-samorzad-terytorialny-prawo-lokalne
 
 WYMAGA SIECI (api.sejm.gov.pl). Dlatego test stoi POZA orkiestratorem —
 tak samo jak T15, T20 i T21 w wariancie sieciowym.
@@ -276,7 +276,7 @@ def selftest():
 
 def main():
     ap = argparse.ArgumentParser(description="T24 — nowelizacje po t.j.")
-    ap.add_argument("repo_root", nargs="?", default="../..")
+    ap.add_argument("repo_root", nargs="?", default=".")
     ap.add_argument("--skill", help="ogranicz do jednego skilla")
     ap.add_argument("--verbose", action="store_true",
                     help="wypisz pojedyncze nowelizacje z proweniencją")

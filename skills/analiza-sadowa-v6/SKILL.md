@@ -3,13 +3,12 @@ name: "analiza-sadowa-v6"
 description: "Czteroprzebiegowa analiza akt, pism, wyroków i dowodów: mapa faktów, kwalifikacja prawna, analiza adversarialna, dwukrotna weryfikacja, ocena szans i raport końcowy."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-11"
+  source-tree: "development-2026-09-18"
   source-directory: "analiza-sadowa-v6"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
-
+> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -17,7 +16,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie warstwę wykonawczą. Model czteroprzebiegowy, izolacja faktów od oceny prawnej, dwukrotna weryfikacja, moduły MOD-A…MOD-F i wszystkie bramki jakości pozostają bez zmian.
 
-1. `view analiza-sadowa-v6/<plik>` oraz `view references/...` oznaczają świeży odczyt lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
+1. `view analiza-sadowa-v6/<plik>` oraz `view references/...` oznaczają świeży odczyt lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
 2. `view shared/<plik>` oznacza odczyt z osobnego kanonicznego skilla `shared`. NIE kopiuj żadnego modułu `shared` do tej paczki. Brak obowiązkowego modułu = fail-closed.
 3. Odwołania do `analizator-dowodow-v3`, `raport-sytuacyjny-v2`, DR-skilli i innych skilli oznaczają integracje między-skillowe; nie vendoryzuj ich.
 4. `web_search` / `web_fetch` oznaczają świeże wyszukanie i odczyt źródła przez równoważną funkcję hosta, z zachowaniem oficjalnych źródeł i PRAWO-HARDGATE.

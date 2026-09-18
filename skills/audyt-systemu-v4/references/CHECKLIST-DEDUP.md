@@ -383,7 +383,7 @@ modułu A pod innym tytułem, to nie jest podział funkcjonalny — to duplikat.
    stworzenie wersji rozbieżnej (jak mobbing/szkoda/terminy/wyłączenie
    sędziego — 4 przypadki znalezione 2026-06-12).
 4. **Audyt okresowy** (audyt-systemu-v4, sekcja "deduplikacja"): grep
-   po kluczowych frazach z kolumny "Pojęcie" w całym `../../`
+   po kluczowych frazach z kolumny "Pojęcie" w całym `./`
    — jeśli fraza pojawia się w >1 pliku POZA "Lokalizacja kanoniczna" +
    "Konsumenci" (które powinny mieć tylko odesłania/cross-ref, nie pełną
    treść) → potencjalny nowy duplikat.
@@ -489,7 +489,7 @@ to przy następnej próbie commita, jeśli ktoś znowu tylko zadeklaruje.
 
 ## NOTA-9 — Nowe moduły shared z sesji 2026-06-16 (oczekują na wdrożenie)
 
-**Status:** ⚠️ OCZEKUJE NA WDROŻENIE do ../../shared/
+**Status:** ⚠️ OCZEKUJE NA WDROŻENIE do ./shared/
 
 Zarejestrowane pojęcia/moduły jako kanoniczne lokalizacje:
 

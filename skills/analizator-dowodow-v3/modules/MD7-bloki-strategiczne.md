@@ -89,7 +89,7 @@ Teza bez konsekwencji nie trafia do W1.3 pisma-procesowe-v3 jako GOTOWA.
 
 > **Trigger:** gdy w sprawie są dowody przeciwnika (MP5 perspektywa = TAK)
 >   LUB gdy BLOK-PROWENIENCJA wykrył P! (alert autentyczności/custody)
-> **Plik kanoniczny:** `view ../../shared/MOD-ATAK-NA-DOWOD.md`
+> **Plik kanoniczny:** `view ./shared/MOD-ATAK-NA-DOWOD.md`
 > **Cel:** systematyczna analiza 12 wektorów ataku na dowody przeciwnika
 >   + procedura obrony własnych dowodów przed tymi samymi atakami.
 
@@ -134,7 +134,7 @@ INTEGRACJA:
 ## BLOK-NEGACJA — Siła dowodów, techniki negacji i odporność pisma
 
 > **Trigger:** ZAWSZE — automatyczny dla każdej sprawy z ≥1 dowodem i ≥1 tezą.
-> **Plik kanoniczny:** `view ../../shared/MOD-NEGACJA-DOWODOW.md`
+> **Plik kanoniczny:** `view ./shared/MOD-NEGACJA-DOWODOW.md`
 > **Cel:** ocenić siłę każdego dowodu wobec technik negacji przeciwnika,
 > zidentyfikować milczące przyznania i zbudować odporne pismo.
 
@@ -194,7 +194,7 @@ PROCEDURA NG1-NG6:
 >   LUB DTA-ID-MODE aktywny (≥5 plików)
 > **Trigger na żądanie:** "sprawdź czy z jednego systemu", "czy zeznania skoordynowane",
 >   "skąd pochodzi", "czy ten sam autor", "proweniencja"
-> **Plik kanoniczny:** `view ../../shared/MOD-PROWENIENCJA-DOWODOW.md`
+> **Plik kanoniczny:** `view ./shared/MOD-PROWENIENCJA-DOWODOW.md`
 > **Cel:** wykryć wspólne źródło ≥2 pozornie niezależnych dowodów i ocenić konsekwencje.
 
 ```

@@ -31,7 +31,7 @@ PLACEHOLDER_STEMS = {"x", "nazwa", "akt", "nazwa-pliku", "plik"}
 MIN_DUPLICATE_SIZE = 200
 
 PORTABILITY_PATTERNS = {
-    "../..": re.compile(r"../.."),
+    ".": re.compile(r"."),
     "/mnt/user-data": re.compile(r"/mnt/user-data"),
     "/home/claude": re.compile(r"/home/claude"),
     "server_tool_use": re.compile(r"\bserver_tool_use\b"),
@@ -106,7 +106,7 @@ def resolve_relative_ref(ref: str, source_file: Path, repo_root: Path, skill_ind
 
 
 def resolve_legacy_abs(ref: str, repo_root: Path, skill_index):
-    prefix = "../../"
+    prefix = "./"
     if ref.startswith(prefix):
         rel = Path(ref[len(prefix):])
         if rel.parts and rel.parts[0] in skill_index:

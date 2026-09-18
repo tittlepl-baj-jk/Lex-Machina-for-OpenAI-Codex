@@ -18,6 +18,6 @@ Zmieniono wyłącznie metadane trigger/capability i dodano adapter runtime. Wszy
 ## Universal V4
 
 - zastosowano wspólny `shared/UNIVERSAL-RUNTIME-ADAPTER.md`;
-- aktywne ścieżki `../...` normalizowane są do kanonicznego `skill/path`;
+- aktywne ścieżki `./...` normalizowane są do kanonicznego `skill/path`;
 - bezpośrednie endpointy dostawców AI w statycznych artefaktach są wyłączone;
 - wydanie podlega skanowi prywatności/secrets oraz manifestowi integralności całego release.

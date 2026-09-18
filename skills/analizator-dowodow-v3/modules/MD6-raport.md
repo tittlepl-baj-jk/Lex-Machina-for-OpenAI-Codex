@@ -36,5 +36,5 @@ REKOMENDACJE:
 Po analizie modułowej uruchom dashboard:
 
 ```
-view ../../analizator-dowodow-v3/assets/dashboard.html
+view ./analizator-dowodow-v3/assets/dashboard.html
 → show_widget(widget_code=<treść>, title="analizator_dowodow_dashboard",

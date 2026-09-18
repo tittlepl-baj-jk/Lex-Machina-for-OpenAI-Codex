@@ -1,5 +1,5 @@
 name: shared
-version: "3.35"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: niecytowane `3.17` YAML parsuje
+version: "3.77"   # ⛔ CUDZYSŁÓW OBOWIĄZKOWY: niecytowane `3.17` YAML parsuje
                   # jako float 3.17, a 3.17 < 3.9 — porządek wersji odwraca się
                   # dla każdego narzędzia porównującego liczbowo. Wykryte
                   # testem T12 (check_wersje_changelog.py), 2026-08-20z.
@@ -43,16 +43,11 @@ limitations:
     opisane tu jawnie, żeby FAZA 2E w trybie deklarowanym go NIE zgubiła.
     Decyzja architektoniczna (uznać jako świadomy wzorzec 'plik-most' czy
     wydzielić poza shared/) pozostaje OTWARTA — do następnego audytu."
-  - rozmiar (196 plików, ~2,4 MB — stan 2026-08-23) — każda zmiana pliku kanonicznego ma
+  - rozmiar (173 pliki, ~2,0 MB — stan 2026-09-14) — każda zmiana pliku kanonicznego ma
     potencjalnie systemowy promień rażenia; edytować tylko przez
     audyt-systemu-v4 z pełną weryfikacją CHECKLIST-DEDUP.md
 required_modules: []
   # nie ma zastosowania — shared jest wczytywany, nie wczytuje sam siebie
 changelog: |
-  Wersja bieżąca: 3.35 (2026-09-10n, F-181): 41 miejsc przestawionych z wygasłych
-  tekstów jednolitych na aktualne — 20 aktów, w tym UFP 2024/1530 → 2025/1483
-  (13 miejsc), dochody JST, PZP, VAT, KPK, PPSA, Prawo energetyczne, AML,
-  KWiH, prawo autorskie, Karta Nauczyciela i inne. ⛔ Dochody JST: stara ustawa
-  została ZASTĄPIONA NOWĄ (Dz.U. 2024 poz. 1572), więc podstawienie jej t.j.
-  2024/356 byłoby powieleniem błędu — ten numer też jest uchylony.
-  Pełna historia wszystkich wersji: references/CHANGELOG.md (ZASADA 15).
+  Wersja bieżąca: 3.77 (2026-09-16, F-189): ⭐ DOSTEP-MASZYNOWY-API — nowa sekcja „Prawo UE — CELLAR”: obejście blokady EUR-Lex (202/0 B z kontenera); `publications.europa.eu/resource/celex/<CELEX>` z Acce…
+  Pełna historia: references/CHANGELOG.md (ZASADA 15).

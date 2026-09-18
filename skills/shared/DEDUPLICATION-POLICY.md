@@ -6,11 +6,11 @@ Stan: 2026-06-13 (usunięcie martwych stubów, dokumentacja świadomych duplikat
 
 Moduły merytoryczne prawa polskiego są kanonicznie w:
 
-`../shared/`
+`./shared/`
 
 Router i skille dziedzinowe wywołują je **bezpośrednio** przez:
 ```
-view ../shared/NAZWA.md
+view ./shared/NAZWA.md
 ```
 
 **Zakaz tworzenia lokalnych stubów/adapterów** — od 2026-06-13 każde wywołanie modułu shared/ musi być bezpośrednie. Stuby pośrednie (`references/HYBRID-VALIDATION.md` → `shared/HYBRID-VALIDATION.md`) są niedopuszczalne i będą usuwane w audytach.

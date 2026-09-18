@@ -438,7 +438,7 @@ Wykryć, że ≥2 pozornie niezależne dowody pochodzą z tego samego systemu,
 autora, urządzenia, kanału lub środowiska — i ocenić procesowe konsekwencje.
 
 > ⛔ Pełna procedura w pliku kanonicznym:
-> `view ../../shared/MOD-PROWENIENCJA-DOWODOW.md`
+> `view ./shared/MOD-PROWENIENCJA-DOWODOW.md`
 >
 > Aktywuj §6.12 gdy: ≥3 dowodów klasy C/D, zeznania ze wspólnego miejsca pracy,
 > dokumenty "od różnych stron" z podobnym stylem/błędami, wątpliwości co do dat.

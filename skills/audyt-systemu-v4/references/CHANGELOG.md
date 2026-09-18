@@ -1,5 +1,350 @@
 # CHANGELOG — audyt-systemu-v4
 
+- 6.119 (2026-09-16, F-189): **AUDYT-2026-09-17u — ⭐⭐ F-135 (część merytoryczna) ZAMKNIĘTA.** Akty UE odczytane przez Cellar; udokumentowany kanał i pomiary rozmiarów dla 6 aktów. WARN-OTWARTE: F-135 usunięta z rejestru (pozycje wykonalne 3 → 2).
+- 6.118 (2026-09-16, F-189): **AUDYT-2026-09-17t — F-113: ramię kontrolne zbudowane.** build_ramie_kontrolne_f113.py: 5 bramek wyciętych, 36 plików posprzątanych (55 linii), ci_check_shared OK; hashe manifestów A i B zapisane. ⛔ Pomiar niewykonany — protokół wymaga promptu bez wiedzy o teście i oceny ślepej, a ta sesja zna bramki i przypisanie ramion; wymaga sesji niezależnej (ta sama bariera co F-167). WARN-OTWARTE: nowy status F-113 + warunki przekazania.
+- 6.117 (2026-09-16, F-189): **AUDYT-2026-09-17s — pomiar kanałów.** T25 (grupa orzecznictwo, 19 sond) + sondy bezpośrednie: SAOS wrócił (3 endpointy), decyzje.uokik.gov.pl i CBOSA nadal 503, TK i KIO bez zmian konstrukcji. F-171 zawężona do jednej pozycji; F-183a, F-184, F-185 bez zmian.
+- 6.116 (2026-09-16, F-189): **AUDYT-2026-09-17r.** Nowy T33 `scripts/check_wydanie.py` — zgodność wydanych paczek z drzewem (liczba plików, bajtowa identyczność, sumy wewnątrz ZIP); wdrożenie zalecenia z 17p, w orkiestratorze, selftest 4/4. Zawężona kolejka aktów UE: NIS2 i DORA bezprzedmiotowe (korpus nie cytuje ich wartości).
+- 6.115 (2026-09-16, F-189): **AUDYT-2026-09-17q — ⭐ EUR-Lex odblokowany.** Akty UE są weryfikowalne w RZĘDZIE 1 (kanał wyszukiwarka → fetch); dotychczasowe zapisy „EUR-Lex niedostępny” (16h, 16k, 16l, 17o) nieaktualne. 3 usterki RODO. T28: W1-RODO-48h (selftest 52/52).
+- 6.114 (2026-09-16, F-189): **AUDYT-2026-09-17p.** Domknięte pozycje po 17o: 2026/425 (zmiana punktowa FUS), etapy 2026/26 (art. 85a ust. 2 — 13.04.2026; art. 85c–85j i 85f — 1.01.2027; art. 34 — przepis przejściowy), art. 85f ust. 8 (trzech lekarzy). ⛔ Odnotowana niewyjaśniona zmiana kopii roboczej po wydaniu 17o (3 fragmenty, 2 pliki) wykryta przez T21 — treść zweryfikowana i zachowana; zalecenie: diff kopii z ZIP-em po wydaniu.
+- 6.113 (2026-09-16, F-189): **AUDYT-2026-09-17o — F-135: prawo pracy i ubezpieczeń (ustawy szczególne).** 6 usterek; korekta własnego zapisu 16f. T28: W1-KPC-kasacja-30dni-SA, W1-Sygn-art12-terminy (selftest 50/50). WARN-OTWARTE: kolejka krajowa F-135 wyczerpana.
+- 6.112 (2026-09-16, F-189): **AUDYT-2026-09-17n — F-135: sprawy rodzinne.** 6 usterek (w tym powrót błędnych terminów zaprzeczenia ojcostwa w kalkulatorze czesc-07). T28: W1-KRO-69-6mies, W1-KRO-70-3lata, W1-KRO-59-3mies (selftest 47/47). WARN-OTWARTE: postęp F-135.
+- 6.111 (2026-09-16, F-189): **AUDYT-2026-09-16m — F-135: KPA i PPSA poza tabelą.** 10 usterek. T28: W1-PPSA-53par3-14dni, W1-KPA-160, W1-KPA-128-odwolanie-14 (selftest 44/44). WARN-OTWARTE: postęp F-135.
+- 6.110 (2026-09-16, F-189): **AUDYT-2026-09-16l — F-135: u.o.d.o.** 7 usterek (w tym awans snapshotu NSA wbrew regule i nieistniejący art. 50 ust. 4). V-SYG-0 dla III OSK 1959/22: OUT_OF_SCOPE. T28: W1-UODO-art50-ust4, W1-UODO-237-KPA (selftest 41/41). WARN-OTWARTE: kolejka ustaw szczególnych wyczerpana w części krajowej.
+- 6.109 (2026-09-16, F-189): **AUDYT-2026-09-16k — F-135: KSC po NIS2.** 6 usterek w dr-11. T28: W1-KSC-art16-terminy (selftest 39/39). WARN-OTWARTE: postęp F-135.
+- 6.108 (2026-09-16, F-189): **AUDYT-2026-09-16j — F-135: środki ochrony prawnej w PZP.** 7 usterek. T28: W1-PZP-138-ponizej15, W1-PZP-odwolanie-wstrzymuje (selftest 38/38). WARN-OTWARTE: postęp F-135.
+- 6.107 (2026-09-16, F-189): **AUDYT-2026-09-16i.** mapa_dzu: nowy t.j. ustawy tytoniowej `2026/1214` (ogłoszony 16.09.2026; wykryty przez T15 NEWER_TJ w dniu ogłoszenia). Dziennik: wpis 16i.
+- 6.106 (2026-09-16, F-189): **AUDYT-2026-09-16h — F-135: postępowanie spadkowe (KPC).** Luka postaci 4 uzupełniona; EPS (art. 70 rozp. 650/2012) — EUR-Lex niedostępny maszynowo, wartość nieawansowana. WARN-OTWARTE: postęp F-135.
+- 6.105 (2026-09-16, F-189): **AUDYT-2026-09-16g — F-135: terminy i progi KKS.** 24 jednostki z odczytu, 7 usterek. T28: W1-86-KKS-akcyzowy, W1-87-KKS-360 (selftest 36/36). WARN-OTWARTE: postęp F-135.
+- 6.104 (2026-09-16, F-189): **AUDYT-2026-09-16f — F-135: terminy KC.** Dziennik: 25 jednostek z odczytu, 11 usterek (2 w kierunku niebezpiecznym). T28: W1-117-KC-6lat, W1-1007-otwarcie-testamentu, W1-4421-par3-20lat (selftest 34/34). WARN-OTWARTE: postęp F-135.
+- 6.103 (2026-09-16, F-189): **AUDYT-2026-09-16e — O-11 zamknięta w całości.** (1) Nowy T32 `check_tabele_satelickie.py` (orkiestrator; selftest 9/9). (2) T27: klasa ZASTĄPIONY_TJ + filtr historyczny o „pierwotn”, „podmian”; przebieg: 6 martwych + 9 zastąpionych → 1 znany. (3) T28: W1-KC-2024-1360 (selftest 30/30). (4) WARN-OTWARTE: O-11 zamknięta.
+- 6.102 (2026-09-16, F-189): **AUDYT-2026-09-16d.** (1) Nowy T31 `scripts/check_podmiana_aktu.py` — podmiana aktu w mapach niezależnie od oznaczenia „t.j.” (sieć, ręczny, selftest 3/3); 5 podmian wykrytych i usuniętych; 11 aliasów dopisanych po odczycie tytułów. (2) ALIASY: wiersz 2026/1195 uszkodzony przez podmianę numeru z 10r — naprawiony (T15 = 0 w obu trybach). (3) mapa_dzu: 2026/200, 2025/1154, 2024/101, 2023/1235. (4) WARN-OTWARTE: nieaktualne wiersze F-141, F-148, O-4 usunięte; O-11(d) zamknięta.
+- 6.101 (2026-09-16, F-189): **AUDYT-2026-09-16c.** (1) Nowy T30 `scripts/check_utrata_tresci.py` — utrata treści bez cofnięcia numeru (tabele „było → jest” vs dysk + kolizje numerów), selftest 5/5, BLOKER orkiestratora; walidacja: 5+1 trafień na stanie sprzed napraw, 0 po. (2) T28: W1-kopaliny-2024-44, W1-UbezpObowLekarzy (selftest 29/29). (3) F-190 zamknięta. (4) REGRESSION-TEST-PLAN: sekcja T30.
+- 6.100 (2026-09-16, F-189): **AUDYT-2026-09-16b — T11, T5, F-OP-2026-09, rekonstrukcja treści.** (1) T11: `2026/174` dopisana do mapy (włączona do t.j. 2026/619) + `2026/454`. (2) T5: nowy `scripts/check_widmowe_pokrycie.py` (kandydaci, selftest 4/4, status ręczny); 30 kandydatów → 2 widma, 2 podmiany aktu, 11 błędnych wskaźników; nowa flaga F-190. (3) F-OP-2026-09 zamknięta; korekta 12i (poz. 1098 nie dotyka art. 70). (4) Rekonstrukcja z dziennika: utracona naprawa `dr-09` z 10l (bez cofnięcia numeru — kolizja 3.29); F-189 — co najmniej dwie fale nadpisań. ⚠️ Numer 6.100 (nie 7.0): kolejny minor; porównanie T12 jest krotkowe, (6,100) > (6,99).
+- 6.99 (2026-09-16, F-189): **F-189 — regresje dyskowe w 10 skillach; ślepa plamka T12; T28/T29 w orkiestratorze.** Wpis AUDYT-2026-09-16. (1) T12: parser dziennika nie widział wielowierszowych bloków „Wersje:” — zgłaszał 1 regresję z 10; teraz skleja blok, wiersze tabel pozostają jednostkami, numer liczy się tylko za samodzielną nazwą skilla (nie za ścieżką `shared/…`, nie w prozie). (2) T22: zarejestrowane F-187-…md, check_wartosci_prawne.py, check_oplaty_mapa.py, weryfikator_sygnatur.py. (3) Orkiestrator: T28 i T29 wpięte jako blokery (T28 miał 20 FAIL niewidocznych w wyniku). (4) SKRYPTY-RECZNE: weryfikator_sygnatur.py.
+- 6.98 (2026-09-14): **CBOSA snapshot/retrieval — oddzielenie bogactwa treści od siły provenance.** Dwa niezależne ustalenia: (1) `site:orzeczenia.nsa.gov.pl` nie jest filtrem domenowym i potrafi zwracać obce hosty — `shared` 3.61 dodaje V-SYG-0.5.1a POST-CHECK HOSTA przed exact-match; (2) snapshot oficjalnego `/doc/{ID}` może być znacznie bogatszy niż snippet. Próba 10 realnych sygnatur: 10/10 metryka+sentencja, 5/10 pełne uzasadnienie, 2/10 uzasadnienie bez dowodu kompletności, 3/10 bez potwierdzonego uzasadnienia. `CRAWLED_OR_INDEXED` jest provenance, nie piątym statusem; `WERYFIKACJA-SLAD` 1.7 utrzymuje ✅/⚠️. F-183a pozostaje otwarta tylko dla pozytywnego DIRECT_LIVE w runtime docelowym.
+- 6.97 (2026-09-14): **CBOSA — integracja z kanonicznym routingiem źródeł i korekta zakresu F-183a.** `shared/CBOSA-ADAPTER.md` stał się SSOT kontraktu direct HTML dla NSA/WSA; `HIERARCHIA-ZRODEL` RZĄD 2A, `SYGNATURY` V-SYG-0.7, `DOSTEP-MASZYNOWY-API`, `PRAWO-HARDGATE-ORZECZENIA`, `MCP-INTEGRACJA` i rejestr konektorów kierują system: MCP-FIRST → direct CBOSA → dopiero fallback V-SYG-0.5. Parser hardened fail-closed i testy 22/22 PASS. F-183a NIE została sztucznie zamknięta: luka strukturalna jest usunięta, pozostaje wyłącznie kontrolowany live probe w docelowym runtime. Historyczny pomiar 503 z 2026-09-13d oznaczony jako środowiskowy, nie globalny.
+- 6.96 (2026-09-13b): **weryfikacja trzech luk z PPWR/EUDR.** Wpis AUDYT-2026-09-13b. (1) USTALENIE POZYTYWNE: polska ustawa o gospodarce opakowaniami NIE ZOSTALA dostosowana do PPWR - KROK 2C na DU/2013/888 dal zero nowelizacji po t.j. Dz.U. 2026 poz. 619 (30.04.2026), a ostatnia zmiana Dz.U. 2026 poz. 174 z 9.01.2026 dotyczy systemu kaucyjnego i po odczycie tekstu ma ZERO odeslan do rozp. 2025/40; ostatnia zmiana ustawy jest o siedem miesiecy starsza niz data stosowania rozporzadzenia. (2) USTALENIE NEGATYWNE O WASKIM ZAKRESIE: przeszukanie ELI po tytule dla EUDR dalo zero wynikow, ale wykazano tylko brak aktu O TAKIM TYTULE - przepis moglby byc w ustawie o lasach albo o IOS; ograniczenie metody zapisane w module i ROUTING-MAP. (3) PROBA NIEROZSTRZYGNIETA: akt wykonawczy z art. 12 ust. 6 PPWR - wyszukiwarka EUR-Lex wymaga przegladarki; zapisane jako nierozstrzygniete, NIE jako brak aktu. ⭐ Wniosek metodologiczny: luka opisana jako zamknieta, gdy sprawdzono tylko jeden jej wymiar, jest gorsza niz luka otwarta, bo nikt do niej nie wroci
+- 6.95 (2026-09-13): **PPWR i EUDR — dwa rozporzadzenia UE, ktorych system nie znal.** Wpis AUDYT-2026-09-13. Zero wystapien w dr-09/MAPA-AKTOW i w ROUTING-MAP. PPWR (UE) 2025/40: stosuje sie od 12.08.2026, czyli JUZ OBOWIAZUJE; uchyla dyrektywe 94/62/WE z dwoma wyjatkami. ⛔⛔ EUDR (UE) 2023/1115: data stosowania PRZESUWANA DWUKROTNIE — obowiazuje 30.12.2026 / 30.06.2027, a powtarzane 30.12.2025 i 30.06.2026 sa nieaktualne. ⭐ PODRECZNIKOWY PRZYPADEK O-12 w wersji unijnej: ten sam CELEX, ten sam status "In force", akt bazowy nietkniety, a data stosowania przesunieta o DWA LATA - wykrywa to wylacznie odczyt wersji skonsolidowanej, nie numeru aktu. Nowy modul dr-09 klasy katalogowo-metrykalnej; tresc obowiazkow materialnych SWIADOMIE niepokryta, bo opisanie progow recyklatu z pamieci byloby ta sama klasa tresci, ktora O-11 wycinala przez caly wrzesien. Zarejestrowany w 3 rejestrach dr-09 i w 4 miejscach ROUTING-MAP
+- 6.94 (2026-09-12r, T13): **ta sama slepa plamka drugi raz, w odstepie jednej sesji.** Wpis AUDYT-2026-09-12r. Rozszerzenie T13 z 12p sprawdzalo basename(root)=='shared', czyli wylacznie pliki bezposrednio w katalogu skilla - podzial TABELE-OPLAT z 12q utworzyl shared/oplaty/ i WSZYSTKIE SIEDEM SATELITOW natychmiast wypadlo poza zakres testu. Za pierwszym razem zakres zawezal wzorzec nazwy pliku, za drugim glebokosc katalogu; wspolna przyczyna: warunek wpiecia pisany pod aktualnie znany uklad plikow, wiec kazda zmiana struktury repozytorium jest potencjalnym wypadnieciem z zakresu, ktore nie zglasza sie samo. ⚠️ Plamke wyprodukowala zmiana z poprzedniej sesji, opisana jako zabezpieczona testem T29 - T29 pilnuje mapy wlasnosci i dzialal poprawnie, ale o dlugosci satelitow nie wie nic; luka dokladnie miedzy dwoma poprawnymi testami. Poprawka: 'shared' in root.split(os.sep), rekurencyjnie - 167 zasobow zamiast 138. ⭐ Dodany --selftest (5/5), ktorego T13 nie mial od powstania w sierpniu; przypadki pilnuja PRZYDZIALU DO KATEGORII, a drugi z nich jest dokladnym opisem tej plamki - gdyby istnial w 12q, wyszlaby od razu
+- 6.93 (2026-09-12q, PODZIAL + T29): **TABELE-OPLAT podzielone na rdzen i siedem satelitow.** Wpis AUDYT-2026-09-12q. ⭐ Rozwiazane napiecie z 12p, gdzie argumentowalem PRZECIWKO podzialowi: argument byl trafny co do ryzyka, ale bledny co do wniosku - stare tabele satelickie byly zle nie dlatego, ze bylo ich wiele, tylko dlatego, ze NIE MIALY WLASCICIELA ANI REJESTRU. Rdzen 159 linii (regula kolejnosci + MAPA WLASNOSCI SEKCJI + rejestry), siedem satelitow w shared/oplaty/ (108-390 linii). **Nowy test T29** (check_oplaty_mapa.py, 4 bramki, selftest 5/5) jako WARUNEK dopuszczalnosci podzialu, nie dodatek - bez niego podzial byl by regresja. B2 (mapa w gore) lapie plik-sierote, czyli dokladnie stary wzorzec. Kontrola integralnosci przez porownanie z ZIP-em poprzedniej dostawy: z 1236 niepustych linii brakuje 78, z czego 72 to stary spis tresci - zero utraty tresci. T13 przestal raportowac TABELE-OPLAT. 118 odeslan w systemie celowo NIE przepisane na sciezki satelitow - numer sekcji jest stabilniejszym adresem niz nazwa pliku. terminy.md (607 linii) swiadomie niedzielony - ponizej strefy WARN
+- 6.92 (2026-09-12p, T13): **slepa plamka T13 — 1472 linie poza zasiegiem testu.** Wpis AUDYT-2026-09-12p. Sesja wywolana wlasna uwaga z 12o, ze terminy.md zbliza sie do progu T13. ⭐ UWAGA BYLA BLEDNA: T13 nie obejmowal shared/*.md w ogole (warunek basename(root)=='modules' and nazwa.startswith('mod-')). Gdybym poprzestal na zalozeniu i podzielil terminy.md, wykonalbym niepotrzebny podzial i NIE ZAUWAZYL rzeczywistego problemu - shared/TABELE-OPLAT.md ma 1472 linie, 47 % ponad prog CRIT, i przez siedem sesji wrzesniowych byl niewidzialny dla testu stworzonego wlasnie do lapania takich przyrostow. Dodana kategoria zasobow kanonicznych shared/*.md jako RAPORTOWANA, nie blokujaca - podzial TABELE-OPLAT odtworzylby tabele satelickie, przed ktorymi broni sekcja 7 tego samego pliku; test wymuszajacy podzial wbrew doktrynie skilla jest testem szkodliwym. Zamiast podzialu: SPISY TRESCI (TABELE-OPLAT 72 pozycje, terminy 22 pozycje). Przy generowaniu spisu wyszedl blad struktury - UPEA byla zagniezdzona pod KPA jako ###, choc to odrebny rezim. ⚠️ Dlug zaciagniety jawnie: spisy sa reczne, bez testu pilnujacego zgodnosci z naglowkami
+- 6.91 (2026-09-12o, rodzina TERMINY c.d.): **KC - trzy wiersze na caly kodeks cywilny.** Wpis AUDYT-2026-09-12o. ⛔ Pulapka, ktorej nie mial zaden plik: art. 118 zd. 2 - koniec terminu przedawnienia przypada na OSTATNI DZIEN ROKU KALENDARZOWEGO, chyba ze termin jest krotszy niz dwa lata; liczenie dzien po dniu daje date wczesniejsza niz rzeczywista, co szkodzi obu stronom. ⛔⛔ art. 442[1] ma TRZY PULAPKI naraz: 20 lat przy zbrodni lub wystepku liczone OD CZYNU (par. 2), przy szkodzie NA OSOBIE granica 10 lat NIE OBOWIAZUJE (par. 3), maloletni +2 lata od pelnoletnosci (par. 4) - zastosowanie samego par. 1 do sprawy o uszkodzenie ciala sprzed kilkunastu lat daje bledny wniosek o przedawnieniu. ⭐ art. 344 par. 2: roszczenie posesoryjne WYGASA, nie przedawnia sie - sad uwzglednia z urzedu; czwarta w serii konstrukcja mylona z terminem zawitym. Dopisane rekojmia (art. 563, 568), blad i grozba (art. 88 par. 2), umowa przedwstepna (art. 390 par. 3), skarga paulianska (art. 534), zasiedzenie (art. 172-173). terminy.md 88 -> 607 linii od poczatku serii
+- 6.90 (2026-09-12n, rodzina TERMINY c.d.): **KP - dwa wiersze na caly Kodeks pracy.** Wpis AUDYT-2026-09-12n. Liczby w dr-04 poprawne, konstrukcja niepelna: art. 264 par. 2 ma DWA punkty poczatkowe (doreczenie zawiadomienia ALBO dzien wygasniecia umowy), brakowalo par. 3 i art. 265 par. 2. ⛔ USTALENIE GLOWNE: art. 52 par. 2 i art. 109 par. 1 to GRANICE DLA PRACODAWCY - ich uplyw jest zarzutem obrony, nie terminem pracownika; trzymanie ich w jednej tabeli bez oznaczenia prowadzi do szukania po niewlasciwej stronie. ⭐ art. 112 par. 1 zd. 3 - MILCZACA ZGODA: nieodrzucenie sprzeciwu w 14 dni jest rownoznaczne z uwzglednieniem, czyli brak reakcji konczy sprawe po mysli wnoszacego bez sadu; zadnego modulu tego nie mial. Dopisane przedawnienia z art. 291 par. 1, 2, 3, 4 i 5. KROK 2C: Dz.U. 2026 poz. 1046 (w zycie 5.11.2026) nie dotyka tych przepisow - druga po Ordynacji rodzina z aktem czekajacym na wejscie w zycie
+- 6.89 (2026-09-12m, **RODZINA TERMINY ZAMKNIETA**): Wpis AUDYT-2026-09-12m. KSH: modul podawal DWIE pary terminow, obie dla sp. z o.o., a KSH zna CZTERY REZIMY - dopisane S.A. niepubliczna i publiczna, uchylenie i niewaznosc (art. 424 par. 1-2, art. 425 par. 2-3). Liczby dotychczasowe okazaly sie poprawne - usterka przez POMINIECIE, nie przez blad. ⛔ Sp. z o.o. granica 3 lata vs S.A. 2 lata; spolka publiczna liczy termin niewaznosci OD OGLOSZENIA uchwaly. ⭐ Dopisane art. 252 par. 4 i 425 par. 4 - uplyw terminu nie wylacza ZARZUTU niewaznosci. ⭐⭐ ZAMKNIECIE RODZINY: 11 rezimow w 7 sesjach, terminy.md 88 -> 489 linii. WNIOSEK ZBIORCZY - cztery postacie usterki terminowej, z ktorych T28 lapie WYLACZNIE jedna (bledny cytat); przez cztery ostatnie sesje nie dopisano do rejestru W1 ani jednej pozycji
+- 6.88 (2026-09-12l, rodzina TERMINY c.d.): **upadlosc i restrukturyzacja.** Wpis AUDYT-2026-09-12l. Pierwszy modul w serii, ktorego LICZBY byly poprawne w calosci (30 dni art. 21 ust. 1, 3 miesiace art. 11 ust. 1a, 24 miesiace art. 11 ust. 2) - bledne byly ADRESAT i SKUTEK. Zgloszenie wierzytelnosci idzie do SYNDYKA przez system teleinformatyczny (art. 236 ust. 1), a modul adresata nie podawal wcale; skutek spoznienia to nie "dodatkowa oplata", tylko ryczalt 15 % przecietnego wynagrodzenia w sektorze przedsiebiorstw (art. 235 ust. 1), ponoszony NAWET BEZ WINY. ⭐ TRZECIA KOTWICA WARTOSCI - nowa sekcja 4g w TABELE-OPLAT (1.8); GUS publikuje CZTERY rozne przecietne wynagrodzenia, a przepis wskazuje jeden. ⛔ Trzecia w serii konstrukcja mylona z terminem zawitym: okresy z art. 11 PrUp to domniemanie i podstawa niewyplacalnosci, ktore OTWIERAJA 30-dniowy obowiazek, a nie go zastepuja. Termin sprzeciwu w PrRestr podniesiony z RZEDU 2 do RZEDU 1 (art. 91 ust. 1-2) mimo trafnosci - po doswiadczeniu z art. 33 UPEA terminy zawite domyka wylacznie odczyt tresci
+- 6.87 (2026-09-12k, rodzina TERMINY c.d.): **KRO - termin prekluzyjny zawyzony trzykrotnie.** Wpis AUDYT-2026-09-12k. dr-02 (nietkniety w calej serii) podawal: matka "6 miesiecy od urodzenia dziecka" - jest ROK od dowiedzenia sie (art. 69 par. 1); dziecko "3 lata od osiagniecia pelnoletnosci" - jest ROK od dowiedzenia sie (art. 70 par. 1). ⛔ Drugi w tej serii blad w kierunku NIEBEZPIECZNYM - dziecko poinformowane o trzech latach traci powodztwo. Usunieta nieaktualna adnotacja "TK zakwestionowal ograniczenie data pelnoletnosci" - ograniczenie jest w t.j.; realnym sladem orzeczenia TK jest art. 71 KRO, ktory UTRACIL MOC. Dopisane art. 64-65, 70[1], 78, 79, 81, 81[1] oraz granice powodztwa prokuratora z art. 86. ⚠️ Do rejestru W1 nie dopisano nic - bledem byla WARTOSC terminu przy poprawnym cytacie, a takiej usterki rejestr z zalozenia nie lapie; trzy sesje z rzedu daly tylko JEDEN blad zamienialny na regule testu
+- 6.86 (2026-09-12j, rodzina TERMINY c.d.): **KKW + flaga F-OP-2026-09.** Wpis AUDYT-2026-09-12j. (1) Otwarta flaga dla PIECIU nowelizacji Ordynacji podatkowej oglszonych po t.j., z ktorych TRZY wchodza w zycie w ciagu trzech tygodni (16.09, 24.09, 1.10.2026) - z protokolem ponownego odczytu po kazdej dacie; zakres poz. 1154, 875 i 1098 jawnie NIEUSTALONY. ⭐ Wzorzec: odczyt moze byc POPRAWNY I JEDNOCZESNIE MIEC DATE WAZNOSCI - kandydat na rozszerzenie adnotacji [VER] o pole "wazne do". (2) mod-KKW liczyl 772 linie i NIE MIAL ANI JEDNEGO TERMINU; shared/terminy.md zero pozycji z KKW. Dopisane 14 pozycji z odczytu tresci (Dz.U. 2025 poz. 911). ⭐ USTALENIE POJECIOWE: KARENCJA (art. 161 par. 3-4, art. 153 par. 3 KKW) to NIE termin zawity - wniosek przedwczesny nie przepada, tylko nie jest rozpoznawany do uplywu okresu; mylenie daje blad w obie strony
+- 6.85 (2026-09-12i, rodzina TERMINY c.d.): **Ordynacja podatkowa.** Wpis AUDYT-2026-09-12i. ⛔⛔ KROK 2C dal wynik bez precedensu w tej serii: po t.j. z 22.04.2026 oglszono PIEC ustaw zmieniajacych, wszystkie z odroczonym wejsciem w zycie, a TRZY wchodza w ciagu trzech tygodni od sesji (16.09, 24.09, 1.10.2026). ⛔ Twierdzenie dr-06 o uchyleniu art. 70 par. 6 pkt 1 i "ugodzie podatkowej od 01.10.2026" NIEPOTWIERDZONE: przepis jest w mocy w t.j., a poz. 825 i 846 nie zmieniaja art. 70 ani nie zawieraja slowa "ugoda"; data 1.10 zgadza sie z wejsciem w zycie poz. 846, ale jej zakres jest inny. NOWA KLASA USTERKI: twierdzenie o PRZYSZLYM stanie prawa podane jako obowiazujace, z prawdziwa data przyklejona do nieprawdziwej tresci. Naprawa cytatu: odwolanie 14 dni to art. 223 par. 2, nie par. 1 - trzeci potwierdzony przypadek reguly "podstawa terminu nie stoi w przepisie o samej czynnosci". T28: dopisana pozycja W1-223-Op (trafila od razu w mod-ustawa-podatek-nieruchomosci) oraz ZAWEZONA BRAMKA W2 po pierwszym pomiarze falszywych alarmow - dr-06 wszedl w zakres skanowania i dal 3 falszywki na stawkach podatku u zrodla 19/20 % od odsetek jako kategorii przychodu; bramka lapie teraz wylacznie NAZWANE rodzaje odsetek i tylko przy atrybucji procentu. Selftest 21 -> 26/26. Trzeci wykryty blad wlasny T28 - wszystkie trzy wyszly przy PIERWSZYM kontakcie bramki z nowym materialem, nie przy projektowaniu
+- 6.84 (2026-09-12h, rodzina TERMINY c.d.): **UPEA - dwa CRIT i ustalenie metodologiczne.** Wpis AUDYT-2026-09-12h. (1) "Zarzuty 7 dni od doreczenia TW" - taki termin NIE ISTNIEJE; art. 33 par. 5 UPEA podaje wylacznie terminy koncowe. Kierunek bledu NIEBEZPIECZNY: zamykal srodek, ktory nadal przyslugiwal. (2) Katalog podstaw zarzutu byl sprzed nowelizacji - "zbyt uciazliwy srodek" przenios sie do SKARGI z art. 54 par. 1 pkt 2; zarzut na tej podstawie zostanie oddalony. (3) Skarga na czynnosc egzekucyjna: 14 -> 7 dni (art. 54 par. 3), zmieniony takze punkt poczatkowy i adresat. ⭐ USTALENIE: przy blednym wierszu stala adnotacja "POTWIERDZONE 2026-07-27, Rzad 2B: lexlege.pl, arslege.pl" - dwa serwisy potwierdzily regule, ktorej w ustawie nie ma, a prawdziwa tresc przepisu zdegradowaly do "uzupelnienia". PIERWSZY udokumentowany przypadek, w ktorym RZAD 2B nie tyle zawiodl, co ZALEGITYMIZOWAL blad. Wniosek dla HIERARCHIA-ZRODEL: przy terminie zawitym i kwocie adnotacja "potwierdzone Rzad 2B" nie zamyka weryfikacji
+- 6.83 (2026-09-12g, rodzina TERMINY c.d.): **obsadzone terminy administracyjne i sadowoadministracyjne.** Wpis AUDYT-2026-09-12g. Punkt wyjscia: shared/terminy.md mial KPA 1 wiersz i PPSA 1 wiersz na 37 - czyli dwa rezimy NIE BADANE, nie "sprawdzone i wystarczy". Z odczytu tresci KPA (Dz.U. 2025 poz. 1691) i PPSA (Dz.U. 2026 poz. 143) dopisane 22 pozycje, w tym osobna tabela terminow ORGANU (art. 35 KPA) z art. 35 par. 5 - czego nie wlicza sie do terminu. ⛔ Ustalenie o najwiekszym ciezarze: uzasadnienie wyroku WSA ma DWA rezimy w jednym artykule - z urzedu przy uwzglednieniu skargi (art. 141 par. 1), tylko na wniosek w 7 dni przy oddaleniu (par. 2); przeoczenie zamyka droge do skargi kasacyjnej. Usterka w dr-05: mod-UDIP opisywal art. 52 par. 3 PPSA jako droge "gdy podmiot bez wyzszego organu" - przepis czyni wniosek o ponowne rozpatrzenie FAKULTATYWNYM zawsze, gdy przysluguje. Do rejestru W1 w T28 nie dopisano nic - usterka opisowa nie ma sygnatury nadajacej sie na wzorzec
+- 6.82 (2026-09-12f, O-12): **wdrozony test T28** (scripts/check_wartosci_prawne.py) - trzy bramki: W1 rejestr znanych blednych cytatow (FAIL, 10 pozycji), W2 procent utrwalony przy pojeciu odsetek (FAIL), W3 wiersz kwotowy bez podstawy (WARN). Offline, selftest 21/21, do orkiestratora. Pierwszy przebieg: 410 plikow, 31 trafien FAIL, z tego **8 REALNYCH NIENAPRAWIONYCH USTEREK**, ktorych trzy poprzednie sesje recznego przegladu nie znalazly (SPF-SPG x2, SPB+SKILL x3, dr-03 x3). Dwa bledy w samym tescie wykryte przed wydaniem: falszywy alarm na poprawnym art. 105 par. 1 KPW oraz W3 uznajacy slowo "rozporzadzenie" za podstawe. ODRZUCONY jawnie kandydat z 12e - generyczna regula "indeks gorny = FAIL" dawalaby falszywe alarmy na legalnych art. 205[1], 398[5], 477[9] KPC. Otwarta **MON-4**: monitoring wartosci w rytmie posiedzen RPP jako ROZSZERZENIE, nie zastapienie MON-3
+- 6.81 (2026-09-12e, O-11 ZAMKNIETA): **trzeci i ostatni pomiar rodziny wartosci — progi, odsetki, stawki ZUS i podatkowe.** Wpis AUDYT-2026-09-12e. Wynik inny niz w dwoch poprzednich rodzinach: korpus nie mial blednych wartosci, bo nie mial ich prawie wcale — LUKA, nie usterka. TABELE-OPLAT 1.7: sekcja 4 z 14 do ~190 linii (odsetki cywilne art. 359/481 KC, handlowe Dz.U. 2023 poz. 1790 z rekompensata 40/70/100 EUR i sztywna data odczytu stopy 1.01/1.07, odsetki za zwloke art. 56-56b OP na stopie LOMBARDOWEJ z podloga 8 %, art. 23 ust. 1 SUS WYLACZAJACY art. 56a dla ZUS, stopy skladek art. 22 SUS z widelkowa wypadkowa 0,40-8,12 %, skala PIT art. 27 ust. 1). ⛔ DOKTRYNA: wartosci zakotwiczone w stopach NBP zapisujemy jako formule, nigdy jako procent. Kontrola negatywna zrodel RZEDU 2/3 dala w jednej probce 4 rozne stopy referencyjne, 4 rozne stawki handlowe, wzor "+7 p.p." bez podstawy w ustawie i powolanie UCHYLONEGO rozporzadzenia RM Dz.U. 2014 poz. 1858. **O-11 ZAMKNIETA**, otwarta **O-12**: kontrola aktualnosci AKTU nie jest kontrolą aktualnosci WARTOSCI — trzy zmierzone mechanizmy omijaja KROK 2C; trzy kandydaci na testy regresyjne; MON-3 do rozszerzenia o rytm posiedzen RPP
+- 6.80 (2026-09-12d, O-11 rodzina TERMINY): **drugi pomiar rodziny wartosci — terminy procesowe.** Wpis AUDYT-2026-09-12d. CRIT-1: plik KANONICZNY shared/terminy.md powolywal UCHYLONY art. 503 par. 1 KPC; art. 500-504 KPC brzmia "(uchylony)", termin daje art. 480[2] par. 2 (2 tygodnie / miesiac / MIESIAC dla nakazowego / 3 miesiace). Propagacja w 6 plikach 3 skilli. CRIT-2: trzy bledne jednostki w rodzinie wykroczeniowej (wniosek o uzasadnienie to 7 dni z art. 35 par. 1 KPW, nie 3 dni z art. 105 par. 1). CRIT-3: "art. 328[1] KPC" po raz SZOSTY — jednostka nie istnieje, naprawiana juz trzykrotnie, znaleziona w MP12-terminy, SPF-SPG (w tresci WZORU PISMA) i MOD-SZABLONY. Skille: shared 3.46, analizator-dowodow-v3 5.16.8, pisma-proste-v2 2.15, pisma-procesowe-v3 5.24. Nowa klasa ryzyka: uchylenie bez zastapienia w tym samym miejscu — akt bazowy wyglada na aktualny, a przepisu w nim nie ma
+- 6.79 (2026-09-12c, O-11): **domkniecie rodzin oplat poza rdzeniem KSCU.** Wpis AUDYT-2026-09-12c. TABELE-OPLAT 1.6 (sekcje 6a-6e): wieczystoksiegowe i KIO, koszty komornicze Dz.U. 2024 poz. 377, oplata skarbowa Dz.U. 2025 poz. 1154, taksa notarialna Dz.U. 2024 poz. 1566, koszty procesu karnego KPK Dz.U. 2026 poz. 490. Skille: shared 3.45, pisma-proste-v2 2.14, pisma-procesowe-v3 5.23, analizator-dowodow-v3 5.16.7, dr-03 3.37, dr-12 4.16. ⛔ NOWA KLASA RYZYKA: zryczaltowana rownowartosc wydatkow z art. 621 par. 2 KPK wzrosla z 300 na 1000 zl od 1.07.2025, bo nowe rozporzadzenie (Dz.U. 2025 poz. 770) UCHYLILO poprzednie - akt bazowy i jego t.j. nietkniete, wiec KROK 2C tego nie widzi. Kandydat na rozszerzenie T27. Odnotowana luka: brak modulu oplaty skarbowej w dr-06
+- 6.78 (2026-09-12, O-11): **pomiar rodziny wartosci "oplaty sadowe" i naprawa czterech tabel satelickich.** Wpis AUDYT-2026-09-12. Naprawione skille: shared 3.44 (TABELE-OPLAT 1.5), pisma-proste-v2 2.13, pisma-procesowe-v3 5.22, analiza-sadowa-v6 6.7, analizator-dowodow-v3 5.16.6, dr-03 3.36. Kluczowe ustalenia: podstawa falszywa "art. 27 pkt 1-6 KSCU" dla progow WPS w 3 plikach; 6 kwot blednych; 3 normy nieistniejace (cap gospodarczy 20 000 zl, oplata pracownicza 5%/max 1000 zl, wpis WSA 200/500/1000/2000); CRIT terminowy - termin zaskarzenia nakazu podawany jako 7 i 14 dni z art. 493 par. 1 KPC, ktory terminu NIE ZAWIERA (jest art. 480[2] par. 2 KPC: miesiac dla nakazowego przy doreczeniu w UE). O-11 skrocona do tego, co zostalo; zalozony rejestr tabel satelickich
+- 6.77 (2026-09-10x, O-11): **powiązanie tabeli opłat z systemem — dotąd było za wąskie.**
+
+  ⛔ Na pytanie użytkownika o powiązania: `TABELE-OPLAT` w wersjach 1.0–1.3 znały
+  **tylko dwa moduły** — `MP10-koszty` (analizator-dowodow-v3) i
+  `czesc-04-alimenty` (dr-02) — plus wpis w rejestrze `shared`. Router o pliku
+  nie wiedział, więc w sprawie spoza tych dwóch ścieżek nikt by po niego nie
+  sięgnął.
+
+  **Wpięcia wykonane:**
+
+  | Gdzie | Co |
+  |---|---|
+  | `prawny-router-v3` | `required_modules` + warstwa odroczona `PROFIL-LEKKI` z wyzwalaczem **„zamierzasz podać kwotę"** |
+  | `prawny-router-v3/SELF-CHECK` | nowa pozycja **KWOTA-GATE** — kontrola na wyjściu |
+  | `dr-12/mod-KSCU-koszty-sadowe-i-pomoc-prawna` | kanoniczny moduł KSCU — KROK 0, katalog zwolnień, pułapka art. 13 ust. 2 |
+  | `pisma-proste-v2` | „Zasada 3 — opłata sądowa zawsze" poprzedzona KROKIEM 0 |
+  | `pisma-procesowe-v3/MOD-SZABLONY` | pole „Opłata sądowa" w szablonie pisma |
+  | `analiza-sadowa-v6/koszty-terminy` | sekcja kosztowa — kwoty oznaczone jako orientacyjne |
+
+  **KWOTA-GATE — trzy pytania przy każdej podawanej kwocie**, wszystkie muszą
+  mieć odpowiedź TAK: (1) czy strona nie jest zwolniona (art. 94–103 KSCU),
+  (2) czy kwota pochodzi z tabeli ustanawiającej, (3) czy sprawdzono **przypisy**
+  przy jednostce redakcyjnej.
+
+  ⛔ Punkt 3 jest bezpośrednim skutkiem ustalenia z 10t: art. 13 ust. 2 KSCU
+  niesie dwa brzmienia obok siebie, rozróżnione wyłącznie odnośnikami.
+
+  ⚠️ **Wzorzec wart nazwania:** nowy zasób w `shared` nie jest częścią systemu,
+  dopóki nie ma wyzwalacza w routerze i kontroli w SELF-CHECK. Rejestracja
+  w tabeli zasobów `shared` **czyni go widocznym, nie używanym**. Ta sama uwaga
+  dotyczy każdego przyszłego modułu kanonicznego.
+
+- 6.76 (2026-09-10w, O-11): **pełny katalog zwolnień — luka wykryta przez pytanie.**
+
+  ⛔ Użytkownik zapytał, czy wskazane są wszystkie sytuacje zwolnienia od opłat.
+  **Nie były.** `TABELE-OPLAT` w wersjach 1.0–1.2 wymieniały wyłącznie
+  art. 96 ust. 1 **pkt 2** (alimenty) — plik **odziedziczył zakres pracy, przy
+  której powstał**, i wyglądał na kompletny.
+
+  ⚠️ To ta sama klasa co „niedomknięcie" z 10g: zapis nie był błędny, był
+  **niepełny w sposób niewidoczny**. Różnica wobec 10g jest istotna: tam
+  niedomknięcie wykrył test, tu — pytanie człowieka. ⛔ Żaden test nie sprawdza,
+  czy katalog jest kompletny, bo kompletność nie ma odniesienia w metadanych.
+
+  Dopisany katalog z odczytu treści KSCU (`Dz.U. 2025 poz. 1228`), trzy warstwy:
+
+  **A. Podmiotowe (art. 96 ust. 1) — 18 kategorii.** Poza alimentami m.in.
+  ustalenie ojcostwa i macierzyństwa, klauzule niedozwolone, **pracownik**
+  i odwołanie do sądu pracy, kurator, prokurator i pięcioro rzeczników,
+  inspektor pracy i związki zawodowe, ochrona zdrowia psychicznego,
+  ubezwłasnowolniony, szkody górnicze, kompensata dla ofiar czynów zabronionych,
+  ochrona roszczeń pracowniczych, **osoba doznająca przemocy domowej**, renta
+  z art. 444 § 2 i 446 § 2 KC.
+
+  **B. Przedmiotowe (art. 95).** ⛔ Praktycznie najważniejsze: **zażalenia
+  i skargi dotyczące samych kosztów** nie podlegają opłacie — zaskarżenie
+  decyzji o kosztach samo nie kosztuje. Ponadto zażalenie na policyjny nakaz
+  opuszczenia mieszkania w sprawach przemocy domowej, pisma nieletniego,
+  wniosek o doręczenie uzasadnienia.
+
+  **C. Na wniosek (art. 100–103).** ⛔ Art. 102 ust. 4: wniosek strony
+  z pełnomocnikiem, bez oświadczenia majątkowego, przewodniczący **zwraca BEZ
+  WEZWANIA**. Dla strony samodzielnej — art. 130 KPC. Termin rozpoznania 7 dni.
+
+  ⚠️ Wpisane wprost: **zwolnienie od kosztów sądowych ≠ zwolnienie od kosztów
+  przeciwnika.** Oraz art. 96 ust. 4 — przy oczywiście bezzasadnym powództwie
+  o ustalenie ojcostwa sąd może obciążyć powoda; zwolnienie z pkt 1 nie jest
+  bezwarunkowe.
+
+  Do reguły kolejności dopisany **KROK 0: czy strona w ogóle płaci** — przed
+  sięgnięciem po jakąkolwiek tabelę. `MP10-koszty` spięty z katalogiem.
+
+- 6.75 (2026-09-10v, O-11): **taksy z odczytu treści — stawka alimentacyjna
+  nie zależy od WPS.**
+
+  Odczyt treści obu rozporządzeń (`Dz.U. 2026 poz. 215` adwokackie,
+  `Dz.U. 2026 poz. 118` radcowskie). W zbadanym zakresie **tabele są identyczne**.
+
+  **§ 2 — stawki od WPS:** 90 / 270 / 900 / 1 800 / 3 600 / 5 400 / 10 800 /
+  15 000 / **25 000 zł**.
+
+  ⚠️ **§ 3 — postępowania upominawcze, elektroniczne upominawcze, nakazowe
+  i europejskie nakazowe mają WŁASNĄ, NIŻSZĄ tabelę** (60/180/600…). Osobny,
+  łatwy do przeoczenia przepis.
+
+  ⛔ **§ 4 — sprawy rodzinne: stawka NIE zależy od WPS.** Alimenty **240 zł**,
+  rozwód i unieważnienie 720 zł, rozdzielność majątkowa 720 zł, ojcostwo
+  i rozwiązanie przysposobienia 480 zł, istotne sprawy rodziny 480 zł, podział
+  majątku — stawka z §2 od wartości udziału (50% przy zgodnym wniosku).
+
+  **Najczęstszy błąd w tej materii:** policzenie stawki alimentacyjnej z tabeli
+  WPS. Przy rocznej sumie świadczeń 4 800 zł tabela §2 daje 900 zł, a przepis
+  szczególny — **240 zł**. Zawyżenie blisko czterokrotne, w obie strony:
+  zawyża ryzyko kosztowe powoda i zawyża to, czego może się domagać.
+
+  ⚠️ Sprawdzony celowo przypis przy pozycji alimentacyjnej: brzmienie z 23.12.2024
+  jest obowiązujące, bez wariantu przyszłego. ⛔ To ta sama konstrukcja
+  redakcyjna, która przy art. 13 ust. 2 KSCU kryła brzmienie wygasłe obok
+  obowiązującego — **sprawdzanie przypisów przestało być opcjonalne**.
+
+  `dr-02/kro-rodzinne/czesc-04-alimenty` spięty z tabelami.
+
+- 6.74 (2026-09-10u, O-11): **alimenty — od przepisu, nie od intuicji.**
+
+  Dokończenie wątku z 10t zgodnie z regułą kolejności. Zdjęty znacznik
+  `[DO WERYFIKACJI]` przy WPS: **art. 22 KPC** (t.j. `Dz.U. 2026 poz. 468`,
+  odczyt treści) — „wartość przedmiotu sporu stanowi suma świadczeń za jeden
+  rok, a jeżeli świadczenia trwają krócej niż rok – za cały czas ich trwania".
+  Dodany art. 21 KPC (zliczanie roszczeń).
+
+  **Art. 135 KRO** (t.j. `Dz.U. 2026 poz. 236`, odczyt treści) — trzy ustalenia,
+  z których każde zmienia wyliczenie:
+
+  - **§ 1 — dwie przesłanki, nie jedna.** Zakres zależy od usprawiedliwionych
+    potrzeb uprawnionego **oraz** od zarobkowych i majątkowych możliwości
+    zobowiązanego. ⚠️ „Możliwości zarobkowe" ≠ „dochód faktyczny" — przepis
+    obejmuje zdolność zarobkowania niewykorzystywaną.
+  - **§ 2 — osobiste starania są FORMĄ WYKONANIA obowiązku**, nie okolicznością
+    łagodzącą. Rodzic sprawujący bieżącą pieczę wykonuje obowiązek w naturze,
+    co przesuwa ciężar finansowy na drugiego zobowiązanego. Pominięcie § 2
+    zaniża żądanie.
+  - **§ 3 — świadczeń z pomocy społecznej i funduszu alimentacyjnego NIE
+    ODLICZA SIĘ.** Argument „dziecko dostaje świadczenia, więc alimenty mogą być
+    niższe" jest **wprost sprzeczny z przepisem**, a jest to jeden
+    z najczęstszych argumentów strony zobowiązanej.
+
+  Tabela przesłanek (art. 128, 129 §1–2, 130, 133 §1–3, 138, 140 §2) przepisana
+  z treści. ⛔ Odnotowane: **art. 133 § 1 nie zna granicy wieku** — kryterium to
+  zdolność do samodzielnego utrzymania, a uchylenie się wobec dziecka
+  pełnoletniego wymaga wykazania przesłanki z § 3, nie następuje z mocy prawa.
+
+  Moduł `dr-02/kro-rodzinne/czesc-04-alimenty` wyrównany do tego samego stanu;
+  dopisane zwolnienie z art. 96 ust. 1 pkt 2 KSCU i WPS z art. 22 KPC.
+
+  ⚠️ Ostrożność zapisana wprost: reguła „przy podwyższeniu WPS liczy się od
+  różnicy" **nie wynika wprost z art. 22** i przy sprawie granicznej wymaga
+  orzecznictwa — oznaczona jako niepewna, nie jako pewnik.
+
+- 6.73 (2026-09-10t, O-11): **TABELE-OPLAT — kolejność sięgania po kwoty; cap
+  opłaty stosunkowej jest inny, niż wszyscy powtarzają.**
+
+  Na polecenie użytkownika: przy obliczeniach (alimenty, opłaty, koszty)
+  najpierw tabele ustanawiające opłaty, dopiero potem bazy katalogujące ich
+  rodzaj. Reguła zapisana jako `shared/TABELE-OPLAT.md`, a
+  `analizator-dowodow-v3/modules/MP10-koszty.md` oznaczony jako **warstwa
+  druga**: rozpoznaje rodzaj opłaty i to, za co jest pobierana — **nie jest
+  źródłem liczby**.
+
+  ⛔ **Ustalenie z odczytu treści KSCU (`Dz.U. 2025 poz. 1228`, `/text.pdf`):**
+  tekst jednolity niesie **dwa brzmienia art. 13 ust. 2** obok siebie,
+  rozróżnione **wyłącznie odnośnikami**. Odnośnik 2) — cap 200 000 zł,
+  „obowiązuje do wejścia w życie zmiany z odnośnika 3". Odnośnik 3) — cap
+  **100 000 zł**, ustawa z 25.07.2025 (`Dz.U. 2025 poz. 1157`), **w życie
+  23.09.2025**.
+
+  Na dziś obowiązuje **100 000 zł**. Kwota 200 000 zł jest nieaktualna od
+  września 2025 — a jest to jedna z najczęściej cytowanych liczb w postępowaniu
+  cywilnym. Kto czyta tekst jednolity bez przypisów, przepisze brzmienie wygasłe.
+
+  ⚠️ Klasa lustrzana wobec O-10: tam norma jeszcze nie obowiązywała, tu
+  w jednym dokumencie stoją obok siebie brzmienie wygasłe i obowiązujące.
+  ⛔ Żaden test tego nie złapie — `status` aktu jest zdrowy, numer poprawny,
+  a różnica siedzi w przypisie do jednostki redakcyjnej.
+
+  **Alimenty:** art. 96 ust. 1 pkt 2 KSCU (odczyt treści) — zwolnienie strony
+  dochodzącej roszczeń alimentacyjnych **oraz pozwanej w sprawie o obniżenie
+  alimentów**. Wpisane jako **pierwsze pytanie**, przed liczeniem opłaty:
+  podanie kwoty stronie zwolnionej z mocy ustawy zniechęca do wniesienia pisma,
+  które nic nie kosztuje.
+
+  ⚠️ WPS w alimentach oznaczony jako **[DO WERYFIKACJI — art. 22 KPC]**, nie
+  przepisany z pamięci. Taksy `2026/215` i `2026/118` potwierdzone jako
+  najnowsze, zero nowelizacji po tekście jednolitym.
+
+  Mapa centralna: +`2025/1157` z adnotacją o obniżeniu capu.
+
+- 6.72 (2026-09-10s, F-135): **pierwszy błąd wartości liczbowej.**
+
+  `shared/orka-bas-leksykon/czesc-05` podawał minimalne wynagrodzenie 2026 jako
+  **„~4 750 zł"**. Odczyt **treści** rozporządzenia RM (`Dz.U. 2025 poz. 1242`,
+  kanał `/text.pdf`): „§ 1. Od dnia 1 stycznia 2026 r. ustala się minimalne
+  wynagrodzenie za pracę w wysokości **4806 zł**"; §2 — stawka godzinowa
+  **31,40 zł**.
+
+  ⚠️ Kwota „w przybliżeniu" jest w rejestrze prawnym tym samym co kwota błędna:
+  służyła do przeliczenia krotności progu 200 000 zł, więc przybliżenie
+  propagowało się na wynik.
+
+  ⛔ **Nowa klasa — O-11.** To pierwszy w tej serii błąd **wartości**, nie
+  numeru. Cały dotychczasowy aparat (T3, T11, T15, T24, T27) pyta o **akty**:
+  czy numer istnieje, czy opisuje ten akt, czy akt żyje, czy już obowiązuje.
+  **Żaden nie pyta, czy liczba w zdaniu odpowiada treści przepisu.**
+  Weryfikacja wymaga odczytu tekstu aktu — czynności, której żaden test nie
+  wykonuje i której zautomatyzowanie jest zadaniem innego rzędu.
+
+  Przy okazji: weryfikacja minimalnego wynagrodzenia w `dr-04` opierała się
+  dotąd na **wyszukiwaniu**; podniesiona do odczytu treści, z dopisaniem
+  podstawy prawnej przy każdej kwocie i ostrzeżeniem o cezurze rocznej.
+  Akt bazowy ustawy o minimalnym wynagrodzeniu (`Dz.U. 2024 poz. 1773`)
+  potwierdzony **w podstawie prawnej samego rozporządzenia** — najmocniejszy
+  możliwy dowód dla tego numeru.
+
+- 6.71 (2026-09-10r, O-10 ZAMKNIĘTA): **T27 pyta też o normy przedwczesne.**
+
+  Rozszerzenie o pole `entryIntoForce`: numer podany jako aktualna podstawa,
+  którego data wejścia w życie jest w przyszłości. Dane były w tym samym
+  odczycie, więc koszt zerowy — brakowało tylko pytania.
+
+  **Pierwszy przebieg: 16 trafień. Po przeczytaniu kontekstu: 4 realne.**
+  Reszta to linie, które same podawały cezurę („w życie 1.10.2026") albo
+  wymieniały numer w wyliczeniu zmian, nie jako podstawę. ⛔ Trzeci raz w tej
+  serii heurystyka zawyżyła wynik przed przeczytaniem kontekstu — dlatego
+  test dostał dwie osobne kategorie (`W VACATIO LEGIS` jako podstawa vs
+  `W WYLICZENIU ZMIAN, BEZ CEZURY`), a nie jedną listę błędów.
+
+  ⛔ **Własny błąd testu wykryty przy tej okazji.** T27 dopasowywał cezurę do
+  **wycinka 150 znaków**, a w wierszach map cezura stoi zwykle dalej — więc
+  zgłaszał jako brak coś, co w pliku było. Poprawione: dopasowanie do pełnej
+  linii, skracanie dopiero przy wyświetlaniu. To ta sama klasa co F-179:
+  narzędzie mierzyło co innego, niż deklarowało.
+
+  **Naprawione w korpusie:** 19 cezur czasowych dopisanych do aktów w vacatio
+  legis (`2026/846` w życie 1.10.2026, `2026/507` — 14.10.2026, `2026/346` —
+  30.09.2028, `2026/176` — 18.02.2027). Ponadto ostatni martwy numer wykryty
+  przez T27: ustawa o zwolnieniach grupowych `2025/570` → **`2026/1195`**
+  w 5 miejscach.
+
+  **Korpus: T27 `✅ PASS` w obu klasach** — zero martwych i zero przedwczesnych
+  numerów w pozycji aktualnej podstawy.
+
+- 6.70 (2026-09-10q, F-135): **pierwsze ustalenie z części merytorycznej —
+  przepis w vacatio legis opisany jako obowiązujący.**
+
+  `shared/definicje/DEF-PRACA.md` i `dr-04/modules/mod-KP-mobbing-dyskryminacja.md`
+  opisywały nowe brzmienie art. 94³ KP jako stan „PO REFORMIE (od 30.07.2026)".
+  ⛔ 30.07.2026 to **data podpisu Prezydenta**. Odczyt RZĄD 1
+  (`api.sejm.gov.pl/eli/acts/DU/2026/1046`): ogłoszenie **4.08.2026**, wejście
+  w życie **5.11.2026**.
+
+  ⛔ **Błąd zakresu czasowego normy w zasobie kanonicznym `shared`** — klasa,
+  której pilnuje OŚ-GATE. Sprawa o mobbing z sierpnia albo września 2026
+  dostawała przepis, który jeszcze nie obowiązuje: bez wymogu rozstroju zdrowia
+  i z minimalnym zadośćuczynieniem, których w tej dacie nie ma. To nie jest
+  nieaktualność — to zastosowanie nieobowiązującej normy.
+
+  ⚠️ **Rozróżnienie zapisane po raz pierwszy:** „status: obowiązujący" w ELI
+  znaczy tylko, że **akt nie został uchylony**. O stosowaniu rozstrzyga osobne
+  pole `entryIntoForce`. Cała ta seria czytała `status` jako wyznacznik
+  aktualności — dla aktów w vacatio legis to odczyt mylący.
+
+  ⚠️ Kwota minimalnego zadośćuczynienia sprowadzona do **mnożnika ustawowego**
+  (6 × minimalne wynagrodzenie); poprzedni zapis podawał 28 836 zł jako liczbę
+  do przepisania do pisma, bez zastrzeżenia, że zależy ona od minimalnego
+  wynagrodzenia w dacie orzekania.
+
+  ✅ Zamknięte przy okazji TODO z 2026-07-30: moduł dr-04 twierdził, że jego
+  tabela „opisuje stan sprzed reformy", podczas gdy wiersze były już
+  zaktualizowane — moduł przeczył sam sobie (klasa z 10h).
+
+  Mapy: wiersz `2026/1046` w mapie centralnej i wiersz KP art. 94³
+  w `ROUTING-MAP.md` opatrzone cezurą czasową.
+
+- 6.69 (2026-09-10p, O-9 i F-181 ZAMKNIĘTE): **test T27 — proza przestaje żyć
+  obok aparatu.**
+
+  `scripts/check_status_podstaw.py`. Pytanie: czy numer Dz.U. podany **w prozie**
+  jako aktualna podstawa prawna nadal opisuje akt obowiązujący.
+
+  ⛔ **Test zamyka lukę, którą cztery ostatnie sesje udokumentowały pomiarowo:**
+  numer w wierszu mapy pilnują cztery testy, ten sam numer w zdaniu „aktualne
+  t.j.: …" — żaden. T3 pyta o zgodność między mapami, T11 o obecność, T15
+  o tożsamość dla zadeklarowanych t.j., T24 o nowelizacje po t.j.
+
+  **Projekt czułości oparty na empirii tej serii, nie na założeniu:**
+  - odsiewa konteksty historyczne w **oknie ±2 wierszy**, nie w jednej linii —
+    bo adnotacja korygująca rozkłada się na 2–3 linie, przez co pierwsza wersja
+    testu zapalała się na **własnych naprawach** systemu;
+  - odsiewa linie, w których obok wygasłego stoi numer nowszy;
+  - pomija dziennik, changelogi, rejestry flag, generacje map i raporty
+    z pomiarów — tam wygasłe numery są treścią, nie podstawą.
+
+  ⛔ **Raportuje `⚠️ DO PRZEGLĄDU`, nie `FAIL`, i kończy kodem 0.** Powód wpisany
+  do docstringu: heurystyka tego badania **dwukrotnie zawyżyła wynik** (29→13 przy
+  nagłówkach). Traktowanie listy jako błędów powielałoby fałszywe alarmy.
+  `--strict` daje kod 1 — do użycia tylko tam, gdzie ktoś listę przejrzy.
+
+  Docstring zawiera cztery ostrzeżenia wyprowadzone z pomiarów: wygasły numer
+  nie jest sam w sobie błędem; heurystyka zawyżała; „aktualny t.j." bywa sam
+  uchylony (dochody JST); porównanie tytułów przy naprawie jest obowiązkowe
+  (siedem podmian aktu w tej serii).
+
+  Wymaga sieci → wpisany do `references/SKRYPTY-RECZNE.md`, nie do orkiestratora
+  (ta sama zasada co przy O-5). Tryb `--offline` z cache pozwala powtórzyć
+  przebieg bez API.
+
+  **Weryfikacja:** korpus po naprawach 10n/10o — `✅ PASS`, 313 numerów w 1236
+  miejscach, 791 odsianych jako historyczne. Mutacja negatywna (wstrzyknięty
+  wygasły `2024/44` jako podstawa) — wykryta.
+
+  **F-181 zamknięta**: 61/61 miejsc naprawionych **i** automat, który pilnuje,
+  żeby nie wróciły. Sama naprawa nie wystarczała do zamknięcia — to było
+  zapisane w 10o.
+
 - 6.68 (2026-09-10o, F-181): **lista 1.2 domknięta — 61/61 miejsc.**
 
   Pozostałe 20 miejsc w 12 skillach przestawionych na aktualne teksty jednolite.
@@ -1150,7 +1495,7 @@
   pliku. Pierwszy przebieg znalazł go w **14 skillach** (m.in. dr-06 z 3.72, dr-02
   i dr-10 z 3.35, prawny-router-v3 z 3.21). Naprawiony wzorcowo w `shared` i tutaj,
   z komentarzem ostrzegawczym przy polu; pozostałe 13 → F-102.
-- **F-102 OTWARTA** — wynik pierwszego przebiegu na `../..`: 26 rozbieżności
+- **F-102 OTWARTA** — wynik pierwszego przebiegu na `.`: 26 rozbieżności
   w 24 skillach (5 ⛔ czynnych, 21 ⚠️ utajonych). Najpoważniejsza: `pisma-procesowe-v3`,
   `version: 5.17` przy changelogu na 5.10 — **siedem wersji bez opisu**, luka większa
   niż ta, która uruchomiła całą sprawę.
@@ -1321,7 +1666,7 @@
 
 **5.3 (2026-07-10) — ZASADA 11: rozszerzenie zakresu audytu na wszystkie skille prawne (stała zasada, nie precedens):**
 - **ZASADA 11 dodana** (sekcja "Cel"): zakres audytu obejmuje odtąd
-  wszystkie skille prawne w `../../`, nie tylko mapę Dz.U. i
+  wszystkie skille prawne w `./`, nie tylko mapę Dz.U. i
   DR-01...DR-16. Obejmuje skille proceduralne (pisma-procesowe-v3,
   przesluchanie-swiadkow-v2-min90, analizator-dowodow-v3,
   chronologia-sprawy-v1 i inne), gdzie przedmiotem audytu jest domyślne

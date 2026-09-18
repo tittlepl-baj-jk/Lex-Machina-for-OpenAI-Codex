@@ -3,13 +3,12 @@ name: "prawo-polskie-v2"
 description: "Fasada routingu prawa polskiego: wybiera jeden z DR-01–DR-16 i przekazuje sprawę do właściwego skilla dziedzinowego; nie zawiera treści prawa materialnego."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-11"
+  source-tree: "development-2026-09-18"
   source-directory: "prawo-polskie-v2"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
-
+> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -17,7 +16,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie sposób wykonania operacji technicznych. Routing DR-01–DR-16 i decyzja o nieduplikowaniu treści prawnej pozostają bez zmian.
 
-1. `view prawo-polskie-v2/ROUTING-MAP.md` oznacza świeży odczyt lokalnego `ROUTING-MAP.md` tego skilla. Literalna ścieżka `..` nie jest wymagana.
+1. `view prawo-polskie-v2/ROUTING-MAP.md` oznacza świeży odczyt lokalnego `ROUTING-MAP.md` tego skilla. Literalna ścieżka `.` nie jest wymagana.
 2. `view <skill>/...` oznacza aktywację/odczyt wskazanego osobnego skilla przez mechanizm bieżącego hosta. Nie kopiuj DR-skilli ani `shared` do tej paczki.
 3. `view shared/<plik>` oznacza świeży odczyt z kanonicznego skilla `shared`; brak obowiązkowego zasobu = fail-closed, nie substytucja pamięcią modelu.
 4. `web_search` / `web_fetch` oznaczają świeżą weryfikację online przez dostępne narzędzie hosta. Dla `ROUTING-MAP.md` zachowaj istniejący reżim weryfikacji numerów Dz.U. i statusów.

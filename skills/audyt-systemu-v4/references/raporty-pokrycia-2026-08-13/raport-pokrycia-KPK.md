@@ -1,6 +1,6 @@
 # Audyt pokrycia KPK w systemie skilli — mapa rozdziałowa
 **Data audytu:** 13.08.2026
-**Zakres:** wszystkie skille w `../../..` (148 plików zawierających odwołania do KPK)
+**Zakres:** wszystkie skille w `.` (148 plików zawierających odwołania do KPK)
 **Akt odniesienia:** ustawa z 6.06.1997 — Kodeks postępowania karnego, **Dz.U. 2026 poz. 490 t.j.** (obwieszczenie MS z 27.03.2026, stan prawny na 16.03.2026), ze zm. **Dz.U. 2026 poz. 421** i **Dz.U. 2026 poz. 638**
 **Metoda:** ekstrakcja wszystkich odwołań w postaci `art. N […] KPK / k.p.k.` ze wszystkich plików `.md/.html/.txt` systemu, mapowanie numerów artykułów na rozdziały wg struktury KPK zweryfikowanej online (stan 13.08.2026), następnie ocena jakościowa treści modułu źródłowego.
 ## Legenda
