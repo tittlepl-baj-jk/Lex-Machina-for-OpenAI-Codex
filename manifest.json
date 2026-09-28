@@ -1284,16 +1284,6 @@
       "size": 39302
     },
     {
-      "path": "skills/audyt-systemu-v4/scripts/__pycache__/check_wersje_changelog.cpython-312.pyc",
-      "sha256": "3C2B2E9DA011B35A151F907718416629F20BD82E75A375AC0A81AC71830F454C",
-      "size": 25973
-    },
-    {
-      "path": "skills/audyt-systemu-v4/scripts/__pycache__/sync_dzu_eli.cpython-312.pyc",
-      "sha256": "FB73091D6EDD471A8C72DD5F61A711B915D42FF4BE156AD2B7D70FADC9E51332",
-      "size": 6216
-    },
-    {
       "path": "skills/audyt-systemu-v4/scripts/audit_amendment_scope.py",
       "sha256": "D0F6F0559B46C41958494A7A1327C9C15B6A54F0F33B8D80FD9B5B0A9E3FC580",
       "size": 5112

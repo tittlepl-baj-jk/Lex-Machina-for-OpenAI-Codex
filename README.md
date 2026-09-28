@@ -29,7 +29,7 @@ projekcie Codex; nie instaluje się go w Claude.ai.
   z uniwersalnej wersji rozwojowej Michała Wiatraka;
 - statyczna walidacja portu: 32/32 `PASS`;
 - publikacyjny walidator oraz lokalny mock-ELI: `PASS`;
-- wydanie portu: `v0.7.0-codex`;
+- wydanie portu: `v0.7.1-codex`;
 - router prawny: `3.58`; API ELI jest źródłem pierwszego rzędu, a ISAP
   pozostaje adresem publikacji dla człowieka;
 - analiza przepisu obejmuje wyjątki, przepisy szczególne i przejściowe,

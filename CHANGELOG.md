@@ -9,6 +9,17 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 Brak zmian.
 
+## [0.7.1] - 2026-09-28
+
+### Codex port
+
+- przebudowano pakiet z tego samego commitu upstream `b9e10f8`, wykluczając
+  wyłącznie generowane katalogi `__pycache__` i pliki `*.pyc` z drzewa oraz
+  manifestu;
+- wydanie `0.7.0` nie było instalowalne, ponieważ manifest zawierał dwa
+  ignorowane przez Git pliki cache; `0.7.1` przywraca zgodność manifestu z
+  opublikowanym drzewem i przechodzi walidator publikacyjny.
+
 ## [0.7.0] - 2026-09-28
 
 ### Upstream
