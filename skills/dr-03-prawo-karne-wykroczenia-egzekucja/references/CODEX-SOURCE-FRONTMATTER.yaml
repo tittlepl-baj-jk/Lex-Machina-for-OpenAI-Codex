@@ -1,3 +1,7 @@
 name: dr-03-prawo-karne-wykroczenia-egzekucja
-version: "3.45"
+version: "3.47"
 description: "Prawo karne, wykroczenia i egzekucja: KK, KPK, KKW, KW, KPW, KKS, kwalifikacja karnomaterialna, tryby ścigania i wykonanie orzeczeń."
+dependencies:
+  requires:
+    - shared
+  # 2026-09-27e: jawna zależność (każdy skill systemu korzysta z `shared`); pole czytane przy imporcie z marketplace

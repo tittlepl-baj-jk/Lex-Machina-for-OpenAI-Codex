@@ -19,7 +19,7 @@ interpretacją tych samych lub innych faktów, z własną logiką faz.
 
 **Reguła walidacji twierdzeń (CLAIM-VALIDATION):** przed zbudowaniem łańcuchów
 przyczynowych i narracji wykonaj weryfikację twierdzeń strony zgodnie z
-`view ./shared/CLAIM-VALIDATION.md`.
+`view ../../shared/CLAIM-VALIDATION.md`.
 Twierdzenie strony sprzeczne z faktami z M1 → oznacz `[⛔ SPRZECZNE]` i zastąp
 tym co wynika z materiału; nie buduj na nim łańcucha.
 Twierdzenie bez oparcia w M1 → oznacz `[⛔ NIEUDOWODNIONE]`; oznaczaj w narracji
@@ -290,7 +290,7 @@ Kolizje między narracją przeciwnika a dowodami w aktach:
 
 Jak obalić narrację przeciwnika:
   Argumentem faktycznym:
-  Argumentem prawnym (przepis do weryfikacji w ISAP):
+  Argumentem prawnym (przepis do weryfikacji w ELI (RZĄD 1)):
   Pytaniami na rozprawie:
   Wnioskiem dowodowym:
 ```
@@ -326,7 +326,7 @@ Strategie neutralizacji:
       Jak sformułować:
 
   [D] Obezwładnienie — wykazanie, że fakt jest prawnie irrelewantny:
-      Uzasadnienie prawne (przepis do weryfikacji w ISAP):
+      Uzasadnienie prawne (przepis do weryfikacji w ELI (RZĄD 1)):
 
   [E] Przyjęcie i odwrócenie — przyznanie faktu i wykazanie,
       że wzmacnia on własną pozycję:

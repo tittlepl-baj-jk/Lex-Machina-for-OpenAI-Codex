@@ -3,12 +3,13 @@ name: "dr-11-cyfrowe-cyber-ai-dane-ip"
 description: "Prawo cyfrowe, cyber, AI, dane i IP: RODO, KSC/NIS2, AI Act, usługi cyfrowe, prywatność, cyberbezpieczeństwo, prawo autorskie i własność intelektualna."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-18"
+  source-tree: "development-2026-09-27"
   source-directory: "dr-11-cyfrowe-cyber-ai-dane-ip"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
+> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -16,7 +17,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
 
-1. `view dr-11-cyfrowe-cyber-ai-dane-ip/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
+1. `view dr-11-cyfrowe-cyber-ai-dane-ip/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
 4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
@@ -31,7 +32,7 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 ## ⛔ HARD GATE — ZAKAZ CYTOWANIA Z PAMIĘCI
 
 **PRZED każdym powołaniem przepisu, etapu stosowania, sygnatury lub stawki kary:**
-1. Zweryfikuj brzmienie i Dz.U. w `isap.sejm.gov.pl` (akty krajowe)
+1. Zweryfikuj brzmienie i Dz.U. w `ELI (RZĄD 1)` (akty krajowe)
 2. Zweryfikuj rozporządzenia i dyrektywy UE w `eur-lex.europa.eu`
 3. **NIGDY** nie podawaj artykułu, daty wejścia w życie, etapu stosowania ani sygnatury wyłącznie z pamięci modelu.
 
@@ -62,8 +63,8 @@ Kluczowe daty na 2026-06-05:
 > zmianie brzmienia).
 >
 > ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
-> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
-> oznaczenia, tylko je wymusza.
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ELI (oba kanały) nie zwalnia z
+> oznaczenia, tylko je wymusza; niedostępność ISAP to stan normalny.
 
 ---
 
@@ -202,7 +203,7 @@ view dr-11-cyfrowe-cyber-ai-dane-ip/MAPA-AKTOW.md
 - Zamówienia publiczne IT → `dr-07`
 - AI Act / DSA / DMA — decyzja krajowa zaskarżona na podstawie Karty Praw Podstawowych UE (art. 47) lub EKPC → `dr-14` (mod-KPP-karta-praw-podstawowych-UE, mod-EKPC-ETPC-prawa-czlowieka); ten skill zachowuje analizę merytoryczną AI Act/DSA/DMA, DR-14 dostarcza podstawę praw podstawowych dla skargi
 - Wychodzi do: `pisma-procesowe-v3` / `analiza-sadowa-v6` / `orzeczenia-sadowe-v2`
-- Weryfikacja: isap.sejm.gov.pl | eur-lex.europa.eu | uodo.gov.pl | uprp.gov.pl | enisa.europa.eu
+- Weryfikacja: ELI (RZĄD 1) | eur-lex.europa.eu | uodo.gov.pl | uprp.gov.pl | enisa.europa.eu
 
 ## ⚖️ DISCLAIMER (obowiązkowy)
 

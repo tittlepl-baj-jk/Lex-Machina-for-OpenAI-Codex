@@ -136,5 +136,5 @@ Złożenie wniosku o ściganie jednego sprawcy **rozciąga się** na inne osoby,
 
 ---
 
-*Weryfikacja online: 21.05.2026 (pełna re-weryfikacja) | KK Dz.U. 2025 poz. 383 t.j. | KPK — weryfikuj w isap.sejm.gov.pl przed każdym powołaniem*
-*Plik: ./prawny-router-v3/references/tryby-scigania.md*
+*Weryfikacja online: 21.05.2026 (pełna re-weryfikacja) | KK Dz.U. 2025 poz. 383 t.j. | KPK — weryfikuj w ELI (RZĄD 1) przed każdym powołaniem*
+*Plik: ../../../prawny-router-v3/references/tryby-scigania.md*

@@ -1,7 +1,7 @@
 # MOD-IDENTYFIKACJA-STRONY-UMOWY — Ustalenie strony czynności prawnej metodą danych większościowych
 
 > **Plik:** `shared/MOD-IDENTYFIKACJA-STRONY-UMOWY.md`
-> **Wersja:** 1.1.0 (2026-06-27)
+> **Wersja:** 1.2.0 (2026-09-26, F-204: dodano ISU-1b — weryfikacja rejestrowa przez `shared/tools/adapter_krs_vat.py`)
 > **Status:** PRODUKCJA
 > **Typ:** moduł shared — wywoływany przez wiele skilli
 > **Pozycja w pipeline:**
@@ -307,6 +307,43 @@ Dla każdego badanego dokumentu utwórz kartę:
   └─────┴─────────────────────┴──────────────────────────┴───────────────┘
 ```
 
+### ISU-1b — WERYFIKACJA REJESTROWA (opcjonalna, gdy dostępny kanał kodu) — F-204
+
+Gdy dokument podaje NIP i/lub numer KRS jednej ze stron, i sesja ma dostęp
+do kanału kodu (shell/skrypt, nie tylko `view`), potwierdź E01/E02/E03/E05
+przez `shared/tools/adapter_krs_vat.py` PRZED liczeniem wag w ISU-2 — nie
+zamiast dokumentu, tylko jako dodatkowy, niezależny od dokumentu sygnał:
+
+```
+python3 shared/tools/adapter_krs_vat.py krs {numer_KRS}
+python3 shared/tools/adapter_krs_vat.py wl {NIP} --data {data_dokumentu_lub_transakcji}
+```
+
+- **FOUND, zgodne z dokumentem** → dodaj do karty ISU-1 wiersz `E09 |
+  Rejestr (KRS/WL) | zgodny | A/B` i podnieś pewność elementów E01-E03 dla
+  wskazanego podmiotu — nie zmienia to progu 60% z ISU-2, tylko wzmacnia
+  ocenę, którego elementu dotyczy REGUŁA-BŁĄD-PISARSKI (ISU-3).
+- **FOUND, NIEZGODNE z dokumentem** (np. NIP z dokumentu istnieje w
+  rejestrze, ale pod inną nazwą niż ta z dokumentu) → osobny, mocny sygnał
+  do ISU-4 — nie automatyczne rozstrzygnięcie, bo rozbieżność może wynikać
+  z daty (rejestr pokazuje stan bieżący, dokument — stan z dnia transakcji).
+- **NOT_FOUND** → element z dokumentu nie odpowiada żadnemu wpisowi w
+  rejestrze na dany dzień; potraktuj jak element wskazujący na BRAK, nie
+  jak dowód przeciw żadnemu z podmiotów.
+- **INVALID_INPUT** (zły format NIP/KRS w samym dokumencie) → to SAMO w
+  sobie jest odrębnym ustaleniem: dokument zawiera identyfikator
+  strukturalnie niepoprawny, niezależnie od tego, który podmiot miał na
+  myśli autor.
+- **ERROR** (w tym blokada WAF na kanale kodu — zmierzone dla `wl-api.mf.gov.pl`
+  z części środowisk, zob. nagłówek `adapter_krs_vat.py`) → NIE traktuj jako
+  NOT_FOUND. Zanotuj brak weryfikacji rejestrowej i przejdź do ISU-2 na
+  podstawie samego dokumentu — ten krok jest wzmocnieniem, nie warunkiem
+  koniecznym procedury.
+
+⛔ Wynik tego kroku nigdy nie zastępuje PRAWO-HARDGATE dla kwalifikacji
+prawnej skutku (np. prawa do odliczenia VAT) — dostarcza wyłącznie fakt
+rejestrowy na dany dzień.
+
 ### ISU-2 — ZLICZENIE WAŻONE
 
 ```
@@ -548,7 +585,7 @@ WYNIK ISU-2 per umowę:
 
 ```
 ⛔ HARD GATE: Nie cytuj poniższych norm i sygnatur z pamięci modelu.
-   Każdą zweryfikuj przez web_search lub isap.sejm.gov.pl przed użyciem w piśmie.
+   Każdą zweryfikuj przez web_search lub ELI (RZĄD 1) przed użyciem w piśmie.
 
 NORMY KRAJOWE:
   □ Art. 65 §1 KC — wykładnia uwzględnia okoliczności złożenia oświadczenia

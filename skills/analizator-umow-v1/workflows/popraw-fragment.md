@@ -1,6 +1,10 @@
 # WORKFLOW: Popraw fragment
 ## Analizator Umów v1 · workflows/popraw-fragment.md
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 Workflow do edycji **konkretnego fragmentu** umowy/regulaminu/uchwały/
 pełnomocnictwa — gdy użytkownik wkleja klauzulę i prosi o poprawienie, lub
 przerywa szerszy workflow analizy/generowania, żeby naprawić jeden paragraf.

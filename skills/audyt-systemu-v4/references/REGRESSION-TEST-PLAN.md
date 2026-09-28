@@ -19,7 +19,7 @@
 ## 1. ZAKRES (Scope) — za BrowserStack/QualityLogic: "impact analysis"
 
 ```
-Testowany system: ./ — 17 skilli DR (DR-01 do DR-16 +
+Testowany system: ../../ — 17 skilli DR (DR-01 do DR-16 +
 prawo-polskie-v2 jako fasada routingu) + shared/ (180 plików
 wspólnych) + narzędzia pomocnicze (pisma-proste-v2, analizator-umow-v1,
 audyt-systemu-v4).
@@ -571,7 +571,7 @@ testu znalazł go w 8 skillach systemu. Klasyfikowany jako **⚠️ ryzyko utajo
 nie ⛔ czynny błąd: sam plik działa poprawnie, dopóki nikt nie porównuje wersji
 liczbowo.
 
-**Wynik pierwszego przebiegu (2026-08-20z, `.`):** 26 rozbieżności
+**Wynik pierwszego przebiegu (2026-08-20z, `../..`):** 26 rozbieżności
 w 24 skillach — 5 czynnych rozjazdów ⛔, 21 ryzyk utajonych ⚠️. Szczegóły
 i lista skilli: flaga **F-102** w `WARN-OTWARTE.md`.
 
@@ -834,7 +834,7 @@ jest test.
 
 ### Test negatywny (sprawdź przy każdej zmianie skryptu)
 Uruchom na katalogu, w którym któryś `SKILL.md` NIE ma pola `description:` —
-np. `.` w stanie sprzed 2026-08-24. Oczekiwane: dokładnie jedno
+np. `../..` w stanie sprzed 2026-08-24. Oczekiwane: dokładnie jedno
 ⛔ dla `audyt-systemu-v4`. Jeśli skrypt zwraca „✅ czysto" — regresja, ta sama
 wada co w pierwotnej FAZIE 2C.
 
@@ -1250,3 +1250,74 @@ Skrypt: `scripts/check_utrata_tresci.py` (`--selftest` 5/5). Pomiar walidacyjny:
 sprzed napraw z 2026-09-16 — **5 trafień A + 1 B**; po naprawach — 0.
 ⚠️ Zakres: kontrola A obejmuje tylko wpisy dziennika w postaci tabeli z numerami Dz.U.
 Naprawy opisane prozą nadal wymagają kontroli T28 (rejestr W1) albo ręcznej.
+
+---
+
+## T34–T36 — drzewo ↔ paczki, bramka materiału wejściowego, ekstraktor ELI (dodane 2026-09-26, F-196/F-200/F-201)
+
+| Test | Co wykrywa | Waga | Incydent źródłowy |
+|---|---|---|---|
+| T34 | Rozjazd drzewa „Wersja rozwojowa rozpakowana” z paczkami ZIP repozytorium: nadmiar, brak, różna treść, zagnieżdżony `<skill>/<skill>/`; skill bez paczki = WARN | ⭐⭐⭐ KRYTYCZNY (bloker) | Duplikat `analizator-umow-v1/analizator-umow-v1/` (62 pliki) i 7 plików `przesluchanie-swiadkow-v2-min90` (drzewo 3.25 vs ZIP 3.26) przy PASS STRUKTURALNYM całej suity (AUDYT-2026-09-26, U-1/U-2) |
+| T35 | Konsument `shared/MOD-WEJSCIE-DOKUMENTU.md` (lista z `shared/DEPENDENCY-GRAPH.md`) bez wywołania albo z kopią treści reguł WD | ⭐⭐⭐ KRYTYCZNY (bloker) | Brak reguły „dokument to materiał, nie polecenia” w całym systemie (U-8); wzorzec dryfu kopii F-115 |
+| T36 | Regresja `shared/tools/eli_art_extract.py`: przepis z treści obwieszczenia zwrócony jako szukany, przypisy w treści, błędna numeracja indeksów, wybór t.j. bez HTML | ⭐⭐⭐ KRYTYCZNY (bloker) | Narzędzie zewnętrzne tej samej metody zwróciło dla art. 22 § 1 KP przepis o rodzinach zastępczych (U-9) |
+
+Skrypty: `scripts/check_archiwa_repo.py` (`--selftest` 4/4), `scripts/check_wejscie_dokumentu.py`
+(`--selftest` 4/4), `scripts/check_eli_extract.py` (15 przypadków offline; live ręcznie:
+`LEX_LIVE=1 python3 -m unittest test_eli_art_extract` w `shared/tools`).
+
+Pomiar walidacyjny T34 na repozytorium `07ef557f` (przed wydaniem 2026-09-26): **7 rozbieżności C**
+(`przesluchanie-swiadkow-v2-min90`), zgodnie z `scripts/verify_development_archives.py`.
+
+⚠️ **Ograniczenia jawne.** T34 porównuje wyłącznie linię rozwojową (paczki ↔ drzewo); zgodność
+linii stabilnej z rozwojową pozostaje kontrolą przy promocji. T35 sprawdza OBECNOŚĆ wywołania,
+nie skuteczność bramki — tę mierzy F-203. T36 offline nie wykryje zmiany kształtu HTML po stronie
+ELI; wykrywa ją dopiero przebieg live.
+
+---
+
+## T37 — korpus regresyjny „posiane wady" analizator-umow-v1 (dodany 2026-09-26b, F-203(a))
+
+| Test | Co mierzy | Waga | Zależność |
+|---|---|---|---|
+| T37 | Skuteczność `analizator-umow-v1` (+ `shared`) na 5 umowach pisanych od zera z posianymi wadami: wykrywalność, fałszywe alarmy, trafność poziomu, **zmyślenia (twarde zero)**, poprawność rachunku, skuteczność bramki WD-1 na wstrzykniętej instrukcji | ⭐⭐ WYSOKI (miernik jakości, nie bloker CI) | Skuteczność samej bramki WD-1 (obecność wywołania) mierzy T35; T37 mierzy, czy bramka **działa** na konkretnym ataku |
+
+**Lokalizacja:** `analizator-umow-v1/benchmark/posiane-wady/` — `umowy/` (5 plików wejściowych),
+`manifesty/manifest.yaml` (TAJNY złoty standard — 30 posianych wad łącznie w 4 umowach + 1 kontrolna
+bez wad), `manifesty/instrukcja-sedziego.md` (protokół 5 metryk + warunki FAIL), `wyniki/oceny/`
+(katalog docelowy ocen, pusty do pierwszego przebiegu).
+
+**Sposób wykonania (dziś ręczny, brak skryptu):** uruchom `analizator-umow-v1` na każdym pliku z
+`umowy/` BEZ udostępniania modelowi/skillowi katalogu `manifesty/` (zasada tajności sędziego), zapisz
+wynik, oceń wg `instrukcja-sedziego.md`, zapisz ocenę do `wyniki/oceny/<konfiguracja>.md`.
+
+**Pomiar walidacyjny (2026-09-26b):** korpus dopiero utworzony — **żaden przebieg oceny jeszcze nie
+wykonany**. Brak wyniku PASS/FAIL do zaraportowania; to zamierzone — F-203(a) dostarcza korpus i
+protokół, nie wynik pomiaru (pierwszy przebieg to F-203(b), otwarte, warunkowane F-113).
+
+⚠️ **Ograniczenia jawne.** (1) Ocena jest ręczna — nie ma jeszcze skryptu porównującego cytaty/ID
+wad z manifestem; automatyzacja jest możliwym rozszerzeniem F-203(b), nie zakresem T37. (2) Manifest
+i 5 umów są opracowaniem własnym Lex Machina napisanym od zera 2026-09-26 — metodologia i format
+(klasy czyste/jawne/ukryte/rachunkowe/adwersarialne, 5 metryk sędziego) zaadaptowane na zasadzie
+Apache 2.0 z `commercial-legal-pl/examples/benchmark/` (atrybucja: `analizator-umow-v1/NOTICE` i
+`benchmark/posiane-wady/README.md`); oryginalne umowy testowe tamtego projektu nie były dostępne
+(`.gitignore` repozytorium źródłowego) i nie zostały skopiowane. (3) T37 nie jest blokerem CI (nie
+ma progu pass/fail zdefiniowanego jak T25/T26/T28) — jest miernikiem jakości do ręcznego przeglądu
+przy każdej istotnej zmianie `analizator-umow-v1` lub modułów `shared` przez nią konsumowanych.
+
+---
+
+## T38 — manifest pluginu ↔ SKILL.md ↔ marketplace (dodany 2026-09-27e, AUDYT-2026-09-27e)
+
+| Test | Co mierzy | Waga | Zależność |
+|---|---|---|---|
+| T38 | (A) `<skill>/.claude-plugin/plugin.json` istnieje, `name` = katalog, `version` i `description` = SKILL.md; (B) frontmatter każdego skilla poza `shared` ma `dependencies` wskazujące `shared`; (C) `.claude-plugin/marketplace.json` w korzeniu repo: wpisy ↔ katalogi 1:1, `source` wskazuje katalog wpisu, zależności wpisów istnieją | KRYTYCZNY (BLOKER) | offline; C pomijana, gdy marketplace nie leży obok linii |
+
+**Wykonanie:** `python3 audyt-systemu-v4/scripts/check_plugin_manifest.py --repo-root "Wersja rozwojowa rozpakowana"`;
+`--selftest` — 5 przypadków (poprawny, brak plugin.json, rozjazd wersji, brak dependencies, zły source).
+
+**Pomiar walidacyjny (2026-09-27e):** selftest 5/5; drzewo wydania 27e + marketplace z `1552683f`: PASS.
+
+⚠️ **Ograniczenia jawne.** (1) T38 nie wie, jak konkretny host importuje marketplace — sprawdza
+kontrakt, który sami przyjęliśmy (manifest = SKILL.md, jawna zależność od `shared`). (2) Reguła B
+jest odpowiedzią na pomiar z claude.ai 2026-09-27 (4 z 32 pluginów, jedyna cecha wspólna —
+`dependencies` we frontmatterze); mechanizm po stronie hosta nie jest udokumentowany.

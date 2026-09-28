@@ -3,12 +3,13 @@ name: "audyt-systemu-v4"
 description: "Audyt jakości, spójności i bezpieczeństwa systemu prawnych skilli: zależności, wersje, mapy Dz.U., treść merytoryczna, propagacja zmian, deduplikacja i bramki jakości."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-18"
+  source-tree: "development-2026-09-27"
   source-directory: "audyt-systemu-v4"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
+> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -16,12 +17,12 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Tryby audytu, zasady kontroli merytorycznej, map Dz.U., deduplikacji, propagacji zmian, rejestrów i bramek jakości pozostają bez zmian.
 
-1. `view audyt-systemu-v4/<plik>` oraz względne odwołania do `modules/`, `references/`, `scripts/` i `widgets/` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalna ścieżka `.` nie jest wymagana.
+1. `view audyt-systemu-v4/<plik>` oraz względne odwołania do `modules/`, `references/`, `scripts/` i `widgets/` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalna ścieżka `..` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do paczki audytora. Brak obowiązkowego zasobu = fail-closed.
 3. `view <inny-skill>/<plik>` oznacza odczyt/aktywację osobnego skilla przez mechanizm hosta. Audyt może kontrolować zależności między skillami, ale nie vendoryzuje ich.
 4. `web_search` / `web_fetch` oznaczają świeże wyszukanie i odczyt źródła przez równoważną funkcję hosta. Przy audycie prawa zachowaj wymóg źródeł oficjalnych i nie traktuj pamięci modelu jako weryfikacji.
 5. `present_files`, `create_file`, `show_widget`, `visualize:read_me`, Cowork i podobne nazwy są operacjami semantycznymi. Użyj równoważnej natywnej funkcji hosta, jeśli istnieje; jeśli nie, zastosuj tekstowy/plikowy fallback bez fikcyjnego raportowania wykonania.
-6. Skrypty w `scripts/` mają wykrywać root repo względnie lub z `REPO_ROOT`/`LEX_MACHINA_ROOT`; nie zakładaj `.`. Twardy limit wydania pozostaje 200 plików na skill.
+6. Skrypty w `scripts/` mają wykrywać root repo względnie lub z `REPO_ROOT`/`LEX_MACHINA_ROOT`; nie zakładaj `..`. Twardy limit wydania pozostaje 200 plików na skill.
 7. Audyt treści i narzędzi może raportować Claude-specific lub ChatGPT-specific tokeny jako portability warnings; sama obecność legacy nazwy nie jest automatycznie błędem, jeśli adapter semantyczny zapewnia równoważne wykonanie.
 8. Nie ujawniaj prywatnego chain-of-thought jako produktu audytu. Raportuj wykryte fakty, ślady weryfikacji, testy, różnice, ryzyka i rekomendowane poprawki.
 
@@ -97,15 +98,16 @@ Po zakończeniu audytu: **obowiązkowa aktualizacja plików references**.
 > (AUDYT-2026-07-26h/i), na wyraźne polecenie użytkownika.
 >
 > **Procedura, w kolejności:**
-> 1. **Rząd 1 (ISAP) — próba pierwsza, zawsze.** `isap.sejm.gov.pl`
->    zwykle blokuje bezpośredni `web_fetch` (ROBOTS_DISALLOWED) — nie
->    jest to powód do pominięcia, tylko do zmiany narzędzia: użyj
->    `web_search` z numerem artykułu/Dz.U. jako frazą kluczową, próbując
->    dotrzeć do treści ISAP pośrednio (fragmenty indeksowane) lub przez
->    `eli.gov.pl`/`api.sejm.gov.pl` (też Rząd 1, czasem dostępne przez
->    `web_fetch` gdy URL pojawił się już w wynikach wyszukiwania).
-> 2. **Rząd 2A/2B jako główne potwierdzenie**, gdy Rząd 1 niedostępny
->    wprost: lexlege.pl, arslege.pl, prawo.pl i analogiczne z rejestru
+> 1. **Rząd 1 — ELI, próba pierwsza, zawsze (kanon E-1…E-5,
+>    `shared/HIERARCHIA-ZRODEL.md`, od audytu 6.125).** Brzmienie i stan
+>    aktu z `api.sejm.gov.pl/eli` kanałem kodu (`text.pdf` t.j.,
+>    `/references` dla zmian), host bez kanału kodu — B-1 → B-2 na
+>    `eli.gov.pl`. ISAP (`isap.sejm.gov.pl`) wyłącznie jako link dla
+>    człowieka; jego blokada to stan normalny, nie powód do zejścia rzędu.
+> 2. **Rząd 2A/2B jako główne potwierdzenie** wyłącznie, gdy ELI zawiódł
+>    i ISAP (akt niepobieralny z RZĘDU 1 — awaria, timeout, blokada; wynik
+>    zapisany): LEX/Legalis, potem lexlege.pl,
+>    arslege.pl, prawo.pl i analogiczne z rejestru
 >    `HIERARCHIA-ZRODEL.md`/`PORTALE-BRANZOWE-RZAD-2B.md`. Traktuj jako
 >    wiarygodne dla BRZMIENIA przepisu, ale NIGDY nie zaznaczaj wyniku
 >    jako ✅ [VER] tak jakby to był Rząd 1 — użyj oznaczenia zgodnego z
@@ -250,18 +252,21 @@ albo razem z pozycjami audytowymi.
 
 ---
 
-## FAZA 0D — PAMIĘĆ TRWAŁA ROUTERA (POZYCJA 13)
+## FAZA 0D — KONTRAKT ROUTERA W PREFERENCJACH (POZYCJA 13, od 6.125)
 
 Po wyborze pozycji 13 albo poleceniu „zsynchronizuj pamięć routera”:
 
 1. `view references/PAMIEC-TRWALA-ROUTER.md`;
-2. porównaj wersję routera z wersją w wydzielonej sekcji trwałych preferencji;
-3. pokaż dokładny diff i pełną treść docelową, po czym zakończ turę;
-4. zapisz dopiero po akceptacji i zweryfikuj ponownym odczytem;
-5. odnotuj wynik w `AUDIT-JOURNAL.md`.
+2. porównaj preferencje użytkownika widoczne w kontekście z regułami UP-1…UP-6
+   routera (treść, nie numer wersji);
+3. pokaż rozbieżności i proponowany tekst preferencji (≤ 4 linie, bez numeru
+   wersji) do wklejenia przez użytkownika w Ustawienia → Profil;
+4. odnotuj wynik w `AUDIT-JOURNAL.md`, jeżeli host pozwala na zapis.
 
-Brak natywnej pamięci trwałej jest wynikiem `NIEOBSŁUGIWANE W HOŚCIE`, nie
-upoważnia do utworzenia zastępczego pliku ani do raportowania fikcyjnego zapisu.
+⛔ Zakaz zapisu bloków dyrektyw do pamięci trwałej hosta. Pomiar z sesji
+produkcyjnej: klasyfikator pamięci odrzuca treść sterującą zachowaniem modelu —
+zapis jest niewykonalny z założenia, a ponowienie lub przeformułowanie
+stanowiłoby obchodzenie zabezpieczenia. Wynik stały: `ZAPIS: NIEOBSŁUGIWANE W HOŚCIE`.
 
 ---
 
@@ -410,7 +415,7 @@ Jeśli brakuje → **dodaj do obu plików** jako `⏳ OCZEKUJE`.
 
 ### 3A — Nowe t.j. od ostatniego audytu
 
-Sprawdź w ISAP (isap.sejm.gov.pl) czy pojawiły się nowe teksty jednolite dla kluczowych aktów:
+Sprawdź w ELI (`api.sejm.gov.pl/eli/acts/search`, RZĄD 1; ISAP tylko jako link dla człowieka) czy pojawiły się nowe teksty jednolite dla kluczowych aktów:
 - KC, KPC, KPK, KRO, KP, KSH, KPA, PB, PrFarm, PIT, CIT, OrdPod, PrNotariat
 - Sprawdź Dz.U. poz. > max_poz z ostatniego audytu (aktualnie: > 1079 z 2026 — najwyższa pozycja odnotowana w sesji 2026-08-21)
 
@@ -443,7 +448,7 @@ Jeśli znaleziono nowe t.j.:
 Po weryfikacji nowych t.j. (3A–3B) sprawdź i zaktualizuj tabelę aktów opublikowanych, które **nie weszły jeszcze w całości w życie** lub wchodzą etapami.
 
 Dla każdego aktu z tabeli MONITORING wykonaj:
-1. Sprawdź w ISAP czy data wejścia w życie minęła lub zbliża się (horyzont: 90 dni).
+1. Sprawdź w ELI (metryka `entryIntoForce` + przepis o wejściu w życie — DOSTEP-MASZYNOWY-API §2) czy data wejścia w życie minęła lub zbliża się (horyzont: 90 dni).
 2. Jeśli akt wszedł w życie → przenieś do tabeli głównej mapy Dz.U. (zmień typ `OCZEKUJE` → `TJ` lub `NOV`), usuń z MONITORING.
 3. Jeśli data jeszcze nie minęła → zaktualizuj uwagi, potwierdź termin.
 4. Jeśli akt zastępuje inny → odnotuj w kolumnie `Zastępuje` (nazwa aktu + stary Dz.U.).
@@ -452,7 +457,7 @@ Dla każdego aktu z tabeli MONITORING wykonaj:
 
 | Akt | Dz.U. opubl. | Data wejścia w życie | Zastępuje / zmienia | Moduł DR | Status |
 |---|---|---|---|---|---|
-| Prawo budowlane art. 1 pkt 1 lit. c | Dz.U. 2026 poz. 524 | 20.09.2026 | — (przepis nowy) | dr-09/mod-PrBud-* | ⏳ OCZEKUJE |
+| Prawo budowlane art. 1 pkt 1 lit. a i c, pkt 3 *(przykład formatu — historyczny; w mocy od 20.09.2026, źródło zmiany: 2025/1847, nie t.j. 2026/524 — F-195)* | Dz.U. 2025 poz. 1847 | 20.09.2026 | — (przepis nowy) | dr-09/mod-PrBud-* | ✅ WSZEDŁ |
 | Ordynacja podatkowa (część przepisów z Dz.U. 2025 poz. 1235) | Dz.U. 2026 poz. 622 | ~4 mies. od ogłoszenia | — (nowelizacja OP) | dr-06/mod-OP-* | ⏳ OCZEKUJE |
 | Obrona cywilna zm. | Dz.U. 2026 poz. 646 | vacatio legis — weryfikuj | Dz.U. 2024 poz. 1907 (część) | dr-13/mod-ustawa-zarzadzanie-kryzysowe-* | ⏳ OCZEKUJE |
 
@@ -519,7 +524,7 @@ MONITORING (3D), lub WARN z 3C zamknięty jako "jest nowszy akt".
 
 Skrót procedury:
 1. Zidentyfikuj moduł(y) DR opisujące dotknięty akt (kolumna `Moduł` w `MAPA-AKTOW.md`).
-2. Ustal w ISAP zakres zmiany — które artykuły dodano/zmieniono/uchylono (zakaz cytowania z pamięci — PRAWO-HARDGATE).
+2. Ustal w ELI (`text.pdf` aktu zmieniającego) zakres zmiany — które artykuły dodano/zmieniono/uchylono (zakaz cytowania z pamięci — PRAWO-HARDGATE).
 3. Skonfrontuj wyłącznie te twierdzenia modułu, które dotyczą zmienionych artykułów (nie cały moduł).
 4. Sklasyfikuj: ✅ ZGODNE / ⚠️ WARN-TREŚĆ / ❌ CRIT-TREŚĆ.
 5. CRIT-TREŚĆ → napraw treść modułu w tej samej sesji (str_replace na kopii), z adnotacją źródła i datą weryfikacji.
@@ -731,7 +736,7 @@ Wywołanie: "sprawdź czy moduł X wymaga aktualizacji po zmianie Y" / "zweryfik
 Wywołanie: "ustaw cotygodniowy audyt" / "zadanie cykliczne ISAP" / wybór pozycji 11 w menu
 → FAZA 0C → `references/SCHEDULED-TASK-COWORK.md` (bez uruchamiania faz audytowych)
 
-### TRYB PAMIĘĆ ROUTERA (pozycja 13 — akcja, nie audyt)
+### TRYB KONTRAKT ROUTERA (pozycja 13 — kontrola, bez zapisu)
 Wywołanie: „zsynchronizuj pamięć routera” / wybór pozycji 13 w menu
 → FAZA 0D → `references/PAMIEC-TRWALA-ROUTER.md`
 
@@ -746,7 +751,7 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
 
 ## ZASADY KRYTYCZNE
 
-1. **Nigdy nie cytuj przepisów ani sygnatur z pamięci** — weryfikacja tylko przez isap.sejm.gov.pl i oficjalne źródła orzeczeń.
+1. **Nigdy nie cytuj przepisów ani sygnatur z pamięci** — weryfikacja tylko przez ELI (RZĄD 1) i oficjalne źródła orzeczeń.
 2. **Każdy audyt kończy się aktualizacją AUDIT-JOURNAL.md** — bez wyjątków.
 3. **Mapa Dz.U. aktualizowana tylko gdy potwierdzone zmiany online** — nie spekuluj.
 4. **CRIT blokuje skill** — nie używaj skilla z otwartym CRIT.
@@ -792,7 +797,7 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
    > funkcja hosta) nie zmienia wymogu kompletności.
 8. ⛔ **ZASADA WERYFIKACJI NUMERU NIEZALEŻNIE OD NAZWY (dodana 2026-07-02s,
    na wyraźny nakaz użytkownika) — "jeśli nazwy różnią się choć trochę,
-   sprawdzaj w ISAP".**
+   sprawdzaj w ISAP" (od 6.125 czytaj: w RZĘDZIE 1 — najpierw ELI).**
 
    Zgodność NAZWY aktu między dwoma źródłami (np. między MAPA-AKTOW.md a
    treścią modułu) NIE jest dowodem poprawności numeru Dz.U. Odkryty
@@ -804,11 +809,11 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
    zwłaszcza gdy w tej samej dziedzinie istnieje stary i nowy akt o
    zbliżonym temacie (typowy wzorzec ryzyka: reformy zawodowe/regulacyjne,
    gdzie nowa ustawa zastępuje starą pod inną nazwą lub tym samym tytułem).
-   Techniczne ograniczenie: `isap.sejm.gov.pl` blokuje bezpośredni
-   `web_fetch` (ROBOTS_DISALLOWED) — weryfikacja odbywa się przez
-   `web_search` z numerem Dz.U. jako frazą kluczową, czytając zaindeksowane
-   fragmenty (w tym z samego ISAP, oraz dziennikustaw.gov.pl/sip.lex.pl/
-   gofin.pl jako źródła pomocnicze).
+   Kanał (od 6.125): numer Dz.U. sprawdzaj w ELI —
+   `api.sejm.gov.pl/eli/acts/DU/{rok}/{poz}` zwraca tytuł aktu, więc
+   rozbieżność numeru i nazwy widać wprost. Kanał maszynowy ISAP jest
+   martwy; `web_search` z numerem Dz.U. (fragmenty ISAP, dziennikustaw.gov.pl,
+   sip.lex.pl, gofin.pl) tylko pomocniczo, gdy aktu nie da się pobrać z RZĘDU 1.
    Dostarczanie wyłącznie zmodyfikowanego pliku bez reszty struktury grozi nieodwracalną
    utratą danych przy wgraniu (nadpisanie katalogu bez pozostałych plików).
 
@@ -895,10 +900,9 @@ z WARN-OTWARTE.md, dodaj pełny wpis do AUDIT-JOURNAL.md.
     FAZA 3E stosuje `shared/HIERARCHIA-ZRODEL.md` jako metodologię, nie
     tylko jako zasadę oznaczania linków.**
 
-    Kolejność: Rząd 1 (ISAP, próba zawsze pierwsza, `web_search` gdy
-    `web_fetch` zablokowany) → Rząd 2A/2B (lexlege.pl, arslege.pl,
-    prawo.pl — główne potwierdzenie brzmienia, gdy Rząd 1 niedostępny
-    wprost) → Rząd 3 (blogi kancelaryjne — WYŁĄCZNIE jako dodatkowe
+    Kolejność: kanon E-1…E-5 — Rząd 1 ELI (próba zawsze pierwsza; ISAP
+    tylko link dla człowieka) → Rząd 2A LEX/Legalis → Rząd 2B (lexlege.pl,
+    arslege.pl, prawo.pl — gdy aktu nie da się pobrać z RZĘDU 1) → Rząd 3 (blogi kancelaryjne — WYŁĄCZNIE jako dodatkowe
     potwierdzenie zbieżności, nigdy jako jedyne źródło). Minimum 2-3
     źródła niezależne zgodne ze sobą przed oznaczeniem twierdzenia jako
     sprawdzonego. Każdy wpis w AUDIT-JOURNAL.md wskazuje Rząd źródła
@@ -1066,7 +1070,7 @@ audyt-systemu-v4/                               ← 89 plików (stan 2026-09-09b
 │   └── MOD-PROPAGACJA-NOWELIZACJI.md           ← propagacja nowelizacji przez CAŁY system
 ├── widgets/
 │   └── WIDGET-MENU.md                          ← menu interaktywne (FAZA 0B)
-├── scripts/                                    ← 31 plików: testy T1-T4, T8, T9, T11-T22, T24-T26,
+├── scripts/                                    ← 47 plików (stan 2026-09-27e): testy T1-T4, T8, T9, T11-T36, T38,
 │   │                                             orkiestrator, ci_check_shared (T6/T7),
 │   │                                             check_rejestracja_modulow, sync ELI (3 pliki),
 │   │                                             2 skrypty .sh, README.md — pełna lista w YAML
@@ -1089,7 +1093,8 @@ audyt-systemu-v4/                               ← 89 plików (stan 2026-09-09b
     ├── F-108-verification-2026-08-28.md         ← raport źródłowy re-audytu F-108
     ├── F-104-lista-robocza-mapa-dzu.md         ← lista robocza F-104, rocznik 2026
     ├── F-104-lista-robocza-roczniki-starsze.md ← lista robocza F-104, roczniki 2013-2025 (F-124)
-    ├── mapa_dzu_2026-09-10.md                  ← mapa Dz.U. AKTUALNA (F-148a)
+    ├── mapa_dzu_2026-09-22.md                  ← mapa Dz.U. AKTUALNA (F-193)
+    ├── mapa_dzu_2026-09-10.md                  ← generacja poprzednia (F-148a)
     ├── mapa_dzu_2026-09-09.md                  ← generacja poprzednia (F-172)
     ├── mapa_dzu_2026-08-28.md                  ← POPRZEDNIA generacja
     ├── mapa_dzu_2026-08-26.md                  ← POPRZEDNIA generacja
@@ -1099,7 +1104,7 @@ audyt-systemu-v4/                               ← 89 plików (stan 2026-09-09b
 
 ---
 
-*Wersja: 6.119 | Ostatnia aktualizacja: 2026-09-17u (⭐⭐ F-135 zamknięta — Cellar; wcześniej 2026-09-17t: F-113 — ramię kontrolne; wcześniej 2026-09-17s: pomiar kanałów: SAOS wrócił; wcześniej 2026-09-17r: T33 — kontrola po wydaniu; wcześniej 2026-09-17q: ⭐ EUR-Lex odblokowany, RODO; wcześniej 2026-09-17p: domknięcie pozycji 17o; niewyjaśniona zmiana kopii roboczej; wcześniej 2026-09-17o: F-135 — prawo pracy, ustawy szczególne; wcześniej 2026-09-17n: F-135 — sprawy rodzinne; wcześniej 2026-09-16m: F-135 — KPA/PPSA; wcześniej 2026-09-16l: F-135 — u.o.d.o.; wcześniej 2026-09-16k: F-135 — KSC/NIS2; wcześniej 2026-09-16j: F-135 — PZP; wcześniej 2026-09-16i: T15 — t.j. ogłoszony w dniu audytu; wcześniej 2026-09-16h: F-135 — postępowanie spadkowe; wcześniej 2026-09-16g: F-135 — terminy KKS; wcześniej 2026-09-16f: F-135 — terminy KC; wcześniej 2026-09-16e: T32, T27 ZASTĄPIONY_TJ — O-11 zamknięta; wcześniej 2026-09-16d: T31 — podmiany aktu, O-11(d); 2026-09-16c: T30 — utrata treści, F-190 zamknięta; 2026-09-16b: T5 skrypt kandydatów, F-190, F-OP-2026-09 zamknięta; wcześniej 2026-09-16: F-189 — regresje dyskowe w 10 skillach, T12/T22/T28/T29. Poprzednio: 2026-09-14 (CBOSA snapshot/retrieval: host post-check, exact-match, provenance≠status; 10/10 prób metryka+sentencja. Poprzednio: 2026-09-14 (CBOSA: direct adapter spięty z RZĄD 2A/shared; F-183a zawężona do live-probe środowiska docelowego; 22/22 regresje adaptera. Poprzednio: 2026-09-13b (weryfikacja luk PPWR/EUDR: polska ustawa opakowaniowa NIE dostosowana do PPWR, który stosuje się od 12.08.2026; trzy luki, trzy różne wyniki, każdy zapisany z zakresem. Poprzednio: 2026-09-13 (PPWR i EUDR — dwa rozporządzenia UE bezpośrednio stosowane, nieobecne w systemie; EUDR jako podręcznikowy przypadek O-12: ten sam CELEX, ten sam status, data stosowania przesunięta o dwa lata. Poprzednio: 2026-09-12r (T13 — ta sama ślepa plamka drugi raz: satelity z podziału 12q wypadły poza zakres testu; zakres naprawiony rekurencyjnie + dodany selftest 5/5, którego T13 nie miał od powstania. Poprzednio: 2026-09-12q (podział TABELE-OPLAT na rdzeń 159 linii i siedem satelitów; nowy test T29 jako WARUNEK dopuszczalności podziału. Poprzednio: 2026-09-12p (T13 miał ślepą plamkę — mierzył tylko modules/mod-*.md, więc shared/TABELE-OPLAT.md urósł do 1472 linii poza zasięgiem testu; nowa kategoria raportowana + spisy treści zamiast podziału. Poprzednio: 2026-09-12o (KC — art. 118 zd. 2 i trzy pułapki art. 442¹; roszczenie posesoryjne WYGASA, nie przedawnia się. Poprzednio: 2026-09-12n (KP — granice dla pracodawcy z art. 52 § 2 i 109 § 1 mieszane z terminami pracownika; milcząca zgoda z art. 112 § 1 zd. 3. Poprzednio: 2026-09-12m (KSH — cztery reżimy zaskarżania uchwał zamiast jednego; RODZINA TERMINY ZAMKNIĘTA co do reżimów: 11 kodeksów, terminy.md 88 → 489 linii. Poprzednio: 2026-09-12l (upadłość — zły adresat zgłoszenia i zły skutek spóźnienia; trzecia kotwica wartości: przeciętne wynagrodzenie w sektorze przedsiębiorstw. Poprzednio: 2026-09-12k (KRO — termin prekluzyjny dziecka zawyżony trzykrotnie; wszystkie terminy biegną od dowiedzenia się, nie od urodzenia. Poprzednio: 2026-09-12j (KKW — moduł na 772 linie bez jednego terminu; karencja jako osobna konstrukcja od terminu zawitego; otwarta flaga F-OP-2026-09 dla pięciu nowelizacji Ordynacji w kolejce. Poprzednio: 2026-09-12i (Ordynacja podatkowa — pięć nowelizacji ogłoszonych po t.j., trzy wchodzą w ciągu trzech tygodni; twierdzenie o uchyleniu art. 70 § 6 pkt 1 niepotwierdzone. Poprzednio: 2026-09-12h (UPEA — termin zarzutu „7 dni od TW" nie istnieje; katalog podstaw sprzed nowelizacji; pierwszy udokumentowany przypadek, w którym RZĄD 2B potwierdził nieprawdę. Poprzednio: 2026-09-12g (terminy KPA i PPSA — dwa reżimy miały po jednym wierszu; obsadzone z odczytu treści. Poprzednio: 2026-09-12f (O-12 — wdrożony T28: kontrola wartości i cytatów, nie aktów; pierwszy przebieg znalazł 8 usterek, których ręczny przegląd nie znalazł; otwarta MON-4. Poprzednio: 2026-09-12e (O-11 ZAMKNIĘTA — trzecia rodzina wartości: odsetki, składki, skala PIT; doktryna „formuła zamiast procentu"; otwarta O-12: kontrola aktualności aktu nie jest kontrolą aktualności wartości. Poprzednio: 2026-09-12d (O-11 — rodzina TERMINY: uchylony art. 503 KPC w pliku kanonicznym, termin zarzutów od nakazu to MIESIĄC z art. 480² § 2 pkt 3, szóste wystąpienie nieistniejącej jednostki „art. 328¹ KPC". Poprzednio: 2026-09-12c (O-11 — domknięcie rodzin opłat poza KSCU: komornicze, skarbowe, notarialne, wieczystoksięgowe, KIO, koszty procesu karnego; wykryta nowa klasa ryzyka — wartość zmieniona przez rozporządzenie UCHYLAJĄCE poprzednie, poza zasięgiem KROK 2C. Poprzednio: 2026-09-12 (O-11 — pomiar rodziny „opłaty sądowe": 4 tabele satelickie naprawione, TABELE-OPLAT 1.5 z rozwodem, pracą, sprawami karnymi, wpisem WSA, zwrotem opłaty z art. 79 i wyłączeniem zwolnień z art. 104a; nowy rejestr tabel satelickich. Poprzednio: 2026-09-10x (O-11 — POWIĄZANIE tabeli opłat z systemem. Dotąd `TABELE-OPLAT` znały tylko dwa moduły; teraz: `required_modules` routera, warstwa odroczona PROFIL-LEKKI z wyzwalaczem „zamierzasz podać kwotę", nowa pozycja **KWOTA-GATE** w SELF-CHECK (trzy pytania przy każdej kwocie) oraz cztery dalsze skille — dr-12 (kanoniczny moduł KSCU), pisma-proste-v2, pisma-procesowe-v3, analiza-sadowa-v6. Poprzednio: 2026-09-10w)*
+*Wersja: 6.139 | Ostatnia aktualizacja: 2026-09-27i (siedem konektorów MCP wydanych łącznie: +mcp-uodo, +mcp-eurlex, +mcp-nbp; przegląd wszystkich 7 przykładów w shared/tools/mcp-servers wobec żywych API — trzy odpowiadały błędem, w tym ceidg 404/401 i eurlex 406; ⭐ KIO rozstrzygnięte: 22 168 orzeczeń w SAOS, osobny konektor zbędny; ⛔ dwie wady wykryte pomiarem mimo SELF-TEST OK; F-158b potwierdzona jako otwarta. Wcześniej 2026-09-27h: 2026-09-27h (cztery własne konektory MCP zbudowane i zmierzone na żywym API — mcp-isap-eli, mcp-saos, mcp-krs, mcp-wl-vat, każdy jako osobny plugin gotowy do instalacji; przegląd 59 repozytoriów matematicsolutions z decyzją o własnym kodzie zamiast forku; ⛔ dwa błędy we własnym kodzie wykryte przed wydaniem mimo przechodzącego self-testu; ⭐ biała lista VAT odpowiada 200 wbrew zapisom F-157b/F-204; F-8 zawężona do hostingu HTTPS, F-94 rozstrzygnięta faktycznie. Wcześniej 2026-09-27g: 2026-09-27g (⛔ korekta własnego błędu: F-208 opierała się na niezmierzonym wniosku oceniającego — pomiar ELI wykazał, że wszystkie kwestionowane pozycje Dz.U. są prawdziwe; flaga przeformułowana na niekompletność list nowelizacji [KKS 2026: ELI podaje cztery, przebiegi podały trzy i jedną]. F-8 zmierzona realnym protokołem MCP 2024-11-05 na mcp-isap 1.3.0. ⛔ Naprawione wykrywanie MCP w shared 3.87 — KROK 1 szukał nazw, których nigdy nie było w pliku, do którego odsyłał, więc MCP-FIRST nie włączyłby się nigdy. Wcześniej 2026-09-27f: 2026-09-27f (mechanizm uniwersalny pomiaru bramek: rejestr bramek jako dane + jedna implementacja buildera + kontrola resztkowa nazw krótkich [wada, przez którą ramię A zachowywało bramkę — dotyczy też B1–B5] + plan pomiaru i rejestr korpusu bez treści; pilot T1 na PL-04/PL-06: Δ=+2,0 pkt na korzyść bramek, ocena O-2, n=2/ramię — F-167 NIE zamknięta, brak oceny O-1 i konieczna decyzja o zmianie kryterium, bo K-02 okazał się skażony przez CN-2, a K-01/02/06 przez MIEDZYNARODOWE-GATES; nowe F-208 konfabulacja pozycji Dz.U. i F-209 luki pokrycia; kontrola repo/marketplace: 32/32 spójne, validate PASS, drzewo stabilne bez manifestów i 5–9 wydań wstecz; wcześniej 2026-09-27e: 2026-09-27e (import z marketplace w claude.ai: 4 z 32 pluginów; wszystkie 32 skille dostały `.claude-plugin/plugin.json`, 28 — `dependencies.requires: [shared]` we frontmatterze; treść bez zmian; nowy test T38 — plugin.json ↔ SKILL.md ↔ marketplace, BLOKER); wcześniej 2026-09-27d (WARN-CLOSE: F-207 — wywołanie WD odtworzone w 7 skillach z utraconego wydania AUDYT-2026-09-26, nowe numery; T35 PASS, T12 czysty; WARN-OTWARTE 22→21); wcześniej 2026-09-27c (RESOLVER-SKILLI: `shared` 3.85 — UNIVERSAL-RUNTIME-ADAPTER §1A, adresy logiczne rozwiązywane do faktycznej kopii przy instalacji z marketplace; router 3.57 — RESOLVER w PATH-SELFTEST, `requires` 31, odtworzone wywołanie WD z niedoręczonego 3.56; nowa flaga F-207 — wydanie AUDYT-2026-09-26 utracone w 7 skillach; WARN-OTWARTE 21→22); wcześniej 2026-09-27b (WARN-CLOSE: F-189 zamknięta — mechanizm nadpisań ustalony jako wiele równoległych sesji/urządzeń pushujących bez pull/rebase, potwierdzone wprost przez użytkownika, powiązane z F-197; F-167 pozostaje otwarta, zablokowana — materiał kazusów testowych K-0X nie istnieje w repozytorium, użytkownik zapytany wybrał zostawić otwartą; WARN-OTWARTE 22→21; wcześniej tego samego dnia 2026-09-27 (WARN-CLOSE: F-205 — FAZA 3E, 3/3 jednostek U-14 zweryfikowane fresh RZĄD 1: AI Act art. 25/art. 6 ust. 3/art. 13 ust. 3 dodane od zera w dr-11 (+ naprawiona błędna numeracja zał. III, brakujący pkt 1 Biometria i błędny pkt 8 „urządzenia medyczne"); nowa sekcja G.1D w analizator-umow-v1 (umowa ramowa zlecenia, konstrukcja oferta-przyjęcie, test realności, + art. 22 §1² KP dotąd niecytowany); art. 52 PrAut (IP-6) w mod-J9, poprzednio nieodczytany; odesłanie w dr-04. Wersje: dr-11 3.18→3.19, analizator-umow-v1 1.41→1.42, dr-04 3.40→3.41; WARN-OTWARTE 23→22; wcześniej 2026-09-26d (WARN-CLOSE: F-206 — 8 narzędzi `shared/tools/*.py` przywrócone bajt-w-bajt z historii git prawdziwego repozytorium użytkownika (pierwszy raz w tej serii sesji z dostępem do pełnej historii, nie tylko zamontowanej kopii bez `.git`); poprawiony błędny commit-hash odziedziczony przez samą flagę (`ec3f530b`→ w rzeczywistości `d3385b9`/`6dbe7a0`); znalezione 5 dodatkowych brakujących narzędzi poza pierwotnym opisem flagi; wszystkie zweryfikowane funkcjonalnie, nie tylko obecnością bajtów; `shared` 3.83→3.84 (178→192 plików); dodatkowo poza zakresem F-: naprawiony `.claude-plugin/marketplace.json` (błędne ścieżki source), zweryfikowany end-to-end na klonie repo; wcześniej tego samego dnia 2026-09-26c (WARN-CLOSE: F-203(a) — korpus regresyjny `analizator-umow-v1/benchmark/posiane-wady/` (5 umów pisane od zera, manifest złotego standardu 30 wad, instrukcja sędziego z metryką WD-1), zaadaptowany z atrybucją Apache 2.0 z apiotrowski-afk/commercial-legal-pl (treść umów/manifestu własna); wpięte jako T37 w REGRESSION-TEST-PLAN.md; analizator-umow-v1 1.40→1.41; WARN-OTWARTE 25→24; wcześniej 2026-09-26b: F-204 — adapter_krs_vat.py zbudowany i zweryfikowany live dla KRS, WL zablokowana WAF-em z tego środowiska — objaw zapisany; F-198 zamknięta wariantem adnotacji; marketplace.json dostarczony osobno; wcześniej 2026-09-26: T34–T36, F-196/F-199–F-202 zamknięte, F-206 otwarta; wcześniej 2026-09-23: przegląd rejestru żywego wg ZASADY 10: 25 bloków flag zamkniętych przeniesionych z WARN-OTWARTE.md do AUDIT-JOURNAL.md, wpis AUDYT-2026-09-23; pięć usterek samego rejestru zapisanych, w tym równoległe statusy O-5/O-6/O-7 i duplikat F-156; praca na drzewie z repozytorium GitHub; F-195 ZAMKNIĘTA, F-194 zawężona do CBOSA; wcześniej 2026-09-22c: F-195 — Ordynacja: sześć nowelizacji po t.j., trzy dotąd nieśledzone; wcześniej 2026-09-22b: F-195 — przegląd MONITORING przez art. końcowe: 8 wierszy zamkniętych, podmiana aktu 2025/1390 usunięta; F-194 częściowo — Zasada 2B w orzeczenia-sadowe-v2; wcześniej 2026-09-22: F-193 — L4: Dz.U. 2026 poz. 26 w MONITORING, nowa generacja mapy; F-194 — NSA I OSK 590/26 jako 🟨; wcześniej 2026-09-17u: ⭐⭐ F-135 zamknięta — Cellar; wcześniej 2026-09-17t: F-113 — ramię kontrolne; wcześniej 2026-09-17s: pomiar kanałów: SAOS wrócił; wcześniej 2026-09-17r: T33 — kontrola po wydaniu; wcześniej 2026-09-17q: ⭐ EUR-Lex odblokowany, RODO; wcześniej 2026-09-17p: domknięcie pozycji 17o; niewyjaśniona zmiana kopii roboczej; wcześniej 2026-09-17o: F-135 — prawo pracy, ustawy szczególne; wcześniej 2026-09-17n: F-135 — sprawy rodzinne; wcześniej 2026-09-16m: F-135 — KPA/PPSA; wcześniej 2026-09-16l: F-135 — u.o.d.o.; wcześniej 2026-09-16k: F-135 — KSC/NIS2; wcześniej 2026-09-16j: F-135 — PZP; wcześniej 2026-09-16i: T15 — t.j. ogłoszony w dniu audytu; wcześniej 2026-09-16h: F-135 — postępowanie spadkowe; wcześniej 2026-09-16g: F-135 — terminy KKS; wcześniej 2026-09-16f: F-135 — terminy KC; wcześniej 2026-09-16e: T32, T27 ZASTĄPIONY_TJ — O-11 zamknięta; wcześniej 2026-09-16d: T31 — podmiany aktu, O-11(d); 2026-09-16c: T30 — utrata treści, F-190 zamknięta; 2026-09-16b: T5 skrypt kandydatów, F-190, F-OP-2026-09 zamknięta; wcześniej 2026-09-16: F-189 — regresje dyskowe w 10 skillach, T12/T22/T28/T29. Poprzednio: 2026-09-14 (CBOSA snapshot/retrieval: host post-check, exact-match, provenance≠status; 10/10 prób metryka+sentencja. Poprzednio: 2026-09-14 (CBOSA: direct adapter spięty z RZĄD 2A/shared; F-183a zawężona do live-probe środowiska docelowego; 22/22 regresje adaptera. Poprzednio: 2026-09-13b (weryfikacja luk PPWR/EUDR: polska ustawa opakowaniowa NIE dostosowana do PPWR, który stosuje się od 12.08.2026; trzy luki, trzy różne wyniki, każdy zapisany z zakresem. Poprzednio: 2026-09-13 (PPWR i EUDR — dwa rozporządzenia UE bezpośrednio stosowane, nieobecne w systemie; EUDR jako podręcznikowy przypadek O-12: ten sam CELEX, ten sam status, data stosowania przesunięta o dwa lata. Poprzednio: 2026-09-12r (T13 — ta sama ślepa plamka drugi raz: satelity z podziału 12q wypadły poza zakres testu; zakres naprawiony rekurencyjnie + dodany selftest 5/5, którego T13 nie miał od powstania. Poprzednio: 2026-09-12q (podział TABELE-OPLAT na rdzeń 159 linii i siedem satelitów; nowy test T29 jako WARUNEK dopuszczalności podziału. Poprzednio: 2026-09-12p (T13 miał ślepą plamkę — mierzył tylko modules/mod-*.md, więc shared/TABELE-OPLAT.md urósł do 1472 linii poza zasięgiem testu; nowa kategoria raportowana + spisy treści zamiast podziału. Poprzednio: 2026-09-12o (KC — art. 118 zd. 2 i trzy pułapki art. 442¹; roszczenie posesoryjne WYGASA, nie przedawnia się. Poprzednio: 2026-09-12n (KP — granice dla pracodawcy z art. 52 § 2 i 109 § 1 mieszane z terminami pracownika; milcząca zgoda z art. 112 § 1 zd. 3. Poprzednio: 2026-09-12m (KSH — cztery reżimy zaskarżania uchwał zamiast jednego; RODZINA TERMINY ZAMKNIĘTA co do reżimów: 11 kodeksów, terminy.md 88 → 489 linii. Poprzednio: 2026-09-12l (upadłość — zły adresat zgłoszenia i zły skutek spóźnienia; trzecia kotwica wartości: przeciętne wynagrodzenie w sektorze przedsiębiorstw. Poprzednio: 2026-09-12k (KRO — termin prekluzyjny dziecka zawyżony trzykrotnie; wszystkie terminy biegną od dowiedzenia się, nie od urodzenia. Poprzednio: 2026-09-12j (KKW — moduł na 772 linie bez jednego terminu; karencja jako osobna konstrukcja od terminu zawitego; otwarta flaga F-OP-2026-09 dla pięciu nowelizacji Ordynacji w kolejce. Poprzednio: 2026-09-12i (Ordynacja podatkowa — pięć nowelizacji ogłoszonych po t.j., trzy wchodzą w ciągu trzech tygodni; twierdzenie o uchyleniu art. 70 § 6 pkt 1 niepotwierdzone. Poprzednio: 2026-09-12h (UPEA — termin zarzutu „7 dni od TW" nie istnieje; katalog podstaw sprzed nowelizacji; pierwszy udokumentowany przypadek, w którym RZĄD 2B potwierdził nieprawdę. Poprzednio: 2026-09-12g (terminy KPA i PPSA — dwa reżimy miały po jednym wierszu; obsadzone z odczytu treści. Poprzednio: 2026-09-12f (O-12 — wdrożony T28: kontrola wartości i cytatów, nie aktów; pierwszy przebieg znalazł 8 usterek, których ręczny przegląd nie znalazł; otwarta MON-4. Poprzednio: 2026-09-12e (O-11 ZAMKNIĘTA — trzecia rodzina wartości: odsetki, składki, skala PIT; doktryna „formuła zamiast procentu"; otwarta O-12: kontrola aktualności aktu nie jest kontrolą aktualności wartości. Poprzednio: 2026-09-12d (O-11 — rodzina TERMINY: uchylony art. 503 KPC w pliku kanonicznym, termin zarzutów od nakazu to MIESIĄC z art. 480² § 2 pkt 3, szóste wystąpienie nieistniejącej jednostki „art. 328¹ KPC". Poprzednio: 2026-09-12c (O-11 — domknięcie rodzin opłat poza KSCU: komornicze, skarbowe, notarialne, wieczystoksięgowe, KIO, koszty procesu karnego; wykryta nowa klasa ryzyka — wartość zmieniona przez rozporządzenie UCHYLAJĄCE poprzednie, poza zasięgiem KROK 2C. Poprzednio: 2026-09-12 (O-11 — pomiar rodziny „opłaty sądowe": 4 tabele satelickie naprawione, TABELE-OPLAT 1.5 z rozwodem, pracą, sprawami karnymi, wpisem WSA, zwrotem opłaty z art. 79 i wyłączeniem zwolnień z art. 104a; nowy rejestr tabel satelickich. Poprzednio: 2026-09-10x (O-11 — POWIĄZANIE tabeli opłat z systemem. Dotąd `TABELE-OPLAT` znały tylko dwa moduły; teraz: `required_modules` routera, warstwa odroczona PROFIL-LEKKI z wyzwalaczem „zamierzasz podać kwotę", nowa pozycja **KWOTA-GATE** w SELF-CHECK (trzy pytania przy każdej kwocie) oraz cztery dalsze skille — dr-12 (kanoniczny moduł KSCU), pisma-proste-v2, pisma-procesowe-v3, analiza-sadowa-v6. Poprzednio: 2026-09-10w)*
 
 *(Stopka podawała „5.0 | 2026-07-04" przy `version: 6.8` w YAML — rozjazd
 9 wersji, naprawiony 2026-08-20y. **Stopkę aktualizuj razem z polem `version`**;

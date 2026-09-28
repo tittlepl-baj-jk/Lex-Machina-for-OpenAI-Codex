@@ -110,6 +110,42 @@ przed podłączeniem do produkcji.
   rzutu, nie ostateczny wyrok — stąd rekomendacja "pokaż prawnikowi", nie
   "automatycznie odrzuć".
 
+## adapter_krs_vat.py — odczyt KRS i Białej listy VAT (F-204)
+
+Własny adapter (bez serwerów zewnętrznych, bez klucza API) dwóch rejestrów
+publicznych, wpięty w `shared/MOD-IDENTYFIKACJA-STRONY-UMOWY.md` przy
+weryfikacji elementów E01 (NIP), E02 (nazwa rejestrowa), E03 (KRS), E05
+(adres siedziby) i przy ustalaniu sposobu reprezentacji podmiotu.
+
+```
+python3 adapter_krs_vat.py krs 10681
+python3 adapter_krs_vat.py wl 5260250995 --data 2026-09-26
+```
+
+Zwraca JSON ze statusem `FOUND` / `NOT_FOUND` / `INVALID_INPUT` / `ERROR`.
+Nigdy nie orzeka o skutku prawnym (np. prawie do odliczenia VAT) — to
+zostaje po stronie modułu merytorycznego, zgodnie z PRAWO-HARDGATE.
+
+**Stan weryfikacji (2026-09-26):**
+
+| Rejestr | Schemat JSON | Kanał sieciowy z tego środowiska |
+|---|---|---|
+| KRS (`api-krs.ms.gov.pl`) | ✅ zmierzony live (KRS 0000010681, ORANGE POLSKA S.A.) | ✅ działa (curl, UA neutralny) |
+| WL (`wl-api.mf.gov.pl`) | ⚠️ przejęty z opisu w `DOSTEP-MASZYNOWY-API.md` §4 (tam zmierzony wcześniej, inny podmiot ten sam co w KRS — potwierdzenie krzyżowe) | ⛔ zablokowany WAF-em Incapsula (nagłówek `x-iinfo`, ciasteczko `visid_incap_*`) — 4 warianty nagłówków wypróbowane, wszystkie zablokowane identycznie |
+
+⛔ **Blokada WL to zmierzony OBJAW z TEGO środowiska sieciowego (proxy tej
+sesji), nie dowód na niedostępność hosta w ogóle** — ten sam host był
+wcześniej zmierzony jako osiągalny z innego środowiska (przykład w
+`DOSTEP-MASZYNOWY-API.md` §4). `adapter_krs_vat.py` odróżnia to poprawnie:
+odpowiedź HTML z Incapsuli daje `ERROR` z czytelną podpowiedzią, nigdy
+fałszywy `NOT_FOUND`. Reprodukcja: `curl -sI "https://wl-api.mf.gov.pl/api/search/nip/5260250995?date=RRRR-MM-DD"`
+→ nagłówek `x-iinfo` obecny = blokada.
+
+Testy: `test_adapter_krs_vat.py` — 20 offline (fixture zbudowany z realnej,
+live-zmierzonej odpowiedzi KRS) + 2 live (`LEX_LIVE=1`), oba PASS 2026-09-26
+(KRS: FOUND; WL: ERROR z poprawną podpowiedzią WAF — test przechodzi, bo
+sprawdza POPRAWNE ROZPOZNANIE blokady, nie sukces połączenia).
+
 ## Nie mylić z audyt-systemu-v4/scripts/ci_check_shared.py
 
 Ten katalog i `audyt-systemu-v4/scripts/` rozwiązują różne problemy:
@@ -124,4 +160,35 @@ w `audyt-systemu-v4/references/AUDIT-JOURNAL.md`, wpis AUDYT-2026-07-12g.
 
 Dla nowych integracji preferuj `{"session_id":"...","events":[...]}`. Event zawiera `tool`, źródło, opcjonalny `query_context` i status. Claude/Anthropic legacy pozostaje obsługiwany; obsługiwane są też generyczne tool-call/result i ukończone wpisy Responses-style. Sam call bez wyniku nie jest weryfikacją.
 
-Twardy limit 200 plików wymaga kompaktowania wyłącznie technicznych przykładów MCP: 42 plików z dawnego `tools/mcp-servers/**` znajduje się byte-for-byte w `tools/mcp-servers/mcp-servers-examples.zip` (SHA-256 `6b16d446e08ec5a3c401b371a7bf697e2b898bf2b903e2a1531a2ec818642756`). Rozpakuj archiwum przed uruchamianiem przykładowego serwera.
+Twardy limit 200 plików wymaga kompaktowania wyłącznie technicznych przykładów MCP: 42 plików z dawnego `tools/mcp-servers/**` znajduje się byte-for-byte w `tools/mcp-servers/mcp-servers-examples.zip` (SHA-256 `6b240d1dc2249daef42b303495831c4809767784677e8d12a7538b53613f2d5d` — przebudowany 2026-09-26d po odzyskaniu z historii git, F-206; poprzedni wpisany hash odpowiadał innej kompresji tej samej treści i nie jest odtwarzalny — ZIP nie jest deterministyczny bajt-w-bajt. Weryfikacja tym razem: `diff` każdego z 42 rozpakowanych plików przeciw blobom z historii git — zero rozbieżności, nie tylko porównanie hasha archiwum). Rozpakuj archiwum przed uruchamianiem przykładowego serwera.
+
+## F-206 (2026-09-26d) — przywrócenie 8 narzędzi z historii git
+
+Do 2026-09-26d cały ten katalog istniał tylko jako opis: `walidator_cytowan.py`,
+`extract_api_verification_log.py` i `export_gate.py` (opisane wyżej w tym pliku)
+były usunięte z drzewa rozwojowego repozytorium `michaleiatrak-star/lex-machina`
+mergem `d3385b9` (2026-08-27), a `shared/SKILL.md` je mimo to opisywał — stąd
+flaga F-206 (jej pierwotny opis mylnie wskazywał inny commit, `ec3f530b`, który
+tylko wymienił ZIP-y binarne).
+
+Przy naprawie okazało się, że **ten sam commit usunął też 5 dalszych narzędzi**,
+nigdzie w rejestrze F-206 niewymienionych, choć wciąż opisanych jako „ACTIVE"
+w `shared/DEPENDENCY-GRAPH.md`, `shared/AUDIT-TRAIL-SPEC.md` i
+`shared/MCP-INTEGRACJA.md`: `append_event.py`, `hash_chain_verify.py`,
+`router_event_parser.py` (log audytowy hash-chain), oraz `test_mcp_protocol.py`,
+`connector_health_check.py` (testy/health-check connectorów MCP). Wszystkie 8
+przywrócono bajt-w-bajt z rodzica tego commitu (klon repozytorium, dostęp
+odczytu) i zweryfikowano funkcjonalnie:
+
+| Narzędzie | Weryfikacja | Wynik |
+|---|---|---|
+| `walidator_cytowan.py` | 4 przypadki z `przyklady/` (jak w tabeli wyżej) | ✅ 4/4 zgodne z opisem |
+| `extract_api_verification_log.py` | `--self-test` | ✅ PASS |
+| `export_gate.py` | `--self-test` | ✅ PASS |
+| `append_event.py` + `hash_chain_verify.py` | end-to-end: zapis 3-wpisowego łańcucha, weryfikacja OK, potem ręcznie spreparowane naruszenie (zmieniony `payload` we wpisie seq=2) → poprawnie wykryte jako pierwszy niezgodny wpis | ✅ obie ścieżki poprawne |
+| `router_event_parser.py` | `--self-test` | ✅ PASS |
+| `test_mcp_protocol.py` | `python3 -m unittest test_mcp_protocol` | ✅ 6/6 PASS |
+| `connector_health_check.py` | `--self-test` | ✅ PASS |
+
+Pliki fixture `przyklady/konwersacja_api_przyklad.json`, `przyklady/przyklad_pisma.md`,
+`przyklady/sesja_niepelna.json`, `przyklady/sesja_pelna.json` przywrócone tą samą metodą.

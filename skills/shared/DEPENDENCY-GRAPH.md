@@ -58,6 +58,7 @@
 |------|--------|-------------------|
 | `DOWODY-METODOLOGIA.md` | ACTIVE | analizator-dowodow-v3, pisma-procesowe-v3 |
 | `MOD-DOKUMENT-GATES.md` | ACTIVE | przesluchanie-swiadkow-v2-min90 (PRE-W1a.5), analizator-dowodow-v3 (KROK 0d) — utworzony 2026-08-20z, F-100 A |
+| `MOD-WEJSCIE-DOKUMENTU.md` | ACTIVE | prawny-router-v3, analizator-umow-v1, analizator-dowodow-v3, analiza-sadowa-v6, chronologia-sprawy-v1, pisma-procesowe-v3, pisma-proste-v2, przesluchanie-swiadkow-v2-min90, raport-sytuacyjny-v2 — utworzony 2026-09-26, F-200; kontrola obecności wywołania: T35 |
 | `ORZECZENIA-HIERARCHIA.md` | INTERNAL→ACTIVE | orzeczenia-sadowe-v2, pisma-procesowe-v3 |
 | `ROSZCZENIA.md` | INTERNAL→ACTIVE | pisma-procesowe-v3 |
 | `STRATEGIA-PROCESOWA.md` | ACTIVE | pisma-procesowe-v3, analiza-sadowa-v6 |
@@ -95,9 +96,9 @@
 | `tools/extract_api_verification_log.py` | ACTIVE (produkcyjna bramka, poza LLM) | Dodany 2026-07-13d. Buduje log sesji wymagany przez walidator_cytowan.py automatycznie z surowej konwersacji Claude API (bloki server_tool_use/*_tool_result) — domyka lukę integracyjną opisaną w README (krok 1) |
 | `tools/export_gate.py` | ACTIVE (produkcyjna bramka, poza LLM) | Dodany 2026-07-13d. Łączy extract_api_verification_log.py + walidator_cytowan.py w jedno wywołanie — jedyny punkt, który portal musi wpiąć w pipeline przed present_files/eksportem |
 | `MCP-INTEGRACJA.md` + `KONEKTORY-REKOMENDOWANE.md` + `SCHEMAT-ODPOWIEDZI-MCP.md` | ACTIVE (protokół ładowany przez router) | Skonsolidowane 2026-07-13f z osobnego skilla mcp-zrodla-prawa-v1 (usunięty). Warstwa MCP jako uzupełnienie PRAWO-HARDGATE.md — patrz `required_modules` w prawny-router-v3 |
-| `tools/test_mcp_protocol.py` + `tools/connector_health_check.py` | ACTIVE (testy/narzędzia dev, poza LLM) | Skonsolidowane 2026-07-13f razem z MCP-INTEGRACJA.md. Klasyfikacja odpowiedzi connectora (6 testów jednostkowych) + health-check dostępności connectorów |
+| `tools/test_mcp_protocol.py` + `tools/connector_health_check.py` | ACTIVE (testy/narzędzia dev, poza LLM) | Skonsolidowane 2026-07-13f razem z MCP-INTEGRACJA.md. Klasyfikacja odpowiedzi connectora (6 testów jednostkowych) + health-check dostępności connectorów. ⚠️ Nieobecne na dysku 2026-08-27→2026-09-26d mimo statusu ACTIVE tutaj (usunięte tym samym mergem `d3385b9` co pliki F-206, spoza jego pierwotnie opisanego zakresu) — przywrócone 2026-09-26d, 6/6 testów i `--self-test` PASS |
 | `AUDIT-TRAIL-SPEC.md` | ACTIVE (specyfikacja, poza silnikiem) | Skonsolidowane 2026-07-13f z osobnego skilla audit-trail-portal-v1 (usunięty). Specyfikacja logu hash-chain zgodnego z art. 12 AI Act, do wdrożenia po stronie portalu |
-| `tools/hash_chain_verify.py` + `append_event.py` + `router_event_parser.py` | ACTIVE (referencyjne, poza LLM) | Skonsolidowane 2026-07-13f razem z AUDIT-TRAIL-SPEC.md. Zapis/weryfikacja/parsowanie logu hash-chain |
+| `tools/hash_chain_verify.py` + `append_event.py` + `router_event_parser.py` | ACTIVE (referencyjne, poza LLM) | Skonsolidowane 2026-07-13f razem z AUDIT-TRAIL-SPEC.md. Zapis/weryfikacja/parsowanie logu hash-chain. ⚠️ Nieobecne na dysku 2026-08-27→2026-09-26d mimo statusu ACTIVE tutaj (usunięte tym samym mergem `d3385b9` co pliki F-206, spoza jego pierwotnie opisanego zakresu) — przywrócone 2026-09-26d, zweryfikowane end-to-end (zapis 3-wpisowego łańcucha + wykrycie ręcznie spreparowanego naruszenia) |
 
 
 ## Moduły orkiestratora i routingu

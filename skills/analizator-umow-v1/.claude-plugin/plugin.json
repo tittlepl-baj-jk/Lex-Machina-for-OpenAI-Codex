@@ -1,0 +1,11 @@
+{
+  "name": "analizator-umow-v1",
+  "version": "1.43",
+  "description": "Analiza, redakcja, negocjacje i generowanie umów oraz dokumentów korporacyjnych, HR i RODO: ryzyka klauzul, B2B/B2C, praca, najem, IT/SaaS, IP, founders, finansowanie i PZP.",
+  "author": {
+    "name": "Adrian Miłosz Kalinowski",
+    "email": "adrian@lexagento.pl"
+  },
+  "repository": "https://github.com/michaleiatrak-star/Lex-Machina",
+  "license": "GPL-3.0-only"
+}

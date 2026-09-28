@@ -1,9 +1,9 @@
 # Moduł [AB] — Prawo AI / AI Act
 
 > **Plik:** `dr-11-cyfrowe-cyber-ai-dane-ip/modules/mod-AI-Act-framework.md`
-> **Wersja:** 1.1 (2026-07-27)
-> **Status:** AKTUALIZOWANY — polska ustawa o AI podpisana przez prezydenta 24.07.2026
-> **Weryfikacja:** web_search 2026-07-27 (rp.pl, prawo.pl, gazetaprawna.pl, cyberdefence24.pl, tmt.expert, skarbiec.biz)
+> **Wersja:** 1.2 (2026-09-27, FAZA 3E — naprawa F-205)
+> **Status:** AKTUALIZOWANY — luki U-14 domknięte: art. 25, art. 6 ust. 3, zał. III (pełna, poprawiona lista), art. 13 ust. 3
+> **Weryfikacja:** ✅ [VER: EUR-Lex, rozporządzenie (UE) 2024/1689 CELEX 32024R1689, pobranie bezpośrednie eur-lex.europa.eu, 2026-09-27] — poprzednia weryfikacja web_search 2026-07-27 (rp.pl, prawo.pl, gazetaprawna.pl, cyberdefence24.pl, tmt.expert, skarbiec.biz) pozostaje aktualna dla części dot. ustawy krajowej
 
 ---
 
@@ -89,25 +89,172 @@ POWIĄZANE:
 ### Systemy WYSOKIEGO RYZYKA (Aneks III — od 02.08.2026)
 
 ```
-Kategorie (8 grup):
-  1. Infrastruktura krytyczna (energia, woda, transport)
-  2. Edukacja i szkolenia zawodowe (ocena uczniów, dostęp)
-  3. Zatrudnienie i zarządzanie pracownikami (rekrutacja, awanse)
-  4. Usługi publiczne (zasiłki, ocena zdolności kredytowej)
-  5. Egzekwowanie prawa (ocena ryzyka recydywy, detekcja emocji)
-  6. Zarządzanie migracją i azyl
-  7. Wymiar sprawiedliwości i procesy demokratyczne
-  8. Urządzenia medyczne
+⚡ POPRAWKA 2026-09-27 (FAZA 3E, F-205, U-14) — lista niżej była BŁĘDNA:
+brakowało kategorii 1 (Biometria), numeracja kategorii 2–7 była przesunięta
+o jeden punkt względem oryginału, a pozycja 8 podawała „Urządzenia medyczne”
+— kategorii o tej nazwie W ZAŁĄCZNIKU III W OGÓLE NIE MA (urządzenia medyczne
+mogą być wysokiego ryzyka na INNEJ podstawie — art. 6 ust. 1 + załącznik I,
+jako produkt objęty odrębnym unijnym prawodawstwem harmonizacyjnym, np.
+rozporządzeniem MDR — nie przez zał. III). Błąd nie miał dotąd zgłoszonej
+flagi jako osobny numer — koryguję przy okazji F-205, ponieważ dotyczy tej
+samej jednostki (zał. III), której weryfikację nakazywała flaga.
+Poprawiona lista (✅ [VER: EUR-Lex, CELEX 32024R1689, załącznik III, 2026-09-27]):
+
+Obszary (8, zgodnie z art. 6 ust. 2 — dokładna numeracja z aktu):
+  1. Biometria (o ile dozwolona prawem Unii/krajowym): zdalna identyfikacja
+     biometryczna (nie dotyczy weryfikacji 1:1 potwierdzającej tożsamość),
+     kategoryzacja biometryczna wg cech wrażliwych/chronionych, rozpoznawanie emocji
+  2. Infrastruktura krytyczna: elementy związane z bezpieczeństwem zarządzania
+     krytyczną infrastrukturą cyfrową, ruchem drogowym, wodą/gazem/ciepłem/energią
+  3. Kształcenie i szkolenie zawodowe: dostęp/przyjęcie do instytucji, ocena
+     efektów uczenia się, ocena poziomu wykształcenia, wykrywanie niedozwolonego
+     zachowania na testach
+  4. Zatrudnienie, zarządzanie pracownikami i dostęp do samozatrudnienia:
+     rekrutacja/selekcja (w tym ukierunkowane ogłoszenia, filtrowanie podań),
+     decyzje o awansie/rozwiązaniu stosunku pracy, przydzielanie zadań,
+     monitorowanie/ocena wydajności i zachowania
+  5. Dostęp do podstawowych usług prywatnych oraz usług/świadczeń publicznych:
+     kwalifikowalność do świadczeń publicznych, scoring/zdolność kredytowa
+     (poza wykrywaniem oszustw finansowych), ocena ryzyka i cena ubezpieczeń
+     życiowych/zdrowotnych, klasyfikacja zgłoszeń alarmowych/dysponowanie
+     służbami ratunkowymi
+  6. Ściganie przestępstw (o ile dozwolone prawem Unii/krajowym): ocena ryzyka
+     bycia ofiarą, wariografy, ocena wiarygodności dowodów, ocena ryzyka
+     popełnienia/powtórzenia przestępstwa, profilowanie w rozumieniu
+     dyrektywy (UE) 2016/680
+  7. Zarządzanie migracją, azylem i kontrolą graniczną: wariografy, ocena
+     ryzyka (bezpieczeństwo/migracja nieuregulowana/zdrowie), wsparcie
+     rozpatrywania wniosków azylowych/wizowych/pobytowych, wykrywanie/
+     rozpoznawanie/identyfikacja osób (poza weryfikacją dokumentów podróży)
+  8. Sprawowanie wymiaru sprawiedliwości i procesy demokratyczne: wspomaganie
+     organu wymiaru sprawiedliwości w badaniu/interpretacji stanu faktycznego
+     i prawa (także ADR), wpływanie na wynik wyborów/referendum lub zachowanie
+     wyborców (nie dotyczy narzędzi czysto logistyczno-organizacyjnych kampanii)
+
+⚠️ Sekcja „AI W WYMIARZE SPRAWIEDLIWOŚCI” niżej w tym module cytowała już
+POPRAWNIE „Aneks III pkt 8” dla systemów wsparcia decyzji sądowych — czyli
+w tym samym pliku współistniały DWIE sprzeczne numeracje tej samej jednostki.
+Po tej poprawce obie są spójne.
 
 Obowiązki dostawców systemów wysokiego ryzyka:
   □ System zarządzania ryzykiem (art. 9)
   □ Zarządzanie danymi i danymi szkoleniowymi (art. 10)
   □ Dokumentacja techniczna (art. 11)
   □ Prowadzenie dzienników zdarzeń (art. 12)
-  □ Przejrzystość i dostarczanie informacji użytkownikom (art. 13)
+  □ Przejrzystość i dostarczanie informacji użytkownikom (art. 13) —
+    ⭐ instrukcja obsługi wg art. 13 ust. 3 MUSI zawierać co najmniej
+    (✅ [VER: EUR-Lex, CELEX 32024R1689, art. 13 ust. 3, 2026-09-27],
+    dodane FAZA 3E/F-205/U-14 — dotąd tylko gołe odesłanie do art. 13):
+      a) tożsamość i dane kontaktowe dostawcy (i upoważnionego przedstawiciela);
+      b) cechy/możliwości/ograniczenia: przeznaczenie; poziom dokładności,
+         solidności i cyberbezpieczeństwa (art. 15) wraz ze wskaźnikami
+         oraz okolicznościami mogącymi na nie wpłynąć; znane/przewidywalne
+         okoliczności użycia zgodnego z przeznaczeniem lub przewidywalnego
+         niewłaściwego użycia mogące stwarzać ryzyko (art. 9 ust. 2);
+         w stosownych przypadkach — możliwości wyjaśnialności wyników,
+         działanie wobec określonych osób/grup, specyfikacje danych
+         treningowych/walidacyjnych/testowych, informacje dla interpretacji
+         wyników;
+      c) zaplanowane z góry zmiany systemu i jego skuteczności działania;
+      d) środki nadzoru ludzkiego (art. 14), w tym środki techniczne
+         ułatwiające interpretację wyników;
+      e) potrzebne zasoby obliczeniowe/sprzętowe, przewidywany cykl życia,
+         środki konserwacji/aktualizacji;
+      f) w stosownych przypadkach — opis mechanizmów zbierania/przechowywania/
+         interpretowania rejestrów zdarzeń (art. 12).
+    → PRAKTYCZNY SKUTEK: klauzula umowna typu „Dostawca dostarczy dokumentację
+      techniczną” bez odesłania do powyższego katalogu jest NIEWYSTARCZAJĄCA
+      dla zgodności z art. 13 — przy audycie/draftowaniu umowy wdrożeniowej
+      systemu wysokiego ryzyka wymagaj wprost punktów a)–f).
   □ Nadzór ludzki (art. 14)
   □ Dokładność, solidność i cyberbezpieczeństwo (art. 15)
   □ Ocena zgodności + oznakowanie CE (art. 43–48)
+```
+
+### ⭐ Art. 6 ust. 3 — WYJĄTEK od klasyfikacji wysokiego ryzyka + PROFILOWANIE zawsze wysokiego ryzyka
+
+> ✅ [VER: EUR-Lex, CELEX 32024R1689, art. 6 ust. 3, pobranie bezpośrednie 2026-09-27]
+> Dodane FAZA 3E (F-205, U-14) — element dotąd NIEOBECNY w module, mimo że jest
+> to najczęściej praktycznie istotny mechanizm przy ocenie, czy konkretny system
+> z zał. III RZECZYWIŚCIE jest wysokiego ryzyka.
+
+```
+ZASADA (art. 6 ust. 3 akapit 1): system AI wymieniony w zał. III NIE jest
+uznawany za system wysokiego ryzyka, jeżeli NIE stwarza znaczącego ryzyka
+szkody dla zdrowia, bezpieczeństwa lub praw podstawowych osób fizycznych
+(w tym poprzez brak znaczącego wpływu na wynik procesu decyzyjnego) —
+POD WARUNKIEM że spełniony jest KTÓRYKOLWIEK z poniższych warunków:
+
+  a) system wykonuje wąsko określone zadanie proceduralne;
+  b) system poprawia wynik ZAKOŃCZONEJ UPRZEDNIO czynności wykonanej
+     przez człowieka;
+  c) system wykrywa wzorce decyzyjne lub odstępstwa od wzorców, bez celu
+     zastąpienia/wywarcia wpływu na zakończoną uprzednio ocenę człowieka
+     — BEZ odpowiedniej weryfikacji przez człowieka;
+  d) system wykonuje zadania PRZYGOTOWAWCZE w kontekście oceny istotnej
+     dla przypadków z zał. III.
+
+⛔ WYŁĄCZENIE Z WYŁĄCZENIA (art. 6 ust. 3 akapit 2, zdanie kluczowe dla
+praktyki kancelaryjnej): NIEZALEŻNIE od powyższych czterech warunków,
+system z zał. III jest ZAWSZE uznawany za system wysokiego ryzyka, JEŻELI
+DOKONUJE PROFILOWANIA OSÓB FIZYCZNYCH (w rozumieniu art. 4 pkt 4 RODO,
+przez odesłanie systemowe AI Act do tego pojęcia).
+→ PRAKTYCZNY SKUTEK: żadne narzędzie prawnicze/HR/scoringowe, które profiluje
+  osoby fizyczne (np. przez automatyczne punktowanie cech/zachowań/przewidywanie
+  preferencji), nie może skorzystać z wyjątku a)–d) powyżej, choćby spełniało
+  formalnie jeden z tych warunków — od razu wysokiego ryzyka.
+
+PROCEDURA DLA DOSTAWCY korzystającego z wyjątku (art. 6 ust. 4): przed
+wprowadzeniem do obrotu/oddaniem do użytku — DOKUMENTUJE ocenę; podlega
+obowiązkowi REJESTRACJI (art. 49 ust. 2); na żądanie organu krajowego
+przedstawia dokumentację tej oceny.
+
+Komisja ma wydać wytyczne wykonawcze do art. 6 najpóźniej 02.02.2026 r.
+(art. 6 ust. 5) — sprawdź, czy już opublikowane, przy każdym użyciu.
+```
+
+### ⭐ Art. 25 — Odpowiedzialność w całym łańcuchu wartości AI
+
+> ✅ [VER: EUR-Lex, CELEX 32024R1689, art. 25, pobranie bezpośrednie 2026-09-27]
+> Dodane FAZA 3E (F-205, U-14) — element dotąd NIEOBECNY w module; kluczowy
+> dla klientów będących dystrybutorami/importerami/integratorami systemów AI,
+> nie tylko pierwotnymi dostawcami.
+
+```
+ZASADA: dystrybutor, importer, podmiot stosujący lub inna strona trzecia
+STAJE SIĘ „dostawcą” systemu AI wysokiego ryzyka (i przejmuje PEŁNIĘ
+obowiązków dostawcy z art. 16) w KAŻDEJ z sytuacji (art. 25 ust. 1):
+
+  a) umieszcza swoją nazwę/znak towarowy na już wprowadzonym do obrotu/
+     oddanym do użytku systemie AI wysokiego ryzyka (bez uszczerbku dla
+     odmiennych ustaleń umownych co do podziału obowiązków);
+  b) dokonuje ISTOTNEJ ZMIANY już wprowadzonego systemu AI wysokiego
+     ryzyka, tak że pozostaje on systemem wysokiego ryzyka wg art. 6;
+  c) zmienia PRZEZNACZENIE systemu AI (w tym GPAI) niesklasyfikowanego
+     jako wysokiego ryzyka, tak że STAJE SIĘ on systemem wysokiego ryzyka
+     wg art. 6.
+
+SKUTEK (art. 25 ust. 2): pierwotny dostawca PRZESTAJE być uznawany za
+dostawcę tego systemu; ma obowiązek ścisłej współpracy z nowym dostawcą
+(informacje, dostęp techniczny, wsparcie) — CHYBA że wyraźnie zastrzegł,
+że jego system nie może zostać przekształcony w system wysokiego ryzyka
+(wtedy zwolniony z obowiązku przekazania dokumentacji).
+
+Art. 25 ust. 4: dostawca systemu wysokiego ryzyka i strona trzecia
+dostarczająca komponenty/narzędzia/usługi integrowane z tym systemem
+MUSZĄ w PISEMNEJ UMOWIE określić informacje/zdolności/dostęp techniczny
+potrzebne dostawcy do spełnienia obowiązków z rozporządzenia — NIE dotyczy
+to podmiotów udostępniających bezpłatnie na licencji open-source narzędzia
+inne niż modele GPAI. Urząd ds. AI MOŻE opracować dobrowolne wzorcowe
+postanowienia umowne dla takich kontraktów.
+
+PRAKTYCZNY SKUTEK DLA UMÓW (łącz z `analizator-umow-v1`): przy integracji/
+white-labelingu/istotnej modyfikacji cudzego systemu AI — sprawdź, czy
+umowa z pierwotnym dostawcą PRZEWIDUJE mechanizm przekazania informacji
+technicznych wymaganych art. 25 ust. 4, oraz czy klauzula podziału
+obowiązków (art. 25 ust. 1 lit. a) jest w ogóle zawarta — jej brak
+oznacza domyślne przejęcie PEŁNI obowiązków dostawcy przez integratora/
+rebrandera z mocy samego prawa.
 ```
 
 ### Modele AI ogólnego przeznaczenia GPAI (art. 51–55 — od 02.08.2025)
@@ -221,6 +368,10 @@ Pytanie od użytkownika → moduł AB gdy zawiera:
 - "kara za AI" / "KRiBSI" / "komisja AI Polska"
 - "odpowiedzialność za błąd AI" / "dowód z AI w sądzie" / "AI w rekrutacji prawo"
 - "AI literacy" / "kompetencje AI obowiązek" / "dokumentacja AI"
+- "profilowanie AI zawsze wysokie ryzyko" / "wyjątek zał. III" / "system AI nie jest wysokiego ryzyka"
+- "importer/dystrybutor systemu AI" / "rebranding AI" / "integracja systemu AI odpowiedzialność"
+  / "łańcuch wartości AI" / "kto jest dostawcą systemu AI"
+- "instrukcja obsługi systemu AI wysokiego ryzyka" / "art. 13 AI Act treść"
 
 ---
 
@@ -280,7 +431,7 @@ Polska ustawa o systemach AI:
       piśmie potwierdź ją w ISAP, rozbieżność nierozstrzygnięta)
     • **Wejście w życie: 11 sierpnia 2026 r.** (zasadniczo — ustawa
       zawiera przepisy o odrębnych terminach; przy terminie
-      procesowym zawsze sprawdź przepis końcowy w ISAP)
+      procesowym zawsze sprawdź przepis końcowy w ELI (RZĄD 1))
     ŹRÓDŁA (ZASADA 12): Rząd 1 — isap.sejm.gov.pl (WDU20260001003),
     eli.gov.pl/eli/DU/2026/1003/ogl, gov.pl/web/cyfryzacja;
     Rząd 3 (potwierdzenie zbieżności, nie samodzielna podstawa) —

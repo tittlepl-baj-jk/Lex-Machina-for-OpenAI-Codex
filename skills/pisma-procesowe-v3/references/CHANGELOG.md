@@ -1,5 +1,11 @@
 # CHANGELOG — pisma-procesowe-v3
 
+- 5.31 (2026-09-27e, AUDYT-2026-09-27e): claude.ai po dodaniu marketplace instalował wyłącznie 4 z 32 pluginów (shared, prawny-router-v3, analizator-dowodow-v3, przesluchanie-swiadkow-v2-min90); jedyna cecha wspólna tych 4, nieobecna w żadnym z 28 pozostałych, to klucz `dependencies` we frontmatterze SKILL.md. Dodano go (`requires: [shared]` — zgodnie ze stanem faktycznym) oraz jawny manifest pluginu (name, description = description z SKILL.md, author, repository, license) — host nie musi niczego wnioskować z SKILL.md. `version` w manifeście = `version:` z SKILL.md (pilnuje T38 w audyt-systemu-v4) — host rozpoznaje aktualizację po podbiciu wersji. Treść skilla bez zmian.
+- 5.30 (2026-09-27d, AUDYT-2026-09-27d, F-207): **odtworzone** wywołanie `shared/MOD-WEJSCIE-DOKUMENTU.md` (bramka WD-1…WD-3, F-200) — jedyna zmiana tego skilla z wydania 5.29, które nie dotarło do repozytorium. Treść reguł nie jest kopiowana; obecność wywołania pilnuje T35.
+- 5.29 — WYDANIE NIEDOSTARCZONE (F-207): odnotowane w AUDIT-JOURNAL, AUDYT-2026-09-26 §7 (wywołanie WD, F-200), nieobecne na żadnej gałęzi `michaleiatrak-star/Lex-Machina`. Zakres odtworzony w 5.30; numer 5.29 nie jest używany ponownie.
+
+- 5.28 (2026-09-23, AUDYT-2026-09-23b): kanon E-1…E-5 (`shared/HIERARCHIA-ZRODEL.md` 1.10): instrukcje weryfikacji „w ISAP” / „isap.sejm.gov.pl →” zamienione na „w ELI (RZĄD 1)” (4 plików); ISAP pozostaje adresem dla człowieka; wpisy historyczne („zweryfikowano w ISAP …”) bez zmian.
+- 5.27 (2026-09-22, F-194): contradiction-intelligence-engine-v10 — ETAP 4A „audyt powołań orzeczniczych przeciwnika": tabela statusów (SYGNATURY) + gradient TREŚĆ i GRAD-3b-SYM (WERYFIKACJA-SLAD 1.8); KALIBRACJA-PRZECIWNIK — wadliwe powołanie maks. S3, nigdy zamiast odpowiedzi na istotę; pozycja w HARD GATE. Wzorzec: NSA I OSK 590/26 (🟨).
 - 5.26 (2026-09-16, F-189): ODTWORZENIE utraconego wydania 5.25 (F-189): markery T28-OK na dwóch liniach opisujących naprawy w modules/MOD-OPLATY.md. Treść merytoryczna bez zmian.
 - 5.25 — LUKA JAWNA: wydanie AUDYT-2026-09-12f nieobecne na dysku — odtworzone w 5.26
 - 5.24 (2026-09-12d, O-11 rodzina TERMINY): MOD-SZABLONY — szablon sprzeciwu opierał termin na UCHYLONYM art. 503 § 1 KPC; teraz art. 480[2] § 2 pkt 1-2 KPC z rozróżnieniem miejsca doręczenia, dopuszczalność art. 505 § 1, skutek art. 505 § 2. ⛔ SZÓSTE wystąpienie "art. 328[1] KPC" — poprawione na art. 328 § 1 i § 2 KPC. SKILL.md: katalog pism prostych powoływał art. 503 KPC oraz art. 328[1] KPC — oba poprawione
@@ -180,7 +186,7 @@ Naprawa w KROK MT (W1.2c):
 > Pełna historia napraw (5.7...5.11, każda z root cause i opisem naprawy)
 > wyniesiona do `references/CHANGELOG.md` (redukcja kosztu kontekstu,
 > 2026-07-12 runda 2) — treść zachowana w 100%, tylko przeniesiona:
-> `view ./pisma-procesowe-v3/references/CHANGELOG.md`
+> `view ../../pisma-procesowe-v3/references/CHANGELOG.md`
 >
 > Najnowsza pozycja (kontekst do bieżącej pracy): **5.11 (2026-07-12)** —
 > naprawiono 7 martwych odwołań do modułów ⛔ obowiązkowych w W2.2

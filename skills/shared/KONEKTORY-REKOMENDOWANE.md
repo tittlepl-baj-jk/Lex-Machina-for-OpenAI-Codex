@@ -166,3 +166,153 @@ od zera" dla produkcji.
 Każdy katalog ma własny README z pełnym statusem testów i ograniczeniami.
 Priorytety wdrożenia wg wpływu: **EUR-Lex** (32 odwołania w dr-*/, największy
 zwrot), **KRS** (wspiera PODMIOT-GATE routera), pozostałe wg potrzeb.
+
+---
+
+## ⭐ GDZIE SIĘ KONFIGURUJE SERWER MCP (zmierzone 2026-09-27g)
+
+⛔ **Skill nie instaluje i nie włącza serwera MCP. Wskazanie nazwy w skillu niczego
+nie uruchamia.** Skill może wyłącznie wykryć narzędzia, które host już udostępnił,
+i zachować się zgodnie z `MCP-INTEGRACJA.md` (MCP-FIRST albo FALLBACK-HARDGATE).
+
+Serwer konfiguruje się w jednym z trzech miejsc — wybór zależy od tego, kto i gdzie
+ma z niego korzystać:
+
+| Gdzie | Zasięg | Czy wędruje z instalacją pluginów |
+|---|---|---|
+| Konektory w aplikacji (claude.ai / desktop) | konto użytkownika | ❌ nie |
+| `.mcp.json` w katalogu projektu albo `claude mcp add` | sesje otwarte w tym projekcie | ❌ nie |
+| **`.mcp.json` w katalogu pluginu** albo klucz `mcpServers` w `.claude-plugin/plugin.json` | każdy, kto zainstaluje plugin | ✅ **tak** |
+
+⚠️ **Stan repozytorium Lex Machina na 2026-09-27g:** `.mcp.json` z serwerem
+`mcp-isap` leży w **korzeniu repozytorium**, a nie w żadnym pluginie. Działa więc
+dla sesji otwieranych w sklonowanym repo, ale **NIE instaluje się razem z pluginami
+z marketplace** — użytkownik, który zainstaluje skille, nie dostanie tego konektora.
+Przeniesienie go do pluginu `shared` sprawiłoby, że wędruje z instalacją.
+Decyzja należy do dewelopera (F-8/F-94) — to nie jest wada, tylko konsekwencja
+miejsca, w którym plik dziś leży.
+
+**Minimalny komplet, żeby MCP realnie działał w tym systemie:**
+
+```
+1. serwer skonfigurowany tam, gdzie host go czyta (tabela wyżej)
+2. narzędzia widoczne w rozmowie jako mcp__<serwer>__<narzędzie>
+   → wykrycie wg MCP-INTEGRACJA.md KROK 1 (po kształcie nazwy i po ZDOLNOŚCI)
+3. skill NIE zakłada obecności konektora — fail-closed do HARD GATE (KROK 3)
+4. wynik MCP nadal podlega regule „MCP identyfikuje akt, HARD GATE czyta treść"
+```
+
+### Zmierzony konektor ELI/ISAP
+
+`@matematicsolutions/mcp-isap` 1.3.0 (MIT, npm) — protokół MCP 2024-11-05
+zweryfikowany realnie 2026-09-27g: `initialize` → `tools/list` → `tools/call`.
+Narzędzia: `search_acts`, `get_act`, `get_act_text`. Źródło danych:
+api.sejm.gov.pl/eli — **ten sam publikator, który HIERARCHIA-ZRODEL traktuje jako
+RZĄD 1**, więc wynik tego konektora nie obniża rzędu źródła; nadal jednak
+obowiązuje reguła, że treść merytoryczną czyta się przez HARD GATE
+(`get_act_text` albo `/text.pdf`), a nie z samej metryki.
+
+### ⭐ Serwer w pluginie — mechanika (2026-09-27h)
+
+Deklaracja: `.mcp.json` w katalogu pluginu **albo** klucz `mcpServers`
+w `.claude-plugin/plugin.json`. Ścieżek relatywnych nie ma — używa się zmiennych:
+
+```json
+{
+  "mcpServers": {
+    "isap-eli": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/tools/mcp-servers/isap-eli-example/isap-eli-mcp-server.js"],
+      "env": { "HTTPS_PROXY": "", "NODE_EXTRA_CA_CERTS": "" }
+    }
+  }
+}
+```
+
+`${CLAUDE_PLUGIN_ROOT}` = katalog zainstalowanego pluginu; `${CLAUDE_PLUGIN_DATA}` =
+katalog trwały, przeżywa aktualizacje. Zależności: przy instalacji z marketplace
+host wykonuje `npm ci --ignore-scripts`, gdy w katalogu jest `package-lock.json`
+(nasze przykłady go mają), więc `@modelcontextprotocol/sdk` i `zod` doinstalują się
+same. ⚠️ Ta część opisu pochodzi z **dokumentacji, nie z pomiaru** w tym repozytorium.
+
+⛔ **OGRANICZENIE, KTÓRE ROZSTRZYGA WYBÓR TRANSPORTU** ⚠️ [dokumentacja, nie pomiar]:
+serwery **stdio działają w Claude Code / lokalnie, ale NIE na claude.ai**. Skoro
+skille tego repozytorium są używane także przez claude.ai, konektor mający tam
+działać musi być **zdalny** (`"type": "http"` + `"url": "https://…"`), a nie
+uruchamiany komendą. Serwer stdio w pluginie jest więc rozwiązaniem dla pracy
+lokalnej; do portalu trzeba go wystawić pod adresem HTTPS.
+
+### ⛔ PUŁAPKA ŚRODOWISKA — zmierzona 2026-09-27h
+
+`getDefaultEnvironment()` z oficjalnego SDK przekazuje uruchamianemu serwerowi
+**wyłącznie `HOME`, `PATH`, `SHELL`, `TERM`**. Zmiennych `HTTPS_PROXY` /
+`NODE_EXTRA_CA_CERTS` **nie przekazuje**. Skutek w środowisku za proxy: każde
+`fetch` w serwerze kończy się `fetch failed`, a narzędzie raportuje ERROR
+„niedostępne źródło" — czyli objaw wygląda jak awaria API, a jest nieprzekazanym
+środowiskiem.
+
+```
+Zmierzone: ten sam serwer, to samo zapytanie
+  bez env → status=ERROR, detail="fetch failed"
+  z env (HTTPS_PROXY + NODE_EXTRA_CA_CERTS) → status=AMBIGUOUS, 33 kandydatów
+```
+
+⛔ **Reguła:** przed orzeczeniem „konektor nie działa / API niedostępne" sprawdź,
+czy konfiguracja przekazuje `env`. To ta sama klasa błędu co F-151/F-162
+(orzekanie o niedostępności bez pomiaru), tylko o jedno piętro niżej.
+
+### ✅ Status własnego konektora ISAP (zmierzony 2026-09-27h)
+
+`shared/tools/mcp-servers/isap-eli-example/` — 132 linie na oficjalnym SDK
+(`McpServer` + `StdioServerTransport`), narzędzie `isap_lookup`.
+
+⛔ **Wykryty i naprawiony błąd:** budował adres
+`…/eli/acts/DU/search?title=…` → **HTTP 404**. Zmierzony poprawny endpoint:
+`…/eli/acts/search?publisher=DU&title=…` → HTTP 200, pole `items`, polami
+`publisher/year/pos/title/status/announcementDate/ELI` — dokładnie tymi, których
+oczekiwał już `normalizujOdpowiedzELI()`. Poprawka jednoliniowa; docstring serwera
+zmieniony z „NIE zostało przetestowane wobec żywego API" na przetestowane.
+
+Po poprawce, pełny cykl `connect → listTools → callTool → close` na żywym API:
+zapytanie „Kodeks karny skarbowy" → `AMBIGUOUS`, 33 kandydatów, pierwsi
+`DU 2026 poz. 901` i `DU 2025 poz. 633` — zgodne z niezależnym odczytem ELI
+i z obcym serwerem `@matematicsolutions/mcp-isap`.
+
+⚠️ `AMBIGUOUS` przy 33 trafieniach jest zachowaniem **zgodnym z projektem**
+(`>1 trafienie = AMBIGUOUS`, zakaz zgadywania). Jeśli konektor ma być użyteczny
+operacyjnie, trzeba mu dodać parametry zawężające (`year`, `pos`, limit) — to
+rozwój, nie naprawa.
+
+**Wniosek dla wyboru między swoim a obcym serwerem:** własny serwer tego
+repozytorium jest sprawny i pokrywa ten sam kanał RZĘDU 1, więc klonowanie obcego
+serwera nie jest konieczne. Obcy (`@matematicsolutions/mcp-isap`, MIT) daje więcej
+narzędzi od razu (`search_acts`, `get_act`, `get_act_text`) — jeśli miałby być
+forkowany, MIT na to pozwala, ale wymaga zachowania noty licencyjnej i dopisania
+atrybucji w `NOTICE` (precedens: F-199 dla materiału Apache-2.0).
+
+### ⭐ STAN WSZYSTKICH KANAŁÓW — pomiar 2026-09-27h
+
+| Kanał | Pomiar | Konektor produkcyjny |
+|---|---|---|
+| `api.sejm.gov.pl/eli` (Dz.U./M.P.) | ✅ 200 | **`mcp-isap-eli`** — 3 narzędzia |
+| `www.saos.org.pl/api` (orzecznictwo) | ✅ 200 | **`mcp-saos`** — 2 narzędzia |
+| `api-krs.ms.gov.pl` (KRS) | ✅ 200 | **`mcp-krs`** |
+| `wl-api.mf.gov.pl` (biała lista VAT) | ✅ 200 | **`mcp-wl-vat`** — 2 narzędzia |
+| `orzeczenia.uodo.gov.pl/api` (decyzje UODO) | ✅ 200 | **`mcp-uodo`** — 2 narzędzia |
+| `publications.europa.eu` (Cellar, prawo UE) | ✅ 200 | **`mcp-eurlex`** |
+| `api.nbp.pl` (kursy) | ✅ 200 | **`mcp-nbp`** — 2 narzędzia |
+| **KIO** (orzecznictwo zamówieniowe) | ✅ w SAOS: `courtType=NATIONAL_APPEAL_CHAMBER` → **22 168 orzeczeń** | pokryte przez `mcp-saos` |
+| `orzeczenia.nsa.gov.pl` (CBOSA) | ⛔ SSL_ERROR_SYSCALL — potwierdza F-183a/F-194 | brak; własny adapter HTML |
+| `dane.biznes.gov.pl/api/ceidg` (CEIDG) | ⚠️ v2 → **404**, v3 → **401** (wymaga tokenu) | brak — wymaga rejestracji |
+| `api-sudop.uokik.gov.pl` (SUDOP) | ⚠️ 303, a po przekierowaniu „Przygotowywanie odpowiedzi, 60 sekund” — **API asynchroniczne** | brak — wymaga pętli odpytującej |
+| `eureka.mf.gov.pl` (interpretacje podatkowe) | ⛔ `/api/public/v1` potwierdzone w bundlu, ale ścieżki zwracają powłokę SPA | brak — **F-158(b) nadal otwarta** |
+| `api.stat.gov.pl` (REGON/BIR) | ⚠️ 200 na stronie, ale API wymaga UserKey | brak |
+
+⛔ **Osobny konektor do KIO jest zbędny** — orzeczenia KIO są w SAOS (zmierzone: sygnatury
+typu `KIO/UZP 2/07`). Konkurencja utrzymuje na to osobny serwer (`kio-orzeczenia-mcp`);
+u nas wystarcza `mcp-saos` z parametrem `sad: "NATIONAL_APPEAL_CHAMBER"`.
+
+⚠️ **Przykłady w `tools/mcp-servers/` nie są konektorami produkcyjnymi.** Po przeglądzie
+2026-09-27h każdy ma w nagłówku zmierzony stan swojego endpointu; trzy z nich (`ceidg`,
+`eurlex`, `sudop`) odpowiadały błędem i mają to zapisane wprost. Konektory produkcyjne
+to osobne pluginy wymienione w tabeli wyżej.

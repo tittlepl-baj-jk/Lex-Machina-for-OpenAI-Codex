@@ -1,0 +1,11 @@
+{
+  "name": "dr-11-cyfrowe-cyber-ai-dane-ip",
+  "version": "3.20",
+  "description": "Prawo cyfrowe, cyber, AI, dane i IP: RODO, KSC/NIS2, AI Act, usługi cyfrowe, prywatność, cyberbezpieczeństwo, prawo autorskie i własność intelektualna.",
+  "author": {
+    "name": "Adrian Miłosz Kalinowski",
+    "email": "adrian@lexagento.pl"
+  },
+  "repository": "https://github.com/michaleiatrak-star/Lex-Machina",
+  "license": "GPL-3.0-only"
+}

@@ -3,12 +3,13 @@ name: "dr-16-pisma-strategia-dowody-orzecznictwo"
 description: "Pisma, strategia, dowody i orzecznictwo: routing narzędzi procesowych, analiza dowodowa, research orzeczeń, kalkulatory i wsparcie budowy strategii sprawy."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-18"
+  source-tree: "development-2026-09-27"
   source-directory: "dr-16-pisma-strategia-dowody-orzecznictwo"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
+> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -16,7 +17,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
 
-1. `view dr-16-pisma-strategia-dowody-orzecznictwo/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
+1. `view dr-16-pisma-strategia-dowody-orzecznictwo/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
 4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
@@ -31,16 +32,16 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 ## ⛔ HARD GATE — ZAKAZ CYTOWANIA Z PAMIĘCI
 
 **PRZED każdym powołaniem przepisu, artykułu, terminu lub sygnatury:**
-1. Zweryfikuj brzmienie i Dz.U. w `isap.sejm.gov.pl`
+1. Zweryfikuj brzmienie i Dz.U. w `ELI (RZĄD 1)`
 2. Zweryfikuj orzeczenie w `orzeczenia.ms.gov.pl` / `nsa.gov.pl` / `sn.pl`
 3. Przy TSUE/ETPC — weryfikuj w `curia.europa.eu` / `hudoc.echr.coe.int`
 4. **NIGDY** nie podawaj artykułu, terminu procesowego ani sygnatury wyłącznie z pamięci modelu.
 
 **Obszar procesowy był nowelizowany w 2024–2026:**
 - KPC — tekst jednolity Dz.U. 2026 poz. 468 — weryfikuj aktualność przed każdym użyciem.
-- E-doręczenia i portal sądowy — przepisy wdrażane etapami; sprawdź aktualny stan w ISAP.
+- E-doręczenia i portal sądowy — przepisy wdrażane etapami; sprawdź aktualny stan w ELI (RZĄD 1).
 - Prawo prasowe — ustawa z 1984 r. wielokrotnie nowelizowana; weryfikuj Dz.U. ze zm.
-- Ustawa o archiwach — sprawdź aktualny tekst jednolity w ISAP.
+- Ustawa o archiwach — sprawdź aktualny tekst jednolity w ELI (RZĄD 1).
 
 
 > ⛔ **SELF-CHECK ANTY-FASADA — obowiązkowy przed wysłaniem odpowiedzi/pisma**
@@ -58,8 +59,8 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 > zmianie brzmienia).
 >
 > ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
-> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
-> oznaczenia, tylko je wymusza.
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ELI (oba kanały) nie zwalnia z
+> oznaczenia, tylko je wymusza; niedostępność ISAP to stan normalny.
 
 ---
 
@@ -67,7 +68,7 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 - Jeden moduł = jeden akt prawny (tekst jednolity Dz.U.) lub wydzielony obszar procesowy
 - Wyjątek: wydzielone rozdziały jednej ustawy mogą mieć osobny moduł (z adnotacją)
 - Ten sam akt NIE może pokrywać dwóch różnych DR-skills
-- **Zakaz cytowania przepisów z pamięci — każde brzmienie weryfikuj w ISAP**
+- **Zakaz cytowania przepisów z pamięci — każde brzmienie weryfikuj w ELI (RZĄD 1)**
 - **Terminy procesowe są terminami zawitymi — błąd daty może skutkować prekluzją**
 
 ---
@@ -105,7 +106,7 @@ KPC — PROCEDURY SZCZEGÓLNE I NARZĘDZIA PROCESOWE:
 > **Przeniesiony do shared/ (2026-07-12):** `mod-KPC-przesluchanie-swiadkow`
 > (Dz.U. 2026 poz. 468 ze zm. — art. 258–305 KPC; typologia świadków, 10 technik
 > procesowych, cross-examination, impeachment, sekwencje pytań; KPK art. 171,
-> 272, 391; KPC art. 259, 261 — WYMAGA WERYFIKACJI ISAP) był bajt-w-bajt
+> 272, 391; KPC art. 259, 261 — WYMAGA WERYFIKACJI RZĄD 1) był bajt-w-bajt
 > kanoniczna warstwa KPC jest w `shared/PRZESLUCHANIE-SWIADKOW-KPC.md`; router zawiera wyłącznie bridge, nie kopię prawa materialnego
 > (wykryte przez `ci_check_shared.py`). Scalony pod jedną kanoniczną lokalizacją:
 > `view shared/PRZESLUCHANIE-SWIADKOW-KPC.md`. Dla zaawansowanej
@@ -211,7 +212,7 @@ view dr-16-pisma-strategia-dowody-orzecznictwo/MAPA-AKTOW.md
 - Prawo UE / ETPC materialne → `dr-14`
 - Koszty sądowe (KSCU) → `dr-12` → `mod-KSCU-koszty-sadowe-i-pomoc-prawna`
 - Wychodzi do: `pisma-procesowe-v3` / `analiza-sadowa-v6` / `orzeczenia-sadowe-v2`
-- Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | sn.pl | nsa.gov.pl | curia.europa.eu | hudoc.echr.coe.int
+- Weryfikacja: ELI (RZĄD 1) | orzeczenia.ms.gov.pl | sn.pl | nsa.gov.pl | curia.europa.eu | hudoc.echr.coe.int
 
 ## ⚖️ DISCLAIMER (obowiązkowy)
 

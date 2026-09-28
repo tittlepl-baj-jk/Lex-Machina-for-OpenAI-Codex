@@ -1,9 +1,13 @@
 name: analiza-sadowa-v6
-version: "6.9"
+version: "6.13"
 type: executive-analiza
 status: production
 compatibility: "live_web_lookup, file_read, cross_skill_file_read, optional_interactive_ui"
 description: "Czteroprzebiegowa analiza akt, pism, wyroków i dowodów: mapa faktów, kwalifikacja prawna, analiza adversarialna, dwukrotna weryfikacja, ocena szans i raport końcowy."
+dependencies:
+  requires:
+    - shared
+  # 2026-09-27e: jawna zależność (każdy skill systemu korzysta z `shared`); pole czytane przy imporcie z marketplace
 changelog: |
-  Wersja bieżąca: 6.9 (2026-09-16, F-189): ODTWORZENIE utraconego wydania 6.8 (F-189): marker T28-OK na linii opisującej usuniętą jednostkę „art. 13 ust. 1a KSCU” w references/koszty-terminy.md. Treść me…
+  Wersja bieżąca: 6.13 (2026-09-27e, AUDYT-2026-09-27e): jawny manifest `.claude-plugin/plugin.json` oraz `dependencies.requires: [shared]` we frontmatterze — import z marketplace w claude.ai. Treść skilla bez zmian.
   Pełna historia: references/CHANGELOG.md (ZASADA 15).

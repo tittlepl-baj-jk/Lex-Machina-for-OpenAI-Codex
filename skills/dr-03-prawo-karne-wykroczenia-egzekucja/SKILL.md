@@ -3,12 +3,13 @@ name: "dr-03-prawo-karne-wykroczenia-egzekucja"
 description: "Prawo karne, wykroczenia i egzekucja: KK, KPK, KKW, KW, KPW, KKS, kwalifikacja karnomaterialna, tryby ścigania i wykonanie orzeczeń."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-18"
+  source-tree: "development-2026-09-27"
   source-directory: "dr-03-prawo-karne-wykroczenia-egzekucja"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
+> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -16,7 +17,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
 
-1. `view dr-03-prawo-karne-wykroczenia-egzekucja/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
+1. `view dr-03-prawo-karne-wykroczenia-egzekucja/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
 4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
@@ -46,7 +47,7 @@ view dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnoma
 
 Zasada naczelna modułu (skrót): nigdy nie kwalifikuj czynu bez przejścia
 przez drzewo; kwalifikacja oparta na chronologii faktów, nie na pierwszym
-pasującym przepisie; każdy przepis weryfikowany w ISAP przed użyciem
+pasującym przepisie; każdy przepis weryfikowany w ELI (RZĄD 1) przed użyciem
 (zgodnie z zasadą 2 `prawo-polskie-v2/SKILL.md` / UP-2 routera). Jeśli czyn
 wyczerpuje znamiona więcej niż jednego przepisu — kwalifikacja kumulatywna
 (art. 11 § 2 KK), nie wybór arbitralny.
@@ -60,7 +61,7 @@ najpierw indeks, potem WYŁĄCZNIE właściwy plik części wg tabeli. Ścieżka
 ## ⛔ HARD GATE — ZAKAZ CYTOWANIA Z PAMIĘCI
 
 **PRZED każdym powołaniem przepisu, artykułu, terminu lub sygnatury:**
-1. Zweryfikuj brzmienie i Dz.U. w `isap.sejm.gov.pl`
+1. Zweryfikuj brzmienie i Dz.U. w `ELI (RZĄD 1)`
 2. Zweryfikuj orzeczenie w `orzeczenia.ms.gov.pl` / `nsa.gov.pl` / `sn.pl`
 3. **NIGDY** nie podawaj artykułu, terminu, kary ani sygnatury wyłącznie z pamięci modelu.
 
@@ -80,8 +81,8 @@ najpierw indeks, potem WYŁĄCZNIE właściwy plik części wg tabeli. Ścieżka
 > zmianie brzmienia).
 >
 > ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
-> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
-> oznaczenia, tylko je wymusza.
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ELI (oba kanały) nie zwalnia z
+> oznaczenia, tylko je wymusza; niedostępność ISAP to stan normalny.
 
 ---
 
@@ -542,7 +543,7 @@ view dr-03-prawo-karne-wykroczenia-egzekucja/MAPA-POKRYCIA.md
 ## Powiązania zewnętrzne
 - Wchodzi z: `prawo-polskie-v2` → `ROUTING-MAP.md` → ten skill
 - Wychodzi do: `pisma-procesowe-v3` / `analiza-sadowa-v6` / `orzeczenia-sadowe-v2`
-- Weryfikacja prawa: isap.sejm.gov.pl
+- Weryfikacja prawa: ELI (RZĄD 1)
 - Orzecznictwo: orzeczenia.ms.gov.pl, sn.pl, nsa.gov.pl
 
 ## ⚖️ DISCLAIMER (obowiązkowy)

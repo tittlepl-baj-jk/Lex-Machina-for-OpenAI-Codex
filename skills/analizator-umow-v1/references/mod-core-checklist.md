@@ -115,7 +115,7 @@ KROK 2: Zakwalifikuj:
          □ Klauzula niedozwolona → rejestr.uokik.gov.pl
          □ Sprzeczna z bezwzględnie wiążącym przepisem → nieważna
          □ Obchodzi prawo (art. 58 §1 KC)
-KROK 3: Wskaż podstawę prawną (weryfikowaną w ISAP)
+KROK 3: Wskaż podstawę prawną (weryfikowaną w ELI (RZĄD 1))
 KROK 4: Oceń ryzyko: Krytyczne / Wysokie / Średnie / Niskie
 KROK 5: Zaproponuj zmianę (gotowe brzmienie alternatywne)
 KROK 6: Oznacz kategorię negocjacyjną: M / S / N / T (→ Moduł NEG)
@@ -377,7 +377,7 @@ TRYB 4 — UZUPEŁNIENIE (mam szkielet, uzupełnij):
 ### E.2 Zasady redakcji
 
 ```
-□ Każda klauzula: weryfikacja podstawy prawnej w ISAP przed wpisaniem
+□ Każda klauzula: weryfikacja podstawy prawnej w ELI (RZĄD 1) przed wpisaniem
 □ Klauzule obowiązkowe zawsze obecne:
     - Oznaczenie stron (pełna identyfikacja + KRS/CEiDG/PESEL)
     - Przedmiot umowy (jednoznaczny opis)
@@ -461,6 +461,8 @@ Ocena: [opis dysproporcji]
 
 ## 6. EKSPOZYCJA FINANSOWA (NOWE w v1)
 [jeśli wartość umowy znana — wczytaj mod-shared-ryzyko-kwant.md]
+[⛔ R-EKS (RK.2a, F-202) OBOWIĄZKOWO, gdy umowa ma limit/kary/indemnifikację —
+ niezależnie od wartości umowy; linia wyniku R-EKS w tej sekcji]
 Worst case: [kwota PLN]  |  Likely case: [kwota PLN]
 Klauzula o najwyższym ryzyku: §[X] → do [kwota] PLN
 

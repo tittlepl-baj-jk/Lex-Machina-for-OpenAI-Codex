@@ -1,6 +1,10 @@
 # TAKSONOMIA KATEGORII KLAUZUL (wzorzec: Adams, MSCD)
 ## Analizator Umów v1 · references/generator/ (BRAMKA 4 — narzędzie diagnostyczne przy redakcji i poprawkach)
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 > **Status:** narzędzie analityczne, nie normatywne — nie zastępuje doktryny ani
 > orzecznictwa. Pomaga świadomie zaklasyfikować każdą klauzulę do jednej z 7
 > kategorii, żeby wykryć mieszanie funkcji w jednym zdaniu — najczęstsze źródło

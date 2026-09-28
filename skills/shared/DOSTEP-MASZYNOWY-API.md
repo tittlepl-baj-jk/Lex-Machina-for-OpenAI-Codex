@@ -1,7 +1,12 @@
 # DOSTĘP MASZYNOWY DO ŹRÓDEŁ — jak wywołać API, żeby odpowiedziało
 
 > **Plik:** `shared/DOSTEP-MASZYNOWY-API.md`
-> **Wersja:** 1.6 (2026-09-14) — CBOSA retrieval/snapshot: `site:` tylko discovery; obowiązkowy POST-CHECK HOSTA, exact-match i content_scope bez promocji snapshotu do DIRECT_LIVE.
+> **Wersja:** 1.11 (2026-09-26, F-204) — §4: adapter kodu `tools/adapter_krs_vat.py` (KRS + WL, bez serwerów zewnętrznych); schemat JSON KRS zmierzony live tą sesją, WL zablokowana WAF-em Incapsula z tego środowiska (objaw zapisany, nie ukryty).
+> **Wersja poprzednia:** 1.10 (2026-09-26, F-201) — §2: struktura HTML ELI (obwieszczenie: część 1 = przepisy ustaw zmieniających, część 2 = tekst jednolity; jednostki `data-id`) i narzędzie `tools/eli_art_extract.py`; najnowszy t.j. bez HTML → odczyt PDF przed ✅.
+> **Wersja poprzednia:** 1.9 (2026-09-23c) — §0 przepisana: ZASADA INNEJ DROGI — robots.txt i blokada jednego narzędzia nie przesądzają; granice: logowanie, licencja, CAPTCHA, zabezpieczenia, masowe pobieranie.
+> **Wersja poprzednia:** 1.8 (2026-09-23)
+> **Wersja poprzednia:** 1.7 (2026-09-22) — §2: pole `entryIntoForce` w metadanych ELI podaje tylko termin GŁÓWNY; terminy etapowe wyłącznie z przepisu o wejściu w życie (F-193).
+> **Wersja poprzednia:** 1.6 (2026-09-14) — CBOSA retrieval/snapshot: `site:` tylko discovery; obowiązkowy POST-CHECK HOSTA, exact-match i content_scope bez promocji snapshotu do DIRECT_LIVE.
 > **Wersja poprzednia:** 1.5 (2026-09-14) — CBOSA: historyczny pomiar 503 oddzielony
 > od bieżącej reguły wykonawczej; dodano fresh-probe + deterministyczny
 > formularz HTML (/cbo/search, /cbo/find, /doc/{ID}) i exact-match.
@@ -43,6 +48,36 @@ dowód mieszkają w `audyt-systemu-v4/references/PORTALE-ORZECZNICZE-API.md`
 (inwentarz + test T25 `check_domeny_allowlist.py`). Tutaj stoi **wyciąg
 operacyjny**, którego potrzebuje skill produkcyjny w trakcie pracy. Przy
 rozbieżności rozstrzyga pomiar, nie ten plik.
+
+---
+
+## 0. ZASADA INNEJ DROGI — gdy źródło się nie otwiera (od 1.9)
+
+Gdy treść nie otwiera się jednym narzędziem lub kanałem, a jest publicznie
+dostępna inną drogą — **użyj tej drogi**. `robots.txt` ani blokada jednego
+narzędzia nie rozstrzygają o pobraniu pojedynczego publicznego dokumentu
+potrzebnego w sprawie.
+
+| Objaw | Czym jest | Reakcja |
+|---|---|---|
+| `ROBOTS_DISALLOWED` / `PERMISSIONS_ERROR` z `web_fetch` | ograniczenie NARZĘDZIA | kanał kodu wg §1; przeglądarka; inny endpoint |
+| `robots.txt` serwera zakazuje ścieżki | wskazówka dla robotów masowych | pojedynczy dokument pobierz inną dostępną drogą (kanał kodu, przeglądarka, inny format, urzędowy mirror) |
+| 403/502/strona zastępcza zależna od klienta | kształt żądania | §1 (UA, `Accept`, ścieżka); gdy portal działa tylko z przeglądarką — przeglądarka |
+| awaria, timeout, przeciążenie | stan SERWERA | ponowienie, inny host tego samego publikatora, potem źródło zastępcze |
+| logowanie, licencja/paywall, CAPTCHA, klucz API | zabezpieczenie dostępu | **nie łam**; LEX/Legalis tylko przy dostępie kancelarii; inaczej źródło zastępcze albo plik od użytkownika |
+
+Kolejność prób: (1) inny kanał tego samego źródła → (2) inny host tego samego
+publikatora (np. `api.sejm.gov.pl/eli` ↔ `eli.gov.pl` ↔ `dziennikustaw.gov.pl`;
+Cellar dla EUR-Lex) → (3) przeglądarka → (4) źródło zastępcze wg kanonu
+E-1…E-5 → (5) prośba do użytkownika o plik.
+
+Granice, które zostają:
+- bez łamania logowania, używania cudzych danych dostępowych, obchodzenia
+  licencji/paywalla, CAPTCHA i innych zabezpieczeń technicznych;
+- bez masowego pobierania ponad potrzebę sprawy; respektuj limity zapytań;
+- w śladzie zawsze podaj kanał, którym pobrano treść (np. „pobrano
+  przeglądarką — `web_fetch` zablokowany”), i nazwij przyczynę blokady
+  zgodnie z tabelą, a nie ogólnikiem „błąd techniczny”.
 
 ---
 
@@ -187,6 +222,41 @@ Tempo nadal ograniczaj, ale samo odczekanie 60 s NIE jest procedurą naprawczą.
 | ✅ **ELI Sejmu** | `api.sejm.gov.pl/eli/acts/DU/{rok}/{poz}` | JSON; `/text.pdf`, `/references`. Bez klucza |
 | ✅ **ELI (mirror)** | `eli.gov.pl/api/acts/DU/{rok}/{poz}` | ten sam korpus |
 | ⛔ **ISAP** | — | **kanał maszynowy MARTWY**: Imperva odbija pętlą 302 na ten sam adres, także pod neutralnym UA |
+
+### ⭐ Odczyt jednostki redakcyjnej — struktura HTML ELI (zbadana 2026-09-26, F-201)
+
+`/text.html` ma znaczniki struktury: każda jednostka to `<div class="unit unit_<rodzaj>" id="…" data-id="…">`.
+Rodzaje: `arti` (art.), `para` (§), `pass` (ust.), `pint` (pkt), `lett` (lit.), `bran`/`chpt` (dział/rozdział).
+Numeracja w `data-id`: `arti_22` = art. 22; `arti_22_1` = art. 22¹; `arti_22_1_a` = art. 22¹a;
+`para_1_1` = § 1¹; `pass_2` = ust. 2. Przypisy: `gloss-link`, `tooltip-text`, `gloss-section` — nie są treścią.
+
+**Tekst jednolity = obwieszczenie w dwóch częściach:** `<section id="part_1">` treść obwieszczenia
+(przytoczenia przepisów ustaw zmieniających z własną numeracją), `<section id="part_2">` załącznik
+„Tekst jednolity ustawy”. Jednostkę bierz wyłącznie z części „Tekst jednolity”. Tekst pierwotny
+aktu (`/eli/acts/DU/{rok}/{poz}/text.html` pod pozycją oryginału) to **brzmienie z dnia ogłoszenia**,
+nie stan aktualny.
+
+**Wybór tekstu:** metadane aktu → `references["Inf. o tekście jednolitym"]` → sortuj po (rok, poz.)
+malejąco → sprawdź `textHTML` każdego t.j. Najnowszy t.j. bez HTML (np. KP: 2026/1245 i 2025/277 tylko
+PDF, HTML od 2023/1465) → HTML wolno użyć do lokalizacji jednostki, ale ✅ wymaga odczytu `/text.pdf`
+najnowszego t.j.
+
+```
+python3 shared/tools/eli_art_extract.py --eli DU/1974/141 --cytat "art. 22 § 1"
+# [FOUND] … aktualność: STARSZY_TJ_NOWSZY_TYLKO_PDF … ostrzeżenie: odczytaj …/DU/2026/1245/text.pdf
+python3 shared/tools/eli_art_extract.py --plik tj.html --cytat "art. 22¹ § 2" --json
+```
+
+Testy: `cd shared/tools && python3 -m unittest test_eli_art_extract` (15 przypadków; tryb live:
+`LEX_LIVE=1`). Kod wyjścia 0 wyłącznie przy FOUND.
+
+⛔ **`entryIntoForce` ≠ wszystkie daty wejścia w życie (zmierzone 2026-09-22,
+F-193).** Dla `DU/2026/26` metadane zwracają wyłącznie `2026-04-13`, podczas gdy
+art. 43 ustawy ustanawia jeszcze 27.01.2026, 1.10.2026 i 1.01.2027. Monitoring
+oparty na samym polu przegapiłby etap z 2027 r. Po każdym trafieniu odczytaj
+artykuł końcowy z `/text.pdf`; w t.j. dodatkowo przypisy „wejdzie w życie z dniem…".
+Wyszukiwanie po tytule: `/eli/acts/search?publisher=DU&year={rok}&title={fraza}`
+(bez klucza, JSON, zmierzone 2026-09-22).
 
 ⛔ **Skutek praktyczny dla reguły „ISAP każdy przepis":** brzmienie
 **weryfikuj przez ELI**, a **ISAP powołuj jako adres dla człowieka** w piśmie.
@@ -518,6 +588,13 @@ w `refid` (`urn:ndoc:gov:pl:uodo:…`). Okno: `1M`, `1Y`.
 ⚠️ **Pułapka odpisu KRS:** JSON jest **zanonimizowany** względem PDF (inicjały,
 część PESEL). Przy ustalaniu reprezentacji strony może to nie wystarczyć —
 wtedy odpis PDF.
+
+✅ **Adapter kodu (F-204, 2026-09-26):** `shared/tools/adapter_krs_vat.py` —
+własny odczyt KRS + WL bez serwerów zewnętrznych, wpięty w
+`shared/MOD-IDENTYFIKACJA-STRONY-UMOWY.md` §ISU-1b. Schemat JSON KRS
+zmierzony LIVE tą sesją (KRS 0000010681, ORANGE POLSKA S.A. — ta sama
+para NIP/REGON co w przykładzie WL niżej, potwierdzenie krzyżowe dwóch
+rejestrów). Szczegóły i stan weryfikacji: `shared/tools/README.md`.
 
 ### ✅ Biała lista VAT — `wl-api.mf.gov.pl` (ODBLOKOWANA 2026-09-13c, F-157b)
 

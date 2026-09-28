@@ -1,5 +1,10 @@
 # CHANGELOG — analizator-dowodow-v3
 
+- 5.16.16 (2026-09-27e, AUDYT-2026-09-27e): claude.ai po dodaniu marketplace instalował wyłącznie 4 z 32 pluginów (shared, prawny-router-v3, analizator-dowodow-v3, przesluchanie-swiadkow-v2-min90); jedyna cecha wspólna tych 4, nieobecna w żadnym z 28 pozostałych, to klucz `dependencies` we frontmatterze SKILL.md. Ten skill już go miał; oraz jawny manifest pluginu (name, description = description z SKILL.md, author, repository, license) — host nie musi niczego wnioskować z SKILL.md. `version` w manifeście = `version:` z SKILL.md (pilnuje T38 w audyt-systemu-v4) — host rozpoznaje aktualizację po podbiciu wersji. Treść skilla bez zmian.
+- 5.16.15 (2026-09-27d, AUDYT-2026-09-27d, F-207): **odtworzone** wywołanie `shared/MOD-WEJSCIE-DOKUMENTU.md` (bramka WD-1…WD-3, F-200) — jedyna zmiana tego skilla z wydania 5.16.14, które nie dotarło do repozytorium. Treść reguł nie jest kopiowana; obecność wywołania pilnuje T35.
+- 5.16.14 — WYDANIE NIEDOSTARCZONE (F-207): odnotowane w AUDIT-JOURNAL, AUDYT-2026-09-26 §7 (wywołanie WD, F-200), nieobecne na żadnej gałęzi `michaleiatrak-star/Lex-Machina`. Zakres odtworzony w 5.16.15; numer 5.16.14 nie jest używany ponownie.
+
+- 5.16.13 (2026-09-23, AUDYT-2026-09-23b): kanon E-1…E-5 (`shared/HIERARCHIA-ZRODEL.md` 1.10): instrukcje weryfikacji „w ISAP” / „isap.sejm.gov.pl →” zamienione na „w ELI (RZĄD 1)” (9 plików); ISAP pozostaje adresem dla człowieka; wpisy historyczne („zweryfikowano w ISAP …”) bez zmian.
 - 5.16.12 (2026-09-16, F-189): MP11-rodo-cyber — art. 83 ust. 5–6 RODO odczytany (RZĄD 1, Cellar): 20 mln EUR albo 4 % światowego obrotu, kwota wyższa; ten sam pułap za nieprzestrzeganie nakazu organu; usunięte oznaczenie 🟨.
 - 5.16.11 (2026-09-16, F-189): MP11-rodo-cyber — kary z art. 83 ust. 5 RODO oznaczone 🟨 jako nieodczytane w RZĘDZIE 1 (pobranie EUR-Lex objęło art. 1–47); wartość pozostaje, wymaga odczytu przed powołaniem.
 - 5.16.10 (2026-09-16, F-189): MP12-terminy — skarga na bezczynność: w każdym czasie po ponagleniu (art. 53 § 2b PPSA), ⛔ nie „30 dni od odpowiedzi lub 60 dni od ponaglenia”; art. 53 § 1 bez wymogu doręczenia z uzasadnieniem (F-135, RZĄD 1).

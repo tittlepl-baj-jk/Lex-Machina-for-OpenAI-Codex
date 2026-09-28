@@ -41,10 +41,57 @@ oznaczeniem, że weryfikacja była promptowa, a nie deterministyczna.**
 ## KROK 1 — Wykrycie dostępnych narzędzi MCP
 
 Na początku obsługi każdej sprawy (po FAZIE routingu w prawny-router-v3, przed
-KROKIEM 1-detekcja), sprawdź listę dostępnych narzędzi w tej rozmowie pod kątem
-narzędzi oznaczonych jako `[third_party_mcp_app]` lub jawnie nazwanych wg wzorca
-z `KONEKTORY-REKOMENDOWANE.md` (np. `isap_lookup`, `saos_search`,
-`cbosa_search`, `krs_lookup`, `eurlex_lookup`).
+KROKIEM 1-detekcja), **wypisz faktyczną listę narzędzi dostępnych w tej rozmowie**
+i sprawdź, czy któreś pochodzi z serwera MCP.
+
+⛔ **POPRAWKA 2026-09-27h — poprzednia reguła NIE MOGŁA ZADZIAŁAĆ.** Kazała szukać
+narzędzi „nazwanych wg wzorca z `KONEKTORY-REKOMENDOWANE.md` (np. `isap_lookup`,
+`saos_search`, `cbosa_search`, `krs_lookup`, `eurlex_lookup`)". Zmierzone:
+
+- (a) tych nazw **nie ma w `KONEKTORY-REKOMENDOWANE.md`** — odesłanie prowadziło do
+  konwencji, której ten plik nigdy nie zawierał (jego tabela operuje kategoriami
+  funkcjonalnymi, nie nazwami narzędzi);
+- (b) nazwa `isap_lookup` **istnieje** — to `registerTool("isap_lookup", …)`
+  w `shared/tools/mcp-servers/` (`isap-eli-example`). ⚠️ Korekta wobec wydania 3.87,
+  które twierdziło, że „narzędzia MCP nie nazywają się w ten sposób" — twierdzenie
+  było za szerokie i niezmierzone wobec własnych serwerów tego repozytorium;
+- (c) **czego brakowało i co jest faktyczną przyczyną awarii wykrywania:** w hoście
+  narzędzie serwera nie nazywa się `isap_lookup`, lecz `mcp__<serwer>__isap_lookup`.
+  Szukanie samej nazwy własnej nie trafi, choćby nazwa była poprawna.
+
+Skutek, gdyby tego nie wykryto: tryb MCP-FIRST nie włączyłby się nawet przy poprawnie
+zainstalowanym konektorze, a system trwale pracowałby w FALLBACK-HARDGATE, nie
+wiedząc o tym (bramka samoraportująca — rodzina F-119).
+
+**Reguła wykrywania — po KSZTAŁCIE nazwy, nie po zgadywanej nazwie własnej:**
+
+```
+Narzędzie pochodzi z MCP, gdy jego nazwa ma postać:
+    mcp__<nazwa-serwera>__<nazwa-narzędzia>
+Przykłady zmierzone w środowisku: mcp__memory__memory_list,
+    mcp__mcp-isap__search_acts
+⛔ NIE zgaduj nazw narzędzi. Wypisz te, które SĄ, i dopasuj po ZDOLNOŚCI
+   (co narzędzie robi wg swojego opisu), nie po nazwie własnej.
+```
+
+**Zmierzone 2026-09-27g/h — serwery ELI/ISAP** (`@matematicsolutions/mcp-isap` 1.3.0,
+protokół MCP 2024-11-05, `initialize` + `tools/list` + `tools/call` wykonane
+realnie, źródło danych: api.sejm.gov.pl/eli — ten sam publikator, co RZĄD 1):
+
+| Narzędzie | Wymagane argumenty | Zdolność |
+|---|---|---|
+| `search_acts` | — (np. `title`, `limit`) | wyszukanie aktu po tytule; zwraca ELI, pozycję Dz.U., typ, status, daty |
+| `get_act` | `eli` (np. `DU/2018/1000`) | metryka aktu po identyfikatorze ELI |
+| `get_act_text` | `eli` | tekst aktu stronami po 5000 znaków |
+
+**Serwer własny repozytorium** (`shared/tools/mcp-servers/isap-eli-example/`,
+zmierzony 2026-09-27h): jedno narzędzie `isap_lookup` (arg `query`), zwraca schemat
+FOUND / NOT_FOUND / AMBIGUOUS / ERROR wg `SCHEMAT-ODPOWIEDZI-MCP.md`. W hoście:
+`mcp__<nazwa-serwera-z-konfiguracji>__isap_lookup`.
+
+⚠️ Tabela jest **przykładem zmierzonym**, nie kontraktem: inny serwer ELI wystawi
+inne nazwy. Reguła obowiązująca to dopasowanie po zdolności, tabela służy do
+rozpoznania tego konkretnego serwera.
 
 - Znaleziono ≥1 pasujący konektor → tryb **MCP-FIRST** dla tej dziedziny zapytania.
 - Nie znaleziono żadnego → tryb **FALLBACK-HARDGATE** (obecny stan systemu, bez zmian).

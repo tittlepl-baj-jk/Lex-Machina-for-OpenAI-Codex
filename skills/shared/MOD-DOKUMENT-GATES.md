@@ -227,6 +227,11 @@ w. 1277-1285; treść niezmieniona.)*
 > względem dostępnego źródła nie włącza się do pytania — oznacza się jako
 > wymagający weryfikacji przed użyciem.
 
+> **Relacja do reguły ogólnej (dopisane 2026-09-26, F-200):** ogólna reguła cytatu
+> z dokumentu wejściowego to `shared/MOD-WEJSCIE-DOKUMENTU.md` WD-2 (obowiązuje
+> wszystkie skille przyjmujące materiał). §8 pozostaje regułą szczególną dla cytatu
+> w pytaniu — treść §8 powyżej bez zmian.
+
 ---
 
 ## Integracja z pozostałymi bramkami systemu

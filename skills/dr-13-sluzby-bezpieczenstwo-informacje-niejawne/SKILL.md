@@ -3,12 +3,13 @@ name: "dr-13-sluzby-bezpieczenstwo-informacje-niejawne"
 description: "Służby, bezpieczeństwo i informacje niejawne: Policja, ABW/AW i inne służby, obrona, ochrona informacji niejawnych oraz publicznoprawne ramy bezpieczeństwa."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-18"
+  source-tree: "development-2026-09-27"
   source-directory: "dr-13-sluzby-bezpieczenstwo-informacje-niejawne"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
+> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -16,7 +17,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
 
-1. `view dr-13-sluzby-bezpieczenstwo-informacje-niejawne/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
+1. `view dr-13-sluzby-bezpieczenstwo-informacje-niejawne/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
 4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
@@ -31,7 +32,7 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 ## ⛔ HARD GATE — ZAKAZ CYTOWANIA Z PAMIĘCI
 
 **PRZED każdym powołaniem przepisu, uprawnienia, terminu lub sygnatury:**
-1. Zweryfikuj brzmienie i Dz.U. w `isap.sejm.gov.pl`
+1. Zweryfikuj brzmienie i Dz.U. w `ELI (RZĄD 1)`
 2. Zweryfikuj orzeczenie w `orzeczenia.ms.gov.pl` / `nsa.gov.pl` / `sn.pl`
 3. **NIGDY** nie podawaj artykułu, kompetencji, kary ani terminu wyłącznie z pamięci modelu.
 
@@ -55,15 +56,15 @@ Ustawa o obronie Ojczyzny — t.j. Dz.U. 2025 poz. 825 (✅ [VER] RZĄD 1 2026-0
 > zmianie brzmienia).
 >
 > ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
-> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
-> oznaczenia, tylko je wymusza.
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ELI (oba kanały) nie zwalnia z
+> oznaczenia, tylko je wymusza; niedostępność ISAP to stan normalny.
 
 ---
 
 ## Zasada architektoniczna
 - Jeden moduł = jeden akt prawny (tekst jednolity Dz.U.)
 - Ten sam akt NIE może pokrywać dwóch różnych DR-skills
-- **Zakaz cytowania przepisów z pamięci — każde brzmienie weryfikuj w ISAP**
+- **Zakaz cytowania przepisów z pamięci — każde brzmienie weryfikuj w ELI (RZĄD 1)**
 - **Prawo służb mundurowych zmieniane wielokrotnie w 2024–2025 — weryfikuj ZAWSZE**
 
 ---
@@ -201,7 +202,7 @@ view dr-13-sluzby-bezpieczenstwo-informacje-niejawne/MAPA-AKTOW.md
   `mod-PPSA-terminy-kasacja-prawo-pomocy`
 - Zamówienia obronne (PZP obronna) → `dr-07`
 - Wychodzi do: `pisma-procesowe-v3` / `analiza-sadowa-v6` / `orzeczenia-sadowe-v2`
-- Weryfikacja: isap.sejm.gov.pl | orzeczenia.ms.gov.pl | nsa.gov.pl | sn.pl
+- Weryfikacja: ELI (RZĄD 1) | orzeczenia.ms.gov.pl | nsa.gov.pl | sn.pl
 
 ## ⚖️ DISCLAIMER (obowiązkowy)
 

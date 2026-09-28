@@ -1,13 +1,13 @@
 name: raport-sytuacyjny-v2
-version: "2.8"
+version: "2.11"
 type: executive-raport
 status: production
 compatibility: "live_web_lookup, file_read, cross_skill_file_read, optional_document_and_interactive_ui"
 description: "Raport sytuacyjny sprawy: syntetyzuje fakty, ryzyka, dowody, terminy, warianty i priorytety; może generować interaktywny widok sytuacji i eksport danych."
+dependencies:
+  requires:
+    - shared
+  # 2026-09-27e: jawna zależność (każdy skill systemu korzysta z `shared`); pole czytane przy imporcie z marketplace
 changelog: |
-  Wersja bieżąca: 2.8. Pełna historia — references/CHANGELOG.md
-  (plik założony 2026-08-23g przy okazji naprawy F-123; do tej daty wpisy
-  mieszkały w tym polu YAML wbrew ZASADZIE 15 audyt-systemu-v4).
-  Skrót: 2.7 — HARD GATE do shared/PRAWO-HARDGATE.md dla twierdzeń o prawie
-  renderowanych w widgecie (F-123). 2.6 — zakładka Historia strategii,
-  sekcja Priorytety sprawy w zakładce Ryzyka.
+  Wersja bieżąca: 2.11 (2026-09-27e, AUDYT-2026-09-27e): jawny manifest `.claude-plugin/plugin.json` oraz `dependencies.requires: [shared]` we frontmatterze — import z marketplace w claude.ai. Treść skilla bez zmian.
+  Pełna historia: references/CHANGELOG.md (ZASADA 15).

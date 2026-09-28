@@ -1,0 +1,11 @@
+{
+  "name": "dr-08-samorzad-terytorialny-prawo-lokalne",
+  "version": "3.14",
+  "description": "Samorząd terytorialny i prawo lokalne: gmina, powiat, województwo, uchwały, akty prawa miejscowego, nadzór, kompetencje JST i lokalne planowanie.",
+  "author": {
+    "name": "Adrian Miłosz Kalinowski",
+    "email": "adrian@lexagento.pl"
+  },
+  "repository": "https://github.com/michaleiatrak-star/Lex-Machina",
+  "license": "GPL-3.0-only"
+}

@@ -1,3 +1,7 @@
 name: dr-05-prawo-administracyjne-sadowoadministracyjne
-version: "3.28"
+version: "3.31"
 description: "Prawo administracyjne i sądowoadministracyjne: KPA, PPSA, decyzje, bezczynność, WSA/NSA, egzekucja administracyjna, cudzoziemcy i postępowania urzędowe."
+dependencies:
+  requires:
+    - shared
+  # 2026-09-27e: jawna zależność (każdy skill systemu korzysta z `shared`); pole czytane przy imporcie z marketplace

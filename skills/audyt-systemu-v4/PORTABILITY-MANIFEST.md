@@ -1,11 +1,11 @@
 # Portability manifest — audyt-systemu-v4
 
-- Release: **6.98 (2026-09-14)**
+- Release: **6.127 (2026-09-26)** — pola liczbowe poniżej zaktualizowane w tym wydaniu; wcześniej stały na stanie 6.98 mimo kolejnych wydań.
 
 - Full own skill tree preserved; no `shared` or other skill is vendored.
 - `SKILL.md` is host-neutral; named operations are mapped by a semantic runtime adapter.
-- Current package files: **101**.
-- Current scripts: **38**; current references files: **51**.
+- Current package files: **110**.
+- Current scripts: **46** (w tym T34–T36); current references files: **52**.
 - Frontmatter description: **167/200** characters.
 
 ## Existing portability fixes retained
@@ -50,3 +50,10 @@ Wydanie 6.97 należy dystrybuować jako pełny katalog `audyt-systemu-v4`
 - `site:` nie jest filtrem domenowym; obowiązuje POST-CHECK HOSTA.
 - F-183a pozostaje otwarta tylko dla pozytywnego direct-live w środowisku docelowym.
 - Liczba plików skilla pozostaje **101**.
+
+## T34–T36 — 6.127
+
+- Dodane `scripts/check_archiwa_repo.py` (T34), `scripts/check_wejscie_dokumentu.py` (T35),
+  `scripts/check_eli_extract.py` (T36) — offline, host-neutralne, bez ścieżek jednego hosta.
+- T34 wykrywa układ repozytorium (`../WERSJA ROZWOJOWA`); przy innym układzie PASS informacyjny.
+- Liczba plików skilla: **110**. Wydanie wyłącznie jako pełny katalog (Reguła 7).

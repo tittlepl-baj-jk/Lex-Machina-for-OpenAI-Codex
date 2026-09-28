@@ -6,7 +6,8 @@
 > wymaga oceny wartości ryzyka. Stosuj zawsze przy umowach >100 000 PLN.
 
 > ⛔ HARD GATE — kary umowne, stopy odsetek, limity z KC zawsze weryfikuj
-> w ISAP przed podaniem kwot. Weryfikacja: isap.sejm.gov.pl → KC → art. 484.
+> w ELI (RZĄD 1) przed podaniem kwot. Weryfikacja: ELI (RZĄD 1) → KC → art. 484
+> (ISAP wyłącznie jako adres dla człowieka — kanon E-1…E-5, `shared/HIERARCHIA-ZRODEL.md`).
 
 > **v1.18 — źródła metodologiczne (zastępuje wcześniejszą heurystykę
 > „Likely × 2" bez podstawy):**
@@ -110,6 +111,65 @@ WNIOSKI:
 
 ---
 
+## RK.2a EFEKTYWNA EKSPOZYCJA — POLICZ, ZANIM OCENISZ (R-EKS, dodane 2026-09-26, F-202)
+
+> ⛔ **Obowiązkowe** w triage (Krok 2a) i w pełnej analizie (sekcja 6 raportu), gdy
+> umowa zawiera limit odpowiedzialności, karę umowną, odszkodowanie ryczałtowe,
+> indemnifikację lub automatyczne przedłużenie — **niezależnie od wartości umowy**.
+> Model językowy źle liczy „w głowie”, a etykieta klauzuli („cap 12 mies.”) nie jest
+> ekspozycją. Werdykt i flagi kalibrujesz do **policzonych kwot**, nie do etykiet.
+
+**Zasady rachunku**
+1. **Liczby wyłącznie z tekstu umowy** (WD-2, `shared/MOD-WEJSCIE-DOKUMENTU.md`):
+   każda liczba z lokalizacją (§/ust.). Brak liczby → `[BRAK DANYCH]`, nigdy szacunek
+   podstawiony jako fakt. Kwota słownie ≠ cyfrą → oba zapisy i rozbieżność.
+2. **Pokaż działanie**, nie tylko wynik — tak, żeby czytelnik przeliczył je sam.
+3. **Kwalifikacja prawna jest osobnym krokiem.** Czy dane wyłączenie lub limit jest
+   skuteczny, rozstrzyga `mod-shared-ius-cogens.md` (IC) po odczycie przepisu w ELI —
+   rachunek liczy ekspozycję **według brzmienia umowy** i osobno oznacza pozycje,
+   których skuteczność zależy od IC.
+
+**Cztery rachunki**
+
+```
+E1 · EFEKTYWNA EKSPOZYCJA (nie nominalny limit)
+     limit ogólny (cap)                                   = [kwota | BRAK DANYCH]  (§)
+   + kary umowne WYŁĄCZONE z limitu lub poza nim          = [suma]                 (§)
+   + indemnifikacje / odszkodowania bez limitu            = [NIEOGRANICZONE | kwota](§)
+   + pozycje wyłączone z limitu (np. poufność, IP, dane)  = [lista + kwoty]        (§)
+   ─────────────────────────────────────────────────────────────────────────────
+   = EKSPOZYCJA EFEKTYWNA  [kwota | NIEOGRANICZONA]  →  × [n] wartości umowy
+
+E2 · KUMULACJA KAR
+     dla każdej kary: stawka × jednostka × maks. liczba jednostek (albo „bez sufitu”)
+     czy kary się sumują (ta sama okoliczność / różne tytuły)?  TAK / NIE / BRAK POSTANOWIENIA
+     czy jest sufit łączny?                                      [kwota | BRAK]
+     scenariusz referencyjny: opóźnienie [d] dni → kara = [działanie] = [kwota]
+
+E3 · ASYMETRIA LICZBOWO
+     strona A: limit [x], kary [y]  |  strona B: limit [x'], kary [y']
+     różnica: [x−x'] / krotność [x/x']      — nigdy samo słowo „asymetryczne”
+
+E4 · DATY GRANICZNE
+     okres wypowiedzenia / okno na wypowiedzenie przed przedłużeniem → [data]
+     automatyczne przedłużenie + zmiana ceny → [data] i [nowa kwota]
+     termin płatności → [dni]  |  kamienie milowe → [daty]
+```
+
+**Kalibracja flag (reguła, nie liczba z pamięci):** flagę przypisujesz do wyniku E1–E4.
+Przykład wzorcowy: nominalny limit „12 miesięcy wynagrodzenia” przy karach poza limitem
+przekraczających ten limit **nie jest** sygnałem 🟢 — ekspozycja efektywna jest wyższa od
+nominalnej i to ona decyduje o kategorii. Progi procentowe z RK.3 są orientacyjne i nie
+zastępują rachunku.
+
+**Wyjście (do raportu i do notatki triage):**
+```
+R-EKS: E1 = [kwota|NIEOGR.] ([n]× wartości) · E2 = [kwota / bez sufitu] · E3 = [krotność]
+       · E4 = [najbliższa data graniczna]   Pozycje zależne od IC: [§…]   Brak danych: [§…]
+```
+
+---
+
 ## RK.3 KALKULATOR TYPOWYCH KAR UMOWNYCH
 
 ```
@@ -123,7 +183,7 @@ KARY DZIENNE (weryfikuj zawsze w aktualnej umowie):
   Naruszenie poufności:             jednorazowe 10–50 000 PLN lub % przychodu
   Naruszenie zakazu konkurencji:    3–12 × miesięczne wynagrodzenie/fee
 
-  LIMITY KARY UMOWNEJ (weryfikuj: isap.sejm.gov.pl → KC → art. 484):
+  LIMITY KARY UMOWNEJ (weryfikuj: ELI (RZĄD 1) → KC → art. 484):
   KC nie ustala maksimum → strony mogą ustalić dowolną stawkę
   MIARKOWANIE (art. 484 §2 KC): sąd może obniżyć gdy:
     (a) zobowiązanie wykonane w znacznej części LUB
@@ -139,7 +199,7 @@ KARY DZIENNE (weryfikuj zawsze w aktualnej umowie):
 ```
 PROBLEM: Umowa nie zawiera limitu odpowiedzialności (cap liability).
 → Odpowiedzialność = rzeczywista szkoda + utracone korzyści (art. 361 §2 KC)
-  Weryfikuj: isap.sejm.gov.pl → KC → art. 361
+  Weryfikuj: ELI (RZĄD 1) → KC → art. 361
 
 SZACOWANIE WORST CASE dla nieograniczonej odpowiedzialności:
 
@@ -178,7 +238,7 @@ REKOMENDACJA LIMITU (cap liability):
 
 ```
 ODSETKI USTAWOWE (weryfikuj ZAWSZE aktualne stawki w NBP/ISAP):
-  Podstawa: KC art. 359 — weryfikuj: isap.sejm.gov.pl
+  Podstawa: KC art. 359 — weryfikuj: ELI (RZĄD 1)
   Stawka ustawowa = stopa referencyjna NBP + 3,5 pp
   Stawka ustawowa za opóźnienie = stopa referencyjna NBP + 5,5 pp
   Stawka maksymalna = dwukrotność odsetek ustawowych za opóźnienie
@@ -188,7 +248,7 @@ ODSETKI USTAWOWE (weryfikuj ZAWSZE aktualne stawki w NBP/ISAP):
 
   Odsetki w transakcjach handlowych (B2B):
   Ustawa o przeciwdziałaniu nadmiernym opóźnieniom w transakcjach handlowych
-  Weryfikuj: isap.sejm.gov.pl → t.j. Dz.U. 2023 poz. 1790
+  Weryfikuj: ELI (RZĄD 1) → t.j. Dz.U. 2023 poz. 1790
 
 KALKULATOR ODSETEK:
   Kwota zaległa: [X] PLN
@@ -238,5 +298,5 @@ Wartość umowy: [X] PLN
 
 *← Powrót do routingu: `view references/mod-J0-routing.md`*
 *Powiązane: Moduł D.2 (scoring balansu), Moduł F (raport końcowy)*
-*Weryfikacja przepisów: isap.sejm.gov.pl → KC art. 361, 471, 484*
+*Weryfikacja przepisów: ELI (RZĄD 1) → KC art. 361, 471, 484*
 *Stawki NBP: web_search "stopa referencyjna NBP [rok]"*

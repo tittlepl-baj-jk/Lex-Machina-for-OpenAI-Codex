@@ -3,6 +3,8 @@
 > **Rola:** wspólny kontrakt wykonawczy Lex Machina. Ten plik nie zmienia prawa,
 > metodologii, HARD GATE, routingu dziedzinowego ani bramek jakości. Ujednolica
 > wyłącznie sposób rozumienia operacji zależnych od hosta.
+>
+> **Wersja:** 1.1 (2026-09-27, `shared` 3.85) — dodany §1A RESOLVER-SKILLI.
 
 ## 1. Zasoby i ścieżki
 
@@ -13,6 +15,68 @@
   nie może zostać świeżo odczytany, **FAIL-CLOSED**; nie zastępuj go pamięcią modelu.
 - Ścieżki względne `references/...`, `modules/...`, `assets/...` dotyczą bieżącego skilla.
 - Historyczne ścieżki w changelogach i dziennikach audytu są dokumentacją, nie instrukcją runtime.
+
+## 1A. RESOLVER-SKILLI — instalacja z marketplace, kilka kopii tego samego skilla
+
+**Adres logiczny, nie ścieżka hosta.** Zapisy `shared/X`, `<skill>/X`,
+`../<skill>/X`, `/mnt/skills/plugins/<skill>/X` i `skill/path` w każdym
+pliku systemu oznaczają zasób `X` skilla `<skill>`. Katalog zapisany w ścieżce nie jest
+faktem o bieżącym hoście — rozwiązuje go ta sekcja.
+
+**Gdzie hosty kładą skille** (zmierzone 2026-09-27):
+
+| Host i sposób instalacji | Katalog skilla |
+|---|---|
+| claude.ai / Cowork — plugin z marketplace | `/mnt/skills/plugins/<plugin>:<skill>/` (np. `shared:shared`) |
+| claude.ai — skill wgrany lub organizacyjny | `../<skill>/`, `/mnt/skills/plugins/<skill>/` |
+| Claude Code — marketplace z GitHuba | `~/.claude/plugins/cache/<marketplace>/<skill>/<wersja-lub-hash>/` |
+| Claude Code — marketplace lokalny | katalog źródłowy, rodzeństwo wołającego skilla |
+| Claude Code — skill osobisty / projektu | `~/.claude/skills/<skill>/`, `.claude/skills/<skill>/` |
+
+Plugin z marketplace **nie leży obok** innych skilli pod ich nazwami — dlatego
+ścieżka zapisana na sztywno trafia w pustkę albo, co gorsze, w starą kopię z innej
+instalacji.
+
+**R-1 — wyszukanie.** Przed pierwszym odczytem zasobu danego skilla w sesji, gdy host
+ma powłokę:
+
+```bash
+lm_resolve() {  # $1 = nazwa skilla; $2 = katalog wołającego skilla (opcjonalnie)
+  T=$(printf '\t')
+  for d in /mnt/skills/*/"$1" /mnt/skills/*/*:"$1" \
+           "$HOME"/.claude/plugins/cache/*/"$1"/* \
+           "$HOME"/.claude/skills/"$1" ./.claude/skills/"$1" \
+           ${2:+"$2/../$1"}; do
+    [ -f "$d/SKILL.md" ] || continue
+    v=$(sed -n 's/^version: *"\{0,1\}\([0-9][0-9.]*\).*/\1/p' "$d/SKILL.md" | head -n 1)
+    p=$(cd "$d" && pwd -P)
+    case "$p" in *:"$1"|*/.claude/plugins/cache/*) w=1 ;; *) w=0 ;; esac
+    printf '%s\t%s\t%s\n' "${v:-0}" "$w" "$p"
+  done | sort -u | sort -t "$T" -k1,1Vr -k2,2nr | grep . || { echo "BRAK: $1" >&2; return 1; }
+}
+lm_resolve shared                 # przykład; drugi argument: katalog wołającego skilla
+```
+
+Wynik: `wersja  plugin(1/0)  katalog`, posortowany od najlepszej kopii. Bez powłoki —
+wylistuj narzędziem odczytu katalogi z tabeli wyżej i odczytaj `version:` z każdego
+znalezionego `SKILL.md`.
+
+**R-2 — wybór.** Używasz **pierwszej** pozycji: najwyższa `version:` (porównanie
+segmentami, `3.84` > `3.9`); przy równych wersjach kopia z pluginu przed kopią
+wgraną. Jedna kopia na skill przez całą sesję — **zakaz łączenia plików z dwóch
+kopii** (mieszanie wersji to cicha niespójność bramek).
+
+**R-3 — duplikat.** Więcej niż jedna pozycja z **różnymi** wersjami →
+`⚠️ DUPLIKAT SKILLA: <skill> <v1> (<katalog>) i <v2> (<katalog>) — użyto <v>` w śladzie
+i jedno zdanie dla użytkownika na sesję: starą instalację należy usunąć. Kopie o tej
+samej wersji odnotuj w śladzie bez ostrzeżenia.
+
+**R-4 — mapa sesji.** Zapamiętaj `<skill> → katalog` i rozwiązuj przez nią każdy adres
+logiczny (`<katalog>/X`). Brak jakiejkolwiek kopii → **FAIL-CLOSED** (§1) z nazwą
+skilla i listą sprawdzonych lokalizacji.
+
+**R-5 — skill wołany bez routera.** Zanim wykona pierwszy `view shared/...`, stosuje
+R-1…R-4 do `shared`. Router robi to w PATH-SELFTEST i wypisuje wynik w KROKU 3A.
 
 ## 2. Operacje semantyczne
 

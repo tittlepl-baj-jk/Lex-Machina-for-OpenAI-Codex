@@ -1,6 +1,10 @@
 # WORKFLOW: Weryfikacja spójności odesłań i powiązań
 ## Analizator Umów v1 · workflows/weryfikacja-spojnosci-odeslan.md
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 > Reguły globalne: `references/generator/rdzen-generowania.md` (R1–R7) przy
 > generowaniu; przy analizie dokumentu istniejącego stosuj HARD GATE globalny
 > z SKILL.md. Ten workflow dotyczy OBU trybów — analizy i generowania.

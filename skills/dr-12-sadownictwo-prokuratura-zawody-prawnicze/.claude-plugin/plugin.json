@@ -1,0 +1,11 @@
+{
+  "name": "dr-12-sadownictwo-prokuratura-zawody-prawnicze",
+  "version": "4.19",
+  "description": "Sądownictwo, prokuratura i zawody prawnicze: ustrój sądów, prokuratura, adwokaci, radcowie, notariusze, komornicy, koszty i odpowiedzialność zawodowa.",
+  "author": {
+    "name": "Adrian Miłosz Kalinowski",
+    "email": "adrian@lexagento.pl"
+  },
+  "repository": "https://github.com/michaleiatrak-star/Lex-Machina",
+  "license": "GPL-3.0-only"
+}

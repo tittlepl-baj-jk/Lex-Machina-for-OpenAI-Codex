@@ -1,5 +1,5 @@
 name: analizator-dowodow-v3
-version: "5.16.12"
+version: "5.16.16"
 type: executive-analiza
 status: production
 description: "Ocena dowodów, dokumentów, zeznań i akt: siła dowodowa, hierarchia A-D, pokrycie przesłanek, sprzeczności, terminy procesowe i analiza śledcza."
@@ -38,5 +38,5 @@ pipeline:
     - AD-KROK3-WYKONANIE
     - AD-KROK4-DASHBOARD
 changelog: |
-  Wersja bieżąca: 5.16.12 (2026-09-16, F-189): MP11-rodo-cyber — art. 83 ust. 5–6 RODO odczytany (RZĄD 1, Cellar): 20 mln EUR albo 4 % światowego obrotu, kwota wyższa; ten sam pułap za nieprzestrzeganie naka…
+  Wersja bieżąca: 5.16.16 (2026-09-27e, AUDYT-2026-09-27e): jawny manifest `.claude-plugin/plugin.json` — import z marketplace w claude.ai. Treść skilla bez zmian.
   Pełna historia: references/CHANGELOG.md (ZASADA 15).

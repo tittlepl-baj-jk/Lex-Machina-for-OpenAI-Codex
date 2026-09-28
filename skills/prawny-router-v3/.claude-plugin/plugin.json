@@ -1,0 +1,11 @@
+{
+  "name": "prawny-router-v3",
+  "version": "3.58",
+  "description": "UŻYWAJ ZAWSZE i AUTOMATYCZNIE przy każdej sprawie prawnej, w każdej jurysdykcji. Wczytaj przed analizą, oceną cudzego materiału lub pismem; uruchamia HARD GATE i routing.",
+  "author": {
+    "name": "Adrian Miłosz Kalinowski",
+    "email": "adrian@lexagento.pl"
+  },
+  "repository": "https://github.com/michaleiatrak-star/Lex-Machina",
+  "license": "GPL-3.0-only"
+}

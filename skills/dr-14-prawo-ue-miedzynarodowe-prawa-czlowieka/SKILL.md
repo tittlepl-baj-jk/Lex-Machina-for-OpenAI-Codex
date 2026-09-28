@@ -3,12 +3,13 @@ name: "dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka"
 description: "Prawo UE, międzynarodowe i prawa człowieka: prawo pierwotne i wtórne UE, TSUE, EKPC/ETPC, traktaty, kolizje jurysdykcji i standardy praw człowieka."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-18"
+  source-tree: "development-2026-09-27"
   source-directory: "dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
+> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -16,7 +17,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
 
-1. `view dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
+1. `view dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
 4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
@@ -31,7 +32,7 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 ## ⛔ HARD GATE — ZAKAZ CYTOWANIA Z PAMIĘCI
 
 **PRZED każdym powołaniem przepisu, numeru rozporządzenia, artykułu traktatu, daty stosowania lub sygnatury:**
-1. Zweryfikuj akty krajowe w `isap.sejm.gov.pl`
+1. Zweryfikuj akty krajowe w `ELI (RZĄD 1)`
 2. Zweryfikuj prawo UE i traktaty w `eur-lex.europa.eu`
 3. Zweryfikuj orzeczenia ETPC w `hudoc.echr.coe.int`
 4. Zweryfikuj orzeczenia TSUE w `curia.europa.eu`
@@ -83,15 +84,15 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 > zmianie brzmienia).
 >
 > ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
-> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
-> oznaczenia, tylko je wymusza.
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ELI (oba kanały) nie zwalnia z
+> oznaczenia, tylko je wymusza; niedostępność ISAP to stan normalny.
 
 ---
 
 ## Zasada architektoniczna
 - Jeden moduł = jeden akt / obszar prawa UE lub prawa międzynarodowego
 - Ten sam akt NIE może pokrywać dwóch różnych DR-skills
-- **Zakaz cytowania przepisów z pamięci — weryfikuj w ISAP i EUR-Lex**
+- **Zakaz cytowania przepisów z pamięci — weryfikuj w ELI (RZĄD 1) i EUR-Lex**
 - **Prawo UE zmienia się dynamicznie — etapy stosowania weryfikuj online**
 
 ---
@@ -225,7 +226,7 @@ PRAWO DYPLOMATYCZNE I KONSULARNE:
 
 NARZĘDZIE METODYCZNE:
   [✓] OK    mod-rejestr-zrodla-prawa-lifecycle
-              (workflow kancelaryjny aktualności prawa: ISAP audit, stan prawny
+              (workflow kancelaryjny aktualności prawa: audyt RZĘDU 1 (ELI), stan prawny
                na dzień zdarzenia / pisma / orzekania; przepisy przejściowe;
                integruje: shared/ISAP-AUDIT-PROTOCOL + shared/TEMPORAL-LAW-CHECK +
                shared/LEGAL-LIFECYCLE-MANAGEMENT + shared/LEGAL-QUALITY-GATE)
@@ -257,7 +258,7 @@ view dr-14-prawo-ue-miedzynarodowe-prawa-czlowieka/MAPA-AKTOW.md
 - Obrona narodowa / NATO → `dr-13` → `mod-ustawa-obrona-ojczyzny-mobilizacja`
 - Weryfikacja orzecznictwa TSUE/ETPC → `orzeczenia-sadowe-v2`
 - Wychodzi do: `pisma-procesowe-v3` / `analiza-sadowa-v6` / `orzeczenia-sadowe-v2`
-- Weryfikacja: isap.sejm.gov.pl | eur-lex.europa.eu | echr.coe.int | curia.europa.eu | hcch.net
+- Weryfikacja: ELI (RZĄD 1) | eur-lex.europa.eu | echr.coe.int | curia.europa.eu | hcch.net
 
 ## ⚖️ DISCLAIMER (obowiązkowy)
 

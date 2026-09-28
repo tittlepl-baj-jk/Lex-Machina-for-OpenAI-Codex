@@ -1,6 +1,10 @@
 # WORKFLOW: Ocena z perspektywy drugiej strony (devil's advocate)
 ## Analizator Umów v1 · workflows/ocena-drugiej-strony.md
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 Workflow symulujący czytanie projektu umowy/ugody/regulaminu przez
 **pełnomocnika drugiej strony**. Cel: znaleźć wszystko, co druga strona mogłaby
 wykorzystać przeciwko klientowi, dla którego pracujesz — **zanim** dokument

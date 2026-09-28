@@ -1,6 +1,10 @@
 # CHANGELOG — orzeczenia-sadowe-v2
 
+**2.18 (2026-09-22, F-194) — Zasada 2B:** odwołanie do `GRAD-3b-SYM` (symbol CBOSA jako flaga wymuszająca odczyt przedmiotu) i `KALIBRACJA-PRZECIWNIK` z `shared/WERYFIKACJA-SLAD.md` 1.8; precedens NSA I OSK 590/26 jako 🟨 bez awansu (CBOSA 503, 2026-09-22).
+
 **2.17 (2026-09-14) — retrieval/snapshot CBOSA jako materiał badawczy z jawnym provenance:**
+- 2.20 (2026-09-27e, AUDYT-2026-09-27e): claude.ai po dodaniu marketplace instalował wyłącznie 4 z 32 pluginów (shared, prawny-router-v3, analizator-dowodow-v3, przesluchanie-swiadkow-v2-min90); jedyna cecha wspólna tych 4, nieobecna w żadnym z 28 pozostałych, to klucz `dependencies` we frontmatterze SKILL.md. Dodano go (`requires: [shared]` — zgodnie ze stanem faktycznym) oraz jawny manifest pluginu (name, description = description z SKILL.md, author, repository, license) — host nie musi niczego wnioskować z SKILL.md. `version` w manifeście = `version:` z SKILL.md (pilnuje T38 w audyt-systemu-v4) — host rozpoznaje aktualizację po podbiciu wersji. Treść skilla bez zmian.
+- 2.19 (2026-09-23, AUDYT-2026-09-23b): kanon E-1…E-5 (`shared/HIERARCHIA-ZRODEL.md` 1.10): instrukcje weryfikacji „w ISAP” / „isap.sejm.gov.pl →” zamienione na „w ELI (RZĄD 1)” (1 plików); ISAP pozostaje adresem dla człowieka; wpisy historyczne („zweryfikowano w ISAP …”) bez zmian.
 - fallback V-SYG-0.5 nie jest już redukowany do samego ISTNIENIA, gdy host
   faktycznie zwraca oficjalny snapshot `/doc/{ID}`;
 - obowiązkowe: POST-CHECK HOSTA → exact-match → content_scope;

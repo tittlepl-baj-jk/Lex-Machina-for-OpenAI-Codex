@@ -3,12 +3,13 @@ name: "dr-12-sadownictwo-prokuratura-zawody-prawnicze"
 description: "Sądownictwo, prokuratura i zawody prawnicze: ustrój sądów, prokuratura, adwokaci, radcowie, notariusze, komornicy, koszty i odpowiedzialność zawodowa."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-18"
+  source-tree: "development-2026-09-27"
   source-directory: "dr-12-sadownictwo-prokuratura-zawody-prawnicze"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
+> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -16,7 +17,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedzinowa, mapy aktów, hard gate’y, kolejność modułów i kryteria jakości tego DR-skilla pozostają bez zmian.
 
-1. `view dr-12-sadownictwo-prokuratura-zawody-prawnicze/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `.` nie jest wymagana.
+1. `view dr-12-sadownictwo-prokuratura-zawody-prawnicze/<plik>` oraz `view modules/...` / `view references/...` oznaczają świeży odczyt odpowiedniego lokalnego pliku tego skilla. Literalna ścieżka `..` nie jest wymagana.
 2. `view shared/<plik>` oznacza świeży odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu shared = fail-closed, nie substytucja pamięcią modelu.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt wskazanego osobnego skilla. Nie vendoryzuj innych skilli do tego ZIP-a.
 4. `web_search` / `web_fetch` i podobne nazwy oznaczają świeże wyszukanie/odczyt online przez równoważną funkcję hosta. Zachowaj wymagane źródła oficjalne, statusy weryfikacji i zakaz cytowania prawa z pamięci.
@@ -34,10 +35,10 @@ Ta sekcja zmienia wyłącznie wykonanie operacji technicznych. Merytoryka dziedz
 PRZED każdym powołaniem:
   □ przepisu ustawy → isap.sejm.gov.pl (tekst jednolity + nowelizacje)
   □ sygnatury orzeczenia → orzeczenia.ms.gov.pl / sn.pl / cbosa.nsa.gov.pl
-  □ stawki taksy notarialnej → aktualne rozp. MS w ISAP
-  □ opłaty egzekucyjne komornika → aktualne rozp. MS w ISAP
-  □ wynagrodzenie pełnomocnika z urzędu → aktualne rozp. MS w ISAP
-  □ stawek OC zawodów → aktualne rozp. MS w ISAP
+  □ stawki taksy notarialnej → aktualne rozp. MS w ELI (RZĄD 1)
+  □ opłaty egzekucyjne komornika → aktualne rozp. MS w ELI (RZĄD 1)
+  □ wynagrodzenie pełnomocnika z urzędu → aktualne rozp. MS w ELI (RZĄD 1)
+  □ stawek OC zawodów → aktualne rozp. MS w ELI (RZĄD 1)
 
 Naruszenie HARD GATE = błąd kwalifikowany. Nie ma wyjątków.
 ```
@@ -58,14 +59,14 @@ Naruszenie HARD GATE = błąd kwalifikowany. Nie ma wyjątków.
 > zmianie brzmienia).
 >
 > ⛔ Wyzwalaczem jest BRAK WYWOŁANIA NARZĘDZIA dla danego twierdzenia w danej
-> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ISAP nie zwalnia z
-> oznaczenia, tylko je wymusza.
+> odpowiedzi — nie brak narzędzi w sesji. Niedostępność ELI (oba kanały) nie zwalnia z
+> oznaczenia, tylko je wymusza; niedostępność ISAP to stan normalny.
 
 ## Zasada architektoniczna
 
 - Jeden moduł = jeden akt prawny (tekst jednolity Dz.U.)
 - Ten sam akt NIE może pokrywać dwóch różnych DR-skills
-- **Zakaz cytowania przepisów, sygnatur i stawek z pamięci — weryfikuj w ISAP**
+- **Zakaz cytowania przepisów, sygnatur i stawek z pamięci — weryfikuj w ELI (RZĄD 1)**
 
 ## ⚠️ Ostrzeżenia systemowe
 
@@ -83,7 +84,7 @@ EPPO: Od 2025 r. — Prokuratura Europejska działa w Polsce na podstawie
       nadużycia funduszy UE > 10 000 EUR) → właściwa EPPO, nie prokuratura krajowa.
 
 NOTARIAT: Prawo o notariacie nie ma nowego tekstu jednolitego (ostatni: 1991).
-          Każda nowelizacja osobno w ISAP. Weryfikuj przed każdym cytowaniem.
+          Każda nowelizacja osobno w ELI (`/references` aktu). Weryfikuj przed każdym cytowaniem.
 
 RADCOWIE-ORZECZENIA (2026-07-16): `wsd.kirp.pl`, opisywany dotąd w
 mod-ustawa-odpowiedzialnosc-dyscyplinarna-zawodow.md jako "portal centralny

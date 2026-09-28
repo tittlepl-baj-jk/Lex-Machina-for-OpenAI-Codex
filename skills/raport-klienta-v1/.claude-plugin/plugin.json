@@ -1,0 +1,11 @@
+{
+  "name": "raport-klienta-v1",
+  "version": "1.6",
+  "description": "Raport dla klienta: przekłada analizę prawną na zrozumiały stan sprawy, ryzyka, warianty działania, priorytety i następne kroki bez utraty podstaw źródłowych.",
+  "author": {
+    "name": "Adrian Miłosz Kalinowski",
+    "email": "adrian@lexagento.pl"
+  },
+  "repository": "https://github.com/michaleiatrak-star/Lex-Machina",
+  "license": "GPL-3.0-only"
+}

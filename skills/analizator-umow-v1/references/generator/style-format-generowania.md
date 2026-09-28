@@ -1,6 +1,10 @@
 # STYL I FORMAT — generowanie dokumentów
 ## Analizator Umów v1 · Moduł generator/ (BRAMKA 4 — otwórz przy KAŻDYM generowaniu/edycji treści)
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 > Odpowiednik `style-redakcyjny.md` + `format-checklist.md` z wzorca `commercial-legal-pl`,
 > uogólniony (nie przypisany do jednej kancelarii). Ma pierwszeństwo nad ogólnymi
 > konwencjami pisania dokumentów, ale jest podrzędny wobec essentialia negotii

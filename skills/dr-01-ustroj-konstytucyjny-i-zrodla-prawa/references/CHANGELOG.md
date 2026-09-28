@@ -1,5 +1,8 @@
 # CHANGELOG — dr-01-ustroj-konstytucyjny-i-zrodla-prawa
 
+- 3.13 (2026-09-27e, AUDYT-2026-09-27e): claude.ai po dodaniu marketplace instalował wyłącznie 4 z 32 pluginów (shared, prawny-router-v3, analizator-dowodow-v3, przesluchanie-swiadkow-v2-min90); jedyna cecha wspólna tych 4, nieobecna w żadnym z 28 pozostałych, to klucz `dependencies` we frontmatterze SKILL.md. Dodano go (`requires: [shared]` — zgodnie ze stanem faktycznym) oraz jawny manifest pluginu (name, description = description z SKILL.md, author, repository, license) — host nie musi niczego wnioskować z SKILL.md. `version` w manifeście = `version:` z SKILL.md (pilnuje T38 w audyt-systemu-v4) — host rozpoznaje aktualizację po podbiciu wersji. Treść skilla bez zmian.
+- 3.12 (2026-09-23, AUDYT-2026-09-23c): SKILL.md: „Źródło podstawowe” — LEX/Legalis → ArsLege gdy aktu nie da się pobrać z RZĘDU 1 (awaria serwera, timeout, blokada); korekta użytkownika do warunku E-3.
+- 3.11 (2026-09-23, AUDYT-2026-09-23b): kanon E-1…E-5 (`shared/HIERARCHIA-ZRODEL.md` 1.10): instrukcje weryfikacji „w ISAP” / „isap.sejm.gov.pl →” zamienione na „w ELI (RZĄD 1)” (4 plików); ISAP pozostaje adresem dla człowieka; wpisy historyczne („zweryfikowano w ISAP …”) bez zmian.
 - 3.10 (2026-09-16, F-189): mod-ustawa-KRS-i-ustroj-wladzy — ustawa o Radzie Ministrów: `2022/2032` (obwieszczenie MSWiA o rozporządzeniu — podmiana aktu, wygasłe) → t.j. `2025/780` (RZĄD 1; T27).
 - 3.9 (2026-08-27): F-108/50 — dodano dedykowany moduł ustawy o Sądzie Najwyższym (poziom B), oparty na RZĄD 1 ELI; oddzielono zmianę prospektywną z Dz.U. 2026 poz. 1123 od prawa obowiązującego.
 

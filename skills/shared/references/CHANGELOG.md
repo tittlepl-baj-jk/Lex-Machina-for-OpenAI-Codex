@@ -1,5 +1,172 @@
 # CHANGELOG — Biblioteka shared
 
+## 3.89 — 2026-09-27i — AUDYT-2026-09-27i: przegląd wszystkich 7 przykładowych serwerów + tabela stanu kanałów
+
+⛔ **Wszystkie siedem przykładów w `tools/mcp-servers/` zmierzone wobec żywych API** (dotąd
+sprawdzony był tylko ISAP, w 3.88 — a skoro jeden miał błędny endpoint, założenie o resztcie
+nie miało podstaw). Wyniki i poprawki w nagłówkach plików:
+
+- `ceidg-example`: v2 → **HTTP 404**; poprawione na v3, ale v3 → **HTTP 401** (wymaga tokenu
+  z rejestracji CEIDG) — zapisane wprost, żeby konektor nie udawał braku podmiotu
+- `eurlex-example`: SPARQL `/webapi/rdf/sparql` → **HTTP 406**; dopisana właściwa droga
+  (Cellar REST + oba wymagane nagłówki), gotowy konektor to plugin `mcp-eurlex`
+- `sudop-example`: **303**, a po przekierowaniu „Przygotowywanie odpowiedzi, 60 sekund" —
+  API **asynchroniczne**, jedno żądanie nie wystarcza
+- `nbp-example`: dopisana pułapka dni wolnych (14–15.03.2026 → 404)
+- `saos-example`: ⭐ ustalenie, że SAOS zawiera **22 168 orzeczeń KIO**
+  (`courtType=NATIONAL_APPEAL_CHAMBER`) — osobny konektor do KIO jest zbędny
+- `krs-example`, `isap-eli-example`: endpointy potwierdzone 200
+
+`KONEKTORY-REKOMENDOWANE.md`: nowa tabela stanu **13 kanałów** z pomiarem i wskazaniem
+konektora produkcyjnego. Archiwum `mcp-servers-examples.zip` przebudowane, hashe archiwum
+i pięciu plików zaktualizowane w `PORTABILITY-MANIFEST.md` i `tools/README.md`.
+
+## 3.88 — 2026-09-27h — AUDYT-2026-09-27h: własny konektor ISAP naprawiony i zmierzony; korekta wydania 3.87
+
+⛔ **Naprawiony błąd w `tools/mcp-servers/isap-eli-example/`:** serwer budował
+`…/eli/acts/DU/search?title=…` → **HTTP 404**. Poprawiony na zmierzony endpoint
+`…/eli/acts/search?publisher=DU&title=…` → HTTP 200. Po poprawce pełny cykl MCP
+(`connect → listTools → callTool → close`) na żywym API: „Kodeks karny skarbowy" →
+`AMBIGUOUS`, 33 kandydatów (`DU 2026 poz. 901`, `DU 2025 poz. 633`), zgodnie
+z niezależnym odczytem ELI. Docstring i komentarz `ELI_BASE_URL` zmienione
+z „nieprzetestowane wobec żywego API" na przetestowane. Archiwum
+`mcp-servers-examples.zip` przebudowane (42 pliki bez zmian), hash archiwum
+i hash per-file zaktualizowane w `PORTABILITY-MANIFEST.md` i `tools/README.md`.
+
+⛔ **Zmierzona pułapka środowiska:** `getDefaultEnvironment()` z oficjalnego SDK
+przekazuje serwerowi wyłącznie `HOME`, `PATH`, `SHELL`, `TERM` — bez `HTTPS_PROXY`
+i `NODE_EXTRA_CA_CERTS`. Za proxy każde `fetch` serwera kończy się `fetch failed`,
+co wygląda jak awaria API. Ten sam serwer, to samo zapytanie: bez `env` → ERROR,
+z `env` → AMBIGUOUS/33. Reguła dopisana do `KONEKTORY-REKOMENDOWANE.md`.
+
+⚠️ **Korekta wydania 3.87.** Tamten wpis twierdził, że „narzędzia MCP nie nazywają
+się w ten sposób" (o `isap_lookup` i pokrewnych). Twierdzenie było **za szerokie
+i niezmierzone wobec własnych serwerów** — `isap_lookup` to faktyczna nazwa
+z `registerTool()` w `isap-eli-example`. Prawdziwa przyczyna awarii wykrywania jest
+inna: w hoście narzędzie widać jako `mcp__<serwer>__isap_lookup`, więc szukanie
+samej nazwy własnej nie trafi. `MCP-INTEGRACJA.md` poprawione na (a) wiszące
+odesłanie, (b) nazwa istnieje, (c) brak prefiksu jako faktyczna przyczyna.
+
+Dopisane do `KONEKTORY-REKOMENDOWANE.md`: mechanika serwera w pluginie
+(`${CLAUDE_PLUGIN_ROOT}`, `${CLAUDE_PLUGIN_DATA}`, `npm ci --ignore-scripts` przy
+`package-lock.json`) oraz ograniczenie transportu — stdio nie działa na claude.ai,
+tam konieczny transport zdalny HTTPS; oba oznaczone ⚠️ [dokumentacja, nie pomiar].
+
+## 3.87 — 2026-09-27g — AUDYT-2026-09-27g: wykrywanie MCP naprawione (nie mogło działać)
+
+⛔ `MCP-INTEGRACJA.md` KROK 1 kazał szukać narzędzi „nazwanych wg wzorca
+z `KONEKTORY-REKOMENDOWANE.md` (np. `isap_lookup`, `saos_search`, `cbosa_search`,
+`krs_lookup`, `eurlex_lookup`)". Zmierzone: (a) tych nazw nigdy nie było
+w `KONEKTORY-REKOMENDOWANE.md` — odesłanie prowadziło do nieistniejącej konwencji;
+(b) narzędzia MCP nie nazywają się w ten sposób. Tryb MCP-FIRST nie włączyłby się
+nawet przy poprawnie zainstalowanym konektorze — system pracowałby trwale
+w FALLBACK-HARDGATE, nie sygnalizując tego.
+
+**Naprawa:** wykrywanie po KSZTAŁCIE nazwy (`mcp__<serwer>__<narzędzie>`) i po
+ZDOLNOŚCI narzędzia, z jawnym zakazem zgadywania nazw własnych. Dodana tabela
+zmierzonego serwera ELI/ISAP (`@matematicsolutions/mcp-isap` 1.3.0: `search_acts`,
+`get_act`, `get_act_text`; protokół 2024-11-05 zweryfikowany `initialize` +
+`tools/list` + `tools/call`).
+
+`KONEKTORY-REKOMENDOWANE.md`: nowa sekcja „gdzie się konfiguruje serwer MCP" —
+trzy miejsca konfiguracji i które z nich wędruje z instalacją pluginu. Odnotowane,
+że `.mcp.json` repozytorium leży w korzeniu, więc **nie** instaluje się razem
+z pluginami z marketplace (F-8/F-94, decyzja dewelopera).
+
+## 3.86 — 2026-09-27e — AUDYT-2026-09-27e: manifest pluginu i jawna zależność od shared
+
+claude.ai po dodaniu marketplace instalował wyłącznie 4 z 32 pluginów (shared, prawny-router-v3, analizator-dowodow-v3, przesluchanie-swiadkow-v2-min90); jedyna cecha wspólna tych 4, nieobecna w żadnym z 28 pozostałych, to klucz `dependencies` we frontmatterze SKILL.md. Ten skill już go miał; oraz jawny manifest pluginu (name, description = description z SKILL.md, author, repository, license) — host nie musi niczego wnioskować z SKILL.md. `version` w manifeście = `version:` z SKILL.md (pilnuje T38 w audyt-systemu-v4) — host rozpoznaje aktualizację po podbiciu wersji. Treść skilla bez zmian.
+
+## 3.85 — 2026-09-27c — AUDYT-2026-09-27c: RESOLVER-SKILLI (instalacja z marketplace)
+
+`UNIVERSAL-RUNTIME-ADAPTER.md` 1.0 → 1.1, nowy §1A. Przyczyna zmierzona w claude.ai
+2026-09-27: po instalacji z marketplace pluginy leżą w `/mnt/skills/plugins/<plugin>:<skill>/`
+(np. `shared:shared`), a obok nich pozostała wcześniejsza instalacja pod
+`/mnt/skills/plugins/<skill>/` — `shared` 3.84 i 3.81 jednocześnie. Adres `shared/…` czytany
+dosłownie trafiał w starą kopię 3.81; 142 ścieżki `../../…` w 47 plikach nie trafiały
+w nic. W Claude Code plugin ląduje w `~/.claude/plugins/cache/<marketplace>/<skill>/<hash>/`,
+więc `shared` nie jest rodzeństwem routera.
+
+§1A: tabela lokalizacji per host, funkcja `lm_resolve` (POSIX sh; przetestowana na trzech
+układach: claude.ai z duplikatem, cache Claude Code, marketplace lokalny), R-2 wybór (najwyższa
+`version:`, remis → plugin, jedna kopia na sesję, zakaz łączenia kopii), R-3 ostrzeżenie
+`⚠️ DUPLIKAT SKILLA`, R-4 mapa sesji, R-5 skill wołany bez routera. Ścieżki w plikach systemu
+pozostają bez zmian — §1A definiuje je jako adresy logiczne (bez masowej podmiany 142 wystąpień).
+
+Przy okazji: pole YAML `changelog:` skrócone do bieżącej wersji (T12: 18 → 5 linii).
+Liczba plików bez zmian (192).
+
+## 3.84 — 2026-09-26d — F-206: przywrócenie 8 narzędzi tools/ z historii git
+
+Przywrócone bajt-w-bajt z historii repozytorium `michaleiatrak-star/lex-machina`. Usunięte z
+drzewa rozwojowego (to, które odzwierciedla ten skill) mergem `d3385b9` (2026-08-27); ta sama
+treść usunięta osobno, później, z równoległej migawki „stabilnej" w commicie `6dbe7a0`
+(2026-09-08) — dwa różne zdarzenia usunięcia, nie jedno; odzyskane z rodzica `6dbe7a0` po
+potwierdzeniu bajt-w-bajt identyczności z ostatnią wersją drzewa rozwojowego. Poprzedni opis
+F-206 wskazywał commit `ec3f530b` (2026-09-01) — to był błąd: ten commit tylko wymienił ZIP-y
+binarne, nie usunął plików `tools/`. Przywrócone: `tools/walidator_cytowan.py`,
+`tools/extract_api_verification_log.py`, `tools/export_gate.py` (pierwotny opisany zakres
+F-206) oraz — znalezione jako dodatkowo nieobecne poza tym opisanym zakresem, tym samym
+commitem usunięte — `tools/append_event.py`, `tools/hash_chain_verify.py`,
+`tools/router_event_parser.py`, `tools/test_mcp_protocol.py`, `tools/connector_health_check.py`.
+Plus 4 fixture'y `tools/przyklady/` i `tools/mcp-servers/mcp-servers-examples.zip` (42 pliki,
+przebudowany — nowy SHA-256 archiwum, ale wszystkie 42 hashe per-file zweryfikowane identyczne
+z manifestem `PORTABILITY-MANIFEST.md` sprzed usunięcia). Wszystkie 8 narzędzi zweryfikowane
+funkcjonalnie: self-testy PASS, `walidator_cytowan.py` 4/4 zgodne z `tools/README.md`,
+`test_mcp_protocol.py` 6/6, `append_event.py`+`hash_chain_verify.py` end-to-end (zapis łańcucha
++ wykrycie ręcznie spreparowanego naruszenia integralności). `shared/SKILL.md` (tabela tools/,
+adapter pkt 7, changelog, licznik plików), `shared/tools/README.md`, `shared/PORTABILITY-MANIFEST.md`,
+`shared/DEPENDENCY-GRAPH.md` zaktualizowane. Plik `mcp-servers-examples.zip` NIE jest
+deterministyczny bajt-w-bajt — poprzedni wpisany hash archiwum (`6b16d446e...`) jest
+nieodtwarzalny nawet z identyczną treścią; udokumentowane wprost jako ograniczenie metody,
+nie jako rozbieżność treści. 178 → 192 plików.
+
+## 3.83 — 2026-09-26 — F-204: adapter KRS + Biała lista VAT
+
+Nowy `tools/adapter_krs_vat.py` (+ `tools/test_adapter_krs_vat.py`, 22 testy) — własny
+odczyt `api-krs.ms.gov.pl` (KRS) i `wl-api.mf.gov.pl` (Biała lista VAT), bez serwerów
+zewnętrznych, bez klucza (decyzja użytkownika 2026-09-26). Waliduje NIP (suma kontrolna
+mod 11) i dopełnia numer KRS zerami; statusy FOUND/NOT_FOUND/INVALID_INPUT/ERROR.
+
+**Stan weryfikacji, jawnie rozdzielony (ZASADA 14/AUDIT-CLAIM-GATE):**
+- KRS: ✅ [VER: live, api-krs.ms.gov.pl, ta sesja] — schemat `dzial1`/`dzial2` zmierzony
+  na realnej odpowiedzi (KRS 0000010681, ORANGE POLSKA S.A.; NIP 5260250995, REGON
+  01210078400000 — zgodne z przykładem WL już zapisanym w DOSTEP-MASZYNOWY-API.md §4,
+  co jest potwierdzeniem krzyżowym tego samego podmiotu z dwóch niezależnych rejestrów).
+- WL: ⚠️ schemat przejęty z opisu already-measured w DOSTEP-MASZYNOWY-API.md §4, NIE
+  zmierzony ponownie w tej sesji — `wl-api.mf.gov.pl` zwrócił z tego środowiska HTTP 200
+  ze stroną wyzwania Incapsula (nagłówek `x-iinfo`, ciasteczko `visid_incap_*`) przy 4
+  różnych zestawach nagłówków. Zapisany jako zmierzony OBJAW z tego kanału sieciowego, nie
+  jako dowód niedostępności hosta w ogóle. Adapter rozpoznaje ten przypadek i zwraca
+  `ERROR` z czytelną podpowiedzią „WAF/Incapsula", nigdy fałszywy `NOT_FOUND`.
+
+Wpięty w `shared/MOD-IDENTYFIKACJA-STRONY-UMOWY.md` 1.1.0 → 1.2.0 jako ISU-1b (weryfikacja
+rejestrowa E01-E03/E05, opcjonalna, nigdy nie zastępuje ISU-2 ani PRAWO-HARDGATE).
+DOSTEP-MASZYNOWY-API 1.10 → 1.11 (§4 odesłanie). Rejestracja w `SKILL.md` (tools/, wersja,
+changelog, licznik plików 176 → 178).
+
+## 3.82 — 2026-09-26 — AUDYT-2026-09-26
+
+MOD-WEJSCIE-DOKUMENTU 1.0 (WD-1 dokument = materiał, nie polecenia; WD-2 cytat z dokumentu dosłownie; WD-3 jawne zamknięcie obszarów) — moduł kanoniczny wołany przez 9 skilli (F-200); relacja do MOD-DOKUMENT-GATES §8 (nota, §8 bez zmian) i PR2.4. PRAWO-HARDGATE: blok EKSTRAKCJA JEDNOSTKI Z TEKSTU JEDNOLITEGO — treść obwieszczenia ≠ przepis; najnowszy t.j. bez HTML → PDF przed ✅ (F-201). DOSTEP-MASZYNOWY-API 1.10: struktura HTML ELI (data-id, part_1/part_2). Nowe: tools/eli_art_extract.py + tools/test_eli_art_extract.py (15 testów, live art. 22 § 1 KP ✅ ELI t.j. Dz.U. 2026 poz. 1245). SKILL.md i DEPENDENCY-GRAPH: rejestracja.
+
+## 3.81 — 2026-09-23 — AUDYT-2026-09-23b
+
+- HIERARCHIA-ZRODEL 1.11 i PRAWO-HARDGATE: E-3 uruchamia BRAK-AKTU (obowiązkowo), przy awarii ELI próba ISAP; ISAP-AUDIT-PROTOCOL analogicznie. DOSTEP-MASZYNOWY-API 1.9: §0 ZASADA INNEJ DROGI zamiast zakazu obchodzenia blokad.
+
+## 3.80 — 2026-09-23 — AUDYT-2026-09-23b
+
+- ⭐ HIERARCHIA-ZRODEL 1.10: KANON KOLEJNOŚCI E-1…E-5 (nadrzędny) + reguła interpretacyjna „ISAP”; RZĄD 1 przeuporządkowany (API ELI → eli.gov.pl → ISAP jako adres dla człowieka). PRAWO-HARDGATE: sekwencja ŹRÓDEŁ zgodna z kanonem (ISAP nie uruchamia ŹRÓDŁA-2; LEX = 2A, nie RZĄD 1). ISAP-AUDIT-PROTOCOL 1.2. DOSTEP-MASZYNOWY-API 1.8: §0 granice dostępu. Instrukcje weryfikacji „w ISAP”/„isap.sejm.gov.pl →” → ELI (RZĄD 1) w modułach; wpisy historyczne bez zmian.
+
+## 3.79 — 2026-09-22 — F-195
+
+- ISAP-METRYKI-AKTOW — dwa wiersze Prawa budowlanego: adnotacja „art. 1 pkt 1 lit. c wchodzi 20.09.2026" zastąpiona stanem „w mocy od 20.09.2026" (art. 1 pkt 1 lit. a i c oraz pkt 3 ustawy 2025/1847 — art. 13 pkt 1; RZĄD 1 ELI). ⚠️ Kopia tego pliku w `prawny-router-v3/references/` NIEZMIENIONA — router ma regresję dyskową T12 (host 3.49, dziennik 3.52), wydanie z tej kopii groziłoby nadpisaniem nowszego stanu.
+
+## 3.78 — 2026-09-22 — F-193, F-194
+
+- WERYFIKACJA-SLAD 1.7 → 1.8: drugi precedens NSA I OSK 590/26 jako 🟨 snapshot bez awansu (CBOSA 503 w dniu dodania; istnienie z dwóch źródeł RZĘDU 2B); nowa kontrola GRAD-3b-SYM (symbol CBOSA — flaga wymuszająca odczyt przedmiotu, nie blokada); nowa reguła KALIBRACJA-PRZECIWNIK (wadliwe powołania przeciwnika to argument o wiarygodności, nie co do istoty).
+- DOSTEP-MASZYNOWY-API 1.6 → 1.7: §2 — `entryIntoForce` w ELI podaje wyłącznie termin główny (DU/2026/26: 2026-04-13 przy czterech terminach w art. 43); wzorzec zapytania `/eli/acts/search`.
+- ⚠️ AKTY-PRAWNE-MASTER celowo NIEEDYTOWANY: plik DEPRECATED od 2026-06-14 (operacyjny rejestr: mapa_dzu w audyt-systemu-v4).
+
 ## 3.77 — 2026-09-16 — F-189
 
 - ⭐ DOSTEP-MASZYNOWY-API — nowa sekcja „Prawo UE — CELLAR”: obejście blokady EUR-Lex (202/0 B z kontenera); `publications.europa.eu/resource/celex/<CELEX>` z Accept: application/xhtml+xml zwraca cały akt (RODO, 650/2012, AI Act, NIS2, DORA — zmierzone). terminy.md — nowa sekcja „Akty UE poza RODO” (EPS art. 70; AI Act art. 73: 15/2/10 dni) oraz podniesione do RZĘDU 1 wiersze RODO art. 78 ust. 2–3 i art. 83 ust. 3–6.
@@ -326,7 +493,7 @@ gdyby model uznał, że wywołanie „w zasadzie było". Pomiar — F-113.
 podziałem: `PRAWO-HARDGATE.md` **967 linii** (flaga otwarta była przy 808 — plik
 urósł o 159 przez v2.5, v2.6, KROK 2C/F-120 i KOTWICĘ; do progu ZASADY 13 zostały
 33 linie). Ścieżka wczytania: **114 plików, 212 wystąpień, 26 skilli**
-(`grep -rl PRAWO-HARDGATE --include=*.md . | wc -l`).
+(`grep -rl PRAWO-HARDGATE --include=*.md ../.. | wc -l`).
 
 **Znalezisko, którego flaga nie odnotowała:** 88 pierwszych linii pliku to była
 HISTORIA WERSJI (2.0–2.6) — stała POWYŻEJ pierwszej normy. Pierwsza norma
@@ -612,7 +779,7 @@ changelog:
     pliku' z MOD-DOKUMENT-ANOMALIE (otwarty w 2.5). Plik przemianowano z
     MOD-DOKUMENT-ANOMALIE_v1.0.0.md na MOD-DOKUMENT-ANOMALIE_v1.1.0.md, żeby
     nazwa fizyczna zgadzała się z deklarowaną w treści wersją 1.1.0.
-    Zweryfikowano całą bazę (grep całego ./) — tylko dwa
+    Zweryfikowano całą bazę (grep całego ../../) — tylko dwa
     miejsca odwoływały się do tego pliku po pełnej ścieżce z rozszerzeniem:
     pisma-procesowe-v3/references/MODULY-MAPA.md i
     pisma-procesowe-v3/references/AUTOMAT-STANOW.md — oba zaktualizowane.

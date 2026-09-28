@@ -1,6 +1,10 @@
 # WORKFLOW: Triage szybki (🟢/🟡/🔴)
 ## Analizator Umów v1 · workflows/triage-szybki.md
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 **Cel:** szybka kategoryzacja umowy/regulaminu/NDA/aneksu w 5–10 minut,
 pomagająca w decyzji *„podpisać"*, *„przekazać do pełnej analizy"*, *„odrzucić
 bez negocjacji"*. Komplementarny do pełnej analizy (Moduł A–F w
@@ -100,6 +104,13 @@ forum sporów → klauzule zmian (asymetria) → wynagrodzenie/terminy.
 Pierwsza flaga 🔴 → kategoria 🔴. Brak 🔴, jakikolwiek 🟡 → kategoria 🟡. Brak
 obu → 🟢.
 
+### Krok 2a — rachunek ekspozycji (1–2 min, F-202)
+
+Gdy dokument ma limit odpowiedzialności, karę umowną, indemnifikację lub automatyczne
+przedłużenie: wykonaj **R-EKS** (`references/mod-shared-ryzyko-kwant.md`, RK.2a — E1–E4).
+Kategorię ustalasz na **policzonej** ekspozycji, nie na etykiecie klauzuli. Wynik R-EKS
+trafia do notatki triage jedną linią.
+
 ### Krok 3 — notatka triage
 
 ```
@@ -107,6 +118,8 @@ TRIAGE: 🟢/🟡/🔴
 
 Klauzule znaczące:
 - § X — [krótki opis sygnału]
+
+R-EKS: [linia wyniku z RK.2a albo „nie dotyczy — brak limitu/kar/indemnifikacji”]
 
 Rekomendacja:
 [🟢] Można podpisać. Uwaga opcjonalna: [...]

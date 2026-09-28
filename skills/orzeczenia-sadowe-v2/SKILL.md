@@ -3,12 +3,13 @@ name: "orzeczenia-sadowe-v2"
 description: "Research orzecznictwa: wyszukiwanie, weryfikacja sygnatur i tez, hierarchia źródeł, porównanie orzeczeń oraz dobór judykatury do argumentacji prawnej."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-18"
+  source-tree: "development-2026-09-27"
   source-directory: "orzeczenia-sadowe-v2"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
+> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
 > **Universal runtime:** przed wykonaniem zastosuj kanoniczny `shared/UNIVERSAL-RUNTIME-ADAPTER.md` z osobnego skilla `shared`. Lokalna sekcja adaptera poniżej jedynie go doprecyzowuje.
 
 
@@ -16,7 +17,7 @@ metadata:
 
 Ta sekcja zmienia wyłącznie sposób wykonania operacji technicznych. Metodologia merytoryczna, routing, hard gate’y, checklisty, schematy danych i kryteria finalizacji tego skilla pozostają bez zmian.
 
-1. `view orzeczenia-sadowe-v2/<plik>` oraz względne `view modules/...`, `view references/...`, `view assets/...` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalny katalog `.` nie jest wymagany.
+1. `view orzeczenia-sadowe-v2/<plik>` oraz względne `view modules/...`, `view references/...`, `view assets/...` oznaczają świeży odczyt lokalnego zasobu tego skilla. Literalny katalog `..` nie jest wymagany.
 2. `view shared/<plik>` oznacza odczyt z osobnego, kanonicznego skilla `shared`. NIE kopiuj `shared` do tej paczki. Brak obowiązkowego zasobu = fail-closed.
 3. `view <inny-skill>/<plik>` oznacza aktywację/odczyt osobnego skilla. Nie vendoryzuj innych skilli.
 4. `web_search` / `web_fetch` oznaczają świeże wyszukanie i odczyt źródła przez równoważną funkcję hosta; zachowaj istniejące wymogi źródeł oficjalnych i statusów weryfikacji.
@@ -122,6 +123,15 @@ elementy + niedopasowany przedmiot = wynik nadal niecytowalny na poparcie tezy.
 Ten sam mechanizm łapie również cytaty z KROK 1-T.1/1-T.2 (SAOS/CBOSA
 pełnotekstowe) — one dają KANDYDATÓW, gradient TREŚĆ jest krokiem PO nich,
 nie zamiast (patrz 1-T.3).
+
+**Zasada 2B — symbol CBOSA i powołania przeciwnika (dodano 2026-09-22, F-194,
+po NSA I OSK 590/26 — 🟨 snapshot bez awansu).** (a) Przy orzeczeniu NSA/WSA
+powoływanym na poparcie tezy wykonaj `GRAD-3b-SYM` z `shared/WERYFIKACJA-SLAD.md`:
+odczytaj pole „Symbol z opisem" z `/doc/{ID}` i porównaj z symbolem sprawy;
+różny symbol = obowiązkowy odczyt przedmiotu (GRAD-3b) przed użyciem, nie
+automatyczne odrzucenie. (b) Gdy weryfikujesz orzecznictwo powołane przez
+PRZECIWNIKA — stosuj `KALIBRACJA-PRZECIWNIK` (tamże): wadliwe powołanie to
+argument o wiarygodności pisma, nigdy zamiennik odpowiedzi na istotę zarzutu.
 
 **Zasada 2B — KOTWICA/PINPOINT do konkretnego miejsca w źródle (dodano
 2026-07-15, na wyraźne polecenie użytkownika — analogia do wskazywania
@@ -812,11 +822,11 @@ Wyrok/postanowienie KIO z [data], sygn. [KIO NNN/RR] ([sposób rozstrzygnięcia]
 — [URL Home/Details/{id}]
 ```
 
-### 1-K.4 — Powiązanie z przepisem (ISAP)
+### 1-K.4 — Powiązanie z przepisem (RZĄD 1 — ELI)
 
 Strona szczegółów linkuje "Kluczowe przepisy ustawy Pzp" — to potwierdza
 TYLKO, że KIO powołało dany artykuł, NIE zwalnia z odrębnej weryfikacji
-brzmienia przepisu w ISAP (ustawa z 11.09.2019 r. — Prawo zamówień
+brzmienia przepisu w ELI — kanon E-1…E-5 (ustawa z 11.09.2019 r. — Prawo zamówień
 publicznych, t.j. — sprawdź aktualny numer Dz.U. przed cytowaniem, zmienia
 się często). Dwa źródła, dwa kroki — nigdy nie wyprowadzaj brzmienia
 przepisu z tego, jak cytuje go orzeczenie.

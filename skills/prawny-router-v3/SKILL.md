@@ -3,12 +3,13 @@ name: "prawny-router-v3"
 description: "UŻYWAJ ZAWSZE i AUTOMATYCZNIE przy każdej sprawie prawnej, w każdej jurysdykcji. Wczytaj przed analizą, oceną cudzego materiału lub pismem; uruchamia HARD GATE i routing."
 metadata:
   port: "lex-machina-codex"
-  source-tree: "development-2026-09-18"
+  source-tree: "development-2026-09-27"
   source-directory: "prawny-router-v3"
 ---
 
 > [!IMPORTANT]
-> Port Codex: przed wykonaniem wczytaj ../shared/CODEX-ADAPTER.md. Oryginalne metadane są w eferences/CODEX-SOURCE-FRONTMATTER.yaml.
+> Port Codex: przed wykonaniem wczytaj `../shared/CODEX-ADAPTER.md`. Oryginalne metadane są w `references/CODEX-SOURCE-FRONTMATTER.yaml`.
+
 ## ŁADOWANE ZAWSZE — BEZWZGLĘDNIE
 
 W każdej sprawie prawnej, przed analizą:
@@ -16,6 +17,9 @@ W każdej sprawie prawnej, przed analizą:
 1. `view shared/PRAWO-HARDGATE.md` — świeża weryfikacja każdego powołania w tej turze.
 2. `view references/KROK0A-anonimizer.md` — zamknij bramkę anonimizera.
 3. `view references/KROK1-detekcja.md` — ustal tryb i jurysdykcję.
+   Gdy w tej turze użytkownik dostarczył dokument, akta, korespondencję lub wklejony
+   tekst: `view shared/MOD-WEJSCIE-DOKUMENTU.md` — WD-1 przed analizą, WD-2 przy każdym
+   cytacie z materiału, WD-3 przed wynikiem (F-200; treści reguł nie kopiuje się — T35).
 4. Wykonaj routing [1]–[11], wczytaj PRIMARY i wypisz ślad KROKU 3A.
 5. Przy pierwszym URL: `view shared/HIERARCHIA-ZRODEL.md`; każdy URL musi mieć RZĄD 1/2A/2B/3.
    Dla aktów polskich wykonaj też `view references/ZRODLA-AKTOW-FALLBACK.md`.
@@ -39,16 +43,32 @@ Zastosuj `shared/UNIVERSAL-RUNTIME-ADAPTER.md`. Nazwy `view`, `web_search`,
 operacje hosta. Odczyty `shared/...`, `references/...` i `<skill>/...` dotyczą
 odpowiednich zainstalowanych skilli; nie kopiuj zależności do routera.
 
-### PATH-SELFTEST
+### PATH-SELFTEST — RESOLVER (od 3.57)
 
-Pierwszy odczyt zasobu w sesji testuje rozwiązywanie ścieżek:
+Skille mogą być zainstalowane jako pluginy z marketplace (claude.ai/Cowork:
+`/mnt/skills/plugins/<plugin>:<skill>/`; Claude Code: `~/.claude/plugins/cache/…`),
+jako skille wgrane (`../<skill>/`) albo w obu formach naraz. Ścieżki
+w plikach systemu są **adresami logicznymi** — nie odczytuj ich dosłownie.
 
-1. Użyj ścieżki semantycznej zapisanej w tym pliku.
-2. Przy błędzie ustal prefiks hosta i ponów odczyt.
-3. Ponowny błąd → `⛔ TRYB ZDEGRADOWANY — zasoby skilla niedostępne`; podaj
-   zasób i błąd, a każdą treść prawną oznacz `⚠️ [NIEWERYFIKOWANE]`.
+1. **Bootstrap `shared`** — przed pierwszym `view shared/...`, gdy host ma powłokę:
+   ```bash
+   for d in /mnt/skills/*/shared /mnt/skills/*/*:shared "$HOME"/.claude/plugins/cache/*/shared/*; do
+     [ -f "$d/SKILL.md" ] && printf '%s\t%s\n' "$(sed -n 's/^version: *"\{0,1\}\([0-9.]*\).*/\1/p' "$d/SKILL.md" | head -n 1)" "$d"
+   done | sort -t "$(printf '\t')" -k1,1Vr
+   ```
+   Pierwsza pozycja = `shared` na tę sesję. Bez powłoki — wylistuj te katalogi
+   narzędziem odczytu i porównaj `version:`.
+2. Z wybranej kopii `view shared/UNIVERSAL-RUNTIME-ADAPTER.md` i stosuj **§1A
+   RESOLVER-SKILLI** (R-1…R-5) do każdego kolejnego skilla: najwyższa wersja, przy
+   remisie kopia z pluginu, jedna kopia na skill przez całą sesję, zakaz łączenia plików
+   z dwóch kopii.
+3. Dwie kopie o różnych wersjach → `⚠️ DUPLIKAT SKILLA` w KROKU 3A i jedno zdanie dla
+   użytkownika na sesję: starą instalację należy usunąć.
+4. Brak kopii albo ponowny błąd odczytu → `⛔ TRYB ZDEGRADOWANY — zasoby skilla
+   niedostępne`; podaj zasób, sprawdzone lokalizacje i błąd, a każdą treść prawną
+   oznacz `⚠️ [NIEWERYFIKOWANE]`.
 
-Zapamiętaj działającą formę na sesję. Nazwa skilla w odwołaniu musi występować
+Zapamiętaj mapę `skill → katalog` na sesję. Nazwa skilla w odwołaniu musi występować
 w `dependencies.requires`; w przeciwnym razie zgłoś błąd ścieżki.
 
 ---
@@ -59,9 +79,13 @@ w `dependencies.requires`; w przeciwnym razie zgłoś błąd ścieżki.
 
 ```
 UP-1: router→v3 ZAWSZE pierwszy (przed jakimkolwiek skillem dziedzinowym) — każda jurysdykcja
-UP-2: ISAP pierwszy — identyfikacja aktu i próba pobrania tekstu. Gdy pobranie
-      aktu lub tekstu niemożliwe: LEX / Legalis / ArsLege, zgodnie z
-      references/ZRODLA-AKTOW-FALLBACK.md. Weryfikuj KAŻDE powołanie online.
+UP-2: ELI PIERWSZY — kanon E-1…E-5 (shared/HIERARCHIA-ZRODEL.md):
+      E-1 ELI (api.sejm.gov.pl/eli kanałem kodu → eli.gov.pl) — brzmienie, t.j., status;
+      E-2 ISAP — wyłącznie adres dla człowieka i pomocnicza identyfikacja;
+      E-3 LEX / Legalis → E-4 ArsLege — gdy aktu nie da się pobrać z RZĘDU 1
+          (ELI ani ISAP: awaria serwera, timeout, blokada) — wtedy obowiązkowo;
+      E-5 ⚠️ [NIEWERYFIKOWANE]. Szczegóły: references/ZRODLA-AKTOW-FALLBACK.md.
+      Weryfikuj KAŻDE powołanie online; nigdy z pamięci.
 UP-3: Sprawy karne → KROK1-detekcja.md kieruje do dr-03; kwalifikacja przez
          view dr-03-prawo-karne-wykroczenia-egzekucja/modules/mod-KK-kwalifikator-karnomaterialny.md
 UP-4: HYBRID-VALIDATION przed każdym .docx
@@ -114,6 +138,15 @@ KROK 0D → [STATUS PODMIOTÓW — OZNACZENIE ⬛] → obowiązkowy gdy w materi
 KROK 1  → [DETEKCJA TRYBU + HARD GATE] → view references/KROK1-detekcja.md
 KROK 2  → [ROUTING [1]–[11]] → poniżej w tym pliku
 KROK 3  → Załaduj PRIMARY → SECONDARY → FALLBACK
+          ⛔ [R-3.54-a] Skill dziedzinowy (DR-01…DR-16) wczytuj PRZED weryfikacją
+          przepisów, nie po niej — to on wskazuje, które przepisy weryfikować.
+          Odroczenie DR-xx „do czasu weryfikacji” jest niedopuszczalne.
+          ⛔ [R-3.54-b] Gdy sprawa dotyczy odpowiedzi na wezwanie / zarządzenie
+          sądu: przed decyzją PRIMARY / ODRZUCONE odczytaj treść wezwania.
+          Wezwanie żądające stanowiska, twierdzeń lub wniosków dowodowych →
+          pisma-procesowe-v3; wyłącznie uzupełnienie braku formalnego lub
+          przedłożenie dokumentu → pisma-proste-v2. Powód odrzucenia w KROKU 3A
+          musi wskazywać, co wynika z treści wezwania.
 KROK 3A → [ŚLAD ROUTINGU — OBOWIĄZKOWY]
           Bezpośrednio po KROK 3, PRZED przejściem do KROK 4, wypisz blok:
           ```
@@ -124,6 +157,7 @@ KROK 3A → [ŚLAD ROUTINGU — OBOWIĄZKOWY]
           PROFIL: [PEŁNY / LEKKI] — rdzeń R-1…R-5: [TAK]
           ODROCZONE: [zasób — wyzwalacz, który jeszcze nie padł / BRAK]
           WERSJA ROUTERA: [numer z YAML frontmatter tego pliku]
+          RESOLVER: shared → [katalog] (v[wersja]); DUPLIKATY: [BRAK / skill v1 i v2]
           ```
           ⛔ Gdy `ROUTER-WCZYTANY: NIE` dla PRIMARY (np. z powodu braku
           dostępu do narzędzi plikowych w danym środowisku) — poprzedź

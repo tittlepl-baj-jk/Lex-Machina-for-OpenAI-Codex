@@ -1,6 +1,10 @@
 name: pisma-proste-v2
-version: "2.20"
+version: "2.24"
 type: executive-pisma
 status: production
 description: "Proste pisma prawne i urzędowe: wezwania, wnioski, odpowiedzi i krótsze dokumenty; kompletność danych, aktualna weryfikacja prawa i walidacja przed wygenerowaniem pliku."
+dependencies:
+  requires:
+    - shared
+  # 2026-09-27e: jawna zależność (każdy skill systemu korzysta z `shared`); pole czytane przy imporcie z marketplace
 compatibility: "live_web_lookup, file_read, cross_skill_file_read, optional_document_and_interactive_ui"

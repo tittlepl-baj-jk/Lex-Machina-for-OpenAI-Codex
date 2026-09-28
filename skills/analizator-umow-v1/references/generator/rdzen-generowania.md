@@ -1,6 +1,10 @@
 # RDZEŃ GENEROWANIA — R1–R7 dla trybu tworzenia dokumentów
 ## Analizator Umów v1 · Moduł generator/ (wczytaj RAZ na starcie każdego workflow generatora)
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 > Ten plik jest odpowiednikiem `rdzen-ktzr.md` (wzorzec: pakiet `commercial-legal-pl`),
 > dostosowanym do architektury systemu użytkownika. Nie duplikuje wiedzy merytorycznej
 > zawartej w modułach J0–MA — **odsyła** do niej. Wczytaj ten plik na starcie KAŻDEGO

@@ -1,6 +1,10 @@
 name: audyt-systemu-v4
 description: "Audyt jakości, spójności i bezpieczeństwa systemu prawnych skilli: zależności, wersje, mapy Dz.U., treść merytoryczna, propagacja zmian, deduplikacja i bramki jakości."
-version: "6.119"   # ⛔ CUDZYSŁOWY OBOWIĄZKOWE od 6.10: niecytowane `6.10` YAML
+dependencies:
+  requires:
+    - shared
+  # 2026-09-27e: jawna zależność (każdy skill systemu korzysta z `shared`); pole czytane przy imporcie z marketplace
+version: "6.139"   # ⛔ CUDZYSŁOWY OBOWIĄZKOWE od 6.10: niecytowane `6.10` YAML
                   # parsuje jako float 6.1 — czyli numer NIŻSZY niż 6.9, co cicho
                   # odwraca porządek wersji. Wykryte przy walidacji 2026-08-20z.
                   # Każda kolejna wersja z dwucyfrowym minor — też w cudzysłowie.
@@ -47,7 +51,9 @@ references:
   - references/WARN-OTWARTE.md   # rejestr żywy TYLKO otwartych flag (WARN + strukturalne) — dodane 2026-07-07, ZASADA 10; ⚡ od 2026-08-15w zaczyna się TABLICĄ STERUJĄCĄ (indeks wszystkich flag + następny krok w jednym zdaniu) — czytaj ją PIERWSZĄ przy pytaniu „co jest do zrobienia"
   - references/SPROSTOWANIE-LM-2026-08-23.md   # dokument do wysłania autorowi raportów TEST1-3 — realizacja F-116 część 3/3, bez treści proceduralnej systemu — dodane 2026-08-23f
   - references/CHECKLIST-DEDUP.md   # mapa pojęć → lokalizacje (5 not, NOTA-6 ORPHAN dodana 06-14g)
-  - references/mapa_dzu_2026-09-10.md      # ⭐ GENERACJA BIEŻĄCA (F-148a) — +5 pozycji, w tym trzy
+  - references/mapa_dzu_2026-09-22.md      # ⭐ GENERACJA BIEŻĄCA (F-193) — wiersz 2026/26 z etapami
+                                          # + MONITORING etapów 1.10.2026 i 1.01.2027 (sesja TARGETED)
+  - references/mapa_dzu_2026-09-10.md      # generacja POPRZEDNIA (F-148a) — +5 pozycji, w tym trzy
                                           # wchodzące jako skutek DWÓCH błędów podmiany aktu
                                           # (2024/1474 i 2024/1194); KROK 2C dla 2026/815
   - references/mapa_dzu_2026-09-09.md   # generacja POPRZEDNIA (F-172) — 11 numerów z T11
@@ -79,7 +85,7 @@ references:
   - references/SYNC-DZU-AUTOMATYCZNY.md   # narzędzie WSPIERAJĄCE FAZĘ 3 — automatyzacja wykrywania nowych pozycji Dz.U./M.P. (wprowadzone 2026-07-13, skonsolidowane z osobnego skilla 2026-07-13f) — REJESTROWANE 2026-08-15 po wykryciu jako plik-sierota (użytkownik przesłał starą wersję ZIP i zapytał o funkcję scheduled task; plik istniał na dysku, ale nigdy nie trafił do tego frontmatter)
   - references/HARMONOGRAM-CRON.md   # przykłady harmonogramu (cron / GitHub Actions) do adaptacji przez developera — powiązane z SYNC-DZU-AUTOMATYCZNY.md — REJESTROWANE 2026-08-15, ten sam powód co wyżej
   - references/SCHEDULED-TASK-COWORK.md   # POZYCJA 11 menu — zadanie cykliczne w Cowork (TRYB DZU co tydzień): warunek uruchomienia, kanoniczna treść Description+promptu, blok map pokrycia za bramką F-83 — DODANE 2026-08-15o
-  - references/PAMIEC-TRWALA-ROUTER.md   # POZYCJA 13 menu — synchronizacja krytycznego kontraktu routera z trwałymi preferencjami hosta
+  - references/PAMIEC-TRWALA-ROUTER.md   # POZYCJA 13 menu — od 6.125 kontrola zgodności preferencji użytkownika z UP routera (tylko odczyt, bez zapisu do pamięci)
   - references/FORMAT-RAPORTU-ROZNIC.md   # format wyjściowy raportu różnic produkowanego przez sync_dzu_eli.py — REJESTROWANE 2026-08-15, ten sam powód co wyżej
   - references/mapa_dzu_2026-07-04.md   # ARCHIWALNA — poprzednia wersja mapy Dz.U., zachowywana jako materiał historyczny cytowany w AUDIT-JOURNAL.md — REJESTROWANE 2026-08-15 (nigdy formalnie nie wpisana mimo aktywnego cytowania)
   - references/mapa_dzu_2026-07-02.md   # ARCHIWALNA — jw., wcześniejsza wersja — REJESTROWANE 2026-08-15
@@ -116,6 +122,21 @@ scripts:
                                           # bajtowa identyczność, sumy WEWNĄTRZ paczki. Realizacja zalecenia
                                           # z AUDYT-2026-09-17p (zmiana kopii roboczej PO wydaniu).
                                           # Offline, selftest 4/4; brak katalogu wydań = PASS (pomija)
+  - scripts/check_archiwa_repo.py         # T34 — drzewo rozpakowane ↔ paczki ZIP repozytorium (F-196):
+                                          # nadmiar/brak/różna treść, zagnieżdżony <skill>/<skill>/. T33
+                                          # porównuje z katalogiem wydań sesji i w repo był bezprzedmiotowy.
+                                          # Offline, selftest 4/4; BLOKER od 2026-09-26
+  - scripts/check_wejscie_dokumentu.py    # T35 — wywołanie shared/MOD-WEJSCIE-DOKUMENTU.md u każdego
+                                          # konsumenta z DEPENDENCY-GRAPH + zakaz kopii treści WD (F-200).
+                                          # Offline, selftest 4/4; BLOKER od 2026-09-26
+  - scripts/check_eli_extract.py          # T36 — regresja shared/tools/eli_art_extract.py (F-201):
+                                          # treść obwieszczenia ≠ przepis, przypisy, indeksy, wybór t.j.
+                                          # Offline (15 przypadków, 1 live pomijany); BLOKER od 2026-09-26
+  - scripts/check_plugin_manifest.py      # T38 — `.claude-plugin/plugin.json` każdego skilla: name/version/
+                                          # description = SKILL.md; `dependencies` → shared we frontmatterze;
+                                          # marketplace.json ↔ katalogi 1:1. Offline, selftest 5/5; BLOKER
+                                          # od 2026-09-27e. ⛔ Każde podbicie `version:` w SKILL.md wymaga
+                                          # tej samej zmiany w plugin.json — inaczej T38 FAIL.
   - scripts/check_tabele_satelickie.py    # T32 — rejestr tabel satelickich (shared/TABELE-OPLAT.md §7):
                                           # plik musi istnieć (FAIL), kwota bez podstawy w wierszu, kolumnie
                                           # albo nagłówku/zdaniu wprowadzającym = WARN. Offline, selftest 9/9;

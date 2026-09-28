@@ -1,6 +1,10 @@
 # MODUŁ SHARED — ANTYWZORCE JĘZYKOWE (PUŁAPKI PO BRZMIENIU)
 ## Analizator Umów v1 · Moduł Współdzielony
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 > **Wczytaj gdy:** MODUŁ B (analiza klauzul) w `mod-core-checklist.md`,
 > `workflows/ocena-drugiej-strony.md`, audyt ryzyk cudzej umowy.
 >

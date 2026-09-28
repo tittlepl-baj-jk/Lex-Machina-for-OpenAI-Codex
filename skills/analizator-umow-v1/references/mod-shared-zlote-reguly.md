@@ -1,6 +1,10 @@
 # MODUŁ SHARED — ZŁOTE REGUŁY REDAKCJI UMÓW
 ## Analizator Umów v1 · Moduł Współdzielony (wczytaj RAZ na starcie każdego generatora/edycji)
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 > **Geneza (2026-08-02):** ten plik był już cytowany z dwóch miejsc w systemie
 > (`generator/boilerplate-strukturalne.md`, odniesienia „Złota Reguła #4" i
 > „Złota Reguła #11") — ale nigdy nie istniał jako samodzielny plik.

@@ -9,6 +9,24 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 Brak zmian.
 
+## [0.7.0] - 2026-09-28
+
+### Upstream
+
+- wykonano pełną synchronizację z rozwojowym drzewem Lex Machina, commit
+  `b9e10f8057c2c5752300e129d215712993a8903b` projektu Michała Wiatraka;
+- przejęto kanon źródeł, w którym API ELI jest źródłem pierwszego rzędu,
+  a ISAP pozostaje ludzkim punktem dostępu do publikacji;
+- przejęto zmiany metodologii, routerów, modułów dziedzinowych oraz materiałów
+  audytowych zawarte w bieżącym drzewie rozwojowym.
+
+### Codex port
+
+- zbudowano 1364 pliki dla 32 aktywnych skilli; zachowano adapter Codex,
+  przenośne ścieżki i wyłączenie bezpośrednich endpointów Anthropic;
+- walidacja statyczna portu ma `PASS` (32/32), publikacyjny walidator ma `PASS`,
+  a lokalny test mock-ELI zakończył się powodzeniem.
+
 ## [0.6.0] - 2026-09-18
 
 ### Upstream

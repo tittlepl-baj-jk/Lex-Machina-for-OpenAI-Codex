@@ -1,6 +1,10 @@
 # MODUŁ SHARED — NORMY BEZWZGLĘDNIE OBOWIĄZUJĄCE (IUS COGENS) I EFEKT KUMULATYWNY
 ## Analizator Umów v1 · Moduł Współdzielony
 
+> **Atrybucja (Apache 2.0):** plik pochodny — struktura i część sformułowań zaadaptowane z
+> `commercial-legal-pl` (© 2026 Kancelaria Radców Prawnych Żurawska Piotrowski i Wspólnicy,
+> Apache License 2.0); **zmieniony** w ramach Lex Machina. Szczegóły: `NOTICE` w katalogu skilla.
+
 > **Wczytaj gdy:** MODUŁ C (ocena zgodności z prawem) w `mod-core-checklist.md`,
 > `workflows/ocena-drugiej-strony.md`, lub gdy podejrzewasz, że klauzula nie
 > jest tylko niekorzystna, ale **nieważna z mocy prawa**.
