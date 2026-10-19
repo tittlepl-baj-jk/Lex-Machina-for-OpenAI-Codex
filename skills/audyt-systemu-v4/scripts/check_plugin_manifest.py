@@ -4,19 +4,24 @@
 
 Każdy skill linii rozwojowej jest instalowany jako osobny plugin z
 `.claude-plugin/marketplace.json` w korzeniu repozytorium. Rozjazd manifestu pluginu
-z SKILL.md nie psuje treści skilla, ale psuje instalację i aktualizacje: claude.ai
+z metadanymi źródłowymi nie psuje treści skilla, ale psuje instalację i aktualizacje: claude.ai
 (2026-09-27) instalował z marketplace wyłącznie pluginy z kluczem `dependencies`
 we frontmatterze, a `version` w plugin.json decyduje, czy host zauważy aktualizację.
 
+Port Codex celowo upraszcza frontmatter runtime `SKILL.md`. W takim drzewie
+oryginalne pola pluginu są zachowane w `references/CODEX-SOURCE-FRONTMATTER.yaml`
+i T38 porównuje manifest właśnie z tym plikiem. Brak zachowanych metadanych jest
+błędem — test nie pomija wtedy kontroli.
+
 CO SPRAWDZA (każde naruszenie = FAIL)
   A. `<skill>/.claude-plugin/plugin.json` istnieje, jest poprawnym JSON-em, a jego
-     `name`, `version` i `description` są identyczne z SKILL.md (nazwa = katalog);
-  B. frontmatter SKILL.md każdego skilla poza `shared` ma `dependencies` wskazujące
-     `shared`;
+     `name`, `version` i `description` są identyczne z metadanymi właściwymi dla
+     drzewa (SKILL.md albo CODEX-SOURCE-FRONTMATTER.yaml; nazwa = katalog);
+  B. metadane każdego skilla poza `shared` mają `dependencies` wskazujące `shared`;
   C. gdy obok katalogu skilli leży `.claude-plugin/marketplace.json` (korzeń repo):
      wpisy ↔ katalogi 1:1, `source` wskazuje katalog wpisu, każda nazwa w
      `dependencies` wpisu istnieje w marketplace.
-Offline. Kod: 0 PASS, 1 FAIL, 2 błąd wejścia. --selftest: 5 przypadków.
+Offline. Kod: 0 PASS, 1 FAIL, 2 błąd wejścia. --selftest: 8 przypadków.
 """
 import argparse, json, re, shutil, sys, tempfile
 from pathlib import Path
@@ -35,6 +40,30 @@ def frontmatter(p: Path):
     return yaml.safe_load(t[4:e]) if e > 0 else None
 
 
+def metadane_pluginu(d: Path, fm_runtime: dict):
+    """Zwraca metadane porównawcze i ich etykietę; port Codex fail-closed."""
+    metadata = fm_runtime.get("metadata") if isinstance(fm_runtime, dict) else None
+    if not isinstance(metadata, dict) or metadata.get("port") != "lex-machina-codex":
+        return fm_runtime, "SKILL.md", None
+
+    source = d / "references" / "CODEX-SOURCE-FRONTMATTER.yaml"
+    if not source.is_file():
+        return {}, "CODEX-SOURCE-FRONTMATTER.yaml", (
+            f"A: {d.name}: port Codex bez references/CODEX-SOURCE-FRONTMATTER.yaml"
+        )
+    try:
+        dane = yaml.safe_load(source.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError as e:
+        return {}, "CODEX-SOURCE-FRONTMATTER.yaml", (
+            f"A: {d.name}: CODEX-SOURCE-FRONTMATTER.yaml nie jest poprawnym YAML-em ({e})"
+        )
+    if not isinstance(dane, dict):
+        return {}, "CODEX-SOURCE-FRONTMATTER.yaml", (
+            f"A: {d.name}: CODEX-SOURCE-FRONTMATTER.yaml nie jest mapą"
+        )
+    return dane, "CODEX-SOURCE-FRONTMATTER.yaml", None
+
+
 def skille(root: Path):
     return sorted(d for d in root.iterdir() if d.is_dir() and (d / "SKILL.md").is_file())
 
@@ -43,7 +72,10 @@ def sprawdz(root: Path):
     bledy = []
     ss = skille(root)
     for d in ss:
-        fm = frontmatter(d / "SKILL.md") or {}
+        fm_runtime = frontmatter(d / "SKILL.md") or {}
+        fm, zrodlo, blad_metadanych = metadane_pluginu(d, fm_runtime)
+        if blad_metadanych:
+            bledy.append(blad_metadanych)
         pj = d / ".claude-plugin" / "plugin.json"
         if not pj.is_file():
             bledy.append(f"A: {d.name}: brak .claude-plugin/plugin.json")
@@ -56,9 +88,9 @@ def sprawdz(root: Path):
             for pole, oczek in (("name", d.name), ("version", str(fm.get("version", ""))),
                                 ("description", fm.get("description", ""))):
                 if m and m.get(pole) != oczek:
-                    bledy.append(f"A: {d.name}: plugin.json `{pole}` = {m.get(pole)!r}, SKILL.md/katalog = {oczek!r}")
+                    bledy.append(f"A: {d.name}: plugin.json `{pole}` = {m.get(pole)!r}, {zrodlo}/katalog = {oczek!r}")
         if d.name != "shared" and "shared" not in json.dumps(fm.get("dependencies", ""), ensure_ascii=False):
-            bledy.append(f"B: {d.name}: frontmatter SKILL.md bez `dependencies` wskazującego `shared`")
+            bledy.append(f"B: {d.name}: {zrodlo} bez `dependencies` wskazującego `shared`")
     mp = root.parent / ".claude-plugin" / "marketplace.json"
     if mp.is_file():
         mk = json.loads(mp.read_text(encoding="utf-8"))
@@ -79,12 +111,23 @@ def sprawdz(root: Path):
     return bledy, ss
 
 
-def _szkielet(tmp: Path, *, bez_pj=False, zla_wersja=False, bez_deps=False, zly_source=False):
+def _szkielet(tmp: Path, *, bez_pj=False, zla_wersja=False, bez_deps=False,
+              zly_source=False, port_codex=False, bez_source_fm=False):
     rep = tmp / "repo"; root = rep / "linia"
     for n, deps in (("shared", False), ("skill-a", True)):
         d = root / n; (d / ".claude-plugin").mkdir(parents=True)
         dep = "" if (not deps or bez_deps) else "dependencies:\n  requires:\n    - shared\n"
-        (d / "SKILL.md").write_text(f'---\nname: {n}\ndescription: "opis {n}"\n{dep}version: "1.2"\n---\n# {n}\n', encoding="utf-8")
+        pelny_fm = f'name: {n}\ndescription: "opis {n}"\n{dep}version: "1.2"\n'
+        if port_codex:
+            (d / "references").mkdir()
+            runtime_fm = (f'name: "{n}"\ndescription: "opis {n}"\nmetadata:\n'
+                          '  port: "lex-machina-codex"\n')
+            (d / "SKILL.md").write_text(f'---\n{runtime_fm}---\n# {n}\n', encoding="utf-8")
+            if not (bez_source_fm and n == "skill-a"):
+                (d / "references" / "CODEX-SOURCE-FRONTMATTER.yaml").write_text(
+                    pelny_fm, encoding="utf-8")
+        else:
+            (d / "SKILL.md").write_text(f'---\n{pelny_fm}---\n# {n}\n', encoding="utf-8")
         if not (bez_pj and n == "skill-a"):
             v = "1.3" if (zla_wersja and n == "skill-a") else "1.2"
             (d / ".claude-plugin" / "plugin.json").write_text(json.dumps({"name": n, "version": v, "description": f"opis {n}"}), encoding="utf-8")
@@ -98,7 +141,11 @@ def _szkielet(tmp: Path, *, bez_pj=False, zla_wersja=False, bez_deps=False, zly_
 def selftest():
     przypadki = [("poprawny", {}, 0, None), ("brak plugin.json", {"bez_pj": True}, 1, "A:"),
                  ("wersja plugin.json ≠ SKILL.md", {"zla_wersja": True}, 1, "A:"),
-                 ("brak dependencies", {"bez_deps": True}, 1, "B:"), ("zły source", {"zly_source": True}, 1, "C:")]
+                 ("brak dependencies", {"bez_deps": True}, 1, "B:"),
+                 ("zły source", {"zly_source": True}, 1, "C:"),
+                 ("port Codex poprawny", {"port_codex": True}, 0, None),
+                 ("port Codex bez source frontmatter", {"port_codex": True, "bez_source_fm": True}, 1, "A:"),
+                 ("port Codex zła wersja pluginu", {"port_codex": True, "zla_wersja": True}, 1, "A:")]
     ok = True
     for nazwa, kw, oczek, prefiks in przypadki:
         tmp = Path(tempfile.mkdtemp())

@@ -950,7 +950,7 @@
     },
     {
       "path": "skills/audyt-systemu-v4/.claude-plugin/plugin.json",
-      "sha256": "43A0DAA816A7933942737C3DF1D9ACE0511E47234035A19C35415D6FEC590ADC",
+      "sha256": "C1A21B4EF6D70E6F4D6DC9DCAEEF39E728B1C24A5568A05C5A4918824EA1BFA8",
       "size": 445
     },
     {
@@ -965,7 +965,7 @@
     },
     {
       "path": "skills/audyt-systemu-v4/CHECKSUMS.sha256",
-      "sha256": "D1E2F9EF971A1D1B32E8640FA05D275474BB0B498AC18715FDA315D31AAC0A9B",
+      "sha256": "84C73C0978C7754EA1BD04519593658B28A6868A042DD520E0DE10184D7B07E3",
       "size": 12312
     },
     {
@@ -1010,8 +1010,8 @@
     },
     {
       "path": "skills/audyt-systemu-v4/references/AUDIT-JOURNAL.md",
-      "sha256": "3ADA687EA346AE5709C826911A33E206F8C846B60C18D330D0D375FC0BE37401",
-      "size": 3745005
+      "sha256": "D36AC63C5362A3B036138ACE88170837F4D1994DCD492F4BB2D25AC12FB521A8",
+      "size": 3746853
     },
     {
       "path": "skills/audyt-systemu-v4/references/AUDYT-PRZERWANYCH-ETAPOW-2026-08-28.md",
@@ -1020,8 +1020,8 @@
     },
     {
       "path": "skills/audyt-systemu-v4/references/CHANGELOG.md",
-      "sha256": "76FB1876B366EEC9646251B0A6304BB39DBA274F5009173747B29CE61537F9DD",
-      "size": 182286
+      "sha256": "670DDB9CB5A389F98123D3402F0127BB2A3D16857CFE88D50530D6BED9027BFF",
+      "size": 182757
     },
     {
       "path": "skills/audyt-systemu-v4/references/CHECKLIST-DEDUP.md",
@@ -1365,8 +1365,8 @@
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/check_plugin_manifest.py",
-      "sha256": "17AABF257903062FC004478195AB252597BBF4AFA1F04EE3BB2C43A6B598059E",
-      "size": 6591
+      "sha256": "1767B91CAA2A0D5FCDA808EC71A9A2E89D487CB77736FE1DE501F621DF6752AF",
+      "size": 9060
     },
     {
       "path": "skills/audyt-systemu-v4/scripts/check_podmiana_aktu.py",
@@ -6025,7 +6025,7 @@
     },
     {
       "path": "skills/shared/.claude-plugin/plugin.json",
-      "sha256": "44BEEE3FD716A14C96220FD24B61A869CA23CE72C446B9541BEA047DB7C6163D",
+      "sha256": "11BE05C469950F3549595315E9DF5D99E81787E924F0414C8B61F5DDCE67E249",
       "size": 425
     },
     {
@@ -6080,7 +6080,7 @@
     },
     {
       "path": "skills/shared/CHECKSUMS.sha256",
-      "sha256": "708A2F42A4349F5C4EF84FA1C1D7B0353350782B70E1BBD1CAEC482A629792AE",
+      "sha256": "812CF6A22D75257D889B65DE01279B059C1C88E8446F7A1913D26F051F7C1F06",
       "size": 18313
     },
     {

@@ -9,6 +9,17 @@ z upstream są odróżniane od zmian przygotowanych specjalnie dla Codex.
 
 Brak zmian.
 
+## [0.7.2] - 2026-10-20
+
+### Codex port
+
+- opublikowano zwalidowany hotfix T38 z 2026-09-28, dotychczas aktywny wyłącznie
+  lokalnie; kontrola manifestów rozpoznaje uproszczony frontmatter runtime
+  Codex i fail-closed wymaga zachowanego `CODEX-SOURCE-FRONTMATTER.yaml`;
+- skorygowano rozjazdy wersji manifestów pluginów: `audyt-systemu-v4` do
+  `6.139` oraz `shared` do `3.89`;
+- bazowy commit upstream pozostaje `b9e10f8057c2c5752300e129d215712993a8903b`.
+
 ## [0.7.1] - 2026-09-28
 
 ### Codex port

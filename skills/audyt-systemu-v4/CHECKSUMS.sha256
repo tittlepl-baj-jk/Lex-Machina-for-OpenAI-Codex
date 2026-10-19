@@ -1,4 +1,4 @@
-43a0daa816a7933942737c3df1d9ace0511e47234035a19c35415d6fec590adc  ./.claude-plugin/plugin.json
+db7e514e2ef28b40b96be99c9637eeab0ceb76a209a90cd2a381cd466c1af836  ./.claude-plugin/plugin.json
 f1306e7d29cbbac14d14f7a3c096c646d340ab41c8bae37f1250c6c3916e5978  ./PORTABILITY-MANIFEST.md
 2cf33abe59a4fc8cfb7ca289790b86a818eaf6c885379d4ef2fa5c63d749ac3b  ./README.md
 08a3f29a95382f9696546c5e120099fd040eea3b5af4605e50b4c23e640ef47a  ./SKILL.md
@@ -10,9 +10,9 @@ f06c3969a5625a2560967736e6ff8646e822d6af40573c4a77910816f281cf7d  ./modules/MOD-
 ecef544b5bcd67af135ea7563468b4bca6570e48d2afbd444bf67c9f22a36e7c  ./modules/MOD-TRESC-MERYTORYCZNA.md
 53f0880bdbf47510b8c7fb18a67130b1a3f2107bcb9d931a37e422aa82a92461  ./modules/MOD-WSTAWKI.md
 13279701eef22c911cdbcb35412d94c9a85112217351307db910732dbc21e8da  ./references/ALIASY-NAZW-AKTOW.md
-35d1d5920a4bb7e2dbe3a1a5297301e099bdf30217ee4a33abf489bc058c46bc  ./references/AUDIT-JOURNAL.md
+685021c1b3b14a05bea59778d5fab14163829734d620c60afc7f62c6402a976f  ./references/AUDIT-JOURNAL.md
 eb8993b2690d03d0f9bd48e3523f021166d8984ae582828ed0fac035ab71dc11  ./references/AUDYT-PRZERWANYCH-ETAPOW-2026-08-28.md
-9cf132e4d8eeced9807f494b9655d548b260febc2954a75f52eb852226a5d7a8  ./references/CHANGELOG.md
+a2a8e3ba910c61b86ff071e307d30a1b66ec1959402692014859c29921dad4c7  ./references/CHANGELOG.md
 aee9df0be072509755f8ce08a6863ffec3aee26277d7239005542a42da732f67  ./references/CHECKLIST-DEDUP.md
 4029e076fe66794f7ccbd36ee3da795faf8d856895ebaba8461d755f89c02f78  ./references/COWORK-HARMONOGRAM-NATYWNY.md
 acf1a3408d1662c382244cc8a0ae87861ffa6d4d63f1501470cd6ee218bd2f66  ./references/F-104-lista-robocza-mapa-dzu.md
@@ -83,7 +83,7 @@ abd0a7650d3d131a37eac0ffbfedc44297dc3ed0b7c1bebb29b5676d590dc4c0  ./scripts/chec
 edc50353be897bdc525b56e02074f4149bddc1df42e1ff49f651327923599d4b  ./scripts/check_frontmatter_yaml.py
 be560e094d73cdce8beaf318a8213200e883402e88a3ffe9b87f9078574f89ca  ./scripts/check_nowelizacje_po_tj.py
 d164af828ab94c696212f80507f7effd3dd59116b39bbf133a758d6f6aa4fbed  ./scripts/check_oplaty_mapa.py
-17aabf257903062fc004478195ab252597bbf4afa1f04ee3bb2c43a6b598059e  ./scripts/check_plugin_manifest.py
+3a46abd7fec92ac967e3f5dc17e79f0a7bdc9f45e8fe90b43aa0634bb24f6c3d  ./scripts/check_plugin_manifest.py
 1cf380f52473704d486eb71e527f5547423f61d48d6b559eccae1bbaeaa819fd  ./scripts/check_podmiana_aktu.py
 c3c109354c7116aac5b756cdbe7f137037fef1da0c7d41d2003bd14f734c2d36  ./scripts/check_rejestracja_modulow.py
 cd19c7828964b75faf1390a7de63dd2ec0239c525eca99b8fda052e8c4dfa42f  ./scripts/check_status_podstaw.py

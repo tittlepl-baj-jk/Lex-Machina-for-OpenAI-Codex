@@ -68809,3 +68809,42 @@ dnia: `mcp-isap-eli`, `mcp-saos`, `mcp-krs`, `mcp-wl-vat`).
 
 **Otwarte:** F-167 (ocena O-1), F-208, F-209, F-8 (hosting HTTPS), F-94 (decyzja
 o losie `tools/mcp-servers/`), F-158(b) (EUREKA), F-197, F-203(b). Wolny numer: **F-210**.
+
+---
+
+## AUDYT-2026-09-28 — T38 zgodny z portem Codex i naprawa wersji manifestów
+
+**Wyzwalacz:** polecenie użytkownika, aby poprawić fałszywy blocker T38 wykryty
+podczas kontroli działania Lex Machina for Codex.
+
+### Ustalenie i naprawa
+
+✅ **[VER: lokalny pomiar, 2026-09-28]** T38 porównywał manifesty pluginów Claude
+bezpośrednio z uproszczonym frontmatterem runtime portu Codex, w którym pola
+`version` i `dependencies` są celowo przeniesione do
+`references/CODEX-SOURCE-FRONTMATTER.yaml`. Źródło: skrypt
+`scripts/check_plugin_manifest.py` oraz frontmattery 32 aktywnych skilli.
+Reprodukcja przed naprawą: `python scripts/check_plugin_manifest.py --repo-root skills`
+zwracał błędy dla wszystkich skilli portu.
+
+T38 rozpoznaje teraz `metadata.port: lex-machina-codex` i w tym trybie używa
+zachowanego frontmatteru źródłowego. Brak lub niepoprawny YAML tego pliku jest
+błędem fail-closed. Self-test rozszerzono z 5 do 8 przypadków, w tym poprawny port,
+brak frontmatteru źródłowego i złą wersję manifestu.
+
+✅ **[VER: lokalny pomiar, 2026-09-28]** Po usunięciu fałszywych alarmów test
+ujawnił dwa rzeczywiste rozjazdy: `audyt-systemu-v4/.claude-plugin/plugin.json`
+miał `6.135` przy źródłowym `6.139`, a `shared/.claude-plugin/plugin.json` miał
+`3.86` przy źródłowym `3.89`. Oba manifesty poprawiono.
+Reprodukcja: to samo polecenie T38 po adaptacji, przed korektą manifestów,
+zwracało dokładnie dwa błędy wersji.
+
+### Walidacja
+
+- self-test T38: **8/8 PASS**;
+- T38 na 32 skillach: **PASS**;
+- `scripts/validate_port.py`: **PASS**, 32/32, zero błędów;
+- pełny `run_regression_suite.py --repo-root skills`: **PASS STRUKTURALNY**;
+  T4 i T5 pozostają ręczne zgodnie z kontraktem suity;
+- Dz.U.: brak zmian — mapa bez zmian (ostatnia: `mapa_dzu_2026-09-22.md`);
+- nowe flagi WARN: brak.
